@@ -1,0 +1,142 @@
+Learn Regex!
+============
+
+----meta characters----------------------------------------------
+
+^       beginning of line/string
+$       end of line/string
+
+\n      newline character.
+\t 		tab character.
+\s      any blank character (space, tab, \n, wide space...).
+\d      0-9.
+\w      alphabet or \d or _.
+\b      begin or end of word (that is to say, only one of the
+        two characters beside \b matches \w).
+
+.       anything but \n.
+\S      anything but \s.
+\D      anything but \d.
+\W      anything but \w.
+\B      anything but \b.
+
+{n}     the character before can be repeated n times.
+{m,n}   the character before can be repeated m to n time(s).
+{n,}    the character before can be repeated n or more time(s).
+*       the character before can be repeated 0 or more time(s).
++       the character before can be repeated 1 or more time(s).
+?       the character before can be repeated 0 or 1 time.
+
+[...]   anything appeared in the square bracket.
+[^...]  anything but those appeared in the square bracket.
+[0-9]   the same as \d.
+
+----branch-------------------------------------------------------
+
+expr1|expr2     if expr1 matches, expr2 will be ignored. So
+                make sure expr1 is longer, therefore more
+                explicit, than expr2.
+
+----escape-------------------------------------------------------
+
+\
+
+----comment------------------------------------------------------
+
+(?#comment)
+
+----group--------------------------------------------------------
+
+\0              the whole expression.
+\1              the first group, indexes are specified by '('.
+
+(?<name>expr)   name a group. to refer to expr, use \k<name>.
+(?'name'expr)   note that the index of named groups are greater
+                than the unnamed.
+
+(?:expr)        this group has no index.
+
+(?'name'expr)   push 'name' into stack if expr matches.
+(?'-name'expr)  pop last captured context from stack if expr
+                matches.
+(?(name)yes|no) if name exist in stack, try match yes, else
+                match no.
+
+----zero width assert--------------------------------------------
+
+(?=expr)        the position after which is expr.
+(?<=expr)       the position before which is expr.
+(?!expr)        the position after which is not expr.
+(?<!expr)       the position before which is not expr.
+(?!)            matches nothing.
+
+----greedy & lazy------------------------------------------------
+
+*   by default regex uses greedy mode: for example, use "a.*b"
+    to search "aabab" and we get the whole string.
+*   to activate lazy mode, append '?': e.g., "a.*?b" matches
+    "aab" and "ab".
+
+----rarely-used metas--------------------------------------------
+
+\a			alert character.
+\r			CR.
+\v			vertical tab.
+\f			newpage.
+\e 			escape.
+\0nn		Oct-number character.
+\xnn 		Hex-number character.
+\unnnn		unicode.
+\cN 		ascii control character, e.g., \cC is Ctrl+C.
+	
+\A			beginning of string.
+\Z			end of string/line.
+\z			end of string.
+\G			beginning of current search.
+\p{name}	unicode class whose name is name, e.g., \p{IsGreek}
+	
+----examples-----------------------------------------------------
+
+HTML tag:
+    <[^>]+>
+
+Identifier:
+    [_A-Za-z]\w*
+
+IP address:
+    ((25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)\.){3}(25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)
+
+bracket match:
+    <                       # most left bracket
+
+    [^<>]*                  # some non-bracket
+    (
+        (
+            (?'Open'<)      # push 'Open' if met '<'
+            [^<>]*          # some non-bracket
+        )+
+        (
+            (?'-Open'>)     # pop 'Open' if met '>', fails if
+                            # stack is empty. Regex will give up
+                            # some '>' to match.
+            [^<>]*          # some non-bracket
+        )+
+    )*
+    (?(Open)(?!))           # fails if there're still 'Open' left
+
+    >                       # most right bracket
+
+div tags:
+	<div[^>]*>[^<>]*
+	(
+		(
+			(?'Open'<div[^>]*>)
+			[^<>]*
+		)+
+		(
+			(?'-Open'</div>)
+			[^<>]*
+		)+
+	)*
+	(?(Open)(?!))
+	</div>

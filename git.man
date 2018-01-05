@@ -1,0 +1,110 @@
+About Git
+---------
+
+Git is a version control system.
+Git is free software.
+
+Add Repository
+--------------
+
+$ git init
+
+Add and Commit
+--------------
+
+$ nano README.md
+$ git add README.md				# add files to stage
+$ git commit -m "create README.md"
+
+Change File
+-----------
+
+$ nano README.md
+$ git status
+$ git diff
+$ git add READ.md
+$ git status
+$ git commit -m "edit README.md"
+$ git status
+
+Switch Between Versions
+-----------------------
+
+$ git log						# see commit history
+$ git log --graph --pretty=oneline --abbrev-commit
+$ git reflog					# see command history
+$ git reset --hard <commit_id>	# let's go!
+$ git reset --hard HEAD^		# go back one version
+$ git reset --hard HEAD~100		# go back 100 versions
+
+Discard Changes
+---------------
+
+$ git checkout -- README.md		# discard changes in working directory
+$ git reset HEAD README.md		# unstage it, if it has been added
+
+Remove Files
+------------
+
+$ touch test.txt
+$ git add test.txt
+$ git commit -m "create test.txt"
+$ rm test.txt
+
+Now you have two choices:
+
+$ git checkout -- test.txt		# recover removed file
+$ git rm test.txt				# or remove it anyway
+
+We can still save it by discarding changes:
+
+$ git reset HEAD test.txt
+$ git checkout -- test.txt
+
+Or delete it anyway:
+
+$ git commit -m "-test.txt"		# confirm deletion
+
+However you can still cancel deletion:
+
+$ git reset --hard HEAD^
+
+Clone From GitHub
+-----------------
+
+$ git clone git@github.com:<your-name>/<repo-name>.git
+
+Push To GitHub
+--------------
+
+$ git push origin master
+
+Update Through GitHub
+---------------------
+
+$ git remote show origin		# check for updates
+$ git pull origin				# update!
+
+Push A New Repo To GitHub
+-------------------------
+
+# create a repositury on github.com
+$ git remote add origin git@github.com:<your-name>/<repo-name>.git
+$ git push -u origin master
+
+Add New Branch and Switch To It
+-------------------------------
+
+$ git checkout -b <branch-name>
+
+or:
+
+$ git branch <branch-name>
+$ git checkout <branch-name>
+
+Merge and Delete
+----------------
+
+$ git merge newbr				# master is now the same as newbr
+$ git branch -d newbr			# delete newbr
+

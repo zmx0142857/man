@@ -1,0 +1,38 @@
+# install Vundle for vim
+
+  Vundle:
+
+	$ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
+  Then edit ~/.vim/vimrc and put something at the top. Visit https://github.com/VundleVim/Vundle.vim for details
+
+  Launch vim and run :PluginInstall
+
+# install acpi for laptop
+
+# install flash web player
+
+# installing fbterm... miaomiaomiao?
+
+	$ sudo update-initramfs -u
+	update-initramfs: Generating /boot/initrd.img-4.10.0-32-generic
+	W: Possible missing firmware /lib/firmware/i915/kbl_dmc_ver1_01.bin for module i915
+
+# install yong
+
+# install python 3rd party lib:
+
+	$ pip3 install -i https://pypi.doubanio.com/simple/ <package-name>
+
+# set locale as en_US:
+
+	$ LANG=en_US.utf8
+
+  then in ~/.bashrc write these in the end:
+
+	$ export LC_ALL=en_US.utf8
+
+# move file to trash through bash:
+	
+	$ sudo apt-get install trash-cli
+	$ trash-put <filename>

@@ -1,0 +1,6 @@
+-- what's the differences?
+-- Haskell                          C++
+-- not								!
+-- /=								!=
+-- True, False						true, false
+-- `mod`							%

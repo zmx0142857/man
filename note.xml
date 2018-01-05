@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- this is a comment -->
+
+<!-- &lt;    < -->
+<!-- &gt;    > -->
+<!-- &amp;   & -->
+<!-- &apos;  ' -->
+<!-- &quot;  " -->
+
+<note date="08/08/2008">
+	<to>George</to>
+	<from>John</from>
+	<heading>Reminder</heading>
+	<body>Don't forget the meeting!</body>
+</note>

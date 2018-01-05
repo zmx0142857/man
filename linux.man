@@ -1,4 +1,5 @@
-# install Vundle for vim
+# Vundle 
+		- plugin manager for vim
 
 	$ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
@@ -6,7 +7,8 @@
 	(Visit https://github.com/VundleVim/Vundle.vim for details.)
 	Launch vim and run :PluginInstall
 
-# install vim-plug
+# vim-plug 
+		- also a plugin manager for vim...
 	
 	$ curl -fLo ~/.vim/autoload plug.vim --create-dirs \
 	  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -14,31 +16,35 @@
 	Then edit ~/.vim/vimrc
 	Launch vim and run :PlugInstall
 
-# install acpi for laptop
+# acpi
+		- power manager for laptop
 
-# install flash web player
+# flash web player - play videos... how hard is it?
 
-# installing fbterm... miaomiaomiao?
+# fbterm
+		- draw Chinese characters under terminal... miaomiaomiao?
 
 	$ sudo update-initramfs -u
 	update-initramfs: Generating /boot/initrd.img-4.10.0-32-generic
 	W: Possible missing firmware /lib/firmware/i915/kbl_dmc_ver1_01.bin for module i915
 
-# install yong
+# yong
+		- input method for Chinese
 
-# install python 3rd party lib:
+# python 3rd party lib
 
 	$ pip3 install -i https://pypi.doubanio.com/simple/ <package-name>
 
 # set locale as en_US:
 
 	$ LANG=en_US.utf8
-
-  then in ~/.bashrc write these in the end:
+	
+	then write this at the end of ~/.bashrc:
 
 	$ export LC_ALL=en_US.utf8
 
-# move file to trash through bash:
+# trash
+		- move file to trash through bash:
 	
 	$ sudo apt-get install trash-cli
 	$ trash-put <filename>

@@ -1,12 +1,18 @@
 # install Vundle for vim
 
-  Vundle:
-
 	$ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
-  Then edit ~/.vim/vimrc and put something at the top. Visit https://github.com/VundleVim/Vundle.vim for details
+	Then edit ~/.vim/vimrc and put something at the top. 
+	(Visit https://github.com/VundleVim/Vundle.vim for details.)
+	Launch vim and run :PluginInstall
 
-  Launch vim and run :PluginInstall
+# install vim-plug
+	
+	$ curl -fLo ~/.vim/autoload plug.vim --create-dirs \
+	  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	
+	Then edit ~/.vim/vimrc
+	Launch vim and run :PlugInstall
 
 # install acpi for laptop
 

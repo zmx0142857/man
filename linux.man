@@ -23,6 +23,14 @@
 
 # fbterm
 		- draw Chinese characters under terminal... miaomiaomiao?
+	
+	add yourself to video group:
+
+	$ sudo gpasswd -a <username> video
+
+	$ sudo chmod u+s /usr/bin/fbterm
+
+	DO NOT try this:
 
 	$ sudo update-initramfs -u
 	update-initramfs: Generating /boot/initrd.img-4.10.0-32-generic

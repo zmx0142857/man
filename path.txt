@@ -2,7 +2,7 @@ bash config:
 	~/.bashrc
 
 fbterm config: 
-	~/.fbterm
+	~/.fbtermrc
 
 firefox plugin: 
 	/usr/lib/mozilla/plugins/
@@ -29,4 +29,6 @@ vim config:
 
 yong config:
 	~/.yong/
-	/usr/local/yong/
+
+usb device:
+	/media/<yourname>/

@@ -16,6 +16,10 @@
 	Then edit ~/.vim/vimrc
 	Launch vim and run :PlugInstall
 
+# enable x-system clipboard with vim:
+
+	$ sudo apt install vim-gui-common
+
 # acpi
 		- power manager for laptop
 

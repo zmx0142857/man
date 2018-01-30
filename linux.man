@@ -23,7 +23,9 @@
 # acpi
 		- power manager for laptop
 
-# flash web player - play videos... how hard is it?
+# flash web player 
+		- play videos... how hard is it?
+	$ sudo apt install flashplugin-installer
 
 # fbterm
 		- draw Chinese characters under terminal... miaomiaomiao?

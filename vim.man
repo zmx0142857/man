@@ -1,234 +1,230 @@
-# ---------------- 启动与编辑 ----------------
+# ---------------- start and edit ----------------
 
-vim						# 在命令行中输入 vim 进入 vim 编辑器
-vi						# 同上
-vi filename(s)			# 用 vim 编辑这些文件
-vi + filename			# 从文件最后一行开始编辑
-vi +n filename			# 从文件第 n 行开始编辑
+vim						# start vim
+vim <file>				# start vim opening the file(s)
+vim + <file>			# edit file from last line
+vim +n file				# edit file from nth line
 
-:help <command>			# 查看关于 command 的帮助
+:help <command>			# view help info about command
+K						# search for manual on keyword
 
-:e filename				# 编辑文件
-:e ++enc=gbk			# 以 gbk 编码读取当前文件
-:n						# 若启动 vim 时指定了多个要编辑的文件, 用此命>
-						# 令切换到下一个文件
+:n <file>				# new file
+:e <file>				# edit file
+:e ++enc=gbk <file>		# read file using encoding gbk
+:n						# when starting vim with multiple files, use this
+						# command to switch to next file
 
-# ---------------- 移动光标 ----------------
+# ---------------- move the cursor ----------------
 
-h						# 左
-j						# 下
-k						# 上
-l						# 右
+h						# left
+j						# down
+k						# up
+l						# right
 
-w						# 移到后一单词开头
-W						# 移到后一单词开头, 忽略标点
-b						# 移到前一单词开头
-B						# 移到前一单词开头, 忽略标点
-e						# 移到下一单词结尾
-E						# 移到下一单词结尾, 忽略标点
+gj						# down on display lines (wrapped ones)
+gk						# up on display lines (wrapped ones)
 
-0						# 移到当前行的第一列
-|						# 同上
-^						# 移到当前行第一个非空字符
-$						# 移到当前行最后一个字符
-+						# 移到下一行第一个字符
-<enter>					# 同上
--						# 移到前一行第一个非空字符
+<space>					# to next character
+<backspace>				# to prevous character
 
-gg						# 移到首行
-G						# 移到末行
-:n						# 移到第 n 行
+w						# to the beginning of next word
+b						# to the beginning of previous word
+e						# to the end of next word
+W B E					# likewise, but use blank only to separate words
 
-H						# 移到屏幕的首行
-nH						# 移到屏幕的第 n 行
-M						# 移到屏幕的中间一行
-L						# 移到屏幕的末行
-nL						# 移到屏幕的倒数第 n 行
+0 |						# to the beginning of current line
+^						# to the first non-blank character of current line
+$						# to the end of current line
++ <return>				# to the beginning of next line
+-						# to the first non-blank character of prevous line
 
-(						# 移到句首
-)						# 移到句末
-{						# 移到段首
-}						# 移到下一段首
+ngg						# to the nth line, default=1
+nG						# to the nth line, default=lastline
+:n						# to the nth line
 
-# ---------------- 插入 ----------------
+H						# to the top of the screen
+nH						# to the nth line of the screen
+M						# to the middle of the screen
+L						# to the bottom of the screen
+nL						# to the last nth line of the screen
 
-i						# 从光标左侧进入插入模式, 左下显示--INSERT--
-a						# 从光标右侧进入插入模式
-o						# 向下插入一行, 并进入插入模式
-I						# 从当前行的首个非空白字符左侧进入插入模式
-A						# 从当前行的最后一个字符右侧进入插入模式
-O						# 向上插入一行, 并进入插入模式
-:r file					# 读入文件 file 内容，并插在当前行后
-:nr file				# 读入文件 file 内容，并插在第 n 行后
-<Esc>					# 退出插入模式
+(						# to the beginning of the sentence
+)						# to the end of the sentence
+{						# to the beginning of the paragraph
+}						# to the beginning of the next paragraph
+[[						# to last '{'
+]]						# to next '}'
 
-# ---------------- 删除 ----------------
+# ---------------- insert ----------------
 
-x						# 删除光标处的字符
-dd						# 删除行
-D						# 删除字符直到行末
-d						# 与光标移动操作配合使用, 如
-dw						# 删除字符直到单词末, 亦可用于删除连续的空格
-dG						# 删除行直到文件末
-d<鼠标>					# 删除字符直到鼠标选中位置
-:m,nd					# 从第 m 行删除直到第 n 行
+i						# enter insert mode from the left of the cursor
+a						# enter insert mode from the right of the cursor
+o						# open a new line below current line
+O						# open a new line above current line
+I						# insert from 0 (see above)
+A						# append from $ (see above)
+<esc>					# exit insert mode
 
-# ---------------- 修改 ----------------
+# ---------------- delete ----------------
 
-r						# 下一个打出的字符将覆盖当前字符
-R						# 左下显示--REPLACE-- 打出的字符将覆盖原有字符
-s						# 删除光标所在处字符，并进入插入模式
-S						# 删除光标所在的行，并进入插入模式
-cc						# 同上
-C						# 删除字符直到行末, 再进入插入模式
-c						# 相当于实现 d 的相应功能, 再进入插入模式
+x						# delete the character under cursor
+dd						# delete current line
+D						# delete right-half line
+d						# use with movement, for example:
+dw						# delete to the end of the word, including blanks
+de						# delete until the end of the word, without blanks
+dG						# delete until the end of file
+d <mouse>				# delete until the mouse selected character
+:m,nd					# delete line m to n
 
-# ---------------- 查找与替换 ----------------
+# ---------------- replace, substitute, change ----------------
 
-/<text>					# 在文件中向下查找 text
-?<text>					# 在文件中向上查找 text
-f<char>					# 在当前行向右查找 char
-F<char>					# 在当前行向左查找 char
-t<char>					# 在当前行向右查找 char, 光标锁定上一个字符
-T<char>					# 在当前行向左查找 char, 光标锁定上一个字符
-:set ic					# 查找时忽略大小写
-:set noic				# 查找时对大小写敏感
+r						# next key typed will replace current character
+R						# enter replace mode
+ns						# delete n chars and enter insert mode
+S						# delete current line and enter insert mode
+c cc C					# equal to d dd D, then enter insert mode
 
-:<range>s/txt1/txt2/<option>
-						# 将 txt1 换成 txt2
-						# <range> 默认为当前行
-						#   m,n		 m 到 n 行 (含 m,n)
-						#	.		当前行
-						#	^		首行
-						#	$		末行
-						#	%		全文
-						# <option> 默认只替换第一处
-						#   g 表示全部替换
-						#   c 表示由用户确认
+# ---------------- find and replace ----------------
 
-:<range>s/txt1/txt2/g	# 将范围内所有 txt1 换成 txt2
-:<range>s/txt1/txt2/gc	# 同上, 但由用户确认
-:m,ns/txt1/txt2/g		# 在 m 到 n 的范围里作上述替换
+/<text>					# find text in file
+?<text>					# find text in file backwards
+f<char>					# find char in current line
+F<char>					# find char in current line backwards
+t<char> T<char>			# like f F, but the position of cursor differs
 
-:g/txt/<command>		# 在所有含 txt 的行执行 <command>
-:v/txt/<command>		# 在所有不含 txt 的行执行 <command>
-:g/txt/s/txt1/txt2		# 在含 txt 的行中, 将 txt1 换成 txt2
+command
 
-# ---------------- 复制与粘贴 ----------------
+	:<range>s/txt1/txt2/<option>
 
-yy						# 复制当前行, 放入临时缓冲区
-nyy						# 复制 n 行, 放入临时缓冲区
-P						# 将临时缓冲区中的文本放入光标前
-p						# 将临时缓冲区中的文本放入光标后
-"(a-z)nyy				# 复制 n 行, 放入可命名缓冲区
-"(a-z)ndd				# 删除 n 行, 放入可命名缓冲区
-"(a-z)p					# 将可命名缓冲区的内容放入当前位置后
-"(a-z)P					# 将可命名缓冲区的内容放入当前位置前
+discription
 
-# ----------------  撤消与重复 ----------------
+	replace txt1 with txt2
 
-u						# 撤消最后一次修改
-U						# 撤消当前行的所有修改
-.						# 重复最后一次修改
-;						# 重复前面的 f, F, t 或 T 命令
-,						# 以相反的方向重复前面的 f, F, t 或 T 命令
-&						# 重复上一个 :s 命令
-"np						# 取回最后第 n 次的删除. 缓冲区中存有一定次数>
-						# 的删除内容, 一般为 9
-n						# 重复前面的 / 或 ? 查找命令
-N						# 以相反方向重复前面的 / 或 ? 命令
+	<range>
 
-# ---------------- 保存与退出 ----------------
+		default	current line
+		.		current line
+		m,n		line m to n
+		^		first line
+		$		last line
+		%		global
 
-:w						# 保存文件
-:w <file>				# 将修改保存在 file 中
-:wq						# 保存文件并退出
-ZZ						# 同上
-:x						# 同上
-:e!						# 放弃所有修改, 回到上次保存的状态
-:q!						# 放弃所有修改并退出
+	<option>
 
-# ---------------- 选项 ----------------
+		default	replace once
+		g		replace all
+		c		confirmed by user
 
-:set all				# 打印所有选项
-:set nooption			# 关闭 option 选项
-:set number				# 显示行号
-:set nu					# 同上
-:set nonumber			# 不显示行号
-:set nonu				# 同上
-:set showmode			# 显示当前模式
-:set autoindent			# 继承前一行的缩进方式, 特别适用于多行注释
-:set ai					# 同上
-:set smartindent		# 为 C 程序提供自动缩进
-:set list				# 显示制表符(^I)和行尾符号
-:set ts=4				# tab 宽度
-:set window=n			# 设置显示 n 行
-:set fileencoding=utf-8	# 设置此项后, :w 将以相应的编码重写文件
-:set fileformat=unix	# :w 将以 \n 结束每一行
+examples
 
-# ---------------- 状态 ----------------
+:<range>s/txt1/txt2/g	# replace all txt1 in range with txt2
+:<range>s/txt1/txt2/gc	# likewise, but confirmed by user
+:m,ns/txt1/txt2/g		# do replace from line m to line n
 
-:.=						# 打印当前行号
-:=						# 打印总行数
-:f						# 打印文件名, 当前行号, 总行数和文件位置百分比
-ctrl+g					# 同上
-:l						# (字母 l) 显示特殊字符
+:g/txt/<command>		# execute command in all lines containing txt
+:v/txt/<command>		# execute command in all lines not containing txt
+
+# ---------------- copy and paste ----------------
+
+nyy						# copy n lines. default n=1
+p						# paste text after cursor
+P						# paste text before cursor
+
+"[a-z]<y or d or p>		# yank/delete/paste command with named register
+:reg					# see registers
+
+# ----------------  undo and repeat ----------------
+
+u						# undo last change
+U						# undo all changes on current line
+ctrl-r					# redo the undoed change
+.						# repeat last change
+;						# repeat the F f T t command
+,						# repeat the F f T t command backward
+n						# repeat the / ? command
+N						# repeat the / ? command backward
+&						# repeat the :s command
+
+# ---------------- save and exit ----------------
+
+:w						# save file
+:w <filename>			# save file as filename
+:wq	:x ZZ				# save file and exit
+:e!						# discard all changes
+:q!						# discard all changes and exit
+
+# ---------------- options ----------------
+
+# NOTE: for more info, see ~/.vim/vimrc
+
+:set all				# show all the options
+:set no<option>			# the opposite of the option, for example,
+						# :set nonu will close line numbers
+
+# ---------------- status ----------------
+
+:.=						# show current line number
+:=						# show total line count
+:f ctrl-g				# show filename, total line count and percentage
+:l						# list blank chars on current line
 
 # ---------------- 标记 ----------------
 
-{						# 在第一列插入 { 来定义一个段落
-[[						# 移动到段首
-]]						# 移动到下一个段首
-m(a-z)					# 用一个字母标记当前位置
-'(a-z)					# 移动到指定的标记
+m[a-z]					# mark current position
+'[a-z]					# move to the desired position
 
 # ---------------- 连接 ----------------
 
-J						# 将下一行连接到当前行末, 衬以一个空格
-nJ						# 连接后面 n 行
+nJ						# join next n lines to current line. default=1
 
-# ---------------- 屏幕 ----------------
+# ---------------- screen ----------------
 
-ctrl+y					# 上滚一行
-ctrl+e					# 下滚一行
-ctrl+u					# 上滚半页
-ctrl+d					# 下滚半页
-ctrl+b					# 上滚一页
-ctrl+f					# 下滚一页
-ctrl+l					# 刷新屏幕
-z<enter>				# 将当前行置于屏幕顶行
-nz<enter>				# 将当前行下的第 n 行置于屏幕顶行
-z.						# 将当前行置于屏幕中央
-nz.						# 将第 n 行置于屏幕中央
-z-						# 将当前行置于屏幕底行
-nz-						# 将第 n 行置于屏幕底行
+ctrl-y					# scroll up a line
+ctrl-e					# scroll down a line
+ctrl-u					# scroll up half a page
+ctrl-d					# scroll down half a page
+ctrl-b					# page up
+ctrl-f					# page down
+ctrl-l					# refresh screen
+z<return>				# top current line
+z.						# center current line
+z-						# bottom current line
+
+# --------------- split window ------------------
+
+:split <filename>		# split window by top and bottom
+:vsplit <filename>		# split window by left and right
+ctrl-w <hjkl>			# move to a window
+ctrl-w <HJKL>			# move current window
 
 # ---------------- shell ----------------
 
-:! <command>			# 执行 shell 的 command 命令, 如 :!ls
-:!!						# 执行前一个 shell 命令
-:r! <command>			# 将 command 的输出插入到当前文件, 如 :r!ls
-:w! <command>			# 将当前文件输入到 command, 如 :w!grep all
-:cd <dir>				# 将当前工作目录更改为 dir
-:sh						# 启动一个子 shell, ctrl+d 返回 vim
-:so <file>				# 在 shell 程序 file 中读入和执行命令
+:! <command>			# execute shell command
+:!!						# execute last shell command
+:r file					# read file and append after current line
+:nr file				# read file and append after nth line
+:r! <command>			# read the output of command, e.g. :r!date
+:w! <command>			# pass current file to command, e.g. :w!grep all
+:cd <dir>				# change directory to dir
+:sh						# temporarily enter shell environment
+:so <file>				# ???
 
-# ---------------- 宏与缩写 ----------------
+# ---------------- map and abbrevation ----------------
 
-# 避免使用控制键和符号, 不要使用 K, V, g, q, v, *, = 和功能键
+# NOTE: avoid functional keys like K V g q v * = . 
 
-:map <key> <cmd_seq>	# 定义一个键来运行 cmd_seq, 如 :map e ea
-:map					# 查看所有已定义的宏
-:umap <key>				# 删除该键的宏
+:map <key> <cmd_seq>	# map key to cmd_seq, e.g. :map fj <esc>
+:map					# view all defined maps
+:unmap <key>			# delete the defined map
 
-:ab <str1> <str2>		# 定义一个缩写, 键入 str1, 按 Esc 就得到 str2
-:ab						# 查看所有缩写
-:una str				# 取消 str 的缩写
+:ab <str1> <str2>		# type in str1, press Esc, got str2
+:ab						# view all defined abbrevations
+:una str				# delete the defined abbrevation
 
 # ---------------- 缩进 ----------------
 
-tab						# 插入模式下, 插入事先定义的宽度 (称一个tab)
-ctrl+i					# 同上
->>						# 增加缩进
-n>>						# 使 n 行都向右移动一个 tab
-<<						# 减少缩进
+tab ctrl-i				# insert a tab if under insert mode
+>>						# indent
+n>>						# indent n lines
+<<						# unindent

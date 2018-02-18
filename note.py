@@ -671,31 +671,31 @@
 # with open('filename', 'mode') as fp:
 #     pass
 # 
-# Regular Expression
-# ------------------
-# 
-# import re
-# 
-# re.match(r'...', str, flags) -> str or None
-#     """Returns first match from begin. Returns None if failed"""
-# 
-# re.search(r'...', str, flags) -> str or None
-#     """Returns first match. Returns None if failed to find a single
-#     match"""
-# 
-# re.sub(r'...', replacement, str, count=0) -> str
-#     """Returns the replaced str. count=0 means replace each match"""
-# 
-# re.split(r'...', str) -> list
-#     """Seperate str by match"""
-# 
-# re.findall(r'...', str) -> list(str)
-#     """Find all matches"""
-# 
-# re.compile(r'...') -> regex object
-# # use re.xxx().group(n) to get nth match
 
-# Example:
+Regular Expression
+------------------
+
+re.match(r'...', str, flags) -> str or None
+    """Returns first match from begin. Returns None if failed"""
+
+re.search(r'...', str, flags) -> str or None
+    """Returns first match. Returns None if failed to find a single
+    match"""
+
+re.sub(r'...', replacement, str, count=0) -> str
+    """Returns the replaced str. count=0 means replace each match"""
+
+re.split(r'...', str) -> list
+    """Seperate str by match"""
+
+re.findall(r'...', str) -> list(str)
+    """Find all matches"""
+
+re.compile(r'...') -> regex object
+# use re.xxx().group(n) to get nth match
+
+"""Example for re"""
+
 import re
 text = 'JGood is a handsome boy, he is cool, clever, and so on...'
 match = re.search(r'\shan(ds)ome\s', text)
@@ -703,3 +703,37 @@ if match:
     print(match.group(0), match.group(1))
 else:
     print('not found')
+
+Statistics
+----------
+
+"""Draw graphs of binomial distribution and normal distribution."""
+
+import numpy as np                  # or simply 'import np'
+import scipy.stats as stats         # there is a package named stats,
+                                    #   we are not using it
+import matplotlib.pyplot as plt
+
+# plot1
+n = 10
+p = 0.3
+k = np.arange(0,21)                 # arange, not arrange
+binomial = stats.binom.pmf(k,n,p)   # probability mass function, returns
+                                    # an array of values
+plt.plot(k, binomial, 'o-')
+plt.title('Binomial: n=%i, p=%f' % (n,p), fontsize=15)
+plt.xlabel('Number of successes')
+plt.ylabel('Probability of successes')
+plt.show()
+
+# plot2
+mu = 0
+sigma = 1
+x = np.arange(-5,5,0.1)
+y = stats.norm.pdf(x, mu, sigma)    # probability deensity function
+
+plt.plot(x,y)
+plt.title('Normal: $\\mu$=%.1f, $\\sigma^2$=%.1f' %(mu,sigma))
+plt.xlabel('x')
+plt.ylable('Probability density')
+plt.show()

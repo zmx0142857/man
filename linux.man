@@ -1,14 +1,19 @@
-# Vundle 
-		- plugin manager for vim
+PART ONE: app
+-------------
 
-	$ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+vim - text editor
+
+* Vundle - plugin manager for vim
+
+	$ git clone https://github.com/VundleVim/Vundle.vim.git \
+	  ~/.vim/bundle/Vundle.vim
 
 	Then edit ~/.vim/vimrc and put something at the top. 
 	(Visit https://github.com/VundleVim/Vundle.vim for details.)
+
 	Launch vim and run :PluginInstall
 
-# vim-plug 
-		- also a plugin manager for vim...
+* vim-plug - also a plugin manager for vim...
 	
 	$ curl -fLo ~/.vim/autoload plug.vim --create-dirs \
 	  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -16,19 +21,17 @@
 	Then edit ~/.vim/vimrc
 	Launch vim and run :PlugInstall
 
-# enable x-system clipboard with vim:
+* enable x-system clipboard with vim:
 
 	$ sudo apt install vim-gui-common
 
-# acpi
-		- power manager for laptop
+acpi - power manager for laptop
 
-# flash web player 
-		- play videos... how hard is it?
+flash - play web videos
+
 	$ sudo apt install flashplugin-installer
 
-# fbterm
-		- draw Chinese characters under terminal... miaomiaomiao?
+fbterm - draw Chinese characters under terminal
 	
 	add yourself to video group:
 
@@ -42,14 +45,23 @@
 	update-initramfs: Generating /boot/initrd.img-4.10.0-32-generic
 	W: Possible missing firmware /lib/firmware/i915/kbl_dmc_ver1_01.bin for module i915
 
-# yong
-		- input method for Chinese
+yong - input method for Chinese
 
-# python 3rd party lib
+pip - install python third party lib
 
 	$ pip3 install -i https://pypi.doubanio.com/simple/ <package-name>
 
-# set locale as en_US:
+trash - move file to trash through bash
+	
+	$ sudo apt-get install trash-cli
+	$ trash-put <filename>
+
+ldd - find dependence of a executable file
+
+PART TWO: how to
+----------------
+
+* set locale as en_US:
 
 	$ LANG=en_US.utf8
 	
@@ -57,8 +69,3 @@
 
 	$ export LC_ALL=en_US.utf8
 
-# trash
-		- move file to trash through bash:
-	
-	$ sudo apt-get install trash-cli
-	$ trash-put <filename>

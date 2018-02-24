@@ -1,0 +1,18 @@
+all:main.o part1.o part2.o
+	gcc main.o part1.o part2.o -o my-program
+
+main.o:main.c
+	gcc -c main.c
+
+part1.o:part1.c
+	gcc -c part1.c
+
+part2.o:part2.c
+	gcc -c part2.c
+
+clean:
+	rm ./*.o
+	rm ./my-program
+
+install:my-program
+	ln -s ./my-program ~/bin/my-program

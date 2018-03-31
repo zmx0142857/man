@@ -1,5 +1,14 @@
-PART ONE: app
--------------
+# how to do ----------------------------------------------------
+
+set locale as en US
+
+	$ LANG=en_US.utf8
+	
+	then write this at the end of ~/.bashrc:
+
+	$ export LC_ALL=en_US.utf8
+
+# app ----------------------------------------------------------
 
 vim - text editor
 
@@ -58,14 +67,4 @@ trash - move file to trash through bash
 
 ldd - find dependence of a executable file
 
-PART TWO: how to
-----------------
-
-* set locale as en_US:
-
-	$ LANG=en_US.utf8
-	
-	then write this at the end of ~/.bashrc:
-
-	$ export LC_ALL=en_US.utf8
-
+iconv - convertion between encodings

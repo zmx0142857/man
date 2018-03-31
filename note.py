@@ -1,192 +1,213 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-## 卓铭鑫的 Python 学习笔记 ##
+"""Notebook for python learners"""
 
-##  python                          与  c++
-#   通常一行就是一条语句                语句以 ; 结束
-#   if for 等语句以 : 引导一个缩进块    {}
-#   for i in range(5) 语句不会使i == 5  会
-#   and or not                          && || !
-#   整数大小没有限制                    最大的整数由所占内存大小决定
-#   9/3 = 3.0                           4/3 = 1
-#   True False                          true false
-#   elif                                else if
-#   str, tuple...是不可变对象           声明成 const 才不可变
-#   x**2                                x*x
-#   不能重载函数, 但有多种灵活的参数    可以重载函数
-#   值相同的整数对象其实是同一个对象    声明成引用才是同一个对象
-#   但内容相同的 list 其实是不同对象
-#   用对象给另一对象赋值时没有发生拷贝  发生了拷贝
-#   可以随时添加/删除对象的属性/方法    不能
+__author__ = 'Clarence Zhuo'
 
+# Compare Python With C++ -----------------------------------------------
 
-## 输出:
+    #   python                                    c++
+    #
+    #   a line is a statement                     statements ends with ;
+    #   'if', 'for' uses : and indent             use {}
+    #   after 'for i in range(5)' loop, i == 4    i == 5
+    #   and or not                                && || !
+    #   no restrictions on int length             there are
+    #   9/3 returns 3.0                           4/3 returns 1
+    #   True False                                true false
+    #   elif                                      else if
+    #   str tuple... many objects not mutable     consts are not mutable
+    #   x**2                                      x*x
+    #   easy-to-use arguments                     function overloading
+    #   x=1, y=1 are actually identical           references are identical
+    #     but x=[1], y=[1] are two objects
+    #   no copy when x = y                        copy happened
+    #   assign new attributes to obj at any time  you can't do so
 
-## print(...) - 输出
-## 程序在每个逗号处插入一个空格
-#   >>> print('The quick brown fox', 'jumps over', 'the lazy dog.')
-#   The quick brown fox jumps over the lazy dog.
-#
-## 整数大小没有限制
-#   >>> print(7744)
-#   7744
-#   >>> print('88 * 88 =',88*88)
-#   88 * 88 = 7744
-#
-## r''内的字符不转义
-#   >>> print(r'\\\t\\')
-#   \\\t\\
-#
-## ''' ''' - 多行内容
-#   >>> print('''line1
-#   ... line2
-#   ... line3''')
-#   line1
-#   line2
-#   line3
+# Basics -----------------------------------------------------------------
 
-## 转义字符一览:
-#   \'    '
-#   \"    "
-#   \\    \
-#   \n    换行
-#   \t    制表符
-#   \u    unicode字符(十六进制)
-#   \x    十六进制
-#   %%    %
+special values:
+    
+    None    # None == None
+    True
+    False
 
-## var = input(strPrompt) - 输入
-#   >>> name = input('Please input your name: ')
-#   Euler
-#   >>> name
-#   'Euler'
-#   >>> print('Hello, ',name)
+# Operators --------------------------------------------------------------
 
-## 几个特殊常值:
-#   None    空值（注意大小写）None == None
-#   True    真值
-#   False   假值
+    >>> 10/3
+    3.3333333333333335
+    >>> 9/3
+    3.0
+    >>> 10//3
+    3
 
-## 运算符:
-#   >>> 10/3
-#   3.3333333333333335
-#   >>> 9/3
-#   3.0
-#   >>> 10//3
-#   3
+# String Literal & IO ----------------------------------------------------
 
-## 字符编码:
-## ord(str), chr(int) -  数字——字符换算
-#   >>> ord('A')
-#   65
-#   >>> ord('中')
-#   20013
-#   >>> chr(66)
-#   'B'
-#   >>> chr(25991)
-#   '文'
-#   >>> '\u4e2d\u6587'
-#   '中文'
-#
-## str.encode(charset), bytes.decode(charset) - 字符串——二进制字节换算
-#   >>> 'ABC'.encode('ascii')
-#   b'ABC'
-#   >>> '中文'.encode('utf-8')
-#   b'\xe4\xb8\xad\xe6\x96\x87'
-#   >>> '中文'.encode('gb2312')
-#   b'\xd6\xd0\xce\xc4'
-#   >>> '中文'.encode('ascii')
-#   Traceback (most recent call last):
-#     File "<stdin>", line 1, in <module>
-#   UnicodeEncodeError: 'ascii' codec can't encode characters in position 0-1: ordinal not in range(128)
-#
-#   >>> b'ABC'.decode('ascii')
-#   'ABC'
-#   >>> b'\xe4\xb8\xad\xe6\x96\x87'.decode('utf-8')
-#   '中文'
-#
-## len(str) - 返回str的字符数或bytes的字节数
-#   >>> len('ABC')
-#   3
-#   >>> len('中文')
-#   2
-#   >>> len(b'\xe4\xb8\xad\xe6\x96\x87')
-#   6
-#   >>> len('中文'.encode('utf-8'))
-#   6
+print(str1, str2, ..., sep=' ', end='\n')
 
-## 字符串格式化:
-## 这就是无缝连接！
-#     >>> 'Hello%s' % 'world'
-#     'Helloworld'
-#     >>> 'Hi, %s, you have $%d.' % ('Michael', 1000000)
-#     'Hi, Michael, you have $1000000.'
+    # by default every two strs are seperated with a space and each call
+    # of print() ends with a newline:
 
-## 占位符一览:
-#   %d    整数
-#   %2d   整数，宽度为2
-#   %02d  整数，宽度为2，补0
-#   %x    十六进制整数
-#   %f    浮点数
-#   %.2f  浮点数，保留两位小数
-#   %s    字符串，适用于任何类型:
-#       >>> 'Age: %s. Gender: %s' % (25, True)
-#       'Age: 25. Gender: True'
+    >>> print('The quick brown fox', 'jumps over', 'the lazy dog.')
+    The quick brown fox jumps over the lazy dog.
+    >>> print('88 * 88 =', 88*88)
+    88 * 88 = 7744
 
-## list:
-#   >>> classmates = ['Michael', 'Bob', 'Tracy']
-#   >>> classmates
-#   ['Michael', 'Bob', 'Tracy']
-#
-## list(Iterable) - 转化为list
-#   >>> list(range(6))
-#   [0, 1, 2, 3, 4, 5]
-#   >>> g = (x*x for x in range(6))
-#   >>> list(g)
-#   [0, 1, 4, 9, 16, 25]
-#
-## len(L) - 取得元素数:
-#   len(classmates)
-#
-## 索引访问:
-#   >>> classmates[2]
-#   'Tracy'
-#   >>> classmates[-1]
-#   'Tracy'
-#
-## L.append() - 追加元素
-#   >>> classmates.append('Adam')
-#   >>> classmates
-#   ['Michael', 'Bob', 'Tracy', 'Adam']
-#
-## L.insert - 插入元素
-#   >>> classmates.insert(1, 'Jack')
-#   >>> classmates
-#   ['Michael', 'Jack', 'Bob', 'Tracy', 'Adam']
-#
-## L.pop() - 删除元素
-#   >>> classmates.pop()
-#   'Adam'
-#   >>> classmates
-#   ['Michael', 'Jack', 'Bob', 'Tracy']
-#
-#   >>> classmates.pop(1)
-#   'Jack'
-#   >>> classmates
-#   ['Michael', 'Bob', 'Tracy']
-#
-## list中的数据类型可以不同; list可以包含另一个list; 空list的长度为0.
+input(prompt) -> str
 
-## tuple:
-#   t1 = (1, )
-#   t2 = ()
-#
-## tuple(Iterable) - 转化为tuple
-#
-## tuple和list类似, 但tuple的元素不可变;
-## 可以令list为tuple的元素来达到'改变'tuple内容的目的.
+    >>> name = input('Please input your name: ')
+    Euler
+    >>> name
+    'Euler'
+    >>> print('Hello, ', name)
 
+characters who escapes:
+
+    \'    '
+    \"    "
+    \\    \
+    \n    newline
+    \t    tab
+    %%    %
+    \x    radix hex
+    \u    unicode chars with radix hex
+
+    # str with r-prefix do not escape:
+    >>> print(r'\\\t\\')
+    \\\t\\
+
+multiline str:
+
+    >>> print('''line1
+    ... line2
+    ... line3''')
+    line1
+    line2
+    line3
+
+ord(str) -> int
+chr(int) -> str
+
+    >>> ord('A')
+    65
+    >>> ord('中')
+    20013
+    >>> chr(66)
+    'B'
+    >>> chr(25991)
+    '文'
+    >>> '\u4e2d\u6587'
+    '中文'
+
+str.encode(charset) -> bytes
+bytes.decode(charset) -> str
+
+    >>> 'ABC'.encode('ascii')
+    b'ABC'
+    >>> '中文'.encode('utf-8')
+    b'\xe4\xb8\xad\xe6\x96\x87'
+    >>> '中文'.encode('gb2312')
+    b'\xd6\xd0\xce\xc4'
+    >>> '中文'.encode('ascii')
+    Traceback (most recent call last):
+        ...
+    UnicodeEncodeError
+    >>> b'ABC'.decode('ascii')
+    'ABC'
+    >>> b'\xe4\xb8\xad\xe6\x96\x87'.decode('utf-8')
+    '中文'
+
+len(object) -> int
+
+    >>> len('ABC')
+    3
+    >>> len('中文')
+    2
+    >>> len(b'\xe4\xb8\xad\xe6\x96\x87')
+    6
+    >>> len('中文'.encode('utf-8'))
+    6
+
+format a str
+
+    >>> 'Hello%s' % 'world'
+    'Helloworld'
+    >>> 'Hi, %s, you have $%d.' % ('Michael', 1000000)
+    'Hi, Michael, you have $1000000.'
+
+    # format notations:
+
+    #   %s    str, this is always available
+    #   %d    int
+    #   %2d   int, width=2
+    #   %02d  int, width=2, pad with zeros
+    #   %x    hex int
+    #   %f    float
+    #   %.2f  float with two digits after the dot
+
+    >>> 'Age: %s. Gender: %s' % (25, True)
+    'Age: 25. Gender: True'
+
+# list -----------------------------------------------------------------
+
+    # list is mutable
+    # the type of elements in the same list could be different
+    # a list can contain another list
+    # the length of an empty list is 0
+    >>> classmates = ['Michael', 'Bob', 'Tracy']
+    >>> classmates
+    ['Michael', 'Bob', 'Tracy']
+
+list(iterable) -> list
+
+    >>> list(range(6))
+    [0, 1, 2, 3, 4, 5]
+    >>> g = (x*x for x in range(6))
+    >>> list(g)
+    [0, 1, 4, 9, 16, 25]
+
+visit with index:
+
+    >>> classmates[2]
+    'Tracy'
+    >>> classmates[-1]
+    'Tracy'
+
+list.append()
+
+    >>> classmates.append('Adam')
+    >>> classmates
+    ['Michael', 'Bob', 'Tracy', 'Adam']
+
+list.insert(int)
+
+    >>> classmates.insert(1, 'Jack')
+    >>> classmates
+    ['Michael', 'Jack', 'Bob', 'Tracy', 'Adam']
+
+list.pop([int])
+
+    >>> classmates.pop()
+    'Adam'
+    >>> classmates
+    ['Michael', 'Jack', 'Bob', 'Tracy']
+    >>> classmates.pop(1)
+    'Jack'
+    >>> classmates
+    ['Michael', 'Bob', 'Tracy']
+
+# tuple -----------------------------------------------------------------
+
+tuple(Iterable) -> tuple
+
+    # tuple is like list but not mutable
+    # we can make list a member of tuple to 'change' the tuple
+
+    >>> t1 = (1, )
+    >>> t2 = ()
+
+# slice
 ## list-or-tuple[begin=0(step>0),-1(step<0): end=-1(step>0),0(step<0): step=1] - 切片
 #   >>> L = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 #   >>> L[0:3]
@@ -594,83 +615,84 @@
 ## 若子类未定义 __slots__ 则这一做法对子类不起作用
 ## 若子类定义了 __slots__ 则子类实例允许定义的属性是自身与父类的 __slots__ 之和
 
-# File Operation
-# --------------
-# 
-# import sys, os, shutil
-# 
-# os.getcwd()             # current working directory
-# os.chdir()              # change current directory
-# os.listdir(dir)         # list files and dirs under current directory
-# os.remove(file)         # remove file
-# os.rmdir(empty_dir)     # remove EMPTY directories
-# os.removedirs(dirs)     # remove directories
-# os.system('shell')      # run system shell command
-# os.getenv(env)          # returns environment variable
-# os.putenv(env)          # set environment variable
-# os.linesep              # returns '\n' for unix, '\r' for mac os, '\r\n' for windows
-# os.name                 # returns 'posix' for unix and 'nt' for windows
-# os.rename(old, new)     # rename file
-# os.mkdir(dir)           # make a directory
-# os.makedirs(dirs)       # make multiple directories
-# os.stat(file)           # get file property
-# os.chmod(file)          # change file property
-# os.exit()               # exit current process
-# 
-# shutil.copy(dir, file_or_dir)
-# shutil.copyfile(file, file)
-# shutil.copytree(dir, dir)               # newdir must not exist
-# shutil.move(file_or_dir, file_or_dir)
-# shutil.rmtree(dir)                      # this is awesome and dangerous
-# 
-# os.path.isfile()        # check if this is a file
-# os.path.isdir()         # check if this is a dir
-# os.path.isabs()         # check if this path is absolute
-# os.path.exists()        # check if this path exists
-# os.path.split()         # returns tuple(dirname, filename)
-# os.path.splitext()      # returns extension name
-# os.path.dirname()       # returns directory name
-# os.path.basename()      # returns filename with extension
-# os.path.getsize(file)   # get file size
-# 
-# os.mknod(file)          # make empty file
-# 
-# fp = open('filename', 'mode')
-#     # Here are available modes:
-#     #   r       read
-#     #   w       write   
-#     #   a       append
-#     #   r+      read and write
-#     #   w+      read and write
-#     #   a+      read and write
-#     #   rb      read binary
-#     #   wb      write binary
-#     #   ab      appand binary
-#     #   rb+     read and write binary
-#     #   wb+     read and write binary
-#     #   ab+     read and write binary
-# 
-# fin.read([size])            # read size bytes
-# fin.readline([size])        # read size bytes in a line
-# fin.readlines([size])       # returns [line1, line2, ...], only reads size bytes
-# fout.write(str)             # write str, won't add '\n'
-# fout.writelines(seq)        # write the sequence, won't add '\n'
-# fp.flush()                  # force write content from buffer to disk
-# fp.fileno()                 # returns int
-# fp.isatty()                 # check if this file is a tty (unix)
-# fp.tell()                   # returns current position of file
-# fp.seek(offset[,whence])    # move current position to offset
-#                             #   whence 0:from head, 1:from cur, 2:from tail
-#                             #   under mode a or a+, the cur pos always returns to tail
-#                             #   after each write
-# fp.truncate([size])         # truncate file into desired size, default is truc to cur pos
-# fp.next()                   # returns next line
-# fp.close()                  # close file
-# 
-# # you can auto close file like this:
-# with open('filename', 'mode') as fp:
-#     pass
-# 
+File Operation
+--------------
+
+import sys, os, shutil
+
+os.getcwd()             # current working directory
+os.chdir()              # change current directory
+os.listdir(dir)         # list files and dirs under current directory
+os.remove(file)         # remove file
+os.rmdir(empty_dir)     # remove EMPTY directories
+os.removedirs(dirs)     # remove directories
+os.system('shell')      # run system shell command
+os.getenv(env)          # returns environment variable
+os.putenv(env)          # set environment variable
+os.linesep              # returns '\n' for unix, '\r' for mac os, '\r\n' for windows
+os.name                 # returns 'posix' for unix and 'nt' for windows
+os.rename(old, new)     # rename file
+os.mkdir(dir)           # make a directory
+os.makedirs(dirs)       # make multiple directories
+os.stat(file)           # get file property
+os.chmod(file)          # change file property
+os.exit()               # exit current process
+
+shutil.copy(dir, file_or_dir)
+shutil.copyfile(file, file)
+shutil.copytree(dir, dir)               # newdir must not exist
+shutil.move(file_or_dir, file_or_dir)
+shutil.rmtree(dir)                      # this is awesome and dangerous
+
+os.path.isfile()        # check if this is a file
+os.path.isdir()         # check if this is a dir
+os.path.isabs()         # check if this path is absolute
+os.path.exists()        # check if this path exists
+os.path.split()         # returns tuple(dirname, filename)
+os.path.splitext()      # returns extension name
+os.path.dirname()       # returns directory name
+os.path.basename()      # returns filename with extension
+os.path.getsize(file)   # get file size
+
+os.mknod(file)          # make empty file
+
+fp = open('filename', 'mode')
+
+# mode:
+#   r       read
+#   w       write   
+#   a       append
+#   r+      read and write
+#   w+      read and write
+#   a+      read and write
+#   rb      read binary
+#   wb      write binary
+#   ab      appand binary
+#   rb+     read and write binary
+#   wb+     read and write binary
+#   ab+     read and write binary
+
+fin.read([size])            # read size bytes
+fin.readline([size])        # read size bytes in a line
+fin.readlines([size])       # returns [line1, line2, ...], only reads size bytes
+fout.write(str)             # write str, won't add '\n'
+fout.writelines(seq)        # write the sequence, won't add '\n'
+fp.flush()                  # force write content from buffer to disk
+fp.fileno()                 # returns int
+fp.isatty()                 # check if this file is a tty (unix)
+fp.tell()                   # returns current position of file
+fp.seek(offset[,whence])    # move current position to offset
+                            #   whence 0:from head, 1:from cur, 2:from tail
+                            #   under mode a or a+, the cur pos always returns to tail
+                            #   after each write
+fp.truncate([size])         # truncate file into desired size, default is truc to cur pos
+fp.next()                   # returns next line
+fp.close()                  # close file
+
+# process file until blank line:
+with open('filename', 'r') as fp:
+    for line in iter(fp.readline, ''):
+        process_line(line)
 
 Regular Expression
 ------------------

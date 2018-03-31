@@ -162,19 +162,20 @@ N						# repeat the / ? command backward
 :set no<option>			# the opposite of the option, for example,
 						# :set nonu will close line numbers
 
-# ---------------- status ----------------
+# ---------------- info ----------------
 
 :.=						# show current line number
 :=						# show total line count
 :f ctrl-g				# show filename, total line count and percentage
 :l						# list blank chars on current line
+g ctrl-g				# word statistics
 
-# ---------------- 标记 ----------------
+# ---------------- mark ----------------
 
 m[a-z]					# mark current position
 '[a-z]					# move to the desired position
 
-# ---------------- 连接 ----------------
+# ---------------- join ----------------
 
 nJ						# join next n lines to current line. default=1
 
@@ -195,6 +196,8 @@ z-						# bottom current line
 
 :split <filename>		# split window by top and bottom
 :vsplit <filename>		# split window by left and right
+:new					# open new window by top and bottom
+:vnew					# open new window by left and right
 ctrl-w <hjkl>			# move to a window
 ctrl-w <HJKL>			# move current window
 
@@ -222,7 +225,7 @@ ctrl-w <HJKL>			# move current window
 :ab						# view all defined abbrevations
 :una str				# delete the defined abbrevation
 
-# ---------------- 缩进 ----------------
+# ---------------- indent ----------------
 
 tab ctrl-i				# insert a tab if under insert mode
 >>						# indent

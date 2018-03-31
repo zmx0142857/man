@@ -1,0 +1,113 @@
+运行 
+
+	win-r, 然后输入:
+
+	cmd							命令提示符
+	control						控制面板
+	explorer/win-e				资源管理器
+	mspaint						画图
+	netplwiz					用户账户管理
+	taskmgr/ctrl-shift-esc		任务管理器
+	wmplayer					windows media player
+
+开机启动项
+	
+	任务管理器->"启动"选项卡。选中不希望开机自启动的程序，点击"禁用"。
+
+视觉特效
+
+	控制面板->高级系统设置->"高级"选项卡->性能
+
+环境变量
+
+	控制面板->搜索"环境变量"->编辑。注意环境变量有用户的和系统的之分。
+
+系统配置
+
+	在开始菜单键入"系统配置"。勾选"隐藏所有Microsoft服务"后，取消不需要的服务。
+	尽量不要取消 intel, nvidia 等开头的服务。
+
+创建扩展名关联
+	
+	扩展名关联规定了特定后缀的文件的打开方式。
+	控制面板->程序->默认程序
+
+从光盘镜像(iso)安装
+
+	在资源管理器中右击第一个镜像文件，选择装载(mount)。
+	现在可以从资源管理器左侧目录树中看到装载的光盘。
+	运行光盘中的 setup 或 install 程序。
+	当需要插入下一张光盘时，弹出当前光盘，再装载下一个镜像文件。
+
+应用
+
+	> UWP - 通用 windows 平台
+
+	8zip						压缩/解压
+	Hello, UWP					UWP 漫游指南
+	Transcoder					媒体转码
+	WiFi Commander				界面酷炫的 wifi 配置应用
+
+	> 办公
+
+	1Checker					易改，英语作文批改
+	AABBYY Finereader			图像转文字
+	Adobe Bridge				Adobe 全家桶控制中心
+	Ashampoo Snap				截图/录屏
+	Foxit Reader				福昕，pdf阅读
+	Picasa						图片编辑器，google 出品
+	Sublime						性感的代码/文本编辑器
+
+	> 插件
+
+	Clover						为资源管理器添加标签，像 chrome 一样
+	Ditto						剪贴板查看器
+	WindowTabs					为任何可能的窗口添加标签，像 chrome 一样
+
+	> 传输
+
+	NetSpeedMonitor				监控网速
+	PushBullet					跨平台文件传输
+	Scatter						跨平台同步剪贴板，亦可传输文件
+
+	> 媒体
+
+	K-Lite Codec Pack			结合 wmplayer 使用，支持多种媒体格式
+	KMPlayer					媒体播放器
+
+	> 输入法
+
+	Rimeime						小狼毫
+	wnwb						万能五笔
+
+	> 外观
+
+	MacType						提升字体渲染效果
+	f.lux						屏幕色温调节
+
+	> 文件
+
+	7zip						压缩/解压
+	BandZip						压缩/解压
+	Everything					本地文件搜索
+	FileLocator Pro				检索文档内容
+	Listary						本地文件搜索
+
+	> 系统
+
+	ADSafe						免费去广告
+	AutoHotKey					脚本语言，自定义系统快捷键
+	CCleaner					系统清理/优化
+	Defraggler					磁盘碎片整理
+	Dism++						系统清理/优化
+	Duplicate Cleaner			查找重复文件
+	LockHunter					解决文件/设备占用问题
+	RevoUninPro					强力卸载
+
+游戏
+
+	Google Earth				观看地球与其他天体
+	LaserTank					激光坦克，2d 棋盘 策略
+	Celeste						深蓝，像素 跑跳
+	...
+

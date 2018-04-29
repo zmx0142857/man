@@ -7,6 +7,7 @@ vim +n file				# edit file from nth line
 
 :help <command>			# view help info about command
 K						# search for manual on keyword
+gx						# open hyperlink in file
 
 :n <file>				# new file
 :e <file>				# edit file
@@ -231,3 +232,11 @@ tab ctrl-i				# insert a tab if under insert mode
 >>						# indent
 n>>						# indent n lines
 <<						# unindent
+
+# ---------------- fold & unfold code ------------
+
+:set fdm=<option>		# 6 options: manual indent expr syntax diff marker
+zc						# close fold
+zo						# open fold
+zC						# close all
+zO						# open all

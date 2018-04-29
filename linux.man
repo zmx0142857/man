@@ -40,6 +40,41 @@ flash - play web videos
 
 	$ sudo apt install flashplugin-installer
 
+ibus - input method framework under gnome
+	
+	for full article, see: https://www.2cto.com/os/201207/144189.html
+	
+	1. install Chinese language
+
+		System Settings -> Language Support -> Install/Remove Languages
+	
+	2. install and switch to ibus
+
+		$ sudo apt-get install ibus ibus-clutter ibus-gtk ibus-gtk3\
+		ibus-qt4
+
+		$ in-switch -s ibus
+
+		logout and login again.
+	
+	3. install input method
+
+		choose the one you prefer:
+
+		$ sudo apt-get install ibus-table-wubi
+		$ sudo apt-get install ibus-pinyin
+		$ sudo apt-get install ibus-googlepinyin
+		$ sudo apt-get install ibus-sunpinyin
+	
+	4. choose your prefered input method (for me it's wubi-jidian86)
+	
+		$ ibus-setup
+		
+		Usually a ibus icon will appear on the menubar upper-right of your
+		screen. If it disappears, run this command to get it back:
+
+		$ ibus-daemon -drx
+
 fbterm - draw Chinese characters under terminal
 	
 	add yourself to video group:
@@ -54,7 +89,7 @@ fbterm - draw Chinese characters under terminal
 	update-initramfs: Generating /boot/initrd.img-4.10.0-32-generic
 	W: Possible missing firmware /lib/firmware/i915/kbl_dmc_ver1_01.bin for module i915
 
-yong - input method for Chinese
+yong - input method for Chinese under fbterm
 
 pip - install python third party lib
 
@@ -68,3 +103,13 @@ trash - move file to trash through bash
 ldd - find dependence of a executable file
 
 iconv - convertion between encodings
+
+sha256sum - calculation hash of a file
+	
+	$ sha256sum <filename>
+
+lsblk - view disks and devices on the computer
+
+mount and umount - open external devices like usb stick
+
+zip rar tar rpm and so on - compress and extract archives

@@ -1,7 +1,7 @@
 plot
 
-	$ plot [<xrange>] <function or datafile> [title 'str'] [with <style>]
-		[pointtype n] [linetype n]
+	$ plot [<xrange>] <function or 'datafile'> [title 'str'] [with
+	<style>] [pointtype n] [linetype n]
 
 	examples:
 
@@ -32,9 +32,10 @@ with
 	linewidth n
 	pointsize n
 
-use
+using
 	
-	$ plot <datafile> use l:m:n	# use colomn l m n in datafile as x y z
+	$ plot 'datafile' using l:m:n	
+								# use colomn l m n in datafile as x y z
 set
 
 	$ set <option>

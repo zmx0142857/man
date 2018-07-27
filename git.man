@@ -12,14 +12,14 @@ $ git init
 Add and Commit
 --------------
 
-$ nano README.md
+$ vim README.md
 $ git add README.md				# add files to stage
 $ git commit -m "create README.md"
 
 Change File
 -----------
 
-$ nano README.md
+$ vim README.md
 $ git status
 $ git diff
 $ git add READ.md
@@ -108,3 +108,7 @@ Merge and Delete
 $ git merge newbr				# master is now the same as newbr
 $ git branch -d newbr			# delete newbr
 
+Ignore
+------
+
+$ vim .gitignore

@@ -106,10 +106,10 @@ iconv - convertion between encodings
 
 sha256sum - calculation hash of a file
 	
-	$ sha256sum <filename>
-
 lsblk - view disks and devices on the computer
 
 mount and umount - open external devices like usb stick
 
 zip rar tar rpm and so on - compress and extract archives
+
+ps - see what programs are running under current user

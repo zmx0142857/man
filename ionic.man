@@ -1,0 +1,299 @@
+Installation
+
+install nvm (node version manager):
+
+	curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+
+check the version of your node:
+
+	node --version
+
+if your node needs to upgrate, run this:
+
+	nvm install node
+
+install npm (node package manager):
+
+	sudo apt install npm
+
+install ionic:
+	
+	sudo npm install -g cordova ionic
+	sudo npm update -g cordova ionic
+
+start using ionic:
+
+	cd /your/work/directory
+	ionic start my-app-name blank # or tabs / sidemenu
+	cd my-app-name
+	ionic serve # to test your app in browser
+
+build apk file:
+	ionic cordova platform add android
+
+	# then replace the icon and splash picture with yours
+	# the icon at least 1024px^2, splash at least 2208px^2
+	# run this to update the icon/splash picture
+	ionic cordova resources
+
+	# install jdk-8 and android sdk, configure environmental variables
+	# edit your ~/.bashrc, append this to the file:
+	export JAVA_HOME=/path/to/jdk/jdk1.8.0_181
+	export ANDROID_HOME=/path/to/android-sdk/android-sdk-linux
+	export PATH=$PATH:$JAVA_HOME/bin:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools/28.0.1
+
+	# install gradle and build
+	sudo apt install gradle
+	ionic cordova build --release --prod android
+
+	# after this, you can emulate on pc:
+	ionic cordova emulate android # or ionic run android
+
+	# or sign your app:
+	# first make your key:
+	keytool -genkey -v -keystore your_app_name.keystore -alias \
+	your_app_name -keyalg RSA -keysize 2048 -validity 10000
+
+	# move your apk file to project root directory, run:
+	jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore
+	your_app_name android-release-unsigned.apk your_app_name
+
+	# verify your sign
+	jarsigner -verify -verbose -certs your_app_name.apk
+
+	# optimize your apk file
+	zipalign -v 4 app-release-unsigned.apk your_app_name.apk
+
+Bar
+
+	> ion-header-bar
+
+	div class="bar bar-header ..."
+	div class="bar bar-subheader"
+	
+		bar-light		// white
+		bar-stable		// light-grey
+		bar-positive	// blue
+		bar-calm		// light-blue
+		bar-balanced	// green
+		bar-energized	// yellow
+		bar-assertive	// red
+		bar-royal		// purple
+		bar-dark		// black
+
+	> ion-footer-bar
+
+	div class="bar bar-footer"
+	div class="bar bar-subfooter"
+
+Button
+
+	> Button
+
+	button class="button ..."
+	a class="button ..."
+
+		button-large
+		button-small
+		button-outline	// transparent background
+		button-clear	// transparent background without border
+		button-block	// fill the parent width, show padding
+		button-full		// fill the parent width, eat padding
+
+		pull-right		// right aligned
+
+		button-light	// same as those of bar
+		...
+		button-dark
+
+	> Button-bar
+
+	div class="button-bar"
+
+
+Icon
+
+	i class="..."
+
+		icon
+		icon-left
+		icon-right
+		placeholder-icon
+
+		ion-arrow-right-abc
+		ion-bag
+		ion-beaker
+		ion-card
+		ion-chatbox
+		ion-chatbubble-working
+		ion-chevron-left
+		ion-chevron-right
+		ion-compose
+		ion-email
+		ion-gear-a
+		ion-gear-b
+		ion-home
+		ion-ios-bolt
+		ion-ios-game-controller-ab
+		ion-ios-lightbulb
+		ion-ios-moon
+		ion-ios-partlysunny
+		ion-ios-rainy
+		ion-ios-search
+		ion-ios-sunny
+		ion-ios-telephone
+		ion-mic-a
+		ion-mic-b
+		ion-music-note
+		ion-navicon
+		ion-person-stalker
+		ion-plus
+		ion-search
+		ion-settings
+		ion-share
+		ion-star
+		ion-thumbsup
+		ion-volume-low
+		ion-volume-high
+		ion-wifi
+
+Badge
+
+	span class="badge ..."
+
+		badge-light
+		...
+		badge-dark
+
+ion-list
+
+	ul class="list ..."
+
+		list-inset
+
+Card
+
+	div class="card"
+	div class="list card"
+
+ion-item
+
+	li class="item ..."
+	a class="item ..."
+
+		item-divider
+		item-note
+		item-thumbnail-left
+		item-avatar
+		item-icon
+		item-icon-left
+		item-icon-right
+		item-image
+		item-text-wrap
+		item-body
+		item-input
+		item-input-inset
+		item-input-wrapper
+		item-stacked-label
+		item-floating-label
+
+Item-Input
+
+	label class="item item-input"
+		span class="input-label"
+		i class="icon ... placeholder-icon"
+		input type="text" placeholder="Name"
+		input type="password" placeholder="Password"
+		textarea palceholder="Comments"
+	
+Item-Checkbox
+
+	li class="item item-checkbox"
+		label class="checkbox"
+			input type="checkbox"
+
+Item-Radio
+
+	label class="item item-radio"
+		input type="radio" name="..." value="..." checked
+		div class="radio-content"
+			div class="item-content"
+			i class="radio-icon ion-checkmark"
+
+Item-Select
+	
+	div class="item item-input item-select"
+		div class="input-label"
+		select
+			option
+			option selected
+			option
+ion-toggle
+
+	label class="toggle ..."
+		input type="checkbox"
+		div class="track"
+			div class="handle"
+		
+Range
+
+	div class="range ..."
+		i class="icon ion-volume-low"
+		input type="range" name="volume" min="0" max="100" value="12"
+		i class="icon ion-volume-high"
+
+Tabs
+
+	div class="tabs ..."
+		a class="tab-item"
+
+		tebs-item-hide
+		tabs-secondary
+
+		tabs-striped
+		tabs-background-...
+		tabs-color-...
+
+		tabs-icon-only
+		tabs-icon-top
+		tabs-icon-left
+		tabs-icon-right
+
+Row and Col
+	div class="row"
+		div class="col"
+		div class="col"
+		div class="col"
+	
+		col-n
+		col-offset-n
+		row-top, center, bottom
+		col-top, center, bottom
+		responsive-sm
+		responsive-md
+		responsive-lg
+Img
+
+	img class="full-image"
+
+Title
+
+	div class="title"
+
+Padding
+
+	div class="padding"
+
+Content
+
+	ion-content
+	div class="content ..."
+
+		has-header
+		padding
+		scroll
+		scroll-content
+	
+	style="overflow-y:auto
+
+a class="subdued"

@@ -424,3 +424,16 @@ rest (ES6)
 
 		xiaoming.age(); // 25, 正常结果
 		getAge(); // NaN
+
+document
+	
+	write("...");			// 输出 html,
+							// 在文档加载后 (如通过按钮触发), 会发生覆盖.
+	getElementById("...");  // 通过 id 获取元素
+
+	elem.<attribute>		// 元素的属性
+	elem.InnerHTML			// 元素内部的 html, 可以通过赋值改写.
+
+window
+
+	Date();					// 返回, 同终端 date

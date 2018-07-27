@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<style type="text/css">
+body {
+	color: white;
+	background: rgb(12,156,252);
+	text-align: center;
+}
+svg {
+	display: inline-block;
+	width: 120px;
+	height: 120px;
+	stroke: white;
+	stroke-width: 5;
+	fill: powderblue;
+}
+
+line, polyline, path {
+	fill: none;
+}
+
+text {
+	font-size: 20px;
+	stroke: none;
+	fill: white;
+}
+</style>
+</head>
+<body>
+
+<h1>My first SVG</h1>
+
+<div title="circle">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+   <circle cx="60" cy="60" r="40"/>
+</svg> 
+</div>
+
+<div title="rect">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+  <rect x="10" y="30" rx="10" ry="10" width="100" height="60" fill-opacity="0.5" stroke-opacity="0.3"/>
+</svg>  
+</div>
+
+<div title="ellipse">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+	<ellipse cx="60" cy="60" rx="50" ry="36" />
+</svg>  
+</div>
+
+<div title="line">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+	<line x1="10", y1="10", x2="110" y2="110" />
+</svg>  
+</div>
+
+<div title="polygon">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+	<polygon points="60,10 90,110, 10,48 110,48 30,110" style="fill-rule:evenodd"/>
+</svg>  
+</div>
+
+<div title="polyline">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+	<polyline points="10,10 30,110 60,20 90,110 110,10" fill="none"/>
+</svg>  
+</div>
+
+<!--
+	Note for svg path
+
+	upppercase stands for absolute positioning
+	lowercase stands for relative positioning
+
+    M = moveto
+    L = lineto
+    H = horizontal lineto
+    V = vertical lineto
+    C = curveto
+    S = smooth curveto
+    Q = quadratic Bézier curve
+    T = smooth quadratic Bézier curveto
+    A = elliptical Arc
+    Z = closepath
+-->
+
+<div title="path">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+	<path d="M60 10 L90 110 L30 110 Z" />
+</svg>  
+</div>
+
+<div title="Bessel curve">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="height:400px; width:400px">
+	<path id="curveAC" d="M 100 350 Q 200 50 300 350" />
+	<g stroke-dasharray="10,10">
+		<path id="lineAB" d="M 100 350 L 200 50" />
+		<path id="lineBC" d="M 200 50 L 300 350" />
+		<path id="tangent" d="M 150 200 L 250 200" />
+	</g>
+
+	<!-- Mark relevant points -->
+	<g stroke="none" fill="white" fill-opacity="0.5">
+		<circle id="pointA" cx="100" cy="350" r="8" />
+		<circle id="pointB" cx="200" cy="50" r="8" />
+		<circle id="pointC" cx="300" cy="350" r="8" />
+ 	</g>
+
+ 	<!-- Label the points -->
+ 	<g font-size="30" stroke="none" text-anchor="middle">
+		<text x="100" y="350" dx="-30">A</text>
+		<text x="200" y="50" dy="-10">B</text>
+		<text x="300" y="350" dx="30">C</text>
+ 	</g>
+</svg>  
+</div>
+
+<div title="textPath">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" style="height:400px; width:400px">
+	<defs>
+		<path id="textpath1" d="M199,20 A 150,150 0 1,0 201,20" />
+	</defs>
+	<text x="10" y="100">
+		<textPath xlink:href="#textpath1">I will found a star I will found a star I will found a star I will found a star I will found a star I will found a star</textPath>
+	</text>
+</svg> 
+</div>
+
+<div title="radialGradient">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="width:200px; height:200px">
+	<defs>
+		<radialGradient id="grad1" cx="20%" cy="30%" r="100%" fx="40%" fy="40%">
+			<stop offset="0%" style="stop-color:rgb(255,255,255)" />
+			<stop offset="100%" style="stop-color:rgb(50,50,50)" />
+		</radialGradient>
+	</defs>
+<circle cx="100" cy="100" r="80" stroke="none" fill="url(#grad1)" />
+</svg>
+</div>
+
+<div title="animate">
+Only works for Firefox and Chrome.<br/>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="width:150px;height:30px">
+	<text x="20" y="20">
+		Goodbye.
+		<animate attributeType="css" attributeName="opacity" from="1" to="0" dur="5s" repeatCount="indefinite" />
+	</text>
+</svg>
+</div>
+
+</body>
+</html>

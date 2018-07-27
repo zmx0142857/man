@@ -1,18 +1,40 @@
-all:main.o part1.o part2.o
-	gcc main.o part1.o part2.o -o my-program
+# a simple version of makefile
 
-main.o:main.c
-	gcc -c main.c
+CC = gcc
+IDIR = .
+CFLAGS = -I$(IDIR)
+DEPS = test.h
+OBJ = main.o test.o
 
-part1.o:part1.c
-	gcc -c part1.c
+test: $(OBJ)
+	$(CC) -o $@ $^ $(CFLAGS)
 
-part2.o:part2.c
-	gcc -c part2.c
+%.o: %.c $(DEPS)
+	$(CC) -c -o $@ $< $(CFLAGS)
+
+# a more advanced version of makefile
+# run 'mkdir obj' before you run 'make'!
+
+CC = gcc
+IDIR = include
+ODIR = obj
+LDIR = lib
+
+CFLAGS = -I$(IDIR)
+LIBS = 
+
+_DEPS = test.h
+DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
+_OBJ = main.o test.o
+OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
+
+test: $(OBJ)
+	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
+
+$(ODIR)/%.o: %.c $(DEPS)
+	$(CC) -c -o $@ $< $(CFLAGS)
+
+.PHONY: clean
 
 clean:
-	rm ./*.o
-	rm ./my-program
-
-install:my-program
-	ln -s ./my-program ~/bin/my-program
+	rm $(ODIR)/*.o test

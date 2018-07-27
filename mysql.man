@@ -1,0 +1,39 @@
+mariadb - a replacement for mysql
+
+	$ sudo apt install mariadb-client-core-10.0 mariadb-server
+
+turn on or turn off mysql server
+
+	first check if mysql server is running:
+
+	$ ps -ef | grep mysqld
+
+	start mysql server
+
+	$ sudo mysqld_safe
+
+	turn off mysql server
+
+	$ sudo mysqladmin -u root -p shutdown
+
+set root password for mysql
+
+	$ sudo mysqladmin -u root password
+
+reset root password for mysql
+
+	$ sudo mysqladmin -u root -p password
+
+login to mysql client
+
+	$ sudo mysql -u root -p
+
+use
+	mysql> use <database>;
+
+show
+	mysql> show databases;
+	mysql> show tables;
+	mysql> show columns from <table>;
+	mysql> show index from <table>;
+	mysql> show table status [from <database>] [like 'pattern'] \g;

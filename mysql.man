@@ -1,39 +1,226 @@
 mariadb - a replacement for mysql
 
-	$ sudo apt install mariadb-client-core-10.0 mariadb-server
+	$ sudo apt install mariadb-server
+
+	optional:
+
+	$ sudo apt install mariadb-client-core-10.0
+
+	optional: install workbench (free) or navicat (14 days trial) to work
+	under GUI.
+
+secure configuration
+
+	set root password:
+
+	$ sudo mysqladmin -u root password
+
+	reset root password:
+
+	$ sudo mysqladmin -u root -p password
+
+	or run this to configure more:
+	
+	$ sudo mysql_secure_installation
 
 turn on or turn off mysql server
 
 	first check if mysql server is running:
 
-	$ ps -ef | grep mysqld
+	$ systemctl status mysql.service
+or	$ ps -ef | grep mysqld
 
-	start mysql server
+	start mysql server:
 
-	$ sudo mysqld_safe
+	$ sudo service mysql start
+or	$ sudo mysqld_safe
 
-	turn off mysql server
+	turn off mysql server:
 
-	$ sudo mysqladmin -u root -p shutdown
+	$ sudo service mysql stop
+or	$ sudo mysqladmin -u root -p shutdown
 
-set root password for mysql
+	restart mysql server:
 
-	$ sudo mysqladmin -u root password
+	$ sudo service mysql restart
 
-reset root password for mysql
-
-	$ sudo mysqladmin -u root -p password
-
-login to mysql client
+login to mysql
 
 	$ sudo mysql -u root -p
+or	$ mysql -u username -p
 
-use
-	mysql> use <database>;
+enable foreign access to database
 
-show
-	mysql> show databases;
-	mysql> show tables;
-	mysql> show columns from <table>;
-	mysql> show index from <table>;
-	mysql> show table status [from <database>] [like 'pattern'] \g;
+	[warning] this may let others visit your database
+
+	show current access privileges:
+
+	$ netstat -an | grep 3306
+
+	::3306 means foreign access is already granted.
+	127.0.0.1:3306 means only localhost is granted, you need to do as
+	follow:
+
+	$ sudo vim /etc/mysql/mysql.conf.d/mysql.cnf
+
+	find the line 'bind-address=127.0.0.1' and comment it.
+	login to mysql as root, then:
+
+	> use mysql;
+	> update user set host='%' where user='root' and host='localhost';
+	> select host, user from user;
+	> flush privileges;
+
+	exit and restart mysql service.
+
+create user
+
+	login as root.
+
+	> create user 'username'@'%' identified by 'password';
+	> grant all privileges on database.table to 'username'@'%' identified by 'password' with grant option;
+	> flush privileges;
+
+	see username's privileges
+	> show grants for 'username'@'%';
+
+	revoke (withdraw) privileges
+	> revoke create on database.table from 'username'@'%';
+
+	delete user
+	> drop user 'username'@'%';
+
+	[NOTE]
+	1. all privileges can be replaced with SELECT, CREATE, DROP and so on.
+	2. with grant option allows the new user to grant his privileges to
+	   others.
+
+-----------------------simple-query---------------------------------------
+
+sql wildcards
+
+	* for zero or more characters
+	% for one or more characters
+	_ for one character
+
+sql commands
+
+	> status;
+	> select version();
+
+create and drop
+
+	for example:
+	> create database company;
+	> use company;
+	> create table people (
+		name varchar(50),
+		gender varchar(6),
+		age int(3),
+		address varchar(50)
+	);
+	
+	add/delete column(s)
+	> alter table people add id int(10);
+	> alter table people drop address;
+
+	delete table (do not try this)
+	> drop table people;
+
+insert into and update
+
+	insert into: add a new record
+	> insert into people (name, gender, age) value ('Adam', 'male', 20);
+
+	update: change an existing record
+	> update people set id=1 where name='Adam';
+
+	then insert more columns:
+	> insert into people (name, gender, age, id) value ('Bob', 'male', 20,
+	  2);
+	> insert into people (name, gender, age, id) value ('Alice', 'female',
+	  18, 3);
+	> insert into people (name, gender, age, id) value ('Dalia', 'female',
+	  22, 4);
+
+show and select
+
+	> show databases;
+	> use <database>;
+	> show tables;
+	> show columns from <table>;
+	> show index from <table>;
+	> show table status [from <database>] [like 'pattern'] \g;
+
+	> select [distinct] <column> [as <alias>] from <table>;
+
+	where
+	
+	> select * from people where gender='female';
+	> select * from people where age between 18 and 20;
+	> select * from people where age >= 18 and age <= 20;
+
+	[NOTE] relational operators
+
+		=		euqal
+		<>		inequal
+		<		┐
+		>		│
+		<=		├→ you know
+		>=		│
+		between	┘
+		like	search for pattern
+
+	order by ascend is default
+
+	> select * from people order by age asc;
+	> select * from people order by age desc, id desc;
+
+	concatenate
+
+	> select concat(name, ' is ', age, ' years old') from people;
+
+-------------------------more-complicated-query-------------------------
+
+join on
+
+	select from more than one tables
+
+	> select select district, continent from city join country
+		on city.countrycode = country.code
+		where city.name = 'Wuhan';
+
+primary key
+
+	used to identify a record. id must distinct from each other.
+	set primary key on creating table:
+
+	> create table people(
+		id int(18) primary key,
+		...
+	);
+
+	or alter it later:
+
+	> alter table people add primary key(id);
+
+save result in a new table
+
+	> create table result(
+		city varchar(50),
+		population int(11),
+		countrycode varchar(4)
+	);
+	> insert into result
+		select name, population, countrycode from city
+		where population between 2000000 and 5000000;
+
+group by
+
+	> select continent, sum(GNP) from country group by continent;
+	> select continent, sum(GNP) from country group by continent having
+		sum(GNP) > 1000000;
+
+	[NOTE] statistics functions
+
+		sum count avg max min

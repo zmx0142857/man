@@ -1,0 +1,247 @@
+Installation
+
+install python 3.4+
+install pip3
+use pip3 to install django
+check the version:
+
+	$ python3 -m django --version
+
+Start project
+
+	$ cd /my/work/directory
+	$ django-admin startproject project_name # say it 'mysite'
+
+When naming a project, you have to avoid using reserved keywords like
+'django' or 'test'.
+This is the project structure:
+
+	mysite/
+		manage.py
+		mysite/
+			__init__.py
+			settings.py
+			urls.py
+			wsgi.py
+
+Run server
+
+	$ cd mysite # the outer folder
+	$ python3 manage.py runserver
+
+Start app
+
+start app on the same hierarchy as manage.py 
+
+	$ python3 manage.py startapp app_name # say it 'polls'
+
+The app structure:
+
+	polls/
+		__init__.py
+		admin.py
+		apps.py
+		migrations/
+			__init__.py
+		models.py
+		tests.py
+		views.py
+
+Create views and map urls to them
+	
+----polls/views.py-------------------------------------------------------
+
+from django.http import HttpResponse
+def index(request):
+	return HttpResponse('hello, world')
+
+----polls/urls.py--------------------------------------------------------
+
+from django.urls import path
+from . import views
+
+urlpatterns = [
+	path('', views.index, name='index'),
+]
+
+----mysite/urls.py-------------------------------------------------------
+
+from django.contrib import admin
+from django.urls import include, path
+
+urlpatterns = [
+    path('polls/', include('polls.urls')),
+    path('admin/', admin.site.urls),
+]
+
+-------------------------------------------------------------------------
+
+# now restart server to see what happens
+
+Create models
+
+----polls/models.py------------------------------------------------------
+
+from django.db import models
+
+class Question(models.Model):
+    question_text = models.CharField(max_length=200)
+    pub_date = models.DateTimeField('date published')
+	def __str__(self):
+		return self.question_text
+
+class Choice(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    choice_text = models.CharField(max_length=200)
+    votes = models.IntegerField(default=0)
+	def __str__(self):
+		return self.choice_text
+
+-------------------------------------------------------------------------
+
+Configure database
+
+# by default django uses sqlite, you don't need to do anything.
+# edit mysite/settings.py, change TIME_ZONE and LANGUAGE_CODE, like:
+
+	LANGUAGE_CODE = 'zh-hans'
+	TIME_ZONE = 'Asia/Shanghai'
+
+# install your app:
+
+	INSTALLED_APPS = [
+		'polls.apps.PollsConfig',
+		...
+	]
+
+# now run this to makemigrations on database (the real migration is
+# executed later). migrations is a change on database caused by the change
+# of your model. everytime you changed your model, remember to run this to
+# get database updated.
+
+	$ python3 manage.py makemigrations
+	$ python3 manage.py migrate
+
+Django shell
+
+	$ python3 manage.py shell
+
+	>>> from polls.models import Question, Choice
+	>>> from django.utils import timezone
+
+# display questions
+	>>> Question.objects.all()
+	<QuerySet []>
+
+# create a question and save
+	>>> q = Question(question_text="What's new?", pub_date=timezone.now())
+	>>> q.id
+	1
+	>>> q.question_text
+	"What's new?"
+	>>> q.pub_date
+	datetime.datetime(...)
+	>>> q.save()
+
+# make a change and save
+	>>> q.question_text = "What's up?"
+	>>> q.save()
+
+# query
+	>>> Question.objects.all()
+	<QuerySet [<Question: What's up?>]>
+	>>> Question.objects.filter(id=1)
+	<QuerySet [<Question: What's up?>]>
+	>>> Question.objects.filter(question_text__startswith='What')
+	<QuerySet [<Question: What's up?>]>
+	>>> current_year = timezone.now().year
+	>>> Question.objects.get(pub_date__year=current_year)
+	<Question: What's up?>
+	>>> Question.objects.get(id=2)
+	Traceback (most recent call last):
+		...
+	DoesNotExist: Question matching query does not exist.
+	>>> Question.objects.get(pk=1)	# get by primary key
+	<Question: What's up?>
+
+# display choices
+	>>> q = Question.objects.get(pk=1)
+	>>> q.choice_set.all()
+	<QuerySet []>
+	
+# create choices
+	>>> q.choice_set.create(choice_text='Not much', votes=0)
+	<Choice: Not much>
+	>>> q.choice_set.create(choice_text='The sky', votes=0)
+	<Choice: The sky>
+	>>> c = q.choice_set.create(choice_text='Just hacking again', votes=0)
+
+# see what question is the choice related to
+# and what choices the question have
+	>>> c.question
+	<Question: What's up?>
+	>>> q.choice_set.all()
+	<QuerySet [<Choice: Not much>, <Choice: The sky>, <Choice: Just hacking again>]>
+	>>> q.choice_set.count()
+	3
+
+# Use double underscores to separate relationships.
+# This works as many levels deep as you want; there's no limit.
+# Find all Choices for any question whose pub_date is in this year
+# (reusing the 'current_year' variable we created above).
+	>>> Choice.objects.filter(question__pub_date__year=current_year)
+	<QuerySet [<Choice: Not much>, <Choice: The sky>, <Choice: Just hacking again>]>
+
+# delete one of the choices
+	>>> c = q.choice_set.filter(choice_text__startswith='Just hacking')
+	>>> c.delete()
+
+Admin page
+
+# create an administrator account:
+
+	$ python3 manage.py createsuperuser
+
+----polls/admin.py-------------------------------------------------------
+
+from django.contrib import admin
+from .models import Question
+
+admin.site.register(Question)
+
+-------------------------------------------------------------------------
+
+# runserver, switch to http://localhost:8000/admin/
+
+More views
+
+----polls/views.py--ver2--------------------------------------------------
+
+from django.http import HttpResponse
+
+def index(request):
+	return HttpResponse('hello, world')
+
+def detail(request, question_id):
+    return HttpResponse("You're looking at question %s." % question_id)
+
+def results(request, question_id):
+    response = "You're looking at the results of question %s."
+    return HttpResponse(response % question_id)
+
+def vote(request, question_id):
+    return HttpResponse("You're voting on question %s." % question_id)
+
+----polls/urls.py--ver2--------------------------------------------------
+
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.index, name='index'),
+    path('<int:question_id>/', views.detail, name='detail'),
+    path('<int:question_id>/results/', views.results, name='results'),
+    path('<int:question_id>/vote/', views.vote, name='vote'),
+]
+
+Pracitcal views

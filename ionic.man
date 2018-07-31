@@ -2,67 +2,75 @@ Installation
 
 install nvm (node version manager):
 
-	curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+	$ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
 
 check the version of your node:
 
-	node --version
+	$ node --version
 
 if your node needs to upgrate, run this:
 
-	nvm install node
+	$ nvm install node
 
 install npm (node package manager):
 
-	sudo apt install npm
+	$ sudo apt install npm
 
 install ionic:
 	
-	sudo npm install -g cordova ionic
-	sudo npm update -g cordova ionic
+	$ sudo npm install -g cordova ionic
+	$ sudo npm update -g cordova ionic
 
 start using ionic:
 
-	cd /your/work/directory
-	ionic start my-app-name blank # or tabs / sidemenu
-	cd my-app-name
-	ionic serve # to test your app in browser
+	$ cd /your/work/directory
+	$ ionic start your_app_name blank # or tutorial tabs / sidemenu
+	$ cd your_app_name
+	$ ionic serve # to test your app in browser
 
-build apk file:
-	ionic cordova platform add android
+Build your app
 
-	# then replace the icon and splash picture with yours
-	# the icon at least 1024px^2, splash at least 2208px^2
-	# run this to update the icon/splash picture
-	ionic cordova resources
+	$ ionic cordova platform add android
 
-	# install jdk-8 and android sdk, configure environmental variables
-	# edit your ~/.bashrc, append this to the file:
+then replace the icon and splash picture with yours,
+the icon must be at least 1024px^2, splash at least 2208px^2.
+run this to update the icon/splash picture:
+
+	$ ionic cordova resources
+
+install jdk-8 and android sdk, configure environmental variables.
+edit your ~/.bashrc, append this to the file:
+
 	export JAVA_HOME=/path/to/jdk/jdk1.8.0_181
 	export ANDROID_HOME=/path/to/android-sdk/android-sdk-linux
 	export PATH=$PATH:$JAVA_HOME/bin:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools/28.0.1
 
-	# install gradle and build
-	sudo apt install gradle
-	ionic cordova build --release --prod android
+install gradle and build:
 
-	# after this, you can emulate on pc:
-	ionic cordova emulate android # or ionic run android
+	$ sudo apt install gradle
+	$ ionic cordova build --release --prod android
 
-	# or sign your app:
-	# first make your key:
-	keytool -genkey -v -keystore your_app_name.keystore -alias \
+after this, you can emulate on pc:
+
+	$ ionic cordova emulate android # or ionic run android
+
+or make your key:
+
+	$ keytool -genkey -v -keystore your_app_name.keystore -alias \
 	your_app_name -keyalg RSA -keysize 2048 -validity 10000
 
-	# move your apk file to project root directory, run:
-	jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore
-	your_app_name android-release-unsigned.apk your_app_name
+move your apk file to project root directory, run:
 
-	# verify your sign
-	jarsigner -verify -verbose -certs your_app_name.apk
+	$ jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore
+	$ your_app_name android-release-unsigned.apk your_app_name
 
-	# optimize your apk file
-	zipalign -v 4 app-release-unsigned.apk your_app_name.apk
+verify your sign:
+
+	$ jarsigner -verify -verbose -certs your_app_name.apk
+
+optimize your apk file:
+
+	$ zipalign -v 4 app-release-unsigned.apk your_app_name.apk
 
 Bar
 

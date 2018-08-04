@@ -1,0 +1,37 @@
+bash config
+	~/.bashrc
+
+fbterm config
+	~/.fbtermrc
+
+firefox plugin
+	/usr/lib/mozilla/plugins/
+
+fonts
+	/usr/share/fonts/
+
+grub config
+	/etc/default/grub
+	/etc/default/grub2
+	# remember to run sudo update-grub after your modificatioin
+
+mtp
+	/run/user/1000/gvfs/mtp:...
+
+trash
+	~/.local/share/Trash/files/
+
+user folder rename
+	~/.config/user-dirs.dirs
+
+vim config
+	~/.vimrc
+
+vim runtime
+	/usr/share/vim/vim80
+
+yong config
+	~/.yong/
+
+usb device mount point
+	/media/<yourname>/

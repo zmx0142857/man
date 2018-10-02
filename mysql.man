@@ -49,6 +49,15 @@ login to mysql
 	$ sudo mysql -u root -p
 or	$ mysql -u username -p
 
+if you cannot login without sudo, try this:
+
+	$ sudo mysql -u root
+	> select user, host from mysql.user;
+	> drop user 'root'@'localhost';
+	> create user 'root'@'%' identified by '';
+	> grant all privileges on *.* to 'root'@'%' with grant option;
+	> flush privileges;
+
 enable foreign access to database
 
 	[warning] this may let others visit your database
@@ -224,3 +233,9 @@ group by
 	[NOTE] statistics functions
 
 		sum count avg max min
+
+-------------------------------------------------------------------------
+
+errors
+
+vi /var/log/mysql/error.log

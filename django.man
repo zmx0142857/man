@@ -3,6 +3,9 @@ Installation
 install python 3.4+
 install pip3
 use pip3 to install django
+
+	$ sudo -H pip3 install django
+
 check the version:
 
 	$ python3 -m django --version

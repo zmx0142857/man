@@ -61,12 +61,12 @@ or make your key:
 
 move your apk file to project root directory, run:
 
-	$ jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore
-	$ your_app_name android-release-unsigned.apk your_app_name
+	$ jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore \
+	your_app_name.keystore app-release-unsigned.apk your_app_name
 
 verify your sign:
 
-	$ jarsigner -verify -verbose -certs your_app_name.apk
+	$ jarsigner -verify -verbose -certs app-release-unsigned.apk
 
 optimize your apk file:
 

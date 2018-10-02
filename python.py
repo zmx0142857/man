@@ -548,6 +548,19 @@ tuple(Iterable) -> tuple
 #
 #   print(f.__name__, 'returned:', f())
 
+## 下面这个装饰器计算函数执行的时间
+#
+#   import time, functools
+#   def metric(fn):
+#       @functools.wraps(fn)
+#       def wrapper(*args, **kw):
+#           start = time.time()
+#           ret = fn(*args, **kw)
+#           end = time.time()
+#           print('%s executed in %s ms' % (fn.__name__, end-start)) 
+#           return ret
+#       return wrapper
+
 ## 类
 #   class Animal(object):
 #   

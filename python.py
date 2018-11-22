@@ -551,13 +551,14 @@ tuple(Iterable) -> tuple
 ## 下面这个装饰器计算函数执行的时间
 #
 #   import time, functools
-#   def metric(fn):
+#   def timer(fn):
 #       @functools.wraps(fn)
 #       def wrapper(*args, **kw):
 #           start = time.time()
 #           ret = fn(*args, **kw)
 #           end = time.time()
-#           print('%s executed in %s ms' % (fn.__name__, end-start)) 
+#           print(fn.__name__, '(', *args, *kw,
+#                   ') executed in ', end-start , ' s.', sep='')
 #           return ret
 #       return wrapper
 

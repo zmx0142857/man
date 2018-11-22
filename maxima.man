@@ -1,0 +1,8 @@
+eq1: balabala;
+integrate(expr, sym);
+limit(expr, sym, val);
+linsolve([eq1, eq2], [sym1, sym2]);
+solve([eq1, eq2], [sym1, sym2]);
+plot2d(expr, [x, a, b]);
+load(implicit_plot);
+implicit_plot(expr, [x,x1,x2], [y,y1,y2]);

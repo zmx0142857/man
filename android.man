@@ -1,0 +1,18 @@
+map
+
+	java source code - app/src/main/java/com/your-site/www/your-app/
+	layout xml - app/src/main/res/layout/
+	string values xml - app/src/main/res/values/
+	built apk file - app/build/outputs/apk/
+
+build project
+
+	$ cd /your/project/directory
+	$ gradle build
+
+usb debug
+
+	connect your phone to the computer through usb.
+
+	$ adb uninstall com.your-site.www.your-app
+	$ adb install your-app.apk

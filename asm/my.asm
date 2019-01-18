@@ -83,7 +83,7 @@ STDOUT		equ 1
 ;---------------------------------------------------------------
 
 ; calculate length of string
-;	input: size_t *ecx
+;	input: char *ecx
 ;	output: size_t edx
 _strlen:
 	mov edx, ecx

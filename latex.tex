@@ -1,0 +1,75 @@
+% !Mode:: "TeX:UTF-8"
+\documentclass[UTF-8]{ctexart}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xeCJK}
+\usepackage{fontspec,xunicode,xltxtra}
+\usepackage{enumerate}
+
+%\setCJKmainfont{SimSun} %或\setCJKmainfont{KaiTi}
+%\setCJKmonofont{SimSun}
+\setmainfont{Times New Roman}
+\setCJKmainfont[BoldFont=MicrosoftYaHei, ItalicFont=KaiTi]{SimSun}
+
+\newtheorem{theorem}{\hspace{2em}\textbf{定理}}[section]
+\newtheorem{definition}{\hspace{2em}\textbf{定义}}[section]
+
+
+\author{2017级数学萃英班王博凡}
+\title{概率论作业}
+\date{2019年01月02日}
+\begin{document}
+\pagenumbering{Roman}
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+\pagenumbering{arabic}
+
+\section{$\mathrm{Copula}$ 函数}
+
+Copula函数描述的是变量间的相关性，实际上是一类将联合分布函数与它们各自的边缘分布函数连接在一起的函数，因此也有人将它称为连接函数。相关理论的提出可以追溯到1959 年，Sklar 通过定理形式将多元分布与Copula函数联系起来。20世纪90年代后期相关理论和方法在国外开始得到迅速发展并应用到金融，保险等领域的相关分析，投资组合分析和风险管理等多个方面。
+
+\subsection{Copula函数的定义}
+
+\begin{definition}
+    \textbf{n维Copula函数}就是$[0,1]^{n}$上边缘分布为均匀分布的多元分布函数。以二元为例，满足以下三个条件的函数就是二元Copula函数：
+	\begin{enumerate}[$(1)$]
+        \item 定义域为$[0,1]\times[0,1]$，值域为$[0,1]$，即$C:[0,1]\times[0,1]\rightarrow[0,1]$；
+        \item C(u,0)=C(0,v)=0; C(u,1)=u; C(1,v)=v; 
+        \item$0\leqslant\frac{\partial C}{\partial u}\leqslant1$; $0\leqslant\frac{\partial C}{\partial v}\leqslant1$。
+    \end{enumerate}
+\end{definition}
+
+\begin{theorem}[Sklar定理(二元形式)]
+    若$H(x,y)$是一个具有连续边缘分布$F(x)$与$G(y)$的二元联合分布函数，那么存在唯一的Copula函数$C$，使得$H(x,y)=C(F(x),G(y))$。反之，如果$C$是一个Copula函数，而$F$和$G$是两个任意的概率分布函数，那么由上式定义的$H$函数一定是一个联合分布函数，且对应的边缘分布刚好就是$F$和$G$。
+\end{theorem}
+
+由Sklar定理可见，一个联合分布关于相关性的性质，完全由它的copula函数决定，与它的边缘分布无关。以二元为例，在已知函数$H,F,G$的情况下，可以算出它们的Copula函数：
+\[
+    C(u,v)=H[F^{-1}(u),G^{-1}(v)]
+\]
+
+\section{秩相关系数(Coefficient of Rank Correlation)}
+
+\subsection{Kendall Rank 相关系数}
+
+\subsection{Spearman Rank 相关系数}
+
+
+\section{证明：$\sum _ { k = 1 } ^ { \infty } \frac { ( \lambda t ) ^ { k } e ^ { - \lambda t } } { k ! }= 1 - \sum _ { k = 0 } ^ { r - 1 } \frac { ( \lambda t ) ^ { k } e ^ { - \lambda t } } { k ! }$}
+
+
+\section{已知：$y _ { 1 , } y _ { 2 }$ 独立且 $y _ { 1 } \sim G ( p )$，$ y _ { 2 } \sim G ( p )$，求 $y _ { 1 , } y _ { 2 }$ 的分布}
+
+
+\section{随机序(stochastic order)、失效率序}
+
+
+\section{讨论如何计算第 $k$ 个顺序统计量的分布}
+
+
+\section{$\varepsilon \sim x ^ { 2 } ( m ) , \eta \sim x ^ { 2 } ( n )$，且独立，求 $F ( x ) = \frac { \varepsilon / m } { \eta / n }$ 的密度函数}
+
+\end{document}

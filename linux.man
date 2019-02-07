@@ -205,3 +205,9 @@ gzip zip rar tar rpm and so on - compress and extract archives
 	-x file	exclude file
 
 ps - see what programs are running under current user
+
+df - check filesystems
+
+	-T		show filesystem type and used percentage and so on
+
+pavucontrol - deal with sound problem

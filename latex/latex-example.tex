@@ -1,0 +1,786 @@
+% [重要提示]
+% 编译本文档的命令是:
+% xelatex latex-ctexart.tex
+% makeindex latex-ctexart.tex
+% xelatex latex-ctexart.tex
+
+% [文档类型]
+% ctexart 类用于中文文章, 英文文章则使用 article 类.
+% 如果未指定 a4paper, 默认使用的纸张是 usletter, 比 A4 短而宽.
+% hyperref 用于生成 pdf 目录, 方便 pdf 阅读器的使用
+\documentclass[a4paper,hyperref]{ctexart}
+
+% [导言区]
+% 在这里添加需要的包. 多个包可以用逗号隔开放在同一行, 也可以独立成行.
+% 建议只将相关的包写在同一行.
+
+% 设置页边距, 如果未使用这个包, 页边距会宽些.
+\usepackage{geometry}
+
+\usepackage{amsmath}			% 提供 align 等数学环境
+\usepackage{amssymb}			% 提供常用符号
+\usepackage{mathtools}			% 更多数学环境
+\usepackage{bm}					% 粗斜体
+\usepackage{mathrsfs}			% 花体
+
+\usepackage{float}				% 浮动体控制
+
+\usepackage{graphicx}			% 图片
+\usepackage{subcaption}			% 组图
+\usepackage{wallpaper}          % 背景图片, 封面
+
+\usepackage{tabularx}			% 表格
+\usepackage{multirow}			% 多行表格
+\usepackage{makecell}			% 单元格内换行
+\usepackage{booktabs}			% 在表格内画横线
+
+\usepackage{listings}			% 在文档中添加代码
+
+\usepackage{makeidx}			% 索引
+\makeindex
+
+% 在文档中加入代码
+\usepackage{listings}
+% 自定义颜色, 也可以用 xcolor
+\usepackage{color}
+\definecolor{myblue}{rgb}{0.9,0.9,0.95}
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.3,0.3,0.3}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+% 配置代码样式, 注意不能有空行
+\lstset{ 
+	language=c,						% 语言
+	title=\lstname,					% 显示文件名或 caption
+	captionpos=b,					% 代码标题位置: bottom
+	backgroundcolor=\color{myblue},	% 背景色
+	basicstyle=\linespread{0.9}\ttfamily, % 字体及行距
+	escapeinside={\%*}{*)},			% 在代码中使用 LaTeX
+	commentstyle=\color{mygreen},	% 注释样式
+	stringstyle=\color{mymauve},	% 字符串样式
+	% 断行
+	breakatwhitespace=false,		% 是否在空白符处断行
+	breaklines=true,				% 是否自动断行
+	% 边框
+	frame=single,					% 边框: single, none
+	rulecolor=\color{black},		% 如未设置, 边框颜色可能受彩色文字影响
+	% 关键字
+	keywordstyle=\color{blue},		% 关键字样式
+	morekeywords={*,...},			% 添加关键字
+	deletekeywords={...},			% 删除关键字
+	% 行号
+	numberstyle=\small\color{mygray},% 行号样式
+	numbers=left,					% 行号位置: left, right, none
+	%numbersep=10pt,				% 行号与代码的距离
+	%firstnumber=1000,				% 开始的行号
+	%stepnumber=2,					% 每 n 行显示一个行号
+	% 空白符
+	tabsize=4,						% tab 大小
+	keepspaces=true,				% 保留源代码的缩进 (可能需要 columns=flexible)
+	showspaces=false,				% 是否把空格显示成下划线, 覆盖 showstringspaces 属性
+	showstringspaces=true,			% 是否在字符串中把空格显示成下划线
+	showtabs=false,					% 是否显示字符串中的 tab
+}
+
+% 配置各类型链接的颜色
+\usepackage[colorlinks,linkcolor=black,anchorcolor=black,citecolor=black]{hyperref}
+
+% 自定义列表样式
+\usepackage{enumitem}
+\newlist{subenum}{enumerate}{1}
+\setlist[subenum]{label=$(\arabic*)$}
+
+% 自定义定理环境
+\newtheorem{theorem}{\hspace{2em}\textbf{定理}}[section]
+
+% 自定义命令, \renewcommand 会覆盖已定义的命令
+\renewcommand\d{\mathrm{d}}
+\newcommand\dd{\,\mathrm{d}}
+\newcommand\e{\mathrm{e}}
+\renewcommand\i{\mathrm{i}}
+
+% 如果不喜欢默认字体, 可以自行指定
+%\setmainfont{Times New Roman}
+%\setCJKmainfont[BoldFont=MicrosoftYaHei, ItalicFont=KaiTi]{SimSun}
+
+% 引入新字体. 通过命令 \Freeserif 使用这个字体
+%\newfontfamily\FreeSerif{FreeSerif}
+
+% 文档信息
+\title{\LaTeX 示例 (ctexart)}	% 标题
+\date{2019-02-20}				% 日期, 如不指定则显示编译日期
+\author{zmx0142857}				% 作者
+
+% [文档开始]
+\begin{document}
+
+% 第一页: 标题
+\pagenumbering{gobble}	% 页码格式, 常见的有
+						%	gobble - 无页码
+						%	arabic - 阿拉伯数字
+						%	Roman - 大写罗马数字
+						%	roman - 小写罗马数字
+\maketitle				% 生成标题页. 如果遗漏, 标题作者等信息将不会出现
+\newpage				% 断页
+
+% 第二页: 空页
+\clearpage
+\phantom{你看不到我}	% 文字不会显示, 但占据空间
+\thispagestyle{empty}
+\newpage
+
+% 第三页: 目录
+\pagenumbering{Roman}
+\setcounter{tocdepth}{2}% 目录深度. 1 - 5 分别对应 section, subsection,
+						% subsubsection, paragraph, subparagraph.
+\tableofcontents		% 生成目录
+\newpage
+
+% 正文
+\pagenumbering{arabic}
+
+%\section{安装}
+
+\section{入门}
+\subsection{编译}
+
+\LaTeX 可以有多种目标文件, 不过最常见的还是生成 \texttt{.pdf} 文件.
+编译 \LaTeX 文档的命令是:
+
+\begin{verbatim}
+xelatex myfile.tex
+\end{verbatim}
+
+编译后一般会产生 \texttt{.aux}, \texttt{.log}, \texttt{.toc} 和
+\texttt{.pdf} 文件.  其中 \texttt{.aux} 包含生成引用的信息, \texttt{.log}
+记录了编译的详细过程, \texttt{.toc} 则专门用于目录的生成.
+如果删除这三种文件, 重新编译时它们仍会出现.
+
+\subsection{基本概念}
+
+\LaTeX \textbf{命令}一般以反斜杠 \verb|\| 开头, 后紧跟一串英文字母.
+按参数数目的多少, 常见的 \LaTeX 命令有以下几种形式:
+
+\begin{verbatim}
+\command
+\command{...}
+\command[...]{...}
+\command{...}{...}
+\end{verbatim}
+
+\verb|\LaTeX|, \verb|\usepackage{geometry}|,
+\verb|\documentclass[a4paper]{ctexart}| 都是 \LaTeX 命令.
+
+\LaTeX \textbf{环境}一般以 \verb|\begin{environment}| 开头, 以
+\verb|\end{environment}| 结束. 环境可以包含其他的环境, 从而形成树状结构.
+事实上整个文档的正文部分都位于 \texttt{document} 环境下.
+
+\subsection{文档结构}
+
+下面是一个极简主义的 \LaTeX 文档示例:
+
+\begin{verbatim}
+\documentclass{ctexart}
+\begin{document}
+    hello world!
+\end{document}
+\end{verbatim}
+
+尝试拷贝这些代码, 将它们保存成 \texttt{hello-world.tex},
+然后编译并查看结果!
+
+\texttt{ctexart} 类用于一篇中文文章, 下面可以有 \texttt{section},
+\texttt{subsection}, \texttt{subsubsection} 和 \texttt{paragraph},
+\texttt{subparagraph} 等结构.
+其中含有 \texttt{sub} 前缀的结构必须直接包含在对应的大结构下.
+使用 \texttt{section} 等结构组织文章是很有必要的, 它可以方便地生成目录.
+
+\begin{verbatim}
+\documentclass{ctexart}
+\begin{document}
+一些文字
+\section{第一节}
+一些文字
+\subsection{第一小节}
+一些文字
+\subsubsection{第一小小节}
+一些文字
+\paragraph{一个段落}
+一些文字
+\subparagraph{一个子段落}
+一些文字
+\section{第二节}
+\end{document}
+\end{verbatim}
+
+自然段之间用一个空行隔开即可. 当一行文字太长, 而 \LaTeX 不能自动断行时
+(比如一个网址), 用 \verb|\\| 手动断行.
+手动断行也应用于多行的数学公式或表格中,
+大多情况下, 应该尽可能避免手动断行.
+
+\subsection{基本排版}
+
+\paragraph{文字样式} \index{文字样式}
+
+倾斜\textit{italic},
+加粗\textbf{boldface},
+倾斜并加粗\textbf{\textit{italic-boldface}},
+等宽\texttt{typewriter}.
+
+\paragraph{文字对齐}
+
+\begin{flushleft}
+	居左 (默认)
+\end{flushleft}
+
+\begin{flushright}
+	居右
+\end{flushright}
+
+\begin{center}
+	居中
+\end{center}
+
+也可以使用 \verb|\raggedleft, \raggedright, \centering|
+来改变整个环境的文字对齐方式 (警告: 不要在 \texttt{document}
+环境下直接使用).
+
+\paragraph{注释}
+
+百分号 \texttt{\%} 右边直到行末的内容会被忽略; % 是啊, 会被忽略
+\verb|\iffalse| 和 \verb|\fi| 之间的内容会被忽略.
+
+\iffalse
+是啊,
+会被忽略
+\fi
+
+\paragraph{转义符号}
+
+$\backslash$, \$, \%, \{, \}
+
+\subsection{列表}
+
+\paragraph{无序列表}
+
+\begin{itemize}
+	\item One
+	\item Two
+\end{itemize}
+
+\paragraph{有序列表}
+
+\begin{enumerate}
+	\item One
+	\item Two
+\end{enumerate}
+
+\paragraph{定制的列表}
+
+使用 \texttt{enumitem} 包, 在导言区完成列表的定制.
+
+\begin{subenum}
+	\item One
+	\item Two
+\end{subenum}
+
+\begin{theorem}
+	在定理环境下, 防止列表序号的括号变成斜体的一个方法是将它做成行间公式.
+	请看导言区, 注意 \verb|\setlist[subenum]{label=$(\arabic*)$}|
+	这行代码中 \verb|$| 的作用.
+	\begin{subenum}
+	\item One
+	\item Two
+	\end{subenum}
+\end{theorem}
+
+\section{数学环境}
+
+本节有大量内容依赖于 \texttt{amsmath} \index{amsmath} 包和
+\texttt{amssymb} 包.  基本上只要写数学文章, 就离不开这两个包.
+
+\subsection{行间公式与独立成行的公式}
+
+行间公式和独立成行的公式各有多种写法, 推荐行间公式写在美元符号之间
+\verb|$...$|: $f(x) = \sin^2 x$.  独立成行的公式则推荐用 \verb|\[...\]|:
+\[
+	f'(x) = 2 \sin x \cos x.
+\]
+一般情况下独立成行的公式与文字之间没有空行, 表示公式属于这个自然段.
+
+需要公式标号时, 用 \texttt{equation} \index{equation} 环境:
+\begin{equation}
+	1 + 1 = 2.
+\end{equation}
+
+\subsection{\texttt{amsmath} 包提供的数学环境}
+
+\paragraph{多行公式}
+
+如果 \verb|\gather| 带给你麻烦, 也可以连用数个 \verb|\[...\]|
+或 \texttt{equation} 环境取而代之.
+\begin{gather}
+	1 + 1 = 2, \\
+	666 = 333 + 333.
+\end{gather}
+
+\paragraph{对齐的多行公式}
+\begin{align}
+	1 + 1 &= 2, \\
+	666 &= 333 + 333.
+\end{align}
+
+上面几种环境都有各自的不带标号的版本, 如:
+\begin{equation*}
+	2 + 2 = 4.
+\end{equation*}
+
+\subsection{数学环境下的文字样式} \index{文字样式}
+
+\begin{gather*}
+	ABC123 \quad
+	\mathnormal{ABCabc123} \quad
+	\mathrm{ABCabc123} \quad
+	\mathit{ABCabc123} \quad
+	\mathbf{ABCabc123} \quad
+	\bm{ABCabc123} \\
+	\mathsf{ABCabc123} \quad
+	\mathtt{ABCabc123} \quad
+	\mathfrak{ABCabc123} \quad
+	\mathcal{ABC} \quad
+	\mathbb{ABC} \quad
+	\mathscr{ABC}
+\end{gather*}
+\verb|\bm| 需要 \texttt{bm} 包, \verb|\mathscr|
+需要 \texttt{mathrsfs} 包.
+
+\subsection{数学环境下的符号}
+
+\paragraph{空白符}
+
+\verb|\!| 可以缩小间距.
+\[
+	| \! | | \, | \: | \; | \quad |
+\]
+
+\paragraph{希腊字母}
+
+使用希腊字母的拉丁文名即可.
+以大写字母开头的名字表示大写希腊字母.
+\[
+	\alpha, \pi, \chi,
+	\Gamma, \Omega,
+	\sigma, \varsigma,
+	\epsilon, \varepsilon, \phi, \varphi
+\]
+
+\paragraph{比较运算符}
+\[
+	=, \ne, \approx, >, <, \geq, \geqslant, \leq, \leqslant,
+	\equiv, \triangleq, \cong,
+	\supset, \subset, \supseteq, \subseteq,
+	\sim, \gg, \ll, \unlhd, \lhd
+\]
+
+\paragraph{二元运算符}
+\[
+	+, -, \times, \div, /, \pm, \mp,
+	\cup, \cap, \vee, \wedge, \oplus, \otimes
+\]
+
+\paragraph{数学函数}
+\begin{gather*}
+	\sin, \cos, \tan, \cot, \csc, \sec,
+	\arcsin, \arccos, \arctan,
+	\sinh, \cosh, \tanh, \coth \\
+	\gcd, \dim, \ker, \min, \max,
+	\log, \ln, \lg
+\end{gather*}
+
+\paragraph{积分}
+\[
+	\int, \iint, \iiint,
+	\int \!\!\! \int \!\!\! \int,
+	\idotsint, \oint
+\]
+
+\paragraph{箭头}
+\[
+	\rightarrow, \leftarrow, \leftrightarrow,
+	\implies, \Leftrightarrow,
+	\xrightarrow[ \{1\} {[2]} ]{ [3] \{4\} }
+\]
+
+\paragraph{括弧}
+\[
+	(a), [b], \{c\}, |d|, \|e\|,
+	\langle f \rangle,
+	\lfloor g \rfloor,
+	\lceil h \rceil,
+	\ulcorner i \urcorner,
+	\left(\frac 1 j \right)
+\]
+
+\paragraph{省略号}
+\[
+	| \dots, \cdots, \ldots, \cdots, \vdots, \ddots |
+\]
+
+\begin{enumerate}
+	\item dots with commas: $A_1, A_2, \dotsc, A_n$
+	\item dots with binary operators: $A_1 + A_2 + \dotsb + A_n$
+	\item dots with multiplication: $A_1 A_2 \dotsm A_n$
+	\item dots with integrals: $\int \dotsi$
+	\item other dots: $A_1 A_2 \dotso A_n$
+\end{enumerate}
+
+\paragraph{其他}
+\[
+	\forall, \exists, \aleph, \in, \notin, \complement,
+	\propto, \perp, \parallel, \angle,
+	\emptyset, \varnothing, \S, \nabla, \partial,
+	\infty, \neg,
+	\circ, 90^\circ, \square, \triangle,
+\]
+
+注意, 只要你使用 utf-8 编码保存源文件, 并使用 \texttt{xelatex} 编译,
+代码中的 unicode 字符一般都能被正常识别 (只要指定了合适的字体).
+
+\subsection{常见的数学表达式}
+
+\paragraph{注音符号}
+\[
+	x' \quad x'' \quad x''' \quad
+	\dot x \quad \ddot x \quad
+	\hat x \quad
+	\bar x \quad \acute x \quad \check x \quad \grave x \quad
+	\breve x \quad \tilde x \quad
+	\not x \quad \vec x
+\]
+\[
+	\overrightarrow{AB} \quad \overleftarrow{AB} \quad
+	\overline{abc} \quad \underline{abc} \quad
+	\widehat{abc} \quad \widetilde{abc} \quad
+\]
+
+\paragraph{上下标}
+
+两种先后次序都可以, 但要坚持使用其中一种.
+\[
+	x_1^3 + x^3_2 \quad
+	x_{22}^{10} \quad
+	{}_{22}^{10} x
+\]
+
+\paragraph{根式}
+\[
+	\sqrt x \quad \sqrt{x^2+1} \quad \sqrt[n]{n}
+\]
+
+\paragraph{分式}
+
+行内分式会缩小: $\frac 1 x$, 但可以强制放大: $\dfrac{1}{x}$. 但是 \LaTeX
+的哲学是尽可能使用默认行为, 因此强制放大是不推荐的.
+\[
+	\frac 1 2 \quad
+	\frac{1}{12} \quad
+	\frac{1+\sqrt x}{\frac 1 x -x^2} \quad
+	1 + \cfrac{1}{2 +
+		\cfrac{1}{2 +
+		\cfrac{1}{\cdots}}}
+\]
+
+\paragraph{大运算符}
+
+其中 \verb|\dd| 是自定义命令.
+行间的大运算符会缩小: $\sum_{k=1}^n$, 但可以强制放大:
+$\sum\limits_{k=1}^n$. 同上, 不推荐强制放大.
+\[
+	\sum_{k=1}^n \binom{n}{k} \quad
+	\prod_p \frac{1}{p^s} \quad
+	\bigcap_{i=1}^n A_i \quad
+	\bigcup_{i=1}^n B_i \quad
+	\lim_{n \to \infty} \quad
+	\sup_{n \geqslant k} \quad
+	\inf_{\substack{x < a \\ x \in \mathbb Q}} \quad
+	\int_a^b f(x) dx \quad
+	\int_a^b f(x) \dd x
+\]
+\[
+	\iiint\limits_\Omega \quad
+	\limsup_{n \to \infty} \quad
+	\liminf_{n \to \infty} \quad
+	\varlimsup_{n \to \infty} \quad
+	\varliminf_{n \to \infty}
+\]
+
+\paragraph{导数}
+
+其中 \verb|\d| 是自定义命令
+\[
+	f'(x) \quad f''(x) \quad f'''(x) \quad f^{(n)}(x) \quad
+	\frac{du}{dt} \quad
+	\frac{\d u}{\d t} \quad
+	\frac{\d^2 u}{\d t^2} \quad
+	\frac{\partial u}{\partial t}
+\]
+
+\paragraph{矩阵}
+
+使用 \texttt{array} 比较麻烦, 不过可以指定每一列的水平对齐方式,
+有 \texttt{l, c, r} 三种. 而且 \texttt{array} 可以插入分隔线.
+\[
+	\begin{matrix}
+		-1 &2 \\
+		3 &-4
+	\end{matrix}
+	\quad
+	\begin{array}{rr}
+		-1 &2 \\
+		3 &-4
+	\end{array}
+	\quad
+	\begin{matrix*}[r]
+		-1 &2 \\
+		3 &-4
+	\end{matrix*}
+	\quad
+	\begin{pmatrix}
+		1 &2 \\
+		3 &4
+	\end{pmatrix}
+	\quad
+	\begin{bmatrix}
+		1 &2 \\
+		3 &4
+	\end{bmatrix}
+	\quad
+	\begin{Bmatrix}
+		1 &2 \\
+		3 &4
+	\end{Bmatrix}
+	\quad
+	\begin{vmatrix}
+		1 &2 \\
+		3 &4
+	\end{vmatrix}
+	\quad
+	\begin{Vmatrix}
+		1 &2 \\
+		3 &4
+	\end{Vmatrix}
+\]
+行间矩阵:
+$\left[ \begin{smallmatrix} a & b \\ c & d \end{smallmatrix} \right]$.
+\[
+	\left[
+	\begin{array}{c|c}
+		1 &2 \\
+		\hline
+		3 &4
+	\end{array}
+	\right]
+	\quad
+	\begin{bmatrix}
+		a_{11}	&a_{12}	&\cdots	&a_{1n}	\\
+		a_{21}	&a_{22}	&\cdots	&a_{2n}	\\
+		\vdots	&\vdots	&\ddots	&\vdots	\\
+		a_{m1}	&a_{m2}	&\cdots	&a_{mn}
+	\end{bmatrix}
+	\quad
+	\bordermatrix{
+		~	&x_1	&x_2	\cr
+		A	&1		&0		\cr
+		B	&0		&1		\cr
+	}
+\]
+
+\paragraph{分支公式}
+\[
+	|x| = \begin{cases}
+		x,  &x \geqslant 0; \\
+		-x, &x < 0.
+	\end{cases}
+\]
+
+\paragraph{杂例}
+\[
+	\frac{
+		\begin{matrix*}[r]
+			88 \\
+			\times 88
+		\end{matrix*}
+	}{
+		7744
+	}
+	\quad
+	\left. \frac{x^3}{3} \right|_0^1
+	\quad
+	f \big( g(x) \big)
+\]
+
+\section{浮动环境}
+
+\subsection{图片}
+
+插图只需一条 \verb|\includegraphics| 命令. 文件名可以是绝对路径,
+也可以是相对路径. 如果图片和源码在同一目录下, 直接写文件名即可.
+\includegraphics[width=0.06\linewidth]{raindrop-adventure.png}
+
+\texttt{figure} 环境是一种浮动环境, 会自行决定插图的位置.
+有时会使图片跑到其他段落之间. 使用 \texttt{float} 包的 \verb|H|
+选项使图片留在原位置.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.3\linewidth]{raindrop-adventure.png}
+	\caption{\texttt{figure} 环境需要 \texttt{graphicx} 包}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{0.3\linewidth}
+		\includegraphics[width=\linewidth]{raindrop-adventure.png}
+		\caption{左图}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.3\linewidth}
+		\includegraphics[width=\linewidth]{raindrop-adventure.png}
+		\caption{右图}
+	\end{subfigure}
+	\caption{\texttt{subfigure} 环境需要 \texttt{subcaption} 包}
+\end{figure}
+
+\subsection{表格}
+
+表格类似于数学环境的 \texttt{array}, 但最后一行必须用
+\verb|\\| 断行:
+\begin{tabular}{ccc}
+	\hline
+	a &b &c \\
+	\hline
+	1 &2 &3 \\
+	\hline
+\end{tabular}
+
+\begin{table}[H]
+\centering
+\caption{\texttt{tabularx} 环境需要 \texttt{tabularx} 包}
+\label{bala}
+\begin{tabularx}{400pt}{c|X}
+	\hline
+	1 &balabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabala \\
+	\hline
+	2 &balabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabala \\
+	\hline
+\end{tabularx}
+\end{table}
+
+跨行单元格 (\texttt{multirow} 包), 单元格内断行 (\texttt{makecell} 包),
+适当长度的横线 (\texttt{booktabs} 包):
+\begin{center}
+\begin{tabular}{ccccc}
+	\hline
+		\multirow{2}{40pt}{哔哩哔哩哔哩哔哩}
+		&\makecell{哔哩\\哔哩}
+		&\makecell{哔哩\\哔哩}
+		&\makecell{哔哩\\哔哩}
+		&\makecell{哔哩\\哔哩} \\
+	\cmidrule{2-5}
+		&1 &2 &3 &4 \\
+	\hline
+\end{tabular}
+\end{center}
+
+\subsection{代码}
+
+直接写的代码:
+
+\begin{lstlisting}[language=c, caption={hello world}]
+/* 
+ * output hello world string
+ */
+#include <stdio.h>
+int main()
+{
+	// also support chinese characters
+	printf("hello world 你好 世界\n");
+	return 0;
+}
+\end{lstlisting}
+
+外部文件中的代码:
+\lstinputlisting[language=c]{hello.c}
+
+使用笔者所用的 \LaTeX 编译器, 背景色出现了白色断层, 这在中文上方特别明显.
+
+\section{引用}
+
+\subsection{标签, 链接与脚注}
+
+\paragraph{标签}
+
+在公式, 定理或浮动环境内使用 \verb|\label{...}|, 再用 \verb|ref{...}|
+引用: 表\ref{bala}.
+
+\paragraph{链接}
+
+使用 \texttt{hyperref} 包, 再用 \verb|\href{...}{...}| 引入链接:
+\href{https://en.wikibooks.org/wiki/LaTeX}{\LaTeX wikibook},
+\href{https://tex.stackexchange.com}{\TeX stackexchange},
+\href{https://zmx0142857.github.io/math-note/}{zmx0142857 的数学笔记}.
+其中第一个链接是详细的 \LaTeX 的参考文档, 第二个链接是 \LaTeX 回答社区,
+第三个是笔者的广告.
+
+\paragraph{脚注}
+
+我右边有个脚注\footnote{我是脚注}.
+
+\subsection{目录与索引}
+
+\paragraph{目录}
+
+一般在文章标题页后面, 正文的前面, 使用 \verb|\tableofcontents| 命令生成.
+含有目录的文档, 需要用 \texttt{xelatex} 编译两遍才能得到正确的目录.
+
+\paragraph{索引}
+
+索引一般用于标示术语在文章中出现的位置.
+使用索引时, 在导言区添加 \texttt{makeidx} 包并使用 \verb|\makeindex| 命令,
+接着在正文中需要索引的位置使用 \verb|\index{...}| 插入索引,
+最后在合适的位置 (一般是文章末尾) 用 \verb|\printindex| 列出索引即可.
+含有索引的文档应当按下面的步骤编译:
+
+\begin{verbatim}
+xelatex myfile.tex
+makeindex myfile.idx
+xelatex myfile.tex
+\end{verbatim}
+
+\subsection{参考文献}
+
+参考文献一般位于文章末尾, 索引的前面.
+
+\paragraph{内嵌参考文献}
+
+如果你只是写一篇短文章, 引用了少量文献, 不想浪费时间在管理参考文献库上,
+那么内嵌的方式就足够了. 这里引用了 \cite{book1} 这本书.
+
+\begin{thebibliography}{9}
+	\bibitem{book1}
+		某作者,
+		\emph{书的标题},
+		某出版社,
+		某年月日.
+\end{thebibliography}
+
+\paragraph{使用 \texttt{bibtex}}
+
+这超出了本文档作者的能力范围.
+
+\printindex
+
+% [文档结束]
+\end{document}
+
+文档结束后的内容是不可见的.
+
+未添加的内容: 封面, \include, 页眉页脚

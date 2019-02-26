@@ -18294,6 +18294,7 @@ semaphore 旗语
 semarang 三宝垄
 semblance 外表
 semester 学期
+semicolon 分号
 seminar 讨论会
 senate 参议院
 senator 参议员
@@ -23943,3 +23944,4 @@ zymosis 传染病
 zymosis 发酵
 zymotic 发酵
 zymurgy 酿造学
+miscellaneous 其他 杂项

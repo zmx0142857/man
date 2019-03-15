@@ -164,7 +164,7 @@ gzip zip rar tar rpm and so on - compress and extract archives
 
 	example:
 
-	$ tar -vxgf file.tar.gz			# extract
+	$ tar -xzvf file.tar.gz			# extract
 	$ tar -cvgpf file.tar.gz file	# make
 
 * zip - .zip
@@ -211,3 +211,9 @@ df - check filesystems
 	-T		show filesystem type and used percentage and so on
 
 pavucontrol - deal with sound problem
+
+get system info
+
+	getconf LONG_BIT
+	uname -a
+	lsb_release -a

@@ -7,8 +7,7 @@
 % [文档类型]
 % ctexart 类用于中文文章, 英文文章则使用 article 类.
 % 如果未指定 a4paper, 默认使用的纸张是 usletter, 比 A4 短而宽.
-% hyperref 用于生成 pdf 目录, 方便 pdf 阅读器的使用
-\documentclass[a4paper,hyperref]{ctexart}
+\documentclass[a4paper]{ctexart}
 
 % [导言区]
 % 在这里添加需要的包. 多个包可以用逗号隔开放在同一行, 也可以独立成行.
@@ -16,6 +15,8 @@
 
 % 设置页边距, 如果未使用这个包, 页边距会宽些.
 \usepackage{geometry}
+% 也可以通过参数自定义页边距
+%\usepackage[left=2.5cm,right=2cm,top=2.5cm,bottom=2cm]{geometry}
 
 \usepackage{amsmath}			% 提供 align 等数学环境
 \usepackage{amssymb}			% 提供常用符号
@@ -23,7 +24,7 @@
 \usepackage{bm}					% 粗斜体
 \usepackage{mathrsfs}			% 花体
 
-\usepackage{float}				% 浮动体控制
+\usepackage{float}				% 浮动体控制 比如 [H]
 
 \usepackage{graphicx}			% 图片
 \usepackage{subcaption}			% 组图
@@ -35,6 +36,8 @@
 \usepackage{booktabs}			% 在表格内画横线
 
 \usepackage{listings}			% 在文档中添加代码
+
+\usepackage{blindtext}			% 用 \blindtext 添加 balabala 的文字
 
 \usepackage{makeidx}			% 索引
 \makeindex
@@ -82,6 +85,7 @@
 }
 
 % 配置各类型链接的颜色
+% 引入 hyperref 包, 将生成 pdf 目录, 方便 pdf 阅读器的使用
 \usepackage[colorlinks,linkcolor=black,anchorcolor=black,citecolor=black]{hyperref}
 
 % 自定义列表样式
@@ -107,28 +111,25 @@
 
 % 文档信息
 \title{\LaTeX 示例 (ctexart)}	% 标题
-\date{2019-02-20}				% 日期, 如不指定则显示编译日期
 \author{zmx0142857}				% 作者
+%\date{2019-02-20}				% 如不指定则显示编译日期.
+								% 不想要显示日期的话, 用 \date{} 即可.
 
 % [文档开始]
 \begin{document}
 
-% 第一页: 标题
+% 标题页
 \pagenumbering{gobble}	% 页码格式, 常见的有
 						%	gobble - 无页码
 						%	arabic - 阿拉伯数字
 						%	Roman - 大写罗马数字
 						%	roman - 小写罗马数字
+						% 此命令应用于页面开头.
+
 \maketitle				% 生成标题页. 如果遗漏, 标题作者等信息将不会出现
 \newpage				% 断页
 
-% 第二页: 空页
-\clearpage
-\phantom{你看不到我}	% 文字不会显示, 但占据空间
-\thispagestyle{empty}
-\newpage
-
-% 第三页: 目录
+% 目录
 \pagenumbering{Roman}
 \setcounter{tocdepth}{2}% 目录深度. 1 - 5 分别对应 section, subsection,
 						% subsubsection, paragraph, subparagraph.
@@ -256,7 +257,7 @@ xelatex myfile.tex
 
 \paragraph{转义符号}
 
-$\backslash$, \$, \%, \{, \}
+$\backslash$, \$, \%, \{, \}, \_
 
 \subsection{列表}
 
@@ -337,7 +338,7 @@ $\backslash$, \$, \%, \{, \}
 \subsection{数学环境下的文字样式} \index{文字样式}
 
 \begin{gather*}
-	ABC123 \quad
+	ABCabc123 \quad
 	\mathnormal{ABCabc123} \quad
 	\mathrm{ABCabc123} \quad
 	\mathit{ABCabc123} \quad
@@ -359,7 +360,7 @@ $\backslash$, \$, \%, \{, \}
 
 \verb|\!| 可以缩小间距.
 \[
-	| \! | | \, | \: | \; | \quad |
+	| \! | | \, | \: | \; | \quad | \qquad |
 \]
 
 \paragraph{希腊字母}
@@ -531,42 +532,42 @@ $\sum\limits_{k=1}^n$. 同上, 不推荐强制放大.
 \[
 	\begin{matrix}
 		-1 &2 \\
-		3 &-4
+		3 &-4 \\
 	\end{matrix}
 	\quad
 	\begin{array}{rr}
 		-1 &2 \\
-		3 &-4
+		3 &-4 \\
 	\end{array}
 	\quad
 	\begin{matrix*}[r]
 		-1 &2 \\
-		3 &-4
+		3 &-4 \\
 	\end{matrix*}
 	\quad
 	\begin{pmatrix}
 		1 &2 \\
-		3 &4
+		3 &4 \\
 	\end{pmatrix}
 	\quad
 	\begin{bmatrix}
 		1 &2 \\
-		3 &4
+		3 &4 \\
 	\end{bmatrix}
 	\quad
 	\begin{Bmatrix}
 		1 &2 \\
-		3 &4
+		3 &4 \\
 	\end{Bmatrix}
 	\quad
 	\begin{vmatrix}
 		1 &2 \\
-		3 &4
+		3 &4 \\
 	\end{vmatrix}
 	\quad
 	\begin{Vmatrix}
 		1 &2 \\
-		3 &4
+		3 &4 \\
 	\end{Vmatrix}
 \]
 行间矩阵:
@@ -576,7 +577,7 @@ $\left[ \begin{smallmatrix} a & b \\ c & d \end{smallmatrix} \right]$.
 	\begin{array}{c|c}
 		1 &2 \\
 		\hline
-		3 &4
+		3 &4 \\
 	\end{array}
 	\right]
 	\quad
@@ -584,7 +585,7 @@ $\left[ \begin{smallmatrix} a & b \\ c & d \end{smallmatrix} \right]$.
 		a_{11}	&a_{12}	&\cdots	&a_{1n}	\\
 		a_{21}	&a_{22}	&\cdots	&a_{2n}	\\
 		\vdots	&\vdots	&\ddots	&\vdots	\\
-		a_{m1}	&a_{m2}	&\cdots	&a_{mn}
+		a_{m1}	&a_{m2}	&\cdots	&a_{mn} \\
 	\end{bmatrix}
 	\quad
 	\bordermatrix{
@@ -598,7 +599,7 @@ $\left[ \begin{smallmatrix} a & b \\ c & d \end{smallmatrix} \right]$.
 \[
 	|x| = \begin{cases}
 		x,  &x \geqslant 0; \\
-		-x, &x < 0.
+		-x, &x < 0.			\\
 	\end{cases}
 \]
 
@@ -606,8 +607,8 @@ $\left[ \begin{smallmatrix} a & b \\ c & d \end{smallmatrix} \right]$.
 \[
 	\frac{
 		\begin{matrix*}[r]
-			88 \\
-			\times 88
+			88			\\
+			\times 88	\\
 		\end{matrix*}
 	}{
 		7744
@@ -618,13 +619,13 @@ $\left[ \begin{smallmatrix} a & b \\ c & d \end{smallmatrix} \right]$.
 	f \big( g(x) \big)
 \]
 
-\section{浮动环境}
+\section{浮动环境与外部文件}
 
 \subsection{图片}
 
 插图只需一条 \verb|\includegraphics| 命令. 文件名可以是绝对路径,
 也可以是相对路径. 如果图片和源码在同一目录下, 直接写文件名即可.
-\includegraphics[width=0.06\linewidth]{raindrop-adventure.png}
+\includegraphics[width=0.06\linewidth]{raw/raindrop-adventure.png}
 
 \texttt{figure} 环境是一种浮动环境, 会自行决定插图的位置.
 有时会使图片跑到其他段落之间. 使用 \texttt{float} 包的 \verb|H|
@@ -632,18 +633,18 @@ $\left[ \begin{smallmatrix} a & b \\ c & d \end{smallmatrix} \right]$.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.3\linewidth]{raindrop-adventure.png}
+	\includegraphics[width=0.25\linewidth]{raw/raindrop-adventure.png}
 	\caption{\texttt{figure} 环境需要 \texttt{graphicx} 包}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\begin{subfigure}[b]{0.3\linewidth}
-		\includegraphics[width=\linewidth]{raindrop-adventure.png}
+	\begin{subfigure}[b]{0.25\linewidth}
+		\includegraphics[width=\linewidth]{raw/raindrop-adventure.png}
 		\caption{左图}
 	\end{subfigure}
-	\begin{subfigure}[b]{0.3\linewidth}
-		\includegraphics[width=\linewidth]{raindrop-adventure.png}
+	\begin{subfigure}[b]{0.25\linewidth}
+		\includegraphics[width=\linewidth]{raw/raindrop-adventure.png}
 		\caption{右图}
 	\end{subfigure}
 	\caption{\texttt{subfigure} 环境需要 \texttt{subcaption} 包}
@@ -651,8 +652,7 @@ $\left[ \begin{smallmatrix} a & b \\ c & d \end{smallmatrix} \right]$.
 
 \subsection{表格}
 
-表格类似于数学环境的 \texttt{array}, 但最后一行必须用
-\verb|\\| 断行:
+表格类似于数学环境的 \texttt{array}.
 \begin{tabular}{ccc}
 	\hline
 	a &b &c \\
@@ -663,8 +663,6 @@ $\left[ \begin{smallmatrix} a & b \\ c & d \end{smallmatrix} \right]$.
 
 \begin{table}[H]
 \centering
-\caption{\texttt{tabularx} 环境需要 \texttt{tabularx} 包}
-\label{bala}
 \begin{tabularx}{400pt}{c|X}
 	\hline
 	1 &balabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabala \\
@@ -672,6 +670,8 @@ $\left[ \begin{smallmatrix} a & b \\ c & d \end{smallmatrix} \right]$.
 	2 &balabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabala \\
 	\hline
 \end{tabularx}
+\caption{\texttt{tabularx} 环境需要 \texttt{tabularx} 包}
+\label{bala}
 \end{table}
 
 跨行单元格 (\texttt{multirow} 包), 单元格内断行 (\texttt{makecell} 包),
@@ -702,15 +702,34 @@ $\left[ \begin{smallmatrix} a & b \\ c & d \end{smallmatrix} \right]$.
 int main()
 {
 	// also support chinese characters
-	printf("hello world 你好 世界\n");
+	printf("hello world\n");
 	return 0;
 }
 \end{lstlisting}
 
 外部文件中的代码:
-\lstinputlisting[language=c]{hello.c}
+\lstinputlisting[language=c]{raw/hello.c}
 
 使用笔者所用的 \LaTeX 编译器, 背景色出现了白色断层, 这在中文上方特别明显.
+这是 \LaTeX 不尽如人意的地方.
+
+\subsection{包含外部文件}
+
+撰写长篇文档时, 常将各章节分别放在不同的 \LaTeX 文档中, 再以
+\verb|\include{...}| 命令统一包含进来.
+这个命令相当于将外部文件的源码复制到使用命令的位置 (并且自动断页),
+因此外部文件不需要 \texttt{document} 环境, 也没有导言区.
+另一个命令 \verb|\input{...}| 则不会自动断页.
+注意, 指定外部文件时, 不需要写 \texttt{.tex} 后缀, 否则会提示找不到文件.
+
+下面是通过 \verb|\input{...}| 命令与 \texttt{blindtext} 包插入的一段废话.
+
+\input{raw/balabala}
+
+接下来的两页是通过 \verb|\include{...}| 命令加入的.
+它们同时也是很好的文档封面的示例.
+
+\include{raw/covers}
 
 \section{引用}
 
@@ -783,4 +802,4 @@ xelatex myfile.tex
 
 文档结束后的内容是不可见的.
 
-未添加的内容: 封面, \include, 页眉页脚
+未添加的内容: 页眉页脚

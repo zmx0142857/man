@@ -11,6 +11,7 @@
 环境变量
 
 	控制面板->搜索"环境变量"->编辑。注意环境变量有用户的和系统的之分。
+	一般为了在 cmd 中运行程序 （如 gcc），会修改系统的 path 环境变量。
 
 系统配置
 
@@ -21,6 +22,8 @@
 	
 	扩展名关联规定了特定后缀的文件的打开方式。
 	控制面板->程序->默认程序
+	ftype /?
+	assoc /?
 
 自定义右键菜单
 
@@ -32,6 +35,36 @@
 	现在可以从资源管理器左侧目录树中看到装载的光盘。
 	运行光盘中的 setup 或 install 程序。
 	当需要插入下一张光盘时，弹出当前光盘，再装载下一个镜像文件。
+
+启用 windows 10 的图片与传真查看器 (Photo Viewer)
+
+	参考: https://www.howtogeek.com/225844/how-to-make-windows-photo-viewer-your-default-image-viewer-on-windows-10/
+
+	如果你的 windows 10 是从 win 7 或 win 8 升级而来的，它很可能已经带有
+	Photo Viewer。如果你的 windows 10 是全新安装的，Photo Viewer 默认不会启用，
+	它以 dll 的形式存在。下面的命令是启动它的一种方法 (%1 表示要查看的图片文件)
+	
+		rundll32.exe c:\windows\system32\shimgvw.dll,ImageView_Fullscreen %1
+
+	另一种有风险的方法是修改注册表。参考以上链接。
+
+自动运行 batch 脚本
+
+	在 windows 启动时: 将脚本拷贝到
+
+		C:\Windows\System32\GroupPolicy\Machine\Scripts\Startup
+
+	并打开组策略作相关设定。
+
+	在用户登录时: 将脚本拷贝到
+
+		C:\Windows\System32\GroupPolicy\User\Scripts\Logon
+
+	并打开组策略作相关设定。
+	
+	在 cmd 启动时: 修改注册表
+
+	HKEY_CURRENT_USER\Software\Microsoft\Command Processor\AutoRun="脚本路径"
 
 ----应用精选----
 

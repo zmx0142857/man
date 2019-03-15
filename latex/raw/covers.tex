@@ -1,0 +1,38 @@
+% 封面页
+\begin{center}
+	\phantom{空行}
+	\vspace{2em} % 用 \vspace 指定垂直距离, 相应的 \hspace 指定水平距离
+	\includegraphics[width=0.35\linewidth]{raw/lzu-logo-black.png}
+	\vspace{9em}
+
+	% 一般而言, small, large, Large, Huge 等字号已经够用,
+	% 不过还是可以自定义文字大小和行高.
+	\fontsize{1.2cm}{2.5cm} \textbf{调查报告}
+\end{center}
+
+\vspace{5em}
+
+\begin{center}
+\Large
+\begin{tabular}{cc}
+	报告标题			&排版系统: \LaTeX, word 还是 html?				\\
+	\cmidrule{2-2}														\\
+	作\qquad 者			&某作者											\\
+	\cmidrule{2-2}														\\
+	单\qquad 位			&某单位											\\
+	\cmidrule{2-2}														\\
+\end{tabular}
+\end{center}
+\thispagestyle{empty} % 去掉页眉页脚的文字. 用于页面末尾, \newpage 之前.
+\newpage
+
+% 整页的图片, 适合用作衬底/封面
+\ThisCenterWallPaper{1}{raw/pinecone.jpg} % 1 表示图片尽可能占满整张纸
+\thispagestyle{empty}
+\newpage
+
+% 空页. 想让上一页的图片单独显示而不是作为文字的衬底, 就需要空页
+\clearpage
+\phantom{你看不到我}	% 文字不会显示, 但占据空间
+\thispagestyle{empty}
+\newpage

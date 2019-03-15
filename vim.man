@@ -232,6 +232,7 @@ tab ctrl-i				# insert a tab if under insert mode
 >>						# indent
 n>>						# indent n lines
 <<						# unindent
+=						# auto indent; gg=G to indent the whole file
 
 # ---------------- fold & unfold code ------------
 

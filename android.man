@@ -16,3 +16,6 @@ usb debug
 
 	$ adb uninstall com.your-site.www.your-app
 	$ adb install your-app.apk
+
+import
+	import android.view.View;

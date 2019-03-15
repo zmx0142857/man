@@ -1,10 +1,12 @@
+----install-configure---------------------------------------------------
+
 mariadb - a replacement for mysql
 
 	$ sudo apt install mariadb-server
 
 	optional:
 
-	$ sudo apt install mariadb-client-core-10.0
+	$ sudo apt install mariadb-client-core-10.1
 
 	optional: install workbench (free) or navicat (14 days trial) to work
 	under GUI.
@@ -43,6 +45,10 @@ or	$ sudo mysqladmin -u root -p shutdown
 	restart mysql server:
 
 	$ sudo service mysql restart
+
+errors
+
+vi /var/log/mysql/error.log
 
 login to mysql
 
@@ -104,7 +110,7 @@ create user
 	2. with grant option allows the new user to grant his privileges to
 	   others.
 
------------------------simple-query---------------------------------------
+----query---------------------------------------------------------------
 
 sql wildcards
 
@@ -135,6 +141,16 @@ create and drop
 
 	delete table (do not try this)
 	> drop table people;
+
+	================
+	type		byte
+	----------------
+	char		1
+	tinyint		1
+	smallint	2
+	int			4
+	bigint		8
+	================
 
 insert into and update
 
@@ -169,7 +185,8 @@ show and select
 	> select * from people where age between 18 and 20;
 	> select * from people where age >= 18 and age <= 20;
 
-	[NOTE] relational operators
+	==============================
+	relational operators
 
 		=		euqal
 		<>		inequal
@@ -179,6 +196,7 @@ show and select
 		>=		│
 		between	┘
 		like	search for pattern
+	==============================
 
 	order by ascend is default
 
@@ -189,13 +207,11 @@ show and select
 
 	> select concat(name, ' is ', age, ' years old') from people;
 
--------------------------more-complicated-query-------------------------
-
 join on
 
 	select from more than one tables
 
-	> select select district, continent from city join country
+	> select district, continent from city join country
 		on city.countrycode = country.code
 		where city.name = 'Wuhan';
 
@@ -230,12 +246,62 @@ group by
 	> select continent, sum(GNP) from country group by continent having
 		sum(GNP) > 1000000;
 
-	[NOTE] statistics functions
+	=========================
+	statistics functions
 
 		sum count avg max min
+	=========================
 
--------------------------------------------------------------------------
+----import-&-export------------------------------------------------------
 
-errors
+export to backup
 
-vi /var/log/mysql/error.log
+	backup a database
+
+	$ mysqldump -u <username> -p <db> <table1> <table2> ... > backup.sql
+
+	backup databases
+
+	$ mysqldump -u <username> -p --databases <db1> <db2> ... > backup.sql
+
+	backup everything
+
+	$ mysqldump -u <username> -p -all-databases > backup.sql
+
+import from mysqldump
+
+	mysql -u <username> -p < backup.sql
+
+mysqlhotcopy -- a useful tool for mysql backup
+
+	download perl support: http://dev.mysql.com/downloads/dbi.html
+	this tool supports tables of MyISAM type only,
+	tables of InnoDB type cannot be copied directory
+
+	$ mysqlhotcopy [option] <db1> <db2> ... backup_dir/
+
+import from excel
+
+	export excel file as .csv file (in utf-8 encoding)
+	in mysql workbench, rightclick table -> import wizard -> next -> next
+	-> next -> waiting... -> ok
+
+----ternumx-mariadb------------------------------------------------------
+
+install
+
+	$ apt install mariadb
+	$ mysql_install_db
+
+start
+
+	$ mysqld &
+	^C
+
+login as root
+
+	$ mysql -u root
+
+login as user
+
+	$ mysql

@@ -1,21 +1,56 @@
-map
+directories
 
 	java source code - app/src/main/java/com/your-site/www/your-app/
 	layout xml - app/src/main/res/layout/
 	string values xml - app/src/main/res/values/
 	built apk file - app/build/outputs/apk/
 
-build project
-
-	$ cd /your/project/directory
-	$ gradle build
-
-usb debug
+build project and install to the phone
 
 	connect your phone to the computer through usb.
+	on the phone choose 'transfer files' mode
+	tap build number several times to enter developer mode
+	find usb-debug and open it, choose 'allow'
 
-	$ adb uninstall com.your-site.www.your-app
-	$ adb install your-app.apk
+	on desktop:
+	$ cd /your/project/directory
+	$ ln -s app/build/outputs/apk .
+
+	to build & install:
+	$ ./gradlew build
+	$ adb install -r apk/debug/app-debug.apk
 
 import
-	import android.view.View;
+
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.LinearLayoutManager;
+
+import android.os.Bundle;
+
+import android.app.Dialog;
+
+import android.content.Intent;
+import android.content.Context;
+
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.text.format.DateFormat;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;

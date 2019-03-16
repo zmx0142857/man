@@ -1,8 +1,8 @@
 % [重要提示]
 % 编译本文档的命令是:
-% xelatex latex-ctexart.tex
-% makeindex latex-ctexart.tex
-% xelatex latex-ctexart.tex
+% xelatex latex-example.tex
+% makeindex latex-example.idx
+% xelatex latex-example.tex
 
 % [文档类型]
 % ctexart 类用于中文文章, 英文文章则使用 article 类.
@@ -56,7 +56,7 @@
 	title=\lstname,					% 显示文件名或 caption
 	captionpos=b,					% 代码标题位置: bottom
 	backgroundcolor=\color{myblue},	% 背景色
-	basicstyle=\linespread{0.9}\ttfamily, % 字体及行距
+	basicstyle=\ttfamily, 			% 字体及行距
 	escapeinside={\%*}{*)},			% 在代码中使用 LaTeX
 	commentstyle=\color{mygreen},	% 注释样式
 	stringstyle=\color{mymauve},	% 字符串样式
@@ -257,7 +257,7 @@ xelatex myfile.tex
 
 \paragraph{转义符号}
 
-$\backslash$, \$, \%, \{, \}, \_
+$\backslash$, \$, \%, \{, \}
 
 \subsection{列表}
 
@@ -701,7 +701,6 @@ $\left[ \begin{smallmatrix} a & b \\ c & d \end{smallmatrix} \right]$.
 #include <stdio.h>
 int main()
 {
-	// also support chinese characters
 	printf("hello world\n");
 	return 0;
 }
@@ -710,8 +709,7 @@ int main()
 外部文件中的代码:
 \lstinputlisting[language=c]{raw/hello.c}
 
-使用笔者所用的 \LaTeX 编译器, 背景色出现了白色断层, 这在中文上方特别明显.
-这是 \LaTeX 不尽如人意的地方.
+注意: 尝试缩小代码的行距 (\verb|basicstyle=\linespread{0.9}\ttfamily|) 将导致背景色出现白色断层.
 
 \subsection{包含外部文件}
 

@@ -8,6 +8,21 @@ set locale as en US
 
 	$ export LC_ALL=en_US.utf8
 
+customize user folder
+
+	$ vim ~/.config/user-dirs.dirs
+
+hide trash icon
+
+	install gnome tweak from ubuntu software
+	start tweaks from application menu
+	desktop -> trash
+
+edit apt sources
+
+	export EDITOR=vim
+	apt edit-sources
+
 # app ----------------------------------------------------------
 
 vim - text editor
@@ -21,6 +36,8 @@ vim - text editor
 	(Visit https://github.com/VundleVim/Vundle.vim for details.)
 
 	Launch vim and run :PluginInstall
+
+
 
 * vim-plug - also a plugin manager for vim...
 	
@@ -47,13 +64,14 @@ ibus - input method framework under gnome
 	1. install Chinese language
 
 		System Settings -> Language Support -> Install/Remove Languages
+
+		select both traditional & simplified Chinese
 	
-	2. install and switch to ibus
+	2. ubuntu <= 16.04: install and switch to ibus
 
-		$ sudo apt-get install ibus ibus-clutter ibus-gtk ibus-gtk3\
-		ibus-qt4
+		$ sudo apt install ibus ibus-clutter ibus-gtk ibus-qt4
 
-		$ in-switch -s ibus
+		$ im-config -s ibus
 
 		logout and login again.
 	
@@ -61,10 +79,10 @@ ibus - input method framework under gnome
 
 		choose the one you prefer:
 
-		$ sudo apt-get install ibus-table-wubi
-		$ sudo apt-get install ibus-pinyin
-		$ sudo apt-get install ibus-googlepinyin
-		$ sudo apt-get install ibus-sunpinyin
+		$ sudo apt install ibus-table-wubi
+		$ sudo apt install ibus-pinyin
+		$ sudo apt install ibus-googlepinyin
+		$ sudo apt install ibus-sunpinyin
 	
 	4. choose your prefered input method (for me it's wubi-jidian86)
 	
@@ -74,6 +92,37 @@ ibus - input method framework under gnome
 		screen. If it disappears, run this command to get it back:
 
 		$ ibus-daemon -drx
+
+	5. reboot, System -> Region & Language -> Input Sources
+
+		unchoose Chinese, then choose Chinese again.
+		if everything is alright, intelligent-pinyin and wubi-jidian, etc
+		will appear
+
+	=================================================================
+	jidian-wubi setup                                   * not default
+	-----------------------------------------------------------------
+	[settings]
+
+	* input mode			direct		# direct=english, table=wubi
+	chinese mode			all chinese characters
+	char width
+	  table letter			half
+	  table puctuation		full		# or half (dealing with math)
+	  direct letter			half
+	  * direct puctuation	half
+	show candidate list		yes
+	orientation				vertical
+	page size				10
+
+	[details]
+
+	compose					phrase
+	auto select				no
+	auto commit mode		normal
+	behavior of space key	commit
+	auto wildcard			no
+	=================================================================
 
 fbterm - draw Chinese characters under terminal
 	
@@ -90,6 +139,10 @@ fbterm - draw Chinese characters under terminal
 	W: Possible missing firmware /lib/firmware/i915/kbl_dmc_ver1_01.bin for module i915
 
 yong - input method for Chinese under fbterm
+
+xelatex - beautifully output pdf for math formulas and documents
+
+	$ sudo apt install texlive-full
 
 pip - install python third party lib
 

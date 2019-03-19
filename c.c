@@ -84,3 +84,31 @@ int32_t, uint32_t
 #include <limits.h>
 
 INT_MAX, INT_MIN, UINT_MAX
+
+#include <stdarg.h> // ellipsis (aka ...)
+
+	// example
+	// The ellipsis must be the last parameter
+	// count is how many additional arguments we're passing
+	double findAverage(int count, ...)
+	{
+		double sum = 0;
+		va_list list;
+
+		// va_start(list, last_non_ellipsis_param)
+		va_start(list, count);
+	 
+		for (int arg = 0; arg < count; ++arg)
+			// va_arg(list, type)
+			sum += va_arg(list, int);
+	 
+		// cleanup
+		va_end(list);
+		return sum / count;
+	}
+	 
+	int main()
+	{
+		printf("%f\n", findAverage(5, 1, 2, 3, 4, 5));
+		printf("%f\n", findAverage(6, 1, 2, 3, 4, 5, 6));
+	}

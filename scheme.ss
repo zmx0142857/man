@@ -171,7 +171,7 @@
 
 ;---- Lambda ------------------------------------------------------------
 
-	(lambda (var ...) body1 body2 ...) => #<procedure>
+	(lambda (params...) returns...) => #<procedure>
 
 	((lambda (x) (+ x x)) (* 3 4)) => 24
 

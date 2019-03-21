@@ -21,7 +21,7 @@ secure configuration
 
 	$ sudo mysqladmin -u root -p password
 
-	or run this to configure more:
+	on first installation run this to configure more:
 	
 	$ sudo mysql_secure_installation
 

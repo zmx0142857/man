@@ -1,0 +1,9 @@
+重新划分磁盘前一定要备份文件（拷到移动硬盘或 u 盘或别人的电脑上）。
+
+已经安装 linux 的同学，一定不要使用 windows 的工具改变磁盘分区，那可能会覆盖 linux 的引导，甚至使 linux 所在分区陷入混乱。
+笔者在不知情时使用 windows 的 diskpart 命令 convert dynamic 将磁盘转成
+LDM，最终重装系统就是血的教训。
+
+lenovo 一般按 F2 进 BIOS。
+
+如果只是缺少引导，而分区格式没有问题的话，可以通过 ubuntu liveCD 重设引导（但不要安装）

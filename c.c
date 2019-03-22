@@ -112,3 +112,5 @@ INT_MAX, INT_MIN, UINT_MAX
 		printf("%f\n", findAverage(5, 1, 2, 3, 4, 5));
 		printf("%f\n", findAverage(6, 1, 2, 3, 4, 5, 6));
 	}
+
+# print color

@@ -180,6 +180,10 @@
 			(double (/ 99 11))
 			(double (- 2 7)))) => (24 18 -10)
 
+	; the primitive procedure list might be defined like:
+	(let ([list (lambda x x)])
+		(list 'a 'b 'c 'd)) => (a b c d)
+
 ;---- Define ------------------------------------------------------------
 
 	(define square

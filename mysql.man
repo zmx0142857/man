@@ -25,9 +25,9 @@ secure configuration
 	
 	$ sudo mysql_secure_installation
 
-turn on or turn off mysql server
+mysql server - turn on and off
 
-	first check if mysql server is running:
+	check if mysql server is running:
 
 	$ systemctl status mysql.service
 or	$ ps -ef | grep mysqld
@@ -48,14 +48,14 @@ or	$ sudo mysqladmin -u root -p shutdown
 
 errors
 
-vi /var/log/mysql/error.log
+	/var/log/mysql/error.log
 
-login to mysql
+login
 
 	$ sudo mysql -u root -p
 or	$ mysql -u username -p
 
-if you cannot login without sudo, try this:
+	to login without sudo:
 
 	$ sudo mysql -u root
 	> select user, host from mysql.user;
@@ -90,57 +90,74 @@ enable foreign access to database
 
 create user
 
-	login as root.
+	login as root
 
-	> create user 'username'@'%' identified by 'password';
-	> grant all privileges on database.table to 'username'@'%' identified by 'password' with grant option;
+	> create user '<user>'@'%' identified by '<password>';
+
+	'%' is a shorthand for 'localhost'
+
+	> grant all privileges on <database>.<table> to '<user>'@'%'
+	  identified by '<password>' with grant option;
 	> flush privileges;
 
 	see username's privileges
+
 	> show grants for 'username'@'%';
 
 	revoke (withdraw) privileges
+
 	> revoke create on database.table from 'username'@'%';
 
 	delete user
+
 	> drop user 'username'@'%';
 
 	[NOTE]
-	1. all privileges can be replaced with SELECT, CREATE, DROP and so on.
-	2. with grant option allows the new user to grant his privileges to
+	1. 'all privileges' can be replaced by SELECT, CREATE, DROP and so on.
+	2. 'with grant option' allows the new user to grant his privileges to
 	   others.
 
 ----query---------------------------------------------------------------
 
-sql wildcards
+wildcards
 
 	* for zero or more characters
 	% for one or more characters
 	_ for one character
 
-sql commands
+info
 
 	> status;
 	> select version();
 
-create and drop
+show
 
-	for example:
-	> create database company;
-	> use company;
-	> create table people (
-		name varchar(50),
-		gender varchar(6),
-		age int(3),
-		address varchar(50)
-	);
+	> show databases;
+
+	(after use a table)
+	> show tables;
+	> show columns from <table>;
+	> show index from <table>;
+	> show table status [from <database>] [like 'pattern'] \g;
+
+create database
 	
-	add/delete column(s)
-	> alter table people add id int(10);
-	> alter table people drop address;
+	> create database <database>;
 
-	delete table (do not try this)
-	> drop table people;
+use database - a bit like unix command cd
+
+	> use <database>;
+
+create and drop table
+
+	> create table <table> (
+		<attr1> <type1>(<size>),
+		<attr2> <type2>(<size>),
+		...
+		<attrn> <typen>(<size>)
+	);
+
+	> drop table <table>;
 
 	================
 	type		byte
@@ -152,12 +169,49 @@ create and drop
 	bigint		8
 	================
 
-insert into and update
+select from table
 
-	insert into: add a new record
+	> select [distinct] <columns> [as <alias>] from <table>
+	  where <condition>;
+
+	example:
+	> select * from <table>;		# show everything from table
+
+add and delete columns
+
+	> alter table <table> add <attr> <type>(<size>);
+	> alter table <table> drop <attr>;
+
+add alter and delete rows
+
+	> insert into <table> (<attr1>, <attr2>, ..., <attrn>)
+	  value (<val1>, <val2>, ..., <valn>);
+
+	use 'values' instead of 'value' is also acceptable
+
+	> update <table> set <attr>=<val> where <condition>;
+
+	> delete from <table> where <condition>;
+
+example
+
+	> create database company;
+	> use company;
+	> create table people (
+		name varchar(50),
+		gender varchar(6),
+		age int(3),
+		address varchar(50)
+	);
+	
+	add/delete columns
+	> alter table people add id int(10);
+	> alter table people drop address;
+
+	add a new record
 	> insert into people (name, gender, age) value ('Adam', 'male', 20);
 
-	update: change an existing record
+	change an existing record
 	> update people set id=1 where name='Adam';
 
 	then insert more columns:
@@ -168,19 +222,10 @@ insert into and update
 	> insert into people (name, gender, age, id) value ('Dalia', 'female',
 	  22, 4);
 
-show and select
+advanced select example
 
-	> show databases;
-	> use <database>;
-	> show tables;
-	> show columns from <table>;
-	> show index from <table>;
-	> show table status [from <database>] [like 'pattern'] \g;
+	* where
 
-	> select [distinct] <column> [as <alias>] from <table>;
-
-	where
-	
 	> select * from people where gender='female';
 	> select * from people where age between 18 and 20;
 	> select * from people where age >= 18 and age <= 20;
@@ -198,22 +243,34 @@ show and select
 		like	search for pattern
 	==============================
 
-	order by ascend is default
+	* order (default ascend)
 
 	> select * from people order by age asc;
 	> select * from people order by age desc, id desc;
 
-	concatenate
+	* concat
 
 	> select concat(name, ' is ', age, ' years old') from people;
 
-join on
+	* group by
+
+	> select continent, sum(GNP) from country group by continent;
+	> select continent, sum(GNP) from country group by continent having
+		sum(GNP) > 1000000;
+
+	=========================
+	statistics functions
+
+		sum count avg max min
+	=========================
+
+	* A join B on condition
 
 	select from more than one tables
 
 	> select district, continent from city join country
-		on city.countrycode = country.code
-		where city.name = 'Wuhan';
+	  on city.countrycode = country.code
+	  where city.name = 'Wuhan';
 
 primary key
 
@@ -236,21 +293,10 @@ save result in a new table
 		population int(11),
 		countrycode varchar(4)
 	);
+
 	> insert into result
 		select name, population, countrycode from city
 		where population between 2000000 and 5000000;
-
-group by
-
-	> select continent, sum(GNP) from country group by continent;
-	> select continent, sum(GNP) from country group by continent having
-		sum(GNP) > 1000000;
-
-	=========================
-	statistics functions
-
-		sum count avg max min
-	=========================
 
 ----import-&-export------------------------------------------------------
 
@@ -286,7 +332,14 @@ import from excel
 	in mysql workbench, rightclick table -> import wizard -> next -> next
 	-> next -> waiting... -> ok
 
-----ternumx-mariadb------------------------------------------------------
+import from text file
+
+	each column is separated with a tab,
+	each row is separated with a linebreak
+
+	> load data local infile '<file>' into table <tablename>
+
+----termux-mariadb------------------------------------------------------
 
 install
 

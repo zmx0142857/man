@@ -1,0 +1,32 @@
+\documentclass{ctexart}
+
+\begin{document}
+
+\centering
+\setlength{\unitlength}{1mm}
+
+\begin{picture}(30, 40)
+
+% 5 个点.
+\put(5,10){\circle*{1}} % 位于 (5,10), 直径为 1 的圆
+\put(25,10){\circle*{1}}
+\put(15,25){\circle*{1}}
+\put(5,40){\circle*{1}}
+\put(25,40){\circle*{1}}
+
+% 标签
+\put(0,10){A}
+\put(27,10){B}
+\put(14,20){C}
+\put(0,40){D}
+\put(27,40){E}
+
+% 直线
+\put(5,10){\line(0,1){30}} % 起点 (5,10), 方向 (0,1), 长度 30 的线段
+\put(5,10){\line(2,3){10}} % 斜线的长度由其水平投影决定
+\put(25,10){\line(-2,3){10}}
+\put(25,10){\line(0,1){30}}
+
+\end{picture}
+
+\end{document}

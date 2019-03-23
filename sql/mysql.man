@@ -137,12 +137,14 @@ show
 	(after use a table)
 	> show tables;
 	> show columns from <table>;
+or	> describe <table>;
 	> show index from <table>;
 	> show table status [from <database>] [like 'pattern'] \g;
 
-create database
+create and drop database
 	
 	> create database <database>;
+	> drop database <database>;
 
 use database - a bit like unix command cd
 
@@ -171,8 +173,8 @@ create and drop table
 
 select from table
 
-	> select [distinct] <columns> [as <alias>] from <table>
-	  where <condition>;
+	> select [distinct] <attr1>, <attr2>, ..., <attrn> [as <alias>]
+	  from <table> [where <condition>];
 
 	example:
 	> select * from <table>;		# show everything from table
@@ -182,12 +184,12 @@ add and delete columns
 	> alter table <table> add <attr> <type>(<size>);
 	> alter table <table> drop <attr>;
 
-add alter and delete rows
+add delete and update rows
 
 	> insert into <table> (<attr1>, <attr2>, ..., <attrn>)
-	  value (<val1>, <val2>, ..., <valn>);
+	  values (<val1>, <val2>, ..., <valn>);
 
-	use 'values' instead of 'value' is also acceptable
+	use 'value' instead of 'values' is also acceptable
 
 	> update <table> set <attr>=<val> where <condition>;
 
@@ -298,33 +300,31 @@ save result in a new table
 		select name, population, countrycode from city
 		where population between 2000000 and 5000000;
 
-----import-&-export------------------------------------------------------
+----backup---------------------------------------------------------------
 
-export to backup
-
-	backup a database
-
-	$ mysqldump -u <username> -p <db> <table1> <table2> ... > backup.sql
+mysqldump - official tool
 
 	backup databases
 
-	$ mysqldump -u <username> -p --databases <db1> <db2> ... > backup.sql
+	$ mysqldump -u <username> --databases <db1> <db2> ... > backup.sql
 
 	backup everything
 
-	$ mysqldump -u <username> -p -all-databases > backup.sql
+	$ mysqldump -u <username> --all-databases > backup.sql
 
-import from mysqldump
+	restore from backup
 
-	mysql -u <username> -p < backup.sql
+	mysql -u <username> < backup.sql
 
-mysqlhotcopy -- a useful tool for mysql backup
+mysqlhotcopy -- a perl tool for mysql backup
 
 	download perl support: http://dev.mysql.com/downloads/dbi.html
 	this tool supports tables of MyISAM type only,
 	tables of InnoDB type cannot be copied directory
 
 	$ mysqlhotcopy [option] <db1> <db2> ... backup_dir/
+
+----import-&-export------------------------------------------------------
 
 import from excel
 

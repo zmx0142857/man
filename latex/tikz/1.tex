@@ -1,0 +1,12 @@
+\documentclass[border=5pt, tikz]{standalone}
+\usepackage{tikz}
+
+\begin{document}
+
+\begin{tikzpicture}
+\node [draw=green, text=red] (a) {A};
+\node [draw, shape=circle, fill=cyan!30, anchor=west] (b) at ([xshift=3em]b.east) {B};
+\draw [-stealth, blue] (a) -- (b);
+\end{tikzpicture}
+
+\end{document}

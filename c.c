@@ -113,4 +113,6 @@ INT_MAX, INT_MIN, UINT_MAX
 		printf("%f\n", findAverage(6, 1, 2, 3, 4, 5, 6));
 	}
 
-# print color
+#include <time.h>
+
+#define timer()		printf("Time elapsed: %lf\n", (double)clock() / CLOCKS_PER_SEC)

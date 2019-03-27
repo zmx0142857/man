@@ -147,3 +147,8 @@ get system info
 	getconf LONG_BIT
 	uname -a
 	lsb_release -a
+
+ifconfig - network info
+
+	to see your ip:
+	$ ifconfig | grep inet

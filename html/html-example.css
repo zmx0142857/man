@@ -1,0 +1,74 @@
+body {
+	background: linear-gradient(20deg, #333, #666); /* 背景:渐变色 */
+	color: white; /* 文字颜色 */
+	font-size: 16px; /* 字号 */
+}
+
+#header {
+	height: 40px;
+	line-height: 40px;
+}
+
+#header img {
+	height: 40px;
+	width: 40px;
+	border-radius: 20px; /* 变圆 */
+	float: left;
+	margin-right: 10px;
+}
+
+#left-menu {
+    float: left;
+    width: 150px;
+}
+
+#right-menu {
+    float: right;
+    width: 150px;
+}
+
+#content {
+    margin: 0 150px; /* 上下是 0, 左右是 150 */
+	padding: 10px;
+}
+
+#footer {
+    clear: both; /* 左右不要有东西 */
+	text-align: center;
+}
+
+ul {
+	list-style-type: none; /* 不要有开头的圆点 */
+	padding: 0;
+}
+
+a {
+	text-decoration: none; /* 默认有下划线 */
+	color: white; /* 默认是蓝色 */
+	display: inline-block;
+	width: 100%;
+	margin: 0 10px;
+	padding: 3px;
+}
+
+/* 鼠标悬停时的效果 */
+a:hover {
+	background: white;
+	color: #444;
+	margin-left: 0;
+}
+
+/* 当窗口宽度 <= 700px 时隐藏左右菜单 */
+@media screen and (max-width: 700px) {
+	#left-menu {
+		display: none;
+	}
+
+	#right-menu {
+		display: none;
+	}
+
+	#content {
+		margin: 10px;
+	}
+}

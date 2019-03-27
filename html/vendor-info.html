@@ -1,0 +1,257 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+<title>商家信息</title>
+<style type="text/css">
+	a {
+		text-decoration: none;
+	}
+	a:hover {
+		text-decoration: underline;
+	}
+	#content {
+		width: 900px;
+		margin: 0 auto;
+		padding: 0;
+		color: #505050;
+		background: #fafafa;
+	}
+	#header {
+		width: 900px;
+		height: 115px;
+		line-height: 115px;
+		margin: 0 auto;
+		color: #999999;
+		font-size: 30px;
+		font-weight: bold;
+		text-align: center;
+	}
+	#menu ul {
+		width: 900px;
+		margin: 0 auto;
+		padding: 0;
+		height: 30px;
+		background: #f1f1f1;
+	}
+	#menu ul li {
+		width: 100px;
+		float: left;
+		text-align: center;
+		line-height: 30px;
+	}
+	#menu ul li a {
+		font-size: 13px;
+		color: #999999;
+		font-weight: bold;
+	}
+	#menu ul li a:hover {
+		display: block;
+		background: #cccccc;
+		color: #666666;
+		text-decoration: none;
+	}
+	#main {
+		margin: 0;
+	} 
+	.center {
+		width: 639px !important;
+		width: 620px;
+		float: left;
+		margin:0px;
+		border-left: #cccccc 1px solid;
+		padding-bottom: 10px;
+	}
+	.center h2 {
+		font-size: 14px;
+		padding: 6px 0px;
+		margin: 10px;
+		border: 1px solid #ddd;
+		text-indent: 10px;
+		background: #eee;
+	}
+	.center h2 a {
+		color: #9E9E9E;
+		text-decoration: none;
+	}
+	.center h2 a:hover {
+		text-decoration: underline;
+	}
+	.center .right {
+		width: 619px;
+		margin: 0 10px;
+		background: #f1f1f1;
+		height: 280px;
+	}
+	.center table td {
+		padding :3px 0;
+	}
+	.center table td a {
+		color: #666666;
+	}
+	.leftmenu {
+		width: 260px;
+		float: left;
+		padding: 0;
+		margin: 0;
+		height: auto;
+	}
+	.leftmenu a:hover {
+		color: #cccccc;
+	}
+	#footer {
+		color: #a0a0a0;
+		height: 43px;
+		text-align: center;
+		font-size: 90%;
+		line-height: 43px;
+		width: 900px;
+		padding: 0;
+		margin: 0;
+		border-top: #cccccc 1px solid;
+	}
+	#footer a {
+		color: #999;
+		background: #fff;
+		text-decoration: none;
+	}
+	#footer a:hover {
+		background: #fff;
+		text-decoration: underline;
+		color: #444;
+	}
+	.nav {
+		clear: both;
+		text-align: left;
+		color: #aaa;
+		padding: 10px 0 0 0;
+	}
+	.nav li {
+		width: 150px;
+		font-weight: bold;
+		margin: 5px 10px 8px 20px;
+		padding: 0 0 0 5px;
+		line-height: 22px;
+		border-bottom: 1px solid #ccc;
+	}
+	.nav li a {
+		color: #aaa;
+		text-decoration: none;
+		cursor: hand;
+	}
+	.nav li a:hover {
+		color: #aaa;
+		text-decoration:none;
+	}
+</style>
+<script type="text/javascript">
+	/* 页面---Tab选项卡---效果i */
+	function setTab(name, cursel, n)
+	{
+		for(i = 1; i <= n; i++) {
+			var menu = document.getElementById(name+i);
+			// alert(name+i);
+			var con = document.getElementById("con_" + name + "_" + i);
+			menu.className = i == cursel ? "hover" : "";
+			con.style.display = i == cursel ? "block" : "none";
+		}
+	}
+</script>
+</head>
+
+<body>
+<div id="content">
+
+<!--top-->
+<div id="header">top</div>
+<div id="menu">
+  <ul>
+    <li><a href="#">商家首页</a></li>
+    <li><a href="#">供应信息</a></li>
+    <li><a href="#">求购信息</a></li>
+    <li><a href="#">公司介绍</a></li>
+    <li><a href="#">公司图库</a></li>
+    <li><a href="#">联系我们</a></li>
+    <li><a href="#">人才招聘</a></li>
+    <li><a href="#">展会信息</a></li>
+    <li><a href="#">留 言 本</a></li>
+  </ul>
+</div>
+  
+<!--mid-->
+<div id="main">
+
+  <div class="leftmenu">
+    <div class="nav">
+	<ul>
+      <li><a class="hover" onclick="setTab('help',1,9)" id="help1">商家首页</a></li>
+      <li><a onclick="setTab('help',2,9)" id="help2">供应信息</a></li>
+      <li><a onclick="setTab('help',3,9)" id="help3">求购信息</a></li>
+      <li><a onclick="setTab('help',4,9)" id="help4">公司介绍</a></li>
+      <li><a onclick="setTab('help',5,9)" id="help5">公司图库</a></li>
+      <li><a onclick="setTab('help',6,9)" id="help6">联系我们</a></li>
+      <li><a onclick="setTab('help',7,9)" id="help7">人才招聘</a></li>
+      <li><a onclick="setTab('help',8,9)" id="help8">展会信息</a></li>
+      <li><a onclick="setTab('help',9,9)" id="help9">留 言 本</a></li>
+    </ul>
+    </div>
+  </div>
+
+  <div class="center">
+
+  <div id="con_help_1">
+    <h2>>> <a href="#">公司档案</a></h2>
+    <div class="right"></div>
+  </div>
+
+  <div id="con_help_2" style="display:none;">
+    <h2>>> <a href="#">供应信息</a></h2>
+    <div class="right"></div>
+  </div>
+  
+  <div id="con_help_3" style="display:none;">
+    <h2>>> <a href="#">求购信息</a></h2>
+    <div class="right"></div>
+  </div>
+  
+  <div id="con_help_4" style="display:none;">
+    <h2>>> <a href="#">公司介绍</a></h2>
+    <div class="right"></div>
+  </div>
+  
+  <div id="con_help_5" style="display:none;">
+    <h2>>> <a href="#">公司图库</a></h2>
+    <div class="right"></div>
+  </div>
+  
+  <div id="con_help_6" style="display:none;">
+    <h2>>> <a href="#">联系我们</a></h2>
+    <div class="right"></div>
+  </div>
+  
+  <div id="con_help_7" style="display:none;">
+    <h2>>> <a href="#">人才招聘</a></h2>
+    <div class="right"></div>
+  </div>
+  
+  <div id="con_help_8" style="display:none;">
+    <h2>>> <a href="#">展会信息</a></h2>
+    <div class="right"></div>
+  </div>
+  
+  <div id="con_help_9" style="display:none;">
+    <h2>>> <a href="#">留言板</a></h2>
+    <div class="right"></div>
+  </div>
+  
+  </div>
+</div>
+
+<!--bottom-->
+
+<div id="footer">Copyright &copy; 2006 <a href="#">关于我们 </a> | <a href="#">公司首页</a> | 版权所有
+</div>
+
+</div>
+</body>
+</html>

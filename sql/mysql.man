@@ -53,7 +53,7 @@ errors
 login
 
 	$ sudo mysql -u root -p
-or	$ mysql -u username -p
+or	$ mysql -u <user> -p
 
 	to login without sudo:
 
@@ -100,17 +100,17 @@ create user
 	  identified by '<password>' with grant option;
 	> flush privileges;
 
-	see username's privileges
+	see user's privileges
 
-	> show grants for 'username'@'%';
+	> show grants for '<user>'@'%';
 
 	revoke (withdraw) privileges
 
-	> revoke create on database.table from 'username'@'%';
+	> revoke create on database.table from '<user>'@'%';
 
 	delete user
 
-	> drop user 'username'@'%';
+	> drop user '<user>'@'%';
 
 	[NOTE]
 	1. 'all privileges' can be replaced by SELECT, CREATE, DROP and so on.
@@ -129,6 +129,12 @@ info
 
 	> status;
 	> select version();
+	
+see update time of a table
+
+	> use information_schema;
+	> select create_time from tables where table_schema='<database>' and
+	  table_name='<table>';
 
 show
 
@@ -140,6 +146,7 @@ show
 or	> describe <table>;
 	> show index from <table>;
 	> show table status [from <database>] [like 'pattern'] \g;
+	> show warnings;
 
 create and drop database
 	
@@ -174,10 +181,11 @@ create and drop table
 select from table
 
 	> select [distinct] <attr1>, <attr2>, ..., <attrn> [as <alias>]
-	  from <table> [where <condition>];
+	  from <table> [where <condition>] [limit <n>];
 
 	example:
 	> select * from <table>;		# show everything from table
+	> select count(*) from <table>;	# show total line count of the table
 
 add and delete columns
 
@@ -306,15 +314,15 @@ mysqldump - official tool
 
 	backup databases
 
-	$ mysqldump -u <username> --databases <db1> <db2> ... > backup.sql
+	$ mysqldump -u <user> --databases <db1> <db2> ... -p > backup.sql
 
 	backup everything
 
-	$ mysqldump -u <username> --all-databases > backup.sql
+	$ mysqldump -u <user> --all-databases -p > backup.sql
 
 	restore from backup
 
-	mysql -u <username> < backup.sql
+	mysql -u <user> -p < backup.sql
 
 mysqlhotcopy -- a perl tool for mysql backup
 
@@ -337,7 +345,9 @@ import from text file
 	each column is separated with a tab,
 	each row is separated with a linebreak
 
-	> load data local infile '<file>' into table <tablename>
+	> load data local infile '<file>' into table <table>
+	  [fields terminated by ','];
+	> show warnings;
 
 ----termux-mariadb------------------------------------------------------
 

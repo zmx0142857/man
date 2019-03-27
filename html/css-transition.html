@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Transitions with border-radius and RGBa</title>
+	<style>
+		* {
+			margin: 0;
+		}
+		body {
+			font: 36px arial, helvetica, sans-serif;
+			color: #000;
+			background: #06c;
+		}
+		h1 {
+			margin: 40px;
+			font-size: 24px;
+			color: white;
+			text-align: center;
+		}
+		p {
+			height: 360px;
+			padding: 40px;
+		}
+		a, img {
+			display: block;
+			margin: 0 auto;
+			color: rgba(255,255,255,.5);
+			text-align: center;
+			text-decoration: none;
+			-webkit-transition: .5s;
+			transition: .5s;
+		}
+		a:hover {
+			background: rgba(255,255,255,.5);
+			color: white;
+			border-color: white;
+		}
+
+		#daddy {
+			background: rgba(0,0,0,.3);
+		}
+		#daddy a {
+			width: 120px;
+			height: 120px;
+			padding: 60px;
+			border-radius: 80px;
+			border: 60px solid rgba(255,255,255,.5);
+		}
+		#daddy a:hover {
+			border-radius: 180px;
+		}
+
+		#spurt {
+			background: rgba(0,0,0,.2);
+		}
+		#spurt a, #baby a {
+			width: 80px;
+			height: 80px;
+			padding: 40px;
+			border-radius: 60px;
+			border: 40px solid rgba(255,255,255,.5);
+			margin: 60px auto;
+			font-size: 24px;
+		}
+		#spurt a:hover {
+			width: 120px;
+			height: 120px;
+			padding: 60px;
+			border-width: 60px;
+			border-radius: 180px;
+			margin: 0 auto;
+			font-size: 36px;
+		}
+
+		#baby {
+			background: rgba(0,0,0,.1);
+		}
+		#baby a:hover {
+			width: 40px;
+			height: 40px;
+			padding: 20px;
+			border-width: 20px;
+			border-radius: 60px;
+			margin: 120px auto;
+			font-size: 12px;
+		}
+
+
+
+		#pet a {
+			width: 120px;
+			margin-top: 125px;
+			background: white;
+			border: 10px solid white;
+			border-radius: 10px;
+			opacity: .7;
+		}
+		#pet a:hover {
+			background: white;
+			box-shadow: 0 0 100px 50px rgba(255,255,255,.5);
+			opacity: 1;
+		}
+	</style>
+</head>
+<body>
+	<h1>CSS transitions, using <code>border-radius</code> and RGBa colors.</h1>
+	<p id="daddy"><a href="">Big daddy link!</a></p>
+	<p id="spurt"><a href="">Growth spurt link!</a></p>
+	<p id="baby"><a href="">Shy baby link!</a></p>
+
+	<!-- Link back to HTML Dog: -->
+	<p id="pet"><a href="http://www.htmldog.com/examples/"><img src="http://www.htmldog.com/badge1.gif" alt="HTML Dog"></a></p>
+</body>
+</html>
+

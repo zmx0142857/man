@@ -6,17 +6,20 @@ tar
 	
 	-z		use gzip
 	-j		use bzip2
+	-J		use xz
+
 	-f		specify filename
+	-C dir	specify directory
 
 	-v		verbose
-	-C dir	specify directory
 	-p		preserve permissions and properties
+	-k		do not overwrite file when extracting
 	--exclude=file	exclude file
 
 	example:
 
-	$ tar -xzvf file.tar.gz			# extract
-	$ tar -cvgpf file.tar.gz file	# make
+	$ tar -zxvkpf file.tar.gz [<files>]	# extract
+	$ tar -zcvpf file.tar.gz <files>	# make
 
 zip
 

@@ -503,6 +503,8 @@ sc delete aaa		:: 删除 aaa 服务
 
 certutil -hashfile <filename> [md5, sha1, sha256]
 
+:::: ipconfig - network configuration ::::::::::::::::::::::::::::::::
+
 ---- 曹孟德使用指南 ----
 
 （一）MD——建立子目录 

@@ -1,27 +1,68 @@
-% Entity-relationship diagram
-% Author: Leonard König
 \documentclass[border=10pt]{standalone}
+
+\usepackage{ctex}
 \usepackage{tikz}
-% we want ER + above/below + left/right
-\usetikzlibrary{er,positioning}
+\usetikzlibrary{er,positioning,trees}
+
 \begin{document}
 \begin{tikzpicture}[auto,node distance=1.5cm]
-  % Create an entity with ID node1, label "Fancy Node 1".
-  % Default for children (ie. attributes) is to be a tree "growing up"
-  % and having a distance of 3cm.
-  %
-  % 2 of these attributes do so, the 3rd's positioning is overridden.
-  \node[entity] (node1) {Fancy Node 1}
-    [grow=up,sibling distance=3cm]
-    child {node[attribute] {Attribute 1}}
-    child {node[attribute] {Attribute 2}}
-    child[grow=left,level distance=3cm] {node[attribute] {Attribute 3}};
+  \node[entity] (node1) {读者}
+    [grow=left,level distance=3cm,sibling distance=3cm]
+    child {node[attribute] {借书证号}}
+    child {node[attribute] {姓名}};
   % Now place a relation (ID=rel1)
-  \node[relationship] (rel1) [below right = of node1] {Relation 1};
+  \node[relationship] (rel1) [below right = of node1] {借书}
+	[clockwise from=10,level distance=5cm,sibling angle=25]
+    child {node[attribute] {借书证号}}
+    child {node[attribute] {馆藏号}}
+    child {node[attribute] {借阅日期}}
+	child {node[attribute] {应还日期}}
+	child {node[attribute] {是否续借}}
+	child {node[attribute] {续借日期}}
+    child {node[attribute] {还书日期}}
+    child {node[attribute] {超期}};
   % Now the 2nd entity (ID=rel2)
-  \node[entity] (node2) [above right = of rel1]	{Fancy Node 2};
+  \node[entity] (node2) [above right = of rel1]	{书}
+	[clockwise from=140,level distance=4cm,sibling angle=20]
+    child {node[attribute] {馆藏号}}
+    child {node[attribute] {ISBN}}
+    child {node[attribute] {书名}}
+	child {node[attribute] {作者}}
+	child {node[attribute] {出版社}}
+	child {node[attribute] {版次}}
+    child {node[attribute] {印刷}}
+    child {node[attribute] {可借阅时长}};
   % Draw an edge between rel1 and node1; rel1 and node2
-  \path (rel1) edge node {1-\(m\)} (node1)
-    edge	 node {\(n\)-\(m\)}	(node2);
+  \path (node1) edge node {\(n\)} (rel1);
+  \path (rel1) edge node {\(1\)} (node2);
+\end{tikzpicture}
+
+\begin{tikzpicture}[auto,node distance=1.5cm]
+  \node[entity] (node1) {顾客}
+    [grow=left,level distance=3cm,sibling distance=3cm]
+    child {node[attribute] {是否VIP}};
+  % Now place a relation (ID=rel1)
+  \node[relationship] (rel1) [right = of node1] {购买}
+	[grow=south,level distance=3cm,sibling distance=2cm]
+    child {node[attribute] {时间}}
+    child {node[attribute] {数量}}
+    child {node[attribute] {支付方式}};
+  % Now the 2nd entity (ID=node2)
+  \node[entity] (node2) [right = of rel1]	{商品}
+    [grow=north,level distance=3cm,sibling distance=2cm]
+    child {node[attribute] {条码}}
+    child {node[attribute] {单价}};
+  % Draw an edge between rel1 and node1; rel1 and node2
+  \path (node1) edge node {\(n\)} (rel1);
+  \path (rel1) edge node {\(m\)} (node2);
+  % Now place a relation (ID=rel2)
+  \node[relationship] (rel2) [right = of node2] {存储}
+	[grow=south,level distance=2cm]
+    child {node[attribute] {库存量}};
+  % Now the 3rd entity (ID=node3)
+  \node[entity] (node3) [right = of rel2] {库存};
+  % Draw an edge between rel2 and node2; rel2 and node3
+  \path (node2) edge node {\(1\)} (rel2);
+  \path (rel2) edge node {\(n\)} (node3);
 \end{tikzpicture}
 \end{document}

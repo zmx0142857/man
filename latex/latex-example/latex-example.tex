@@ -35,44 +35,47 @@
 \usepackage{makecell}			% 单元格内换行
 \usepackage{booktabs}			% 在表格内画横线
 
-\usepackage{listings}			% 在文档中添加代码
-
 \usepackage{blindtext}			% 用 \blindtext 添加 balabala 的文字
 
 \usepackage{makeidx}			% 索引
 \makeindex
 
+% 自定义颜色
+% xcolor 的功能比 color 更强。而且 tikz 包或 pstricks 包要求使用 xcolor
+\usepackage{xcolor}
+\definecolor{darkblack}{HTML}{2e3436}
+\definecolor{lightblack}{HTML}{555753}
+\definecolor{darkwhite}{HTML}{d3d7cf}
+\definecolor{lightwhite}{HTML}{eeeeec}
+\definecolor{darkgreen}{HTML}{4e9a06}
+\definecolor{darkpurple}{HTML}{75507b}
+\definecolor{darkcyan}{HTML}{06989a}
+
 % 在文档中加入代码
 \usepackage{listings}
-% 自定义颜色, 也可以用 xcolor
-\usepackage{color}
-\definecolor{myblue}{rgb}{0.9,0.9,0.95}
-\definecolor{mygreen}{rgb}{0,0.6,0}
-\definecolor{mygray}{rgb}{0.3,0.3,0.3}
-\definecolor{mymauve}{rgb}{0.58,0,0.82}
 % 配置代码样式, 注意不能有空行
 \lstset{ 
 	language=c,						% 语言
 	title=\lstname,					% 显示文件名或 caption
-	captionpos=b,					% 代码标题位置: bottom
-	backgroundcolor=\color{myblue},	% 背景色
-	basicstyle=\ttfamily, 			% 字体及行距
+	captionpos=b,					% 标题位置: bottom/top/none
+	backgroundcolor=\color{lightwhite},	% 背景色
+	basicstyle=\ttfamily, 			% 基本样式
 	escapeinside={\%*}{*)},			% 在代码中使用 LaTeX
-	commentstyle=\color{mygreen},	% 注释样式
-	stringstyle=\color{mymauve},	% 字符串样式
+	commentstyle=\color{darkcyan},	% 注释样式
+	stringstyle=\color{darkpurple},	% 字符串样式
 	% 断行
 	breakatwhitespace=false,		% 是否在空白符处断行
 	breaklines=true,				% 是否自动断行
 	% 边框
-	frame=single,					% 边框: single, none
-	rulecolor=\color{black},		% 如未设置, 边框颜色可能受彩色文字影响
+	frame=single,					% 边框: single/none
+	rulecolor=\color{darkwhite},	% 如未设置, 边框颜色可能受彩色文字影响
 	% 关键字
-	keywordstyle=\color{blue},		% 关键字样式
+	keywordstyle=\color{darkgreen},	% 关键字样式
 	morekeywords={*,...},			% 添加关键字
 	deletekeywords={...},			% 删除关键字
 	% 行号
-	numberstyle=\small\color{mygray},% 行号样式
-	numbers=left,					% 行号位置: left, right, none
+	numberstyle=\small\color{lightblack},% 行号样式
+	numbers=left,					% 行号位置: left/right/none
 	%numbersep=10pt,				% 行号与代码的距离
 	%firstnumber=1000,				% 开始的行号
 	%stepnumber=2,					% 每 n 行显示一个行号

@@ -18,6 +18,10 @@ grub config
 mtp
 	/run/user/1000/gvfs/mtp:...
 
+tex
+	/usr/share/texlive/
+	/usr/share/texmf/
+
 trash
 	~/.local/share/Trash/files/
 

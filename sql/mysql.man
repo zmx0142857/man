@@ -11,6 +11,10 @@ mariadb - a replacement for mysql
 	optional: install workbench (free) or navicat (14 days trial) to work
 	under GUI.
 
+	on first installation run this to configure root password and more:
+	
+	$ sudo mysql_secure_installation
+
 secure configuration
 
 	set root password:
@@ -21,9 +25,10 @@ secure configuration
 
 	$ sudo mysqladmin -u root -p password
 
-	on first installation run this to configure more:
-	
-	$ sudo mysql_secure_installation
+	forget password?
+
+	$ sudo vi /etc/my.cnf
+	write: skip-grant-tables
 
 mysql server - turn on and off
 
@@ -49,6 +54,28 @@ or	$ sudo mysqladmin -u root -p shutdown
 errors
 
 	/var/log/mysql/error.log
+
+windows version of mysql
+
+	download mysql 8.0 zip package from official site, then unzip.
+	add mysql-dir/bin/ to %path%
+	login to cmd as administrator.
+
+	cmd> mysqld --initialize
+	cmd> mysqld --install
+	
+	if you are not prompted to set root password, you can find a
+	temporary one in file mysql-dir/data/DESKTOP-xxx.err
+
+	cmd> mysql_secure_installation
+
+	and enter the temporary password, then you can set your own root
+	password.
+
+	start/stop mysql server
+	cmd> net start/stop mysql
+
+----administration---------------------------------------------------
 
 login
 
@@ -136,7 +163,7 @@ see update time of a table
 	> select create_time from tables where table_schema='<database>' and
 	  table_name='<table>';
 
-show
+show and set
 
 	> show databases;
 
@@ -147,6 +174,8 @@ or	> describe <table>;
 	> show index from <table>;
 	> show table status [from <database>] [like 'pattern'] \g;
 	> show warnings;
+	> show search_path;
+	> set search_path to 'S-T', public;
 
 create and drop database
 	
@@ -157,40 +186,67 @@ use database - a bit like unix command cd
 
 	> use <database>;
 
+create and drop schema
+
+	> create schema [<schema>] authorization <user>;
+	
+	if <schema> is omitted, use user name.
+
+	> drop schema <schema> cascade/restrict;
+
+	cascade: delete all object related with <schema>
+	restrict: deny deletion if anything is related with <schema>
+
 create and drop table
 
 	> create table <table> (
-		<attr1> <type1>(<size>),
-		<attr2> <type2>(<size>),
+		<attr1> <type1> [constraint],
+		<attr2> <type2> [constraint],
 		...
-		<attrn> <typen>(<size>)
+		<attrn> <typen> [constraint],
+		[table-level constraint]
 	);
 
-	> drop table <table>;
+	===========
+	constraint
+	-----------
+	primary key
+	unique
+	not null
+	===========
 
-	================
-	type		byte
-	----------------
-	char		1
-	tinyint		1
-	smallint	2
-	int			4
-	bigint		8
-	================
+	===================================================================
+	type								byte	description
+	-------------------------------------------------------------------
+	char(n)/character(n)				n	
+	varchar(n)/charactervarying(n)		<= n
+	clob										big char obj
+	blob										big binary obj
+	tinyint								1
+	smallint							2
+	int/integer							4
+	bigint								8
+	dec(p,d)/decimal(p,d)/						p total digits, with
+	  numeric(p,d)								d digits after dot
+	real										single float
+	double[precision]
+	float(n)									float of precision >= n
+	boolean
+	date										yyyy-mm-dd
+	time										hh:mm:ss
+	timestamp
+	interval									time interval
+	===================================================================
 
-select from table
+	> drop table <table> [cascade/restrict];
 
-	> select [distinct] <attr1>, <attr2>, ..., <attrn> [as <alias>]
-	  from <table> [where <condition>] [limit <n>];
+alter table -- add and drop columns
 
-	example:
-	> select * from <table>;		# show everything from table
-	> select count(*) from <table>;	# show total line count of the table
-
-add and delete columns
-
-	> alter table <table> add <attr> <type>(<size>);
-	> alter table <table> drop <attr>;
+	> alter table <table> add <attr> <type> [constraint];
+	> alter table <table> add [table-level constraint];
+	> alter table <table> alter <attr> <type>;
+	> alter table <table> drop <attr> [cascade/restrict];
+	> alter table <table> drop constraint <constraint> [cascade/restrict];
 
 add delete and update rows
 
@@ -202,6 +258,41 @@ add delete and update rows
 	> update <table> set <attr>=<val> where <condition>;
 
 	> delete from <table> where <condition>;
+
+select from table
+
+	> select [all/distinct] <attr1>, <attr2>, ..., <attrn> from <table>
+	  [as <alias>]
+	  [where <condition>]
+	  [limit <n>]
+	  [group by <attr> [having <condition>]
+	  [order by <attr> <order>];
+
+	order: asc/desc, defaults to asc
+
+	example:
+	> select * from <table>;		# show everything from table
+	> select count(*) from <table>;	# show total line count of the table
+
+create and drop view
+	
+	> create view <view> as select ...;
+
+create alter and drop index
+
+	> create [unique] [cluster] index <index> on <table> (
+		<attr> [<order>],
+		<attr> [<order>],
+		...
+		<attr> [<order>]
+	  );
+
+	unique: each index value corresponds to unique data record
+	cluster: cluster index
+	order: asc/desc, defaults to asc
+
+	> alter index <index> rename to <newname>;
+	> drop index <index>;
 
 example
 
@@ -225,12 +316,11 @@ example
 	> update people set id=1 where name='Adam';
 
 	then insert more columns:
-	> insert into people (name, gender, age, id) value ('Bob', 'male', 20,
-	  2);
-	> insert into people (name, gender, age, id) value ('Alice', 'female',
-	  18, 3);
-	> insert into people (name, gender, age, id) value ('Dalia', 'female',
-	  22, 4);
+	> insert into people (name, gender, age, id) values
+	  ('Bob', 'male', 20, 2),
+	  ('Alice', 'female', 18, 3),
+	  ('Dalia', 'female', 22, 4),
+	  ('db\_design', 'female', 23, 6);
 
 advanced select example
 
@@ -239,19 +329,21 @@ advanced select example
 	> select * from people where gender='female';
 	> select * from people where age between 18 and 20;
 	> select * from people where age >= 18 and age <= 20;
+	> select * from people where name like 'db\_design' escape '\';
 
-	==============================
+	====================================
 	relational operators
 
-		=		euqal
-		<>		inequal
-		<		┐
-		>		│
-		<=		├→ you know
-		>=		│
-		between	┘
-		like	search for pattern
-	==============================
+	=			euqal
+	<>			inequal
+	<			┐
+	>			│
+	<=			├→ you know
+	>=			┘
+	between		a <= x <= b
+	like		search for char pattern
+	[not] in
+	====================================
 
 	* order (default ascend)
 
@@ -268,11 +360,10 @@ advanced select example
 	> select continent, sum(GNP) from country group by continent having
 		sum(GNP) > 1000000;
 
-	=========================
-	statistics functions
-
-		sum count avg max min
-	=========================
+	==================================================================
+	statistics functions	sum count avg max min
+	other functions			lower upper
+	==================================================================
 
 	* A join B on condition
 

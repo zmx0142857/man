@@ -61,6 +61,11 @@ print color in terminal
 	printf("\033[31mred\033[0m\n");		// red color
 	printf("\033[7mreversed\033[0m\n");	// reverse color
 
+change local host name
+
+	$ sudo -H vi /etc/hostname
+	$ sudo -H vi /etc/hosts
+
 # app ----------------------------------------------------------
 
 vim - text editor

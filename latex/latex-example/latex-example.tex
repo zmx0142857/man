@@ -63,6 +63,9 @@
 	escapeinside={\%*}{*)},			% 在代码中使用 LaTeX
 	commentstyle=\color{darkcyan},	% 注释样式
 	stringstyle=\color{darkpurple},	% 字符串样式
+	% 左 padding, 有行号时勿用
+	%xleftmargin=2em,
+	%framexleftmargin=2em,
 	% 断行
 	breakatwhitespace=false,		% 是否在空白符处断行
 	breaklines=true,				% 是否自动断行
@@ -111,6 +114,12 @@
 
 % 引入新字体. 通过命令 \Freeserif 使用这个字体
 %\newfontfamily\FreeSerif{FreeSerif}
+
+% 令所有 verbatim 环境缩进 2em
+\catcode`\@=11
+\let \saveverbatime \@xverbatim
+\def \@xverbatim {\leftskip = 2em\relax\saveverbatime}
+\catcode`\@=12
 
 % 文档信息
 \title{\LaTeX 示例 (ctexart)}	% 标题
@@ -718,6 +727,16 @@ int main()
 注意: 尝试缩小代码的行距 (\verb|basicstyle=\linespread{0.9}\ttfamily|) 将导致背景色出现白色断层.
 
 \subsection{包含外部文件}
+
+\subsubsection{截取或合并 pdf 文件}
+
+引入 \texttt{pdfpages} 包, 在需要插入外部文件的地方添加代码:
+
+\begin{verbatim}
+\includepdfmerge{myfile.pdf,10-20}	% 引用该文件的第 10 到 20 页
+\end{verbatim}
+
+\subsubsection{引用外部 \LaTeX 文档}
 
 撰写长篇文档时, 常将各章节分别放在不同的 \LaTeX 文档中, 再以
 \verb|\include{...}| 命令统一包含进来.

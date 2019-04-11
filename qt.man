@@ -1,0 +1,81 @@
+download and install
+
+	http://download.qt.io/official_releases/qt/
+
+	$ cd /your-download-dir/
+	$ chmod u+x qt-opensource-linux-x64-5.12.2.run 
+	$ ./qt-opensource-linux-x64-5.12.2.run 
+
+	agree to the LGPL licence
+	select all components
+
+	launch qtcreator IDE
+	$ /your-qt-dir/Qt5.12.2/Tools/QtCreator/bin/qtcreator
+
+configure
+	in qtcreator, open an example
+	in projects mode, select kit (like gcc) for your project
+
+	you may need to install openGL
+	$ sudo apt install mesa-common-dev
+	$ sudo apt install libgl1-mesa-dev libglu1-mesa-dev 
+
+	build and run.
+
+build with commandline
+
+	$ sudo vi /usr/lib/x86_64-linux-gnu/qt-default/qtchooser/default.conf
+	change the first line to the path of qmake:
+
+	----default.conf-----------------------
+	/your-qt-dir/Qt5.12.2/5.12.2/gcc_64/bin
+	---------------------------------------
+
+	see qmake version:
+	$ qmake -v
+
+	let start!
+	$ mkdir hello && cd hello
+	$ vi hello.cpp
+
+	----hello.cpp--------------------------
+	#include <QApplication>
+	#include <QPushButton>
+
+	int main(int argc, char *argv[])
+	{
+		QApplication app(argc, argv);
+		QPushButton hello("Hello world!", 0);
+		hello.resize(100, 30);
+		hello.show();
+		return app.exec();
+	}
+	----------------------------------------
+
+	$ qmake -project -o hello.pro	# rerun this if you add/removed file
+	$ ls
+	$ vi hello.pro
+
+	----hello.pro---------------------------
+	TEMPLATE = app
+	TARGET = hello
+	INCLUDEPATH += .
+	QT += widgets		# add this
+
+	# Input
+	SOURCES += hello.cpp
+	----------------------------------------
+
+	$ qmake -makefile				# rerun this if you add/removed file
+	$ ls
+	$ make
+	$ ./hello
+
+	to build .moc files, append this to your hello.cpp:
+
+	----hello.cpp-------
+	...
+	#include "hello.moc"
+	--------------------
+	compile with:
+	$ make mocables all				# rerun this to rebuild

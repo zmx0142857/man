@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    
+    <title>Ionic Sub Header Show/Hide on Scroll</title>
+       
+	<link rel="stylesheet" href="https://code.ionicframework.com/1.3.3/css/ionic.min.css">
+	<style class="cp-pen-styles">
+	.bar-header {
+	  z-index: 1;
+	  transition: top 0.25s ease;
+	}
+
+	.has-header {
+	  top: 0;
+	}
+
+	.has-header .scroll {
+	  padding-top: 0;
+	}
+
+	body.header-slide-away .bar-header {
+	  top: -44px;
+	}
+
+	body.header-slide-away .has-header {
+	  top: 0;
+	}
+	</style>
+</head>
+<body ng-app="starter" ng-controller="MyCtrl" ng-class="{'header-slide-away': slideHeader}">
+
+<ion-pane>
+  <ion-header-bar class="bar-positive">
+	<h1 class="title">Ionic Sub Header Show/Hide on Scroll</h1>
+  </ion-header-bar>
+  <ion-content scroll-watch>
+	<div class="list">
+	  <div class="item item-divider">
+		Header
+	  </div>
+	  <a class="item" href="#">
+		List Item
+	  </a>
+	  <a class="item" href="#">
+		List Item
+	  </a>
+	  <a class="item" href="#">
+		List Item
+	  </a>
+	  <a class="item" href="#">
+		List Item
+	  </a>
+	  <div class="item item-divider">
+		Heading
+	  </div>
+	  <a class="item" href="#">
+		List Item
+	  </a>
+	  <a class="item" href="#">
+		List Item
+	  </a>
+	  <div class="item item-divider">
+		Heading
+	  </div>
+	  <a class="item" href="#">
+		List Item
+	  </a>
+	  <a class="item" href="#">
+		List Item
+	  </a>
+	  <a class="item" href="#">
+		List Item
+	  </a>
+	  <a class="item" href="#">
+		List Item
+	  </a>
+	  <a class="item" href="#">
+		List Item
+	  </a>
+	  <a class="item" href="#">
+		List Item
+	  </a>
+	  <div class="item item-divider">
+		Heading
+	  </div>
+	  <a class="item" href="#">
+		List Item
+	  </a>
+	  <a class="item" href="#">
+		List Item
+	  </a>
+	  <div class="item item-divider">
+		Scroll Distance 
+	  </div>
+	  <a class="item" href="#">
+		List Item
+	  </a>
+	  <a class="item" href="#">
+		List Item
+	  </a>
+	  <a class="item" href="#">
+		List Item
+	  </a>
+	  <a class="item" href="#">
+		List Item
+	  </a>
+	  <div class="item item-divider">
+		Heading
+	  </div>
+	  <a class="item" href="#">
+		List Item
+	  </a>
+	  <a class="item" href="#">
+		List Item
+	  </a>
+	  <div class="item item-divider">
+		Heading
+	  </div>
+	  <a class="item" href="#">
+		List Item
+	  </a>
+	  <a class="item" href="#">
+		List Item
+	  </a>
+	  <a class="item" href="#">
+		List Item
+	  </a>
+	  <a class="item" href="#">
+		List Item
+	  </a>
+	  <a class="item" href="#">
+		List Item
+	  </a>
+	  <a class="item" href="#">
+		List Item
+	  </a>
+	  <div class="item item-divider">
+		Heading
+	  </div>
+	  <a class="item" href="#">
+		List Item
+	  </a>
+	  <a class="item" href="#">
+		List Item
+	  </a>
+	</div>
+  </ion-content>
+</ion-pane>
+
+<script src="https://code.ionicframework.com/1.3.3/js/ionic.bundle.min.js"></script>
+<script id="rendered-js">
+angular.module('starter', ['ionic']).
+
+controller('MyCtrl', function ($scope, $ionicScrollDelegate, $rootScope) {
+  $rootScope.slideHeader = false;
+  $rootScope.slideHeaderPrevious = 0;
+}).
+
+directive('scrollWatch', function ($rootScope) {
+  return function (scope, elem, attr) {
+    var threshold = 100;
+
+    elem.bind('scroll', function (e) {
+	  var scroll = e.detail.scrollTop;
+	  // change `>=` to `>` if want to show header on stop scrolling
+      $rootScope.slideHeader = (
+		  scroll > threshold && scroll >= $rootScope.slideHeaderPrevious
+	  ); 
+      $rootScope.slideHeaderPrevious = scroll;
+      $rootScope.$apply();
+    });
+  };
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,193 @@
+% compile with
+% $ tex filename.tex
+% a .dvi (DeVice Independent) file will be seen
+
+%\nopagenumbers
+
+\beginsection \TeX\ Example % omit the \ after X and the space will gone
+
+\indent
+If one merely wishes to type in ordinary text, without
+complicated mathematical formulae or special effects such
+as font changes, then one merely has to type it in as it
+is, leaving a completely blank line between successive
+paragraphs.
+
+You do not have to worry about paragraph indentation:
+all paragraphs will be indented with the exception of
+the first paragraph of a new section.
+
+\beginsection Unit
+
+$$
+\matrix {
+	{\tt pt} &{\rm point} &1{\tt pt} = 65536{\tt sp} \cr
+	{\tt pc} &{\rm pica} &1{\tt pc} = 12{\tt pt} \cr
+	{\tt in} &{\rm inch} &1{\tt in} = 25.4{\tt mm} = 72{\tt bp} = 72.27{\tt pt} \cr
+	{\tt bp} &{\rm big point} \cr
+	{\tt cm} &{\rm centimetre} &1{\tt cm} = 10{\tt mm} \cr
+	{\tt mm} &{\rm millimetre} \cr
+	{\tt dd} &{\rm didot point} &1157{\tt dd} = 1238{\tt pt} \cr
+	{\tt cc} &{\rm cicero} &1{\tt cc} = 12{\tt dd} \cr
+	{\tt sp} &{\rm scaled point} \cr
+}
+$$
+
+\beginsection Spaces
+
+\hskip 5em
+Mr.\ Smith, etc.\ and Proc.\ Amer.\ Math.\ Soc.
+
+Eliminate the%
+space with comment!
+
+\vskip 10mm
+	This is
+		a
+ silly
+		example of
+	a
+file with many spaces.
+
+$| \! | | \, | \; | \quad | \qquad |$.
+
+\beginsection Dashes
+
+hyphen-ation; number range 1--100; puctuation dash---like this.
+
+\beginsection Quotes
+
+`single quote'; ``double quote''; \lq single quote\rq; ``double quote";
+``double quote with `single quote'\thinspace ''.
+
+\beginsection Fonts
+
+{\rm Roman} {\sl Slanted} {\it Italic} {\tt Typewriter} {\bf Boldface}
+
+\noindent
+$
+	{\rm Roman}\; {\sl Slanted}\; {\it Italic}\; {\tt Typewriter}\;
+	{\bf Boldface}\; {\mit Math Italic}\; {\cal CALLIGRAPHIC}
+$
+
+\beginsection Accents
+
+\.a \"a \=a \'a \^a \`a \~a \v a \u a \H a \c c \d a \b a \t aa
+
+\noindent
+$
+	\dot a\; \ddot a\; \bar a\; \acute a\; \hat{a}\; \grave a\;
+	\tilde{a}\; \check{a}\; \breve{a}\; \vec{a}
+$
+
+\noindent
+$
+	\underline{ABCabc123}, \overline{ABCabc123}
+$
+
+\beginsection Miscellaneous Characters
+
+\i\ \j\ \oe\ \OE\ \ae\ \AE\ \aa\ \AA\ \o\ \O\ \l\ \L\ \ss\ ?` !`
+\dag\ \ddag\ \S\ \P\ \copyright\ {\it \$} {\it \&}
+
+\noindent
+$
+	\aleph\; \hbar\; \imath\; \jmath\; \ell\; \wp\; \Re\; \Im\;
+	\partial\; \infty\; \prime\; \emptyset\; \nabla\; \surd\;
+	\top\; \bot\; \|\; \angle\; \triangle\; \forall\; \exists\;
+	\neg\; \flat\; \natural\; \sharp\; \clubsuit\; \diamondsuit\;
+	\heartsuit\; \spadesuit
+$
+
+\beginsection Escape Characters
+
+\#\ \$\ \%\ \&\ \_ \^{} \quad
+$\#\ \$\ \%\ \&\ \_\ \{\ \}\ \backslash$
+
+\beginsection Math
+
+Inline math $f(x) = 3x + 7$, $\root 3 \of {x + 3y}$.
+Use a tilde to prevent linebraking in phrases. Like: area~$A$, radius~$r$.
+
+\noindent
+Single line math:
+$$
+	{numerator \over denominator}, {n \choose k}.
+$$
+
+\noindent
+Numbered formulae:
+$$
+	f(x) = 3x^2 + 19x + 28. \eqno(15)
+$$
+$$
+	M^\bot = \{ f \in V’ : f(m) = 0 \hbox{ for all } m \in M \}.
+	\leqno(42)
+$$
+$$
+	\arccos \arcsin \arctan \arg \cos \cosh \cot \coth \csc \deg \det \dim
+	\exp \gcd \hom
+$$
+$$
+	\inf \ker \lg \lim \liminf \limsup \ln \log
+	\max \min \Pr \sec \sin \sinh \sup \tan \tanh
+$$
+
+\beginsection Ellipsis
+
+$x_1, x_2, \ldots, x_n$, $x_1 + x_2 + \cdots + x_n$.
+
+\beginsection Delimiters
+
+$$
+	(), [], \{, \}, |, \|, \left( {a \over b} \right),
+	\left. {du \over dx} \right|_{x=0}.
+$$
+
+\beginsection Align \& Cases
+
+$$\eqalign{
+	\cos 2\theta &= \cos^2 \theta - \sin^2 \theta \cr
+				 &= 2 \cos^2 \theta - 1. \cr
+}$$
+$$\eqalignno{
+	\sin 2\theta &= 2\sin \theta \cos \theta, &(6) \cr
+	\cos 2\theta &= \cos^2 \theta - \sin^2 \theta \cr
+				 &= 2 \cos^2 \theta - 1. &(7) \cr
+}$$
+$$
+	|x| = \cases{
+		x &if $x \geq 0$; \cr
+		-x &if $x < 0$.\cr
+	}
+$$
+
+\beginsection Matrices
+
+$$
+	\left( \matrix{
+		a & b & c \cr
+		d & e & f \cr
+		g & h & i \cr
+	} \right),
+	\pmatrix{
+		a & b & c \cr
+		d & e & f \cr
+		g & h & i \cr
+	},
+	\chi(\lambda) = \left| \matrix{
+		\lambda - a & -b & -c \cr
+		-d & \lambda - e & -f \cr
+		-g & -h & \lambda - i \cr
+	} \right|.
+$$
+
+\beginsection Custom Control Sequences
+
+\def \inftyint#1#2 {
+	\int_{-\infty}^{+\infty} #1 \,d#2
+}
+
+$$ \inftyint{f(x)}{x}. $$
+
+\bye

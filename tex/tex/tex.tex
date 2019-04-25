@@ -2,14 +2,21 @@
 % $ tex filename.tex
 % a .dvi (DeVice Independent) file will be seen
 
+% disable page numbers
 %\nopagenumbers
+
+% magnify the whole document
+%\magnification = \magstep 1
+
+\headline = {\TeX\ Example \hfil - \the\pageno\ -}
+\footline = {}
 
 \beginsection \TeX\ Example % omit the \ after X and the space will gone
 
 \indent
 If one merely wishes to type in ordinary text, without
 complicated mathematical formulae or special effects such
-as font changes, then one merely has to type it in as it
+as font changes, then one merely has to type it in as it \filbreak
 is, leaving a completely blank line between successive
 paragraphs.
 
@@ -20,28 +27,42 @@ the first paragraph of a new section.
 \beginsection Unit
 
 $$
-\matrix {
-	{\tt pt} &{\rm point} &1{\tt pt} = 65536{\tt sp} \cr
-	{\tt pc} &{\rm pica} &1{\tt pc} = 12{\tt pt} \cr
-	{\tt in} &{\rm inch} &1{\tt in} = 25.4{\tt mm} = 72{\tt bp} = 72.27{\tt pt} \cr
-	{\tt bp} &{\rm big point} \cr
-	{\tt cm} &{\rm centimetre} &1{\tt cm} = 10{\tt mm} \cr
-	{\tt mm} &{\rm millimetre} \cr
-	{\tt dd} &{\rm didot point} &1157{\tt dd} = 1238{\tt pt} \cr
-	{\tt cc} &{\rm cicero} &1{\tt cc} = 12{\tt dd} \cr
-	{\tt sp} &{\rm scaled point} \cr
+\vbox{
+\settabs
+\+ xxx & xxxxxxxxxx & xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx \cr
+\+ {\tt in} & inch & {\tt 1 in = 25.4 mm = 72 bp = 72.27 pt} \cr
+\+ {\tt pt} & point &{\tt 1 pt = 65536 sp} \cr
+\+ {\tt pc} & pica &{\tt 1 pc = 12 pt} \cr
+\+ {\tt bp} & big point \cr
+\+ {\tt cm} & centimetre &{\tt 1 cm = 10 mm} \cr
+\+ {\tt mm} & millimetre \cr
+\+ {\tt dd} & didot point &{\tt 1157 dd = 1238 pt} \cr
+\+ {\tt cc} & cicero &{\tt 1 cc = 12 dd} \cr
+\+ {\tt sp} & scaled point \cr
+\+ {\tt em} & width of m \cr
+\+ {\tt en} & width of n \cr
+\+ {\tt ex} & height of x \cr
+}$$
+
+\beginsection Layout
+
+$$\vbox{\offinterlineskip
+\halign{ \strut \vrule{ \tt #} & \vrule\hfil\ # \hfil & \vrule\ # \vrule \cr
+	\noalign{\hrule}
+	hsize & text width & 6.5 \cr
+	\noalign{\hrule}
+	vsize & text height & 8.9 \cr
+	\noalign{\hrule}
+	hoffset & horizontal offset & 0 (1in-1in on left-up corner) \cr
+	\noalign{\hrule}
+	voffset & vertical offset & 0 \cr
+	\noalign{\hrule}
 }
-$$
+}$$
 
 \beginsection Spaces
 
 \hskip 5em
-Mr.\ Smith, etc.\ and Proc.\ Amer.\ Math.\ Soc.
-
-Eliminate the%
-space with comment!
-
-\vskip 10mm
 	This is
 		a
  silly
@@ -49,48 +70,78 @@ space with comment!
 	a
 file with many spaces.
 
-$| \! | | \, | \; | \quad | \qquad |$.
+Mr.\ Smith, etc.\ and Proc.\ Amer.\ Math.\ Soc.
 
-\beginsection Dashes
+Eliminate the%
+space with comment!
 
-hyphen-ation; number range 1--100; puctuation dash---like this.
+\vskip 5mm
 
-\beginsection Quotes
+$| \! | | \, | \> | \; | \quad | \qquad |$.
+
+\beginsection Dashes, Quotes \& Ellipsis
+
+\indent
+hyphen-ation; number range 1--100; puctuation dash---like this. $a-b$,
+----
 
 `single quote'; ``double quote''; \lq single quote\rq; ``double quote";
-``double quote with `single quote'\thinspace ''.
+''', '\thinspace'', ``\thinspace`, {`}``
+
+
+$x_1, x_2, \ldots, x_n$, $x_1 + x_2 + \cdots + x_n$, text dots\dots
+
 
 \beginsection Fonts
 
+\indent
 {\rm Roman} {\sl Slanted} {\it Italic} {\tt Typewriter} {\bf Boldface}
+\font\sf = cmss10 {\sf Sans Serif}
 
-\noindent
 $
 	{\rm Roman}\; {\sl Slanted}\; {\it Italic}\; {\tt Typewriter}\;
 	{\bf Boldface}\; {\mit Math Italic}\; {\cal CALLIGRAPHIC}
 $
 
+\font\cmrhalf = cmr10 scaled \magstephalf
+\font\cmrone = cmr10 scaled \magstep 1
+\font\cmrtwo = cmr10 scaled \magstep 2
+\font\cmrthree = cmr10 scaled \magstep 3
+\font\cmrfour = cmr10 scaled \magstep 4
+\font\cmrfive = cmr10 scaled \magstep 5
+
+\centerline{Sample text at magstep 0.}
+\centerline{\cmrhalf Sample text at magstephalf.}
+\centerline{\cmrone Sample text at magstep 1.}
+\centerline{\cmrtwo Sample text at magstep 2.}
+\centerline{\cmrthree Sample text at magstep 3.}
+\centerline{\cmrfour Sample text at magstep 4.}
+\centerline{\cmrfive Sample text at magstep 5.}
+
+
 \beginsection Accents
 
+\indent
 \.a \"a \=a \'a \^a \`a \~a \v a \u a \H a \c c \d a \b a \t aa
+\underbar{ABCabc123}
 
-\noindent
 $
 	\dot a\; \ddot a\; \bar a\; \acute a\; \hat{a}\; \grave a\;
-	\tilde{a}\; \check{a}\; \breve{a}\; \vec{a}
+	\tilde{a}\; \check{a}\; \breve{a}\; \vec{a}\;
+	\dot{\dot a}
 $
 
-\noindent
 $
-	\underline{ABCabc123}, \overline{ABCabc123}
+	\underline{ABCabc123}\; \overline{ABCabc123}\;
+	\underline{\underline{ABCabc123}}
 $
 
 \beginsection Miscellaneous Characters
 
+\indent
 \i\ \j\ \oe\ \OE\ \ae\ \AE\ \aa\ \AA\ \o\ \O\ \l\ \L\ \ss\ ?` !`
 \dag\ \ddag\ \S\ \P\ \copyright\ {\it \$} {\it \&}
 
-\noindent
 $
 	\aleph\; \hbar\; \imath\; \jmath\; \ell\; \wp\; \Re\; \Im\;
 	\partial\; \infty\; \prime\; \emptyset\; \nabla\; \surd\;
@@ -101,21 +152,36 @@ $
 
 \beginsection Escape Characters
 
-\#\ \$\ \%\ \&\ \_ \^{} \quad
+\indent
+\~{} \#\ \$\ \%\ \^{} \&\ \_ \quad
 $\#\ \$\ \%\ \&\ \_\ \{\ \}\ \backslash$
+
+\beginsection Lists
+
+\parskip = 0pt
+\noindent
+Answer all the following questions:
+\item{(1)} What is question 1?
+\item{(2)} What is question 2?
+\item{(3)} What is question 3?
+\itemitem{(3a)} What is question 3a?
+\itemitem{(3b)} What is question 3b?
+
+\beginsection vrule
+
+Name: \vrule height 0 pt depth 0.4 pt width 2 in
 
 \beginsection Math
 
+\indent
 Inline math $f(x) = 3x + 7$, $\root 3 \of {x + 3y}$.
-Use a tilde to prevent linebraking in phrases. Like: area~$A$, radius~$r$.
+Tilde creates an unbreakable space (nbsp): area~$A$, radius~$r$.
 
-\noindent
 Single line math:
 $$
 	{numerator \over denominator}, {n \choose k}.
 $$
 
-\noindent
 Numbered formulae:
 $$
 	f(x) = 3x^2 + 19x + 28. \eqno(15)
@@ -132,10 +198,6 @@ $$
 	\inf \ker \lg \lim \liminf \limsup \ln \log
 	\max \min \Pr \sec \sin \sinh \sup \tan \tanh
 $$
-
-\beginsection Ellipsis
-
-$x_1, x_2, \ldots, x_n$, $x_1 + x_2 + \cdots + x_n$.
 
 \beginsection Delimiters
 
@@ -182,12 +244,64 @@ $$
 	} \right|.
 $$
 
-\beginsection Custom Control Sequences
+\beginsection Theorem
 
-\def \inftyint#1#2 {
-	\int_{-\infty}^{+\infty} #1 \,d#2
-}
+\proclaim Theorem 1 (H.~G.~Wells).
+In the country of the blind, the one-eyed man is king.
+
+% start a new page
+%\vfill
+%\eject
+
+\beginsection Macros
+
+\def\inftyint#1#2{\int_{-\infty}^{+\infty} #1 \,d#2}
 
 $$ \inftyint{f(x)}{x}. $$
 
+\def\frac#1#2{{#1 \over #2}}
+
+$$ \frac{a}{b}. $$
+
+\iffalse
+{
+	\def\a{\b}
+	\def\b{A\def\a{B\def\a{C\def\a{\b}}}}
+	\def\puzzle{\a\a\a\a\a}
+
+	\puzzle % ABCAB
+}
+
+{
+	\def\row #1{(#1_1,\ldots,#1_n)}
+
+	$\row{\bf x}$
+	$\row{{\bf x}}$
+}
+
+{
+	\def\unit #1#2{I must not #1 in #2.}
+	\def\two #1{#1 #1}
+	\def\ten #1{\two{#1 #1 #1 #1 #1}}
+	\def\punishment #1#2{\ten{\ten{\unit{#1}{#2}}}}
+
+	\punishment{run}{the halls}
+}
+
+\nullfont balabalabalabala \rm can't see him, ugrrr...
+
+{\tt \string\hi}
+
+{\tt \string\\}
+
+\hbox{T\kern-0.1667em\lower0.5ex\hbox{E}\kern-0.125em X}
+
+\fi
+
 \bye
+
+Exercise to look at:
+
+4.3
+
+7.x

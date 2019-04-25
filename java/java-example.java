@@ -32,3 +32,27 @@ public class Puppy {
 		Puppy myPuppy = new Puppy("tommy");
 	}
 } 
+
+// Tmp.java
+// methods override, attributes don't
+public class Tmp {
+	public static void main(String[] args) {
+		Person p = new Student();
+		System.out.println(p.name);			// Bob
+		System.out.println(p.getName());	// Alice
+	}
+}
+
+class Person {
+	String name = "Bob";
+	String getName() {
+		return name;
+	}
+}
+
+class Student extends Person {
+	String name = "Alice";
+	String getName() {
+		return name;
+	}
+}

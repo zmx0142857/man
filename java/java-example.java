@@ -56,3 +56,12 @@ class Student extends Person {
 		return name;
 	}
 }
+
+/* String s = "hello" 是 String s = new String("hello") 的简写
+ *
+ * 构造函数一般无法继承, 但不论是自己定义的,
+ * 还是编译器生成的默认构造函数, 都会被子类继承
+ *
+ * java 的 protected 成员可以由同一包中的所有成员访问,
+ * 而 public 成员可以在不同包之间被访问. 默认情况下是 public.
+ */

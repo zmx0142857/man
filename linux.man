@@ -157,3 +157,7 @@ ifconfig - network info
 
 	to see your ip:
 	$ ifconfig | grep inet
+
+lsof - view resource occupation status
+
+	$ lsof -i:9999 # check port 9999

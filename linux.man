@@ -66,6 +66,15 @@ change local host name
 	$ sudo -H vi /etc/hostname
 	$ sudo -H vi /etc/hosts
 
+play midi file
+
+	$ sudo apt install timidity
+	$ timidity mymusic.mid
+
+	if you want a GUI, do
+	$ sudo apt install timidity-interfaces-extra
+	$ timidity -lg
+
 # app ----------------------------------------------------------
 
 vim - text editor

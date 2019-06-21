@@ -4,10 +4,18 @@ import javax.swing.*;
 
 public class Register extends JFrame {
 	private static final String[] specilalities = {"计算机科学与技术", "信息工程", "生物医学工程", "安全工程", "艺术设计学"};
+	private static final String[] hobbies = {"唱", "跳", "rap", "篮球"};
 
 	public Register() {
+		setTitle("注册");
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		getContentPane().setLayout(null); // 手动布局
+		setLocation(100, 100);
+		setSize(360, 360);
+
 		JLabel nameLabel = new JLabel("姓名");
 		nameLabel.setBounds(30, 10, 50, 25);
+		add(nameLabel);
 
 		JTextField nameField = new JTextField();
 		nameField.setBounds(80, 10, 120, 20);
@@ -16,44 +24,61 @@ public class Register extends JFrame {
 		nameField.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {}
 		});
+		add(nameField);
 
 		JLabel specialityLabel = new JLabel("专业");
 		specialityLabel.setBounds(30, 40, 50, 25);
+		add(specialityLabel);
 
-		JList specialityList = new JList<String>(specilalities);
-		specialityList.setBounds(80, 40, 120, 85);
+		//JList specialityList = new JList<String>(specilalities);
+		JComboBox specialityList = new JComboBox<String>(specilalities);
+		specialityList.setBounds(80, 40, 120, 20);
 		specialityList.setBorder(BorderFactory.createLineBorder(Color.blue));
+		/*
+		specialityList.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+			}
+		});
+		*/
+		add(specialityList);
 
 		JLabel genderLabel = new JLabel("性别");
-		genderLabel.setBounds(30, 130, 50, 25);
+		genderLabel.setBounds(30, 70, 50, 25);
+		add(genderLabel);
 
 		ButtonGroup buttonGroup = new ButtonGroup();
 		JRadioButton male = new JRadioButton("男");
 		JRadioButton female = new JRadioButton("女");
-		male.setBounds(80, 130, 60, 25);
-		female.setBounds(140, 130, 60, 25);
+		male.setBounds(80, 70, 60, 25);
+		female.setBounds(140, 70, 60, 25);
 		buttonGroup.add(male);
 		buttonGroup.add(female);
+		// add(buttonGroup) leads to build error!
+		add(male);
+		add(female);
 
 		JLabel hobbyLabel = new JLabel("爱好");
-		hobbyLabel.setBounds(30, 160, 50, 25);
-		JCheckBox hobby1 = new JCheckBox("音乐");
-		JCheckBox hobby2 = new JCheckBox("篮球");
-		JCheckBox hobby3 = new JCheckBox("高尔夫");
-		JCheckBox hobby4 = new JCheckBox("动漫");
-		hobby1.setBounds(80, 160, 60, 25);
-		hobby2.setBounds(140, 160, 60, 25);
-		hobby3.setBounds(200, 160, 65, 25);
-		hobby4.setBounds(265, 160, 60, 25);
+		hobbyLabel.setBounds(30, 100, 50, 25);
+		add(hobbyLabel);
+
+		JCheckBox[] hobbyCheckBox = new JCheckBox[hobbies.length];
+		for (int i = 0; i < hobbies.length; ++i) {
+			hobbyCheckBox[i] = new JCheckBox(hobbies[i]);
+			hobbyCheckBox[i].setBounds(80 + 60*i, 100, 60, 25);
+			add(hobbyCheckBox[i]);
+		}
 
 		JLabel descriptionLabel = new JLabel("简介");
-		descriptionLabel.setBounds(30, 250, 90, 25);
+		descriptionLabel.setBounds(30, 170, 90, 25);
+		add(descriptionLabel);
+
 		JTextArea descriptionText = new JTextArea();
-		descriptionText.setBounds(30, 270, 260, 100);
+		descriptionText.setBounds(30, 200, 260, 100);
 		descriptionText.setBorder(BorderFactory.createLineBorder(Color.black));
+		add(descriptionText);
 
 		JButton okButton = new JButton("确定");
-		okButton.setBounds(50, 190, 60, 25);
+		okButton.setBounds(80, 140, 60, 25);
 		okButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent event) {
 				StringBuffer sb = new StringBuffer();
@@ -69,54 +94,28 @@ public class Register extends JFrame {
 				else if (female.isSelected())
 					sb.append(female.getText());
 				sb.append("\n").append(hobbyLabel.getText()).append(": ");
-				if (hobby1.isSelected())
-					sb.append(hobby1.getText()).append(" ");
-				if (hobby2.isSelected())
-					sb.append(hobby2.getText()).append(" ");
-				if (hobby3.isSelected())
-					sb.append(hobby3.getText()).append(" ");
-				if (hobby4.isSelected())
-					sb.append(hobby4.getText()).append(" ");
+				for (int i = 0; i < hobbies.length; ++i) {
+					if (hobbyCheckBox[i].isSelected())
+						sb.append(hobbyCheckBox[i].getText()).append(" ");
+				}
 				descriptionText.setText(sb.toString());
 			}
 		});
+		add(okButton);
 
 		JButton clearButton = new JButton("清空");
-		clearButton.setBounds(120, 190, 60, 25);
+		clearButton.setBounds(180, 140, 60, 25);
 		clearButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent event) {
 				nameField.setText("");
-				specialityList.clearSelection();
-				hobby1.setSelected(false);
-				hobby2.setSelected(false);
-				hobby3.setSelected(false);
-				hobby4.setSelected(false);
+				//specialityList.clearSelection();
+				for (int i = 0; i < hobbies.length; ++i)
+					hobbyCheckBox[i].setSelected(false);
 				descriptionText.setText("");
 			}
 		});
-
-		setTitle("注册");
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		getContentPane().setLayout(null); // 手动布局
-		setLocation(100, 100);
-		setSize(340, 420);
-
-		add(nameLabel);
-		add(nameField);
-		add(specialityLabel);
-		add(specialityList);
-		add(genderLabel);
-		add(male);
-		add(female);
-		add(hobbyLabel);
-		add(hobby1);
-		add(hobby2);
-		add(hobby3);
-		add(hobby4);
-		add(descriptionLabel);
-		add(descriptionText);
-		add(okButton);
 		add(clearButton);
+
 		setVisible(true);
 	}
 

@@ -28,6 +28,13 @@
 		fclose(file);
 	}
 
+
+	// repeater
+	char buf[1000];
+	while (fgets(buf, 1000, stdin)) {
+		printf("%s", buf);
+	}
+
 #include <string.h>
 
 	void *memcpy(dest, src, size);

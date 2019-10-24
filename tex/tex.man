@@ -1,14 +1,19 @@
 MikTeX 安装宏包
 
-用 MikTeX package manager 查找并安装; manager 中没有此包时,
-上网下载 .sty 文件, 在 CTEX/MikTeX/tex/latex 下建立同名目录并拷贝进去.
-最后打开 MikTeX 的 settings(admin) 程序, 在 general 选项卡中点击 Refresh
-FNDB 进行刷新, 刚刚拷贝的包就加入到 MikTeX 路径中.
+	用 MikTeX package manager 查找并安装; manager 中没有此包时,
+	上网下载 .sty 文件, 在 CTEX/MikTeX/tex/latex 下建立同名目录并拷贝进去.
+	最后打开 MikTeX 的 settings(admin) 程序, 在 general 选项卡中点击
+	Refresh FNDB 进行刷新, 刚刚拷贝的包就加入到 MikTeX 路径中.
 
 pdftops -eps
 
-将 pdf 文件转换为 eps 格式 (文件可能变大)
+	将 pdf 文件转换为 eps 格式 (文件可能变大)
 
 pdf2svg file.pdf file.svg
 
-将 pdf 文件转换为 svg 格式
+	将 pdf 文件转换为 svg 格式
+
+sudo fc-cache
+	
+	将字体文件拷贝到 /usr/share/fonts/ 中,
+	再运行此命令安装新字体.

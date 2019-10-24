@@ -102,3 +102,7 @@ INT_MAX, INT_MIN, UINT_MAX
 #include <locale.h>
 
 //	setlocale (LC_ALL,"");	// use system locale
+
+#include <stdbool.h>
+
+bool, true, false

@@ -1,0 +1,269 @@
+\documentclass{lzuthesis}
+
+% 中文标题
+\zhtitle{兰州大学本科生毕业论文 \LaTeX\ 模板}
+% 英文标题
+\entitle{Lanzhou University Thesis \LaTeX\ Template for Bachelor Degree}
+% 短标题 (用于页眉)
+\shorttitle{兰大本科毕设 \LaTeX\ 模板}
+% 作者中文名
+\zhauthor{王小明}
+% 作者英文名
+\enauthor{Xiaoming Wang}
+% 单位中文名
+\zhinstitute{兰州大学数学与统计学院}
+% 单位英文名
+\eninstitute{School of Mathematics and Statistics, Lanzhou University}
+% 导师
+\teacher{指导老师}
+% 学院
+\college{数学与统计学院}
+% 专业
+\major{专业名称}
+% 年级
+\grade{2016}
+
+\begin{document}
+
+% 封面
+\makecover
+
+% 诚信责任书
+\makeliability
+
+% 目录
+\pagenumbering{roman}	% 页码为小写罗马数字
+\tableofcontents		% 生成目录
+\newpage
+
+% 中文摘要
+\begin{cnabstract}
+	本文主要介绍和讨论了兰州大学数学与统计学院本科毕业论文的 \LaTeX\ 模板.
+\end{cnabstract}
+\cnkeywords{毕业论文; \LaTeX{}; 模板;}
+\newpage
+
+% 英文摘要
+\begin{enabstract}
+	This thesis is a study on the theory of \dots.
+\end{enabstract}
+\enkeywords{\LaTeX{};}
+\newpage
+
+% 正文
+\pagenumbering{arabic} % 页码为阿拉伯数字
+
+\section{关于本文}
+
+本文是根据兰州大学教务处《兰州大学本科毕业论文（设计）指导手册》(2011)
+(\url{http://jwc.lzu.edu.cn/upload/doc/N20110111143009.doc},
+下称《手册》) 要求所编制的 \LaTeX\ 模板. 具体使用中请根据实际情况更改. 
+
+\section{使用方法}
+
+本模板包含
+\begin{itemize}
+	\item \texttt{lzuthesis.cls}: 模板文件, 其中定义了本文所用的模板,
+		是一个文本文件;
+	\item \texttt{lzuthesis.tex}: 论文源文件, 也是文本文件;
+	\item \texttt{imgs/}: 文件夹, 包含兰州大学校徽校名的各种版本的矢量 pdf
+		文件. 
+\end{itemize}
+
+其中封面页, 诚信责任书, 致谢和评语等部分均已在 \texttt{lzuthesis.cls}
+中按《手册》要求实现, 而使用方法在 \texttt{lzuthesis.tex} 文件的注释中. 
+
+全文字号字距按照《手册》实现, 如出现不合要求的地方, 请自行使用
+\verb|\zihao{n}| 调整字号. 其中 \verb|n = 0| 到 \verb|8| 分别对应初号到八号, \verb|n = -0| 到 \verb|-6| 分别对应小初到小六.
+
+\texttt{lzuthesis.cls} 和 \texttt{lzuthesis.tex}
+中的注释与说明应该能够帮助读者进行简单更改.  在编写过程中, 还加入了常见的
+\LaTeX\ 宏包, 在编译过程中提示缺少宏包请自行下载. 由于本人能力所限,
+\texttt{lzuthesis.cls} 和 \texttt{lzuthesis.tex}
+中可能仍然存在着某些缺陷未被发现, 如有更改请加在 \texttt{lzuthesis.cls}
+末尾的[修改日志]区域并重新压缩分享. 
+
+推荐编译环境为 TexLive 2019 和 TeXstudio 2.12.6 之后的版本,
+在修改了目录相关的结构之后, 编译两次 (TexLive 可通过清华镜像下载,
+TeXstudio 为免费软件).
+
+\subsection{定理与证明}
+
+本文提供了常见的定理与证明环境, 如表\ref{table1}
+
+\begin{table}[!h]
+\centering
+\begin{tabular}{|cc|cc|} \hline
+	definition 	& 定义 &
+	axiom 		& 公理 \\ \hline
+	lemma 		& 引理 &
+	theorem 	& 定理 \\ \hline
+	proposition & 命题 &
+	corollary 	& 推论 \\ \hline
+	property 	& 性质 &
+	example 	& 例 \\ \hline
+	remark 		& 注 & & \\ \hline
+	proof		& 证明 &
+	solution	& 解 \\ \hline
+\end{tabular}
+\caption{常见的定理与证明环境}
+\label{table1}
+\end{table}
+
+\begin{theorem}[\textbf{Banach 不动点定理--压缩映像原理}]
+	\label{thm1}
+	设 $(\mathscr{X}, \rho)$ 是一个完备的距离空间, $T$ 是 $(\mathscr{X},
+	\rho)$ 到其自身的一个压缩映射, 则 $T$ 在 $\mathscr{X}$
+	上存在唯一的不动点.
+\end{theorem}
+
+\begin{proof}
+	略, 详见泛函分析课本. 
+\end{proof}
+
+\subsection{图片}
+
+在同一行中, 这里提供了三种图片的排版方式: 一主图, 两主图和两子图.
+具体效果如下
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.3\textwidth]{lzu.pdf}
+	\caption{正文的图片}
+	\label{zheng1}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\begin{minipage}[t]{0.3\linewidth}
+		\centering
+		\includegraphics[width=\linewidth]{lzu-blue.pdf}
+		\caption{左主图}
+	\end{minipage}
+	\quad
+	\begin{minipage}[t]{0.3\linewidth} 
+		\centering 
+		\includegraphics[width=\linewidth]{lzu.pdf} 
+		\caption{右主图} 
+	\end{minipage}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\begin{subfigure}[b]{0.25\linewidth}
+		\includegraphics[width=\linewidth]{lzu-blue.pdf}
+		\caption{左子图}
+	\end{subfigure}
+	\quad
+	\begin{subfigure}[b]{0.25\linewidth}
+		\includegraphics[width=\linewidth]{lzu.pdf}
+		\caption{右子图}
+	\end{subfigure}
+	\caption{\texttt{subfigure} 环境需要 \texttt{subcaption} 包}
+\end{figure}
+
+\subsection{表格}
+
+表格样式可以使用三线表的形式, 具体没做任何要求. 
+
+\begin{table}[!h]
+	\centering
+	\begin{tabular}{ccc}
+		\hline
+		a &b &c \\
+		\hline
+		1 &2 &3 \\
+		1 &2 &3 \\
+		\hline
+	\end{tabular}
+	\caption{三线表}
+\end{table}
+
+定宽表可以指定表格的宽度. 如果表格中的内容过长, 则会自动换行. 
+
+\begin{table}[!h]
+	\centering
+	\begin{tabularx}{\linewidth}{c|X}
+		\hline
+		1 &balabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabala
+		balabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabala \\
+		\hline
+		2 &balabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabala \\
+		\hline
+	\end{tabularx}
+	\caption{\texttt{tabularx} 环境需要 \texttt{tabularx} 包}
+	\label{定宽表}
+\end{table}
+
+\section{其他}
+
+这里引用附录的图片\ref{fu1}. 
+
+\subsection{推荐}
+
+本模板提供给有一定 \LaTeX\ 基础的同学, 如果需要 \LaTeX\ 入门, 可以参考
+\url{https://github.com/zmx0142857/man/} 下的 \verb|tex/| 目录.
+此外还有一些常用的 \LaTeX\ 或 \TeX\ 的参考网站
+\begin{enumerate}
+	\item CTAN, 世界上最主要的 \TeX\ 资源集散网站,
+		很多宏包的源码和说明都能查到. (教育网内的镜像站挺多的,
+		就不推荐网址了)
+	\item \url{https://tex.stackexchange.com/}, \LaTeX\ 和 \TeX\
+		的国际交流社区(全英文网站, 需要英语较好)
+\end{enumerate}
+
+% 参考文献
+\begin{thebibliography}{00}
+	\bibitem{r1} 作者. 文章题目 [J].  期刊名, 出版年份，卷号(期数):
+		起止页码.
+	\bibitem{r2} 作者. 书名 [M]. 版次.
+		出版地：出版单位，出版年份：起止页码.
+\end{thebibliography}
+
+% 附录
+\begin{appendix}
+	
+\section{附录标题}
+
+《手册》中要求图, 表, 代码等环境在附录中重新开始编号.
+如需要更改请修改 \texttt{lzuthesis.cls} 中的 \verb|\setcounter{}| 部分. 
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.3\textwidth]{lzu.pdf}
+	\caption{附录的标号从头记数}
+	\label{fu1}
+\end{figure}
+
+一维坐标系上的热传导方程
+\begin{equation}
+	\label{eq1}
+	\frac{\partial u(x,t)}{\partial t}
+	= a\frac{\partial ^{2}u(x,t)}{\partial x^{2}}
+\end{equation}
+
+\begin{lstlisting}[language=python, caption={helloworld.py}]
+print("Hello World")
+\end{lstlisting}
+	
+\end{appendix}
+
+% 致谢
+\begin{acknowledgement}
+	感谢爸爸妈妈叔叔阿姨
+	感谢爸爸妈妈叔叔阿姨
+	感谢爸爸妈妈叔叔阿姨
+	感谢爸爸妈妈叔叔阿姨
+	感谢爸爸妈妈叔叔阿姨
+	感谢爸爸妈妈叔叔阿姨
+	感谢爸爸妈妈叔叔阿姨
+	感谢爸爸妈妈叔叔阿姨
+	感谢爸爸妈妈叔叔阿姨
+	感谢爸爸妈妈叔叔阿姨
+	感谢爸爸妈妈叔叔阿姨
+\end{acknowledgement}
+
+% 评语
+\makereviews
+
+\end{document}

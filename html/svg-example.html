@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+
+<title>svg 实用示例</title>
+<meta charset="utf-8" />
+
+<style type="text/css">
+body {
+	font-family: "Microsoft Yahei", Kaiti, Songti, serif, sans-serif;
+	font-size: 0.87em;
+	margin: 5%;
+	background: #eeee99; /* yellow */
+}
+
+svg {
+	stroke: black;
+	fill: none;
+	width: 100%;
+}
+
+svg text {
+	stroke: none;
+	fill: black;
+}
+
+svg path.arrow {
+	marker-end: url(#arrow-end);
+}
+
+svg path.double-arrow {
+	marker-start: url(#arrow-start);
+	marker-end: url(#arrow-end);
+}
+
+svg path.dashed {
+	stroke-dasharray: 5, 5;
+}
+</style>
+
+</head>
+
+<body>
+
+<h4>计算机系统的层次结构</h4>
+
+<svg height="0">
+	<defs>
+		<marker id="arrow-end" markerWidth="13" markerHeight="13"
+				refx="10" refy="3" orient="auto">
+			<path d="M 0,0 L 0,6 L 10,3 Z" style="fill: black;" />
+		</marker>
+		<marker id="arrow-start" markerWidth="13" markerHeight="13"
+				refx="0" refy="3" orient="auto">
+			<path d="M 10,0 L 10,6 L 0,3 Z" style="fill: black;" />
+		</marker>
+		<polygon id="parallelogram" points="7,0 87,0 73,30 -7,30"/>
+		<polygon id="diamond" points="50,0 100,20 50,40 0,20"/>
+	</defs>
+</svg>
+
+<svg height="300">
+	<text x="30" y="25">(虚拟) 应用语言机器</text>
+	<rect class="round-corner" x="10" y="5" width="170"/>
+
+	<text x="30" y="75">(虚拟) 高级语言机器</text>
+	<rect class="round-corner" x="10" y="55" width="170"/>
+	<text x="100" y="100">编译</text>
+
+	<text x="30" y="125">(虚拟) 汇编语言机器</text>
+	<rect class="round-corner" x="10" y="105" width="170"/>
+	<text x="100" y="150">汇编</text>
+
+	<text x="30" y="175">(虚拟) 操作系统机器</text>
+	<rect class="round-corner" x="10" y="155" width="170"/>
+	<text x="100" y="200">?</text>
+
+	<text x="30" y="225">(传统) 机器语言机器</text>
+	<rect class="round-corner" x="10" y="205" width="170"/>
+	<text x="100" y="250">?</text>
+
+	<text x="30" y="275">(微程序) 微指令系统</text>
+	<rect class="round-corner" x="10" y="255" width="170"/>
+
+	<path class="arrow" d="M 95,35 L 95,55"/>
+	<path class="arrow" d="M 95,85 L 95,105"/>
+	<path class="arrow" d="M 95,135 L 95,155"/>
+	<path class="arrow" d="M 95,185 L 95,205"/>
+	<path class="arrow" d="M 95,235 L 95,255"/>
+</svg>
+
+<h4>以存储器为中心的计算机结构</h4>
+
+<svg height="200">
+	<text x="180" y="25">控制器</text> <rect class="round-corner" x="160" y="5"/>
+	<text x="43" y="95">输入设备</text> <rect class="round-corner" x="30" y="75"/>
+	<text x="180" y="95">存储器</text> <rect class="round-corner" x="160" y="75"/>
+	<text x="303" y="95">输出设备</text> <rect class="round-corner" x="290" y="75"/>
+	<text x="180" y="165">运算器</text> <rect class="round-corner" x="160" y="145"/>
+
+	<path class="arrow dashed" d="M 0,90 L 30,90"/>
+	<path class="arrow dashed" d="M 110,90 L 160,90"/>
+	<path class="arrow dashed" d="M 240,90 L 290,90"/>
+	<path class="arrow dashed" d="M 370,90 L 400,90"/>
+
+	<path class="arrow" d="M 200,75 L 200,35"/>
+	<path class="double-arrow" d="M 200,105 L 200,145"/>
+</svg>
+
+<svg>
+	<rect class="round-corner" x="30" y="75"/>
+	<text x="50" y="95">控制器</text>
+	<text x="120" y="75">控制</text>
+	<path class="arrow" d="M 110,85 L 160,85"/>
+	<path class="arrow" d="M 160,95 L 110,95"/>
+	<text x="120" y="115">反馈</text>
+	<rect class="round-corner" x="160" y="75"/>
+	<text x="173" y="95">其他设备</text>
+</svg>
+
+<h4>流程图</h4>
+
+<svg height="400">
+	<text x="85" y="25">开始</text>
+	<rect x="60" y="5" class="round-corner"/>
+
+	<text x="55" y="75">i = 0, sum = 0</text>
+	<rect x="40" y="55" width="120"/>
+
+	<text x="80" y="130">i != n?</text>
+	<use href="#diamond" x="50" y="105"/>
+	<text x="110" y="160">是</text>
+	<text x="155" y="120">否</text>
+
+	<text x="80" y="185">输入 x</text>
+	<use href="#parallelogram" x="60" y="165"/>
+
+	<text x="70" y="235">sum += x</text>
+	<rect x="50" y="215" width="100"/>
+
+	<text x="80" y="285">++i</text>
+	<rect x="60" y="265"/>
+
+	<text x="70" y="335">输出 sum</text>
+	<polygon transform="translate(50,315)"
+		points="7,0 107,0 93,30 -7,30"/>
+	<!-- 使用 transform 后, points 实为相对坐标 -->
+
+	<text x="85" y="385">结束</text>
+	<rect x="60" y="365" class="round-corner"/>
+
+	<path class="arrow" d="M 100,35  L 100,55"/>
+	<path class="arrow" d="M 100,85  L 100,105"/>
+	<path class="arrow" d="M 100,145 L 100,165"/>
+	<path class="arrow" d="M 100,195 L 100,215"/>
+	<path class="arrow" d="M 100,245 L 100,265"/>
+	<path class="arrow" d="M 100,345 L 100,365"/>
+	<path class="arrow" d="M 150,125 L 200,125 L 200,330 L 150,330"/>
+	<path class="arrow" d="M 60,280 L 5,280 L 5,92 L 100,92"/>
+</svg>
+
+<h4>折线图</h4>
+
+<svg width="350" height="160">
+  <g class="layer" transform="translate(60,10)">
+	<circle r="5" cx="0"   cy="105" />
+	<circle r="5" cx="90"  cy="90"  />
+	<circle r="5" cx="180" cy="60"  />
+	<circle r="5" cx="270" cy="0"   />
+
+	<g class="y axis">
+	  <line x1="0" y1="0" x2="0" y2="120" />
+	  <text x="-40" y="105" dy="5">$10</text>
+	  <text x="-40" y="0"   dy="5">$80</text>
+	</g>
+	<g class="x axis" transform="translate(0, 120)">
+	  <line x1="0" y1="0" x2="270" y2="0" />
+	  <text x="-30"   y="20">January 2014</text>
+	  <text x="240" y="20">April</text>
+	</g>
+  </g>
+</svg>
+
+<script>
+function setDefaults(elem, dict) {
+	for (var attr in dict) {
+		if (!elem.getAttribute(attr))
+			elem.setAttribute(attr, dict[attr]);
+	}
+}
+
+function makeSvg() {
+	var rects = document.getElementsByTagName('rect');
+	for (var i = 0; i < rects.length; ++i) {
+		setDefaults(rects[i], {
+			height: '30',
+			width: '80',
+		});
+	}
+	rects = document.getElementsByClassName('round-corner');
+	for (var i = 0; i < rects.length; ++i) {
+		setDefaults(rects[i], {
+			rx: '10',
+			ry: '10'
+		});
+	}
+}
+makeSvg();
+</script>
+</body>
+
+</html>

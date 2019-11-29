@@ -1,0 +1,30 @@
+install
+	
+	$ sudo apt install nginx-core
+
+config
+
+	suppose you have an index at local directory: .../some-dir/index.html
+
+	$ cd /var/www
+	$ sudo ln -s .../some-dir/ .
+	$ sudo vi /etc/nginx/nginx.conf
+
+	add following lines:
+	-----------------------------------------------------------------
+	http {
+		...
+		server {
+			server_name localhost;     # or 192.168.1.100 for example
+			listen      80;
+			root        /var/www/some-dir;
+			index       index.html;
+		}
+	}
+	-----------------------------------------------------------------
+
+	$ sudo nginx -s reload
+
+	now launch browser and type 'locahost' at address bar!
+
+

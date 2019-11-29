@@ -1,8 +1,37 @@
-eq1: balabala;
-integrate(expr, sym);
-limit(expr, sym, val);
-linsolve([eq1, eq2], [sym1, sym2]);
-solve([eq1, eq2], [sym1, sym2]);
-plot2d(expr, [x, a, b]);
-load(implicit_plot);
-implicit_plot(expr, [x,x1,x2], [y,y1,y2]);
+function
+
+	f(x,y,z) := expr;
+
+solve system
+
+	eq1: balabala;
+	linsolve([eq1, eq2], [sym1, sym2]);
+	solve([eq1, eq2], [sym1, sym2]);
+
+calculus
+
+	integrate(expr, sym);
+	limit(expr, sym, val);
+
+plot
+
+	plot2d(expr, [x, a, b]);
+	load(implicit_plot);
+	implicit_plot(expr, [x,x1,x2], [y,y1,y2]);
+
+	/* plot piecewise function
+
+	x^2/2,              0 <= x < 1;
+	(-2x^2 + 6x - 3)/2, 1 <= x < 2;
+	(3-x)^2/2,          2 <= x < 3;
+	*/
+
+	xi(x,a,b) := ((max(x,a)-a)*(x-max(x,b)))/((x-a)*(x-b));
+	plot2d(x^2/2*xi(x,0,1) + (-2*x^2+6*x-3)/2*xi(x,1,2) + (3-x)^2/2*xi(x,2,3), [x,-1,4], [y,-0.2,1], same_xy);
+
+distribution function
+
+	load("distrib");
+	quantile_f(q, m, n);
+
+	

@@ -10,12 +10,12 @@ Greek alphabet
 Λλ Μμ Νν Ξξ Οο Ππ Ρρ Σσς Ττ Υυ
 Φφ Χχ Ψψ Ωω
 
-Russian alphabet
+Russian alphabet - Cyrillic alphabet
 
-Аа Бб Вв Гг Дд Ее Ёё Жж Зз Ии
-Йй Кк Лл Мм Нн Оо Пп Рр Сс Тт
-Уу Фф Хх Цц Чч Шш Щщ Ъъ Ыы Ьь
-Ээ Юю Яя
+Аа Бб Вв Гг Дд Ее Ёё Жж Зз Ии	a  b  v  g  d  ye yo   zh z  ii
+Йй Кк Лл Мм Нн Оо Пп Рр Сс Тт	y  k  l  m  n  o  p    r  s  t
+Уу Фф Хх Цц Чч Шш Щщ Ъъ Ыы Ьь	uu f  j  ts ch sh shch +  i  -
+Ээ Юю Яя						e  yu ya
 
 五十音图
 

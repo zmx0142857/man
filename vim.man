@@ -1,3 +1,25 @@
+# ---- enable x-system clipboard with vim:
+
+$ sudo apt install vim-gui-common
+
+# ---- vim-plug - plugin manager for vim
+	
+$ curl -fLo ~/.vim/autoload plug.vim --create-dirs \
+  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+Then edit ~/.vim/vimrc
+Launch vim and run :PlugInstall
+
+# ---- Vundle - another plugin manager for vim
+
+$ git clone https://github.com/VundleVim/Vundle.vim.git \
+  ~/.vim/bundle/Vundle.vim
+
+Then edit ~/.vim/vimrc and put something at the top. 
+(Visit https://github.com/VundleVim/Vundle.vim for details.)
+
+Launch vim and run :PluginInstall
+
 # ---------------- start and edit ----------------
 
 vim						# start vim
@@ -241,3 +263,16 @@ zc						# close fold
 zo						# open fold
 zC						# close all
 zO						# open all
+
+# --------------- digraphs and keymap ------------
+
+:dig					# show digraph table. under insert mode, <c-k> to
+						# go into digraph input mode
+
+:echo globpath(&rtp, "keymap/*.vim")
+						# show all possible keymaps
+:set keymap=kana		# japanese kana input
+:set keymap=pinyin		# hanyu pinyin input
+:set keymap=russian-jcuken
+						# russian input
+:set keymap=			# close keymap

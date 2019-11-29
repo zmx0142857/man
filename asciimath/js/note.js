@@ -1,1 +1,0 @@
-/home/zmx/doc/math/math-note/js/note.js

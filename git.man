@@ -112,3 +112,14 @@ Ignore
 ------
 
 $ vim .gitignore
+
+Push to own server
+------------------
+
+$ git remote add <remote-name> git@<ip-addr>:/home/git/<project>.git
+$ git remote -v
+$ git push <remote-name> master
+
+or:
+
+$ git push --set-upstream <remote-name>

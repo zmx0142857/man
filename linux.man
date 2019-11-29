@@ -1,12 +1,23 @@
-# how to do ----------------------------------------------------
+----download----
 
-set locale as en US
+edit apt sources
 
-	$ LANG=en_US.utf8
-	
-	then write this at the end of ~/.bashrc:
+	export EDITOR=vim
+	apt edit-sources
 
-	$ export LC_ALL=en_US.utf8
+pip - install python third party lib
+
+	$ pip3 install -i https://pypi.doubanio.com/simple/ <package-name>
+
+wget - downloader
+
+	$ wget http://...
+
+aria2c - fast downloader
+
+	$ aria2c -s 10 http://...
+
+----desktop----
 
 customize user folder
 
@@ -18,10 +29,25 @@ hide trash icon
 	start tweaks from application menu
 	desktop -> trash
 
-edit apt sources
+trash - move file to trash through bash
+	
+	$ sudo apt-get install trash-cli
+	$ trash-put <filename>
 
-	export EDITOR=vim
-	apt edit-sources
+----shell----
+
+set local host name
+
+	$ sudo -H vi /etc/hostname
+	$ sudo -H vi /etc/hosts
+
+set locale
+
+	$ LANG=en_US.utf8
+	
+	write this at the end of ~/.bashrc:
+
+	$ export LC_ALL=en_US.utf8
 
 print color in terminal
 
@@ -38,8 +64,6 @@ print color in terminal
 	5	blink
 	7	reverse
 	8	hidden
-
-	colors
 
 			foreground	background
 	black	30			40
@@ -61,53 +85,7 @@ print color in terminal
 	printf("\033[31mred\033[0m\n");		// red color
 	printf("\033[7mreversed\033[0m\n");	// reverse color
 
-change local host name
-
-	$ sudo -H vi /etc/hostname
-	$ sudo -H vi /etc/hosts
-
-play midi file
-
-	$ sudo apt install timidity
-	$ timidity mymusic.mid
-
-	if you want a GUI, do
-	$ sudo apt install timidity-interfaces-extra
-	$ timidity -lg
-
-# app ----------------------------------------------------------
-
-vim - text editor
-
-* Vundle - plugin manager for vim
-
-	$ git clone https://github.com/VundleVim/Vundle.vim.git \
-	  ~/.vim/bundle/Vundle.vim
-
-	Then edit ~/.vim/vimrc and put something at the top. 
-	(Visit https://github.com/VundleVim/Vundle.vim for details.)
-
-	Launch vim and run :PluginInstall
-
-
-
-* vim-plug - also a plugin manager for vim...
-	
-	$ curl -fLo ~/.vim/autoload plug.vim --create-dirs \
-	  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-	
-	Then edit ~/.vim/vimrc
-	Launch vim and run :PlugInstall
-
-* enable x-system clipboard with vim:
-
-	$ sudo apt install vim-gui-common
-
-acpi - power manager for laptop
-
-flash - play web videos
-
-	$ sudo apt install flashplugin-installer
+----text-edit----
 
 fbterm - draw Chinese characters under terminal
 	
@@ -129,14 +107,40 @@ xelatex - beautifully output pdf for math formulas and documents
 
 	$ sudo apt install texlive-full
 
-pip - install python third party lib
+----file-and-media----
 
-	$ pip3 install -i https://pypi.doubanio.com/simple/ <package-name>
+merge video files
 
-trash - move file to trash through bash
-	
-	$ sudo apt-get install trash-cli
-	$ trash-put <filename>
+	1. use ffmpeg
+
+	$ sudo snap install ffmpeg
+	$ cd ~/some/path
+
+	rename file extension
+
+	$ for f in *.blv; do mv "$f" "${f%.blv}.flv"; done
+
+	write a tmp file like:
+	------------
+	file '0.flv'
+	file '1.flv'
+	...
+	------------
+	$ for f in *.flv; do echo "file '$f'" >> tmp; done
+	$ ffmpeg -f concat -i tmp -c copy output.flv
+
+	2. WARNING: this method has problem with time-line etc.
+
+	$ cat 1.flv 2.flv > new.flv
+	$ cat 1.mp4 2.mp4 > new.mp4
+
+	under MS Windows:
+
+	cmd> copy /b 1.flv+2.flv new.flv
+
+flash - play web videos
+
+	$ sudo apt install flashplugin-installer
 
 ldd - find dependence of a executable file
 
@@ -144,6 +148,54 @@ iconv - convertion between encodings
 
 sha256sum - calculation hash of a file
 	
+vlc, mpv, totem - video player
+
+pdfunite - merge pdf files
+
+	$ pdfunite *.pdf out.pdf
+
+timidity - play midi file
+
+	$ sudo apt install timidity
+	$ timidity mymusic.mid
+
+	if you want a GUI, do
+	$ sudo apt install timidity-interfaces-extra
+	$ timidity -lg
+
+pavucontrol - deal with sound problem
+
+----network----
+
+ifconfig - network info
+
+	to see your ip:
+	$ ifconfig | grep inet
+
+list available ip under WLAN
+
+	$ nmap -sP 192.168.1.0/24
+	$ arp | grep ether
+
+----system----
+
+acpi - power manager for laptop
+
+startup accelerate
+
+	$ systemd-analyze # show startup time
+	$ systemd-analyze plot > tmp.svg # show startup figure
+	$ systemd-analyze blame # show slow services
+
+	think before you try!
+
+	$ sudo systemctl mask plymouth-quit-wait.service
+	$ sudo systemctl disable mariadb.service
+	$ sudo systemctl disable mysql.service
+	$ sudo systemctl disable NetworkManager-wait-online.service
+
+	to resume, use 'enable' or 'unmask'
+
 lsblk - view disks and devices on the computer
 
 mount and umount - open external devices like usb stick
@@ -154,19 +206,12 @@ df - check filesystems
 
 	-T		show filesystem type and used percentage and so on
 
-pavucontrol - deal with sound problem
-
-get system info
-
-	getconf LONG_BIT
-	uname -a
-	lsb_release -a
-
-ifconfig - network info
-
-	to see your ip:
-	$ ifconfig | grep inet
-
 lsof - view resource occupation status
 
 	$ lsof -i:9999 # check port 9999
+
+get system info
+
+	$ getconf LONG_BIT
+	$ uname -a
+	$ lsb_release -a

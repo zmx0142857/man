@@ -1,0 +1,26 @@
+声母
+----
+
+[bu]  v		[pu]  b		[me]  cv	[fu]  c
+[de]  r		[te]  t		[ne]  er	[le]  e
+[ge]  f		[ke]  g		[he]  d
+[ji]  fj	[qi]  gj	[xi]  dj
+[zhi] xc	[chi] we	[shi] sd	[ri]  df
+[zi]  x		[ci]  w		[si]  s
+
+韵母
+----
+
+[er]  n			[i]    j i		[u]    u		[ü]  m
+[a]   _ _l		[ia]   j_		[ua]   u_
+[o]   o			[io]   jo		[uo]   uo
+[e]	  l			[ie]   jl						[üe] ml
+[ai]  _i						[uai]  u_i
+[ei]  io						[uei]  ui
+[ao]  _o _,		[iao]  j_o
+[ou]  , ,.		[iou]  j, m,
+[an]  _k		[ian]  j_k		[uan]  u_k		[üan] m_k
+[en]  k			[in]   jk		[un]   uk		[ün]  mk
+[ang] _kl		[iang] j_kl		[uang] u_kl u_io
+[eng] kl		[ing]  jkl		[ueng] ukl uio
+[ong] ukl uio	[iong] mkl m,.

@@ -1,5 +1,6 @@
+combo pinyin
+
 声母
-----
 
 [bu]  v		[pu]  b		[me]  cv	[fu]  c
 [de]  r		[te]  t		[ne]  er	[le]  e
@@ -9,7 +10,6 @@
 [zi]  x		[ci]  w		[si]  s
 
 韵母
-----
 
 [er]  n			[i]    j i		[u]    u		[ü]  m
 [a]   _ _l		[ia]   j_		[ua]   u_
@@ -24,3 +24,33 @@
 [ang] _kl		[iang] j_kl		[uang] u_kl u_io
 [eng] kl		[ing]  jkl		[ueng] ukl uio
 [ong] ukl uio	[iong] mkl m,.
+
+keymap kana
+
+ん n'
+つ tu
+ぁ xa
+ぃ xi
+ぅ xu
+ぇ xe
+ぉ xo
+っ xtu
+じ ji zi
+じゃ ja zya
+じゅ ju zyu
+じょ jo zyo
+
+wubi
+
+傘 wwwf
+長 deu
+書 vfjf
+車 lghh
+門 uhng
+島 wvgm
+鳥 wvgo
+喫 kdhd
+鍋 qmnk
+歯 hobj
+帰 ytvh
+飛 nuth nutj

@@ -85,6 +85,32 @@ print color in terminal
 	printf("\033[31mred\033[0m\n");		// red color
 	printf("\033[7mreversed\033[0m\n");	// reverse color
 
+ssh
+	
+	$ ssh-keygen
+	and copy ~/.ssh/id_rsa.pub to serverside,
+	$ cat id_rsa.pub >> ~/.ssh/authorized_keys
+
+remote ssh
+
+	server side:
+
+	open 192.168.1.1 in browser, enter router admin password.
+	advanced options -> advanced user -> add virtual server.
+	* external port can be any number greater than 1024, for example 2022.
+	* internal port is by default the ssh port 22.
+	* to see your WLAN ip, type
+	  $ ifconfig | grep inet
+	  in terminal. here we suppose it is 192.168.1.100.
+	* click save.
+	on router admin page, check your external ip, xx.xx.xx.xx.
+
+	client side:
+
+	type
+	$ ssh -p 2022 user@xx.xx.xx.xx
+	and wow!
+
 ----text-edit----
 
 fbterm - draw Chinese characters under terminal

@@ -276,3 +276,7 @@ zO						# open all
 :set keymap=russian-jcuken
 						# russian input
 :set keymap=			# close keymap
+
+# --------------- sort --------------------
+
+:%sort

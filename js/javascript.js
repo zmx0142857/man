@@ -82,7 +82,11 @@ String
 	支持 C 语言风格的转义. 另外, '\u####' 表示一个 unicode 字符:
 
 		'\u4e2d\u6587';		// "中文"
-	
+
+	反查编码:
+
+		'♪'.charCodeAt(0).toString(16); // "266a"
+
 	`` 括住多行字符串(ES6):
 
 		`这是一个
@@ -108,6 +112,7 @@ String
 	str.indexOf(s)		返回子串 s 首次出现的下标, 找不到时返回 -1
 	str.substring(a=begin, b=end)
 						返回一个由区间 [a, b) 确定的子串
+	str.substr(beg, len)返回从 beg 开始, 长为 len 的子串
 	parseInt(str)		读取 str, 返回一个整数, str 以数字开头即可
 	parseFloat(str)		与上一条类似
 

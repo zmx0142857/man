@@ -133,6 +133,11 @@ xelatex - beautifully output pdf for math formulas and documents
 
 	$ sudo apt install texlive-full
 
+fc-list - list font files in system
+
+	$ fc-list :lang=zh
+	$ fc-list LatinModernMath
+
 ----file-and-media----
 
 merge video files

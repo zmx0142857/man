@@ -1,51 +1,67 @@
-Learn Regex!
-============
+----regex-used-in-js-&-python------------------------------------
 
-----meta characters----------------------------------------------
+flags
 
-^       beginning of line/string
-$       end of line/string
+g		global match
+i		ignore case
+m		multiline, ^ and $ matches the beginning/end of lines
 
-\n      newline character.
-\t 		tab character.
-\s      any blank character (space, tab, \n, wide space...).
-\d      0-9.
-\w      alphabet or \d or _.
-\b      begin or end of word (that is to say, only one of the
-        two characters beside \b matches \w).
-
-.       anything but \n.
-\S      anything but \s.
-\D      anything but \d.
-\W      anything but \w.
-\B      anything but \b.
-
-{n}     the character before can be repeated n times.
-{m,n}   the character before can be repeated m to n time(s).
-{n,}    the character before can be repeated n or more time(s).
-*       the character before can be repeated 0 or more time(s).
-+       the character before can be repeated 1 or more time(s).
-?       the character before can be repeated 0 or 1 time.
+meta characters
 
 [...]   anything appeared in the square bracket.
 [^...]  anything but those appeared in the square bracket.
-[0-9]   the same as \d.
 
-----branch-------------------------------------------------------
+^       beginning of string/line
+$       end of string/line
+
+\t 		tab character
+\r		carrage return character
+[\b]	backspace
+\n      newline character
+\s      any blank character (space, tab, \n, wide space...)
+\d      a digit, same as [0-9]
+\w      alphabet or digit or underscore, same as [a-zA-Z0-9_]
+\b      begin or end of word, matches a zero-width position.  (that is to
+		say, only one of the two characters beside \b matches \w)
+
+[^]		anything
+.       anything but \n
+\S      anything but \s
+\D      anything but \d
+\W      anything but \w
+\B      anything but \b
+
+{n}     the character before can be repeated n times.
+{m,n}   the character before can be repeated m to n time(s)
+{n,}    the character before can be repeated n or more time(s)
+*       the character before can be repeated 0 or more time(s)
++       the character before can be repeated 1 or more time(s)
+?       the character before can be repeated 0 or 1 time
+*?		like * but not greedy
++?		like + but not greedy
+
+greedy and lazy
+
+*   by default regex uses greedy mode: for example, use "a.*b"
+    to search "aabab" and we get the whole string.
+*   to activate lazy mode, append '?': e.g., "a.*?b" matches
+    "aab" and "ab".
+
+branch
 
 expr1|expr2     if expr1 matches, expr2 will be ignored. So
                 make sure expr1 is longer, therefore more
                 explicit, than expr2.
 
-----escape-------------------------------------------------------
+escape
 
 \
 
-----comment------------------------------------------------------
+comment
 
 (?#comment)
 
-----group--------------------------------------------------------
+capture group
 
 \0              the whole expression.
 \1              the first group, indexes are specified by '('.
@@ -62,7 +78,7 @@ expr1|expr2     if expr1 matches, expr2 will be ignored. So
 (?(name)yes|no) if name exist in stack, try match yes, else
                 match no.
 
-----zero width assert--------------------------------------------
+zero width assertion
 
 (?=expr)        the position after which is expr.
 (?<=expr)       the position before which is expr.
@@ -70,17 +86,9 @@ expr1|expr2     if expr1 matches, expr2 will be ignored. So
 (?<!expr)       the position before which is not expr.
 (?!)            matches nothing.
 
-----greedy & lazy------------------------------------------------
-
-*   by default regex uses greedy mode: for example, use "a.*b"
-    to search "aabab" and we get the whole string.
-*   to activate lazy mode, append '?': e.g., "a.*?b" matches
-    "aab" and "ab".
-
-----rarely-used metas--------------------------------------------
+rarely used metas
 
 \a			alert character.
-\r			CR.
 \v			vertical tab.
 \f			newpage.
 \e 			escape.
@@ -95,7 +103,7 @@ expr1|expr2     if expr1 matches, expr2 will be ignored. So
 \G			beginning of current search.
 \p{name}	unicode class whose name is name, e.g., \p{IsGreek}
 	
-----examples-----------------------------------------------------
+examples
 
 HTML tag:
     <[^>]+>
@@ -140,3 +148,23 @@ div tags:
 	)*
 	(?(Open)(?!))
 	</div>
+
+----regex-used-in-grep-&-vim-------------------------------------
+
+character classes
+
+[[:alnum:]] [[:alpha:]] [[:cntrl:]] [[:digit:]] [[:graph:]] [[:lower:]]
+[[:print:]] [[:punct:]] [[:space:]] [[:upper:]] [[:xdigit:]]
+
+metas
+
+\<		beginning of a word
+\>		end of a word
+
+metas where escapes are needed
+\?
+\+
+\{
+\|
+\(
+\)

@@ -1,0 +1,19 @@
+login as root
+	
+	connect you android phone to computer with a cable.
+	open developer options and usb debugging mode on the phone.
+	on computer type:
+
+	$ adb shell
+
+remount system with rw privileges
+
+	so that you can access formerly unaccessable directories.
+
+	$ adb shell
+	# mount -o remount,rw /system
+
+transfor files
+
+	$ adb pull
+	$ adb push

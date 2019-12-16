@@ -1,10 +1,17 @@
 % !Mode:: "TeX:UTF-8"
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
-\ProvidesClass{lzuthesis}[2019/10/24 v0.0.0 Lanzhou University Thesis Template for Bachelor Degree]
+\ProvidesClass{lzuthesis}[2019/12/16 v0.0.1 Lanzhou University Thesis Template for Bachelor Degree]
 
 % [类与选项]
 
-\LoadClass[a4paper,UTF8]{ctexart}
+\LoadClass[a4paper,UTF8]{ctexart}[2015/12/20] % 这里的版本检查只产生警告
+% 强制版本检查
+\makeatletter
+\@ifpackagelater{ctex}{2015/12/20}{}{
+	\PackageError{lzuthesis}{require a package 'ctex' newer than 2015/12/20}
+}
+\makeatother
+
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexart}}
 \ProcessOptions
 \newif\ifprint\printfalse
@@ -28,6 +35,7 @@
 % [字体]
 
 % 默认的中英文字体
+% KaiTi, SimHei, SimSun
 \setCJKmainfont[ItalicFont={楷体},BoldFont={黑体}]{宋体}
 \setmainfont{Times New Roman}
 
@@ -74,9 +82,10 @@
 
 % [数学]
 
-\RequirePackage{amsmath} % ams 数学包
-\RequirePackage{amssymb} % 数学符号
-\RequirePackage{mathrsfs}% 花体字, 使用方法为\mathscr{ABC}
+\RequirePackage{amsmath}	% ams 数学包
+\RequirePackage{amssymb}	% 数学符号
+\RequirePackage{mathrsfs}	% 花体字, 使用方法为\mathscr{ABC}
+\RequirePackage{bm}			% 粗斜体, 用于向量和矩阵
 
 % 定理与证明
 % 需要 amsthm 包, 这个包含于 amsmath 包
@@ -423,4 +432,5 @@
 
 % 版本号: 每修一个小 bug 增加 0.0.1, 重大 bug 增加 0.1.0
 % 版本号	YYYY-MM-DD	详情 
-% v0.0.0	2019-10-24	add lzuthesis.cls lzuthesis.tex ./imgs
+% v0.0.0	2019-10-24	添加 lzuthesis.cls lzuthesis.tex imgs/
+% v0.0.1	2019-12-16	增加对 ctexart 类的版本检查, 改写帮助手册

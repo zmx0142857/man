@@ -172,9 +172,9 @@ _intprint:
 
 	.print_loop:
 		mov eax, [esp]
-		call _putchar
+		call _putchar	; can be improved?
 		pop eax
-		loop .print_loop
+		loop .print_loop; decrease ecx automatically
 
 	pop_all
 	ret

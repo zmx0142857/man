@@ -255,6 +255,8 @@ tab ctrl-i				# insert a tab if under insert mode
 n>>						# indent n lines
 <<						# unindent
 =						# auto indent; gg=G to indent the whole file
+:set expandtab			# auto convert tab to spaces
+:retab					# convert existing tab to spaces
 
 # ---------------- fold & unfold code ------------
 

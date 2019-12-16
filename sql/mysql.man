@@ -167,10 +167,11 @@ show and set
 
 	> show databases;
 
-	(after use a table)
+	(after use a database)
 	> show tables;
 	> show columns from <table>;
 or	> describe <table>;
+or  > show create table <table>;
 	> show index from <table>;
 	> show table status [from <database>] [like 'pattern'] \g;
 	> show warnings;
@@ -206,6 +207,8 @@ create and drop table
 		<attrn> <typen> [constraint],
 		[table-level constraint]
 	);
+
+	> create table select ...;
 
 	===========
 	constraint
@@ -245,6 +248,7 @@ alter table -- add and drop columns
 	> alter table <table> add <attr> <type> [constraint];
 	> alter table <table> add [table-level constraint];
 	> alter table <table> alter <attr> <type>;
+	> alter table <table> change column <attr> <newname> <type>;
 	> alter table <table> drop <attr> [cascade/restrict];
 	> alter table <table> drop constraint <constraint> [cascade/restrict];
 
@@ -252,6 +256,11 @@ add delete and update rows
 
 	> insert into <table> (<attr1>, <attr2>, ..., <attrn>)
 	  values (<val1>, <val2>, ..., <valn>);
+	> insert into select ...;
+	
+	> replace into ...;
+	> insert into ... on duplicate key update ...;
+	> insert ignore into ...;
 
 	use 'value' instead of 'values' is also acceptable
 
@@ -293,6 +302,9 @@ create alter and drop index
 
 	> alter index <index> rename to <newname>;
 	> drop index <index>;
+	
+	force index
+	> select ... from <table> force index <index> where ...;
 
 example
 
@@ -398,6 +410,28 @@ save result in a new table
 	> insert into result
 		select name, population, countrycode from city
 		where population between 2000000 and 5000000;
+
+transaction
+
+	begin;
+	...
+	commit;
+
+	begin;
+	...
+	rollback;
+
+	set transaction isolation level <level>;
+
+	=======================
+	level
+	-----------------------
+	read uncommitted
+	read committed
+	repeatable read
+	serializable
+	=======================
+
 
 ----backup---------------------------------------------------------------
 

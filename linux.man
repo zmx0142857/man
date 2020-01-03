@@ -111,6 +111,11 @@ remote ssh
 	$ ssh -p 2022 user@xx.xx.xx.xx
 	and wow!
 
+ftp
+
+	$ sudo apt install vsftpd
+	$ sudo service vsftpd start
+
 ----text-edit----
 
 fbterm - draw Chinese characters under terminal

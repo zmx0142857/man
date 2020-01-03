@@ -35,6 +35,11 @@
 		printf("%s", buf);
 	}
 
+	// scanf supports regex
+	// at most 19 chars, take digits, a-zA-Z and spaces only
+	scanf("%19[0-9a-zA-Z ]", input);
+	puts(input);
+
 #include <string.h>
 
 	void *memcpy(dest, src, size);

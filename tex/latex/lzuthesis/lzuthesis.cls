@@ -214,6 +214,8 @@
 \def \@xverbatim {\leftskip = 2em\relax\saveverbatime}
 \makeatother
 
+
+
 % [ctex 设置]
 
 \ctexset{
@@ -365,6 +367,10 @@
 \makeatother
 
 % [目录]
+\usepackage[titles, subfigure]{tocloft}
+
+% 为 section 标题加上引导点...
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
 
 \newcommand\maketoc{
 	\tableofcontents						% 生成目录

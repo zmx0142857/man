@@ -98,10 +98,31 @@ function submit2() {
 	req.send(null); 
 } 
 </script>
-<form name="ajax" method="POST" action="">
+<form name="ajax2" method="post" action="">
 	<p><input type="button" value="submit" onclick="submit2()"/></p>
 	<p>Received: <input type="text" id="dyn2" size="32" value=""/></p>
 </form>	
+</fieldset>
+
+<fieldset>
+<legend>post text</legend>
+<script>
+function submit3() {
+	var req = XHR();
+	req.onreadystatechange = function() {
+		if (req.readyState == 4) {
+			console.log('message sent');
+		}
+	};
+	req.open('POST', 'demo.py', true);
+	req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	req.send('file=demo.txt&content=' + document.ajax3.sentence.value);
+}
+</script>
+<form name="ajax3" action="" method="post">
+	<input type="text" name="sentence" value="Able was I ere I saw Elba." />
+	<input type="button" value="submit" onclick="submit3()" />
+</form>
 </fieldset>
            
 </body>

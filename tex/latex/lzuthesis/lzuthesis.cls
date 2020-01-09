@@ -1,6 +1,11 @@
 % !Mode:: "TeX:UTF-8"
+%
+% 兰州大学本科生毕业论文模板
+% 维护者: 卓铭鑫, 黄洋锐
+% 地址: https://github.com/zmx0142857/man/tree/master/tex/latex/lzuthesis/
+%
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
-\ProvidesClass{lzuthesis}[2019/12/16 v0.0.1 Lanzhou University Thesis Template for Bachelor Degree]
+\ProvidesClass{lzuthesis}[2020/01/09 v0.1.0 Lanzhou University Thesis Template for Bachelor Degree]
 
 % [类与选项]
 
@@ -50,7 +55,9 @@
 
 % [页面设置]
 
-\RequirePackage[left=2.5cm,right=2cm,top=2.5cm,bottom=2cm]{geometry} % 页边距
+\RequirePackage[
+	top=3cm,bottom=2.54cm,left=3.17cm,right=3.17cm, headheight=2cm,
+]{geometry} % 页边距
 \linespread{1.5}	% 全文行距
 
 % [页眉页脚]
@@ -63,18 +70,22 @@
 \fancyhead{}
 \fancyfoot{}
 
-% 开始配置
-\fancyhead[C]{\the\zhauthor：\the\shorttitle}	% 页眉居中书写作者名和论文缩写标题
-\fancyfoot[C]{~\thepage~} 				% 页脚居中书写页码
-%\fancyfoot[C]{--~\thepage~--} 			% 页脚居中书写--页码--
-%\renewcommand{\headrulewidth}{0pt}		% 去掉页眉横线
-
-% 应用配置
-\pagestyle{fancy}
-
 % [列表]
 
 \RequirePackage{enumitem}
+
+% 减小列表行距
+\setenumerate[1]{itemsep=0pt,partopsep=0pt,parsep=\parskip,topsep=5pt}
+\setitemize[1]{itemsep=0pt,partopsep=0pt,parsep=\parskip,topsep=5pt}
+\setdescription{itemsep=0pt,partopsep=0pt,parsep=\parskip,topsep=5pt}
+
+% 也可以在每个列表中单独配置:
+% \begin{itemize}
+%	\setlength{\itemsep}{0pt}
+%	\setlength{\parsep}{0pt}
+%	\setlength{\parskip}{0pt}
+%	...
+% \end{itemize}
 
 % 二级列表 (1)(2)(3)...
 \newlist{subenum}{enumerate}{1}
@@ -100,12 +111,12 @@
 \newtheorem{remark}{\heiti 注}[section]
 
 \newenvironment{proof}{
-	\heiti 证明\quad\songti
+	\noindent\heiti 证明\quad\songti
 }{
 	\hfill $\square$\par
 } % \square 在 amssymb 中
 \newenvironment{solution}{
-	\heiti 解\quad\songti
+	\noindent\heiti 解\quad\songti
 }{
 	\hfill $\square$\par
 }
@@ -203,96 +214,146 @@
 \def \@xverbatim {\leftskip = 2em\relax\saveverbatime}
 \makeatother
 
+% [ctex 设置]
+
+\ctexset{
+	% 宋体加粗功能会影响 section 标题样式, 这里将它恢复为黑体
+	section/format += \heiti,
+	subsection/format += \heiti,
+	subsubsection/format += \heiti,
+	% 自定义章节标题
+	section = {
+		name = {第,章},
+		number = \chinese{section},
+	}
+}
+
 % [封面]
 
 \newcommand\makecover{
-	\thispagestyle{empty} % 没有页眉页脚
+	\pagestyle{empty}
 	\begin{figure*}
 		\centering
 		\includegraphics[width=0.33\textwidth]{lzu.pdf}
 	\end{figure*}
 	\vspace*{-1.1em} % 加星号的版本自带参考物, 否则前面需要 \hbox{}
 	\begin{center}
-	\heiti
-	\zihao{0}毕\quad 业\quad 论\quad 文\par
-	\zihao{4}(本科生)\par
-	\vspace*{4.1em}
-	\songti
-	\begin{tabular}{rc}
-		\textbf{中文标题} & \textbf{\the\zhtitle} \\
-		\cline{2-2}\\
-		\textbf{英文标题} & \textbf{\the\entitle} \\
-		\cline{2-2}\\
-	\end{tabular}
-	\par
+	\heiti \zihao{0} \ziju{1} 毕业论文\par
 	\vspace*{1em}
+	\zihao{4} \ziju{0.5} (本科生)\par
+	\vspace*{4.1em}
 	{
-	\songti
-	\renewcommand\arraystretch{0.75} % 临时改变表格行高
-	\begin{tabular}{rc}
-		学生姓名 & \the\zhauthor \\
-		\cline{2-2}\\
-		指导教师 & \the\teacher \\
-		\cline{2-2}\\
-		学\qquad 院 & \quad \the\college \quad \hbox{} \\
-		\cline{2-2}\\
-		专\qquad 业 & \the\major \\
-		\cline{2-2}\\
-		年\qquad 级 & \the\grade \\
-		\cline{2-2}\\
-	\end{tabular}
+		\songti \ziju{0}
+		\renewcommand\arraystretch{0.85} % 临时改变表格行高
+		\begin{tabular}{lc}
+			\textbf{论文题目（中文）}& \the\zhtitle \\
+			\cline{2-2}\\
+			\textbf{论文题目（外文）}& \the\entitle \\
+			\cline{2-2}\\
+			\ziju{1} \textbf{学生姓名} & \the\zhauthor \\
+			\cline{2-2}\\
+			\textbf{导师姓名、职称} & \the\teacher \\
+			\cline{2-2}\\
+			\ziju{0.2} \textbf{学生所属学院} & \the\college \\
+			\cline{2-2}\\
+			\ziju{5} \textbf{专业} & \the\major \\
+			\cline{2-2}\\
+			\ziju{5} \textbf{年级} & \the\grade \\
+			\cline{2-2}\\
+		\end{tabular}
 	}\par
 	\vspace*{4em}
-	\zihao{-4}兰州大学教务处
+	\heiti \zihao{-4} \ziju{0.5} 兰州大学教务处
 	\end{center}
 	\newpage % 换页
+	%-------------------------------------------------------
+	% 图表按章节编号
+	%\renewcommand\thetable{\thesection.\arabic{table}}
+	%\renewcommand\thefigure{\thesection.\arabic{figure}}
+	%\renewcommand\theequation{\thesection.\arabic{equation}}
+	\numberwithin{table}{section}
+	\numberwithin{figure}{section}
+	\numberwithin{equation}{section}
+	\numberwithin{lstlisting}{section} % 必须在 \begin{document} 后
 }
 
 % [诚信责任书]
 \newcommand\makeliability{
-	\begin{center}
-	\begin{minipage}{0.9\linewidth}
-
-	\linespread{2} % 在 minipage 内临时改变行距
+	%\begin{center}
+	%\begin{minipage}{0.9\linewidth}
+	%\linespread{2} % 在 minipage 内临时改变行距
 	\vspace*{3em}
-	\begin{center}\zihao{3}诚信责任书\end{center}
-	\vspace{2.5em}
+	\begin{center}\zihao{3}\textbf{诚信责任书}\end{center}
 
-	\zihao{-3}
+	\zihao{-4}
 	\parindent = 2em % 缩进
 	本人郑重声明：本人所呈交的毕业论文（设计），是在导师的指导下独立进行研究所取得的成果。毕业论文（设计）中凡引用他人已经发表或未发表的成果、数据、观点等，均已明确注明出处。除文中已经注明引用的内容外，不包含任何其他个人或集体已经发表或在网上发表的论文。
 
-	特此声明。
+	本声明的法律责任由本人承担。
 
-	\vspace{3em}
-	\begin{flushright}
-		论文作者签名：\underline{\hspace{6.4em}}
-		\quad
-		日\qquad 期：\underline{\hspace{6.4em}}
-	\end{flushright}
-	\end{minipage}
+	\vspace{2em}
+	论文作者签名：\underline{\hspace{7em}}
+	\hspace{7em}
+	日\qquad 期：\underline{\hspace{7em}}
+
+	\vspace*{3em}
+	\begin{center}
+	\zihao{3}\textbf{关于毕业论文（设计）使用授权的声明}
 	\end{center}
+	
+	本人在导师指导下所完成的论文及相关的职务作品，知识产权归属兰州大学。本人完全了解兰州大学有关保存、使用毕业论文的规定，同意学校保存或向国家有关部门或机构送交论文的纸质版和电子版，允许论文被查阅和借阅；本人授权兰州大学可以将本毕业论文的全部或部分内容编入有关数据库进行检索，可以采用任何复制手段保存和汇编本毕业论文。本人离校后发表、使用毕业论文或与该论文直接相关的学术论文或成果时，第一署名单位仍然为兰州大学。
+	
+	本毕业论文研究内容：
+	\begin{itemize}
+		\setlength{\itemsep}{0pt}
+		\setlength{\parsep}{0pt}
+		\setlength{\parskip}{0pt}
+		\item [$\square$] 可以公开
+		\item [$\square$] 不宜公开，已在学位办公室办理保密申请，解密后适用本授权书。\\
+		（请在以上选项内选择其中一项打“√”）
+	\end{itemize}
+
+	\vspace{2em}
+	论文作者签名：\underline{\hspace{7em}}
+	\hspace{3em}
+	导师签名：\underline{\hspace{7em}}
+
+	\medskip
+	日\qquad\qquad 期：\underline{\hspace{7em}}
+	\hspace{3em}
+	日\qquad 期：\underline{\hspace{7em}}
+
+	%\end{minipage}
+	%\end{center}
 	\newpage
-	% 全局字号
-	\zihao{-4}
+	%-------------------------------------------------------
+	\zihao{-4} % 全局字号
+	\renewcommand{\headrulewidth}{0pt}	% 去掉页眉横线
+	\fancyfoot[C]{~\thepage~} 			% 页脚居中书写页码
+	\pagestyle{fancy}
+	\pagenumbering{Roman}				% 页码为大写罗马数字
 }
 
 % [摘要]
 
 \newcommand\cnabstractname{摘要}
-\newcommand\enabstractname{ABSTRACT}
+\newcommand\enabstractname{Abstract}
 \newcommand\cnkeywordsname{关键词}
-\newcommand\enkeywordsname{Key Words}
-\newcommand\cnkeywords[1]{ {\noindent\heiti\zihao{-4}\cnkeywordsname: }#1}
-\newcommand\enkeywords[1]{ {\noindent\bfseries\zihao{-4}\enkeywordsname: }#1}
+\newcommand\enkeywordsname{Key words}
+\newcommand\cnkeywords[1]{
+	{\noindent\heiti\zihao{-4}\cnkeywordsname: }#1 \newpage
+}
+\newcommand\enkeywords[1]{
+	{\noindent\bfseries\zihao{-4}\enkeywordsname: }#1 \newpage
+}
 
 \makeatletter % 与 \makeatother 配合使用, 使得 @ 暂时可用
 \newenvironment{cnabstract}{
 	\begin{center}
-	\songtibf \zihao{3} \textbf{\the\zhtitle}\\
-	\zihao{-4} \the\zhauthor, \the\zhinstitute
+	\heiti \zihao{3} \the\zhtitle
 	\end{center}
 	\section*{\ziju{2}{\cnabstractname}}
+	\addcontentsline{toc}{section}{中文摘要} % 将中文摘要加入目录
 	\@afterheading
 }{
 	\par
@@ -301,11 +362,10 @@
 
 \newenvironment{enabstract}{
 	\begin{center}
-	\zihao{3}
-	\textbf{\the\entitle}\\
-	\zihao{-4} \the\enauthor, \the\eninstitute
+	\heiti \zihao{3} \textbf{\the\entitle}
 	\end{center}
 	\section*{\enabstractname}
+	\addcontentsline{toc}{section}{英文摘要} % 将英文摘要加入目录
 	\@afterheading
 }{
 	\par
@@ -313,11 +373,45 @@
 }
 \makeatother
 
+% [目录]
+
+\newcommand\maketoc{
+	\tableofcontents						% 生成目录
+	\newpage
+	\pagenumbering{arabic}					% 页码为阿拉伯数字
+	\fancyhead[L]{兰州大学本科生毕业论文}	% 页眉左边
+	\fancyhead[R]{\the\shorttitle}			% 页眉右边
+	\renewcommand{\headrulewidth}{1pt}		% 添加页眉横线
+	\pagestyle{fancy}						% 应用页眉页脚配置
+}
+
+% [参考文献]
+
+\renewenvironment{bibliography}{
+	\zihao{5}
+	\begin{thebibliography}{0}
+		\addcontentsline{toc}{section}{参考文献} % 将参考文献加入目录
+}{
+	\end{thebibliography}
+}
+
+\RequirePackage[colorlinks,linkcolor=black,anchorcolor=black,citecolor=black]{hyperref} % 链接颜色与 pdf 书签
+%\bibliographystyle{abbrv} % 参考文献样式: plain,unsrt,alpha,abbrv,chinesebst
+
+% 参考文献上标
+\newcommand{\upcite}[1]{\textsuperscript{\cite{#1}}}
+
 % [附录]
 
-\RequirePackage[toc, page, title, titletoc, header]{appendix}
+\RequirePackage[page, title, header]{appendix}
 \renewenvironment{appendix}{
 	\begin{appendices}
+		\ctexset {
+			section = {
+				name = {附录},
+				number = \Alph{section},
+			}
+		}
 		% 计数器清零(附录重新编号)
 		\setcounter{table}{0}
 		\setcounter{figure}{0}
@@ -330,21 +424,12 @@
 	\newpage
 }
 
-% [参考文献]
-
-\RequirePackage[colorlinks,linkcolor=black,anchorcolor=black,citecolor=black]{hyperref} % 链接颜色与 pdf 书签
-%\bibliographystyle{abbrv} % 参考文献样式: plain,unsrt,alpha,abbrv,chinesebst
-
-% 参考文献上标
-\newcommand{\upcite}[1]{\textsuperscript{\cite{#1}}}
-
 % [致谢]
 
 \newenvironment{acknowledgement}{
-	\vspace*{0em}
 	\section*{\ziju{2}致谢}
-	\vspace{2em}
-	\songti \zihao{-4} % 宋体小四
+	\addcontentsline{toc}{section}{\ziju{2}致谢} % 将致谢加入目录
+	\songti \zihao{-4}
 }{
 	\newpage
 }
@@ -352,16 +437,16 @@
 % [评语]
 
 \newcommand\makereviews{
+	\section*{论文（设计）成绩}
+	\addcontentsline{toc}{section}{论文（设计）成绩} % 将评语加入目录
 	\begin{center}
 	\songtibf
 	\begin{minipage}{0.93\linewidth}
+	\zihao{-3}
 	\fbox{
 		\parbox[c][0.45\vsize][t]{1\linewidth}{
-			\begin{center}
-				\zihao{-2}\textbf{评\qquad 语}
-			\end{center}
+			\textbf{导师评语}
 			\vfill
-			\zihao{-3}
 			\hfill \textbf{建议成绩}\underline{\hspace{6em}}\quad
 			\textbf{指导教师（签字）}\underline{\hspace{6em}}
 		}
@@ -369,10 +454,7 @@
 	\vskip -1.4pt % 刚好使得两个 fbox 边缘重合的距离
 	\fbox{
 		\parbox[c][0.18\vsize][t]{1\linewidth}{
-			\zihao{-3} 
-			\begin{center}
-				\textbf{答辩小组意见}
-			\end{center}
+			\textbf{答辩小组意见}
 			\vfill
 			\hfill \textbf{答辩委员会负责人（签字）}
 			\underline{\hspace{6em}}
@@ -381,15 +463,14 @@
 	\vskip -1.4pt
 	\fbox{
 		\parbox[c][0.27\vsize][t]{1\linewidth}{
-			\zihao{-3}
 			\hbox{}
 			\vfill
-			\hfill \textbf{成\qquad 绩}
+			\hfill \textbf{成绩}
 			\underline{\hspace{6em}}\quad
 			\textbf{学院（盖章）}
 			\underline{\hspace{6em}}
 			\begin{flushright}
-				\textbf{\zihao{-4}20\quad 年\quad 月\quad 日}
+				\textbf{\zihao{-4}\ziju{1.5}年月日}
 			\end{flushright}
 		}
 	}
@@ -398,25 +479,15 @@
 	\newpage
 }
 
-% [section 标题设为黑体]
-
-% 在实际测试中, 宋体加粗会影响 section 标题样式,
-% 这里将它恢复为黑体
-\ctexset{
-	section/format += \heiti,
-	subsection/format += \heiti,
-	subsubsection/format += \heiti,
-}
-
 % [自定义 caption]
 
-\renewcommand\contentsname{\heiti 目\qquad 录}
+\renewcommand\contentsname{\heiti\ziju{2} 目录}
 \renewcommand\listfigurename{\heiti 插图}
 \renewcommand\listtablename{\heiti 表格}
 \renewcommand\figurename{\heiti 图}
 \renewcommand\tablename{\heiti 表}
 \renewcommand\appendixname{\heiti 附录}		% 附录标题
-\renewcommand\appendixtocname{\heiti 附录}	% 附录在目录中的名字
+\renewcommand\appendixtocname{\heiti\ziju{2} 附录}	% 附录在目录中的名字
 \renewcommand\appendixpagename{}			% 附录大标题
 \renewcommand\lstlistingname{\heiti 代码}	% 需要 listings 包
 %\renewcommand\abstractname{\heiti 摘\qquad 要}
@@ -434,3 +505,4 @@
 % 版本号	YYYY-MM-DD	详情 
 % v0.0.0	2019-10-24	添加 lzuthesis.cls lzuthesis.tex imgs/
 % v0.0.1	2019-12-16	增加对 ctexart 类的版本检查, 改写帮助手册
+% v0.1.0	2020-01-09	减小列表行距, 按新规范重写模板

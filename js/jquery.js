@@ -45,6 +45,36 @@
 
     $("#test").hide() - 隐藏所有 id="test" 的元素
 
+判断选择成功与否
+
+	if ($(selector).length) { ... }
+
+创建元素
+
+	$('<a>', {
+		html: 'This is a <strong>new</strong> link',
+		'class': 'new',
+		href: 'foo.html'
+	}).appendTo('body');
+
+按规则修改元素
+
+	$('#mylist li').html(function(i, val) {
+		return 'item ' + i + ' ' + val;
+	});
+
+设置样式
+
+	var h1 = $('h1');
+	h1.css({
+		fontSize: "100px",
+		color: "red"
+	});
+	h1.addClass('big');
+	h1.removeClass('big');
+	h1.toggleClass('big');
+	if (h1.hasClass('big')) {...}
+
 // ---- 文档就绪事件 ---------------------------------------------------
 
 您也许已经注意到在我们的实例中的所有 jQuery 函数位于一个 document ready 函数中：

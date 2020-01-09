@@ -1,15 +1,15 @@
 \documentclass{lzuthesis}
 
 % 中文标题
-\zhtitle{兰州大学本科生毕业论文 \LaTeX\ 模板}
+\zhtitle{兰州大学本科生毕业论文模板}
 % 英文标题
-\entitle{Lanzhou University Thesis \LaTeX\ Template for Bachelor Degree}
+\entitle{Lanzhou University Thesis Template for Bachelor Degree}
 % 短标题 (用于页眉)
-\shorttitle{兰大本科毕设 \LaTeX\ 模板}
+\shorttitle{兰大本科毕设模板}
 % 作者中文名
-\zhauthor{王小明}
+\zhauthor{卓铭鑫、黄洋锐}
 % 作者英文名
-\enauthor{Xiaoming Wang}
+\enauthor{Zhuo Mingxin, Huang Yangrui}
 % 单位中文名
 \zhinstitute{兰州大学数学与统计学院}
 % 单位英文名
@@ -19,7 +19,7 @@
 % 学院
 \college{数学与统计学院}
 % 专业
-\major{专业名称}
+\major{数理基础科学}
 % 年级
 \grade{2016}
 
@@ -31,32 +31,28 @@
 % 诚信责任书
 \makeliability
 
-% 目录
-\pagenumbering{roman}	% 页码为小写罗马数字
-\tableofcontents		% 生成目录
-\newpage
-
 % 中文摘要
 \begin{cnabstract}
-	本文主要介绍和讨论了兰州大学数学与统计学院本科毕业论文的 \LaTeX\ 模板.
+	本文是根据兰州大学教务处《兰州大学本科毕业论文（设计）写作规范》(2018)
+	(\url{http://jwc.lzu.edu.cn/upload/news/N20180928090802.doc},
+	下称《手册》) 要求所编制的 \LaTeX\ 模板. 具体使用中请根据实际情况更改.
 \end{cnabstract}
-\cnkeywords{毕业论文; \LaTeX{}; 模板;}
-\newpage
+\cnkeywords{毕业论文; \LaTeX{}; 模板}
 
 % 英文摘要
 \begin{enabstract}
-	This thesis is a study on the theory of \dots.
+	This article is a \LaTeX\ template based on this file from the Academic Affairs Office of LZU: \url{http://jwc.lzu.edu.cn/upload/news/N20180928090802.doc}. You may modify this template for your own use.
 \end{enabstract}
-\enkeywords{\LaTeX{};}
-\newpage
+\enkeywords{thesis; \LaTeX{}; template}
+
+% 目录
+\maketoc
+
+% 引言
+%\section{引言}
+%介绍研究背景.
 
 % 正文
-\pagenumbering{arabic} % 页码为阿拉伯数字
-
-本文是根据兰州大学教务处《兰州大学本科毕业论文（设计）指导手册》(2011)
-(\url{http://jwc.lzu.edu.cn/upload/doc/N20110111143009.doc},
-下称《手册》) 要求所编制的 \LaTeX\ 模板. 具体使用中请根据实际情况更改. 
-
 \section{使用方法}
 
 \subsection{本模板包含的文件}
@@ -84,9 +80,9 @@ $ xelatex lzuthesis.tex
 $ xelatex lzuthesis.tex
 \end{verbatim}
 
-\subsection{字号}
+\subsection{字号字距}
 
-全文字号字距按照《手册》实现, 如果有需要, 可用 \verb|\zihao{n}| 调整字号. 其中 \verb|n = 0| 到 \verb|8| 分别对应初号到八号, \verb|n = -0| 到 \verb|-6| 分别对应小初到小六.
+全文字号字距按照《手册》实现, 如有需要, 可用 \verb|\zihao{n}| 调整字号. 其中 n = 0 到 8 分别对应初号到八号, n = -0 到 -6 分别对应小初到小六. \verb|\ziju{n}| 用于调整字距, 两字之间相距 n 个字的空白.
 
 \subsection{宏包}
 
@@ -132,20 +128,20 @@ proof       证明    solution    解
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=0.3\textwidth]{lzu.pdf}
+	\includegraphics[width=0.25\textwidth]{lzu.pdf}
 	\caption{单张图片}
-	\label{zheng1}
+	\label{p1}
 \end{figure}
 
 \begin{figure}[!h]
 	\centering
-	\begin{minipage}[t]{0.3\linewidth}
+	\begin{minipage}[t]{0.25\linewidth}
 		\centering
 		\includegraphics[width=\linewidth]{lzu-blue.pdf}
 		\caption{左主图}
 	\end{minipage}
 	\quad
-	\begin{minipage}[t]{0.3\linewidth} 
+	\begin{minipage}[t]{0.25\linewidth} 
 		\centering 
 		\includegraphics[width=\linewidth]{lzu.pdf} 
 		\caption{右主图} 
@@ -169,6 +165,7 @@ proof       证明    solution    解
 \subsection{表格}
 
 \begin{table}[!h]
+	\caption{三线表}
 	\centering
 	\begin{tabular}{ccc}
 		\hline
@@ -178,10 +175,11 @@ proof       证明    solution    解
 		1 &2 &3 \\
 		\hline
 	\end{tabular}
-	\caption{三线表}
 \end{table}
 
 \begin{table}[!h]
+	\caption{定宽表可以指定表格宽度, 超出部分自动折行. \texttt{tabularx} 环境需要 \texttt{tabularx} 包}
+	\label{定宽表}
 	\centering
 	\begin{tabularx}{0.6\linewidth}{c|X}
 		\hline
@@ -190,13 +188,16 @@ proof       证明    solution    解
 		2 & balabala  balabala  balabala  balabala  balabala  balabala  balabala  balabala  balabala \\
 		\hline
 	\end{tabularx}
-	\caption{定宽表可以指定表格宽度, 超出部分自动折行. \texttt{tabularx} 环境需要 \texttt{tabularx} 包}
-	\label{定宽表}
 \end{table}
 
 \subsection{交叉引用}
 
-这里引用附录的图片\ref{fu1}. 
+引用正文图片\ref{p1}; 引用附录图片\ref{pp1};
+引用表\ref{定宽表};
+引用公式\ref{eq1};
+引用定理\ref{thm1};
+引用文献\upcite{bib1};
+使用脚注\footnote{脚注内容}.
 
 \section{推荐}
 
@@ -204,31 +205,32 @@ proof       证明    solution    解
 \url{https://github.com/zmx0142857/man/} 下的 \verb|tex/| 目录.
 附 \LaTeX\ 或 \TeX\ 的参考网站:
 \begin{enumerate}
-	\item \url{www.ctan.org}, \TeX\ 资源集散网站, 可从该网站下载最新宏包.
-	\item \url{tex.stackexchange.com}, \LaTeX\ 和 \TeX\ 的国际交流社区.
+	\item \url{http://www.ctan.org}, \TeX\ 资源集散网站, 可从该网站下载最新宏包.
+	\item \url{http://tex.stackexchange.com}, \LaTeX\ 和 \TeX\ 的国际交流社区.
 \end{enumerate}
 
+% 结论
+%\section{结论}
+%主要的研究结果.
+
 % 参考文献
-\begin{thebibliography}{00}
-	\bibitem{r1} 作者. 文章题目 [J].  期刊名, 出版年份，卷号(期数):
+\begin{bibliography}
+	\bibitem{bib1} 作者. 文章题目 [J].  期刊名, 出版年份，卷号(期数):
 		起止页码.
-	\bibitem{r2} 作者. 书名 [M]. 版次.
-		出版地：出版单位，出版年份：起止页码.
-\end{thebibliography}
+	\bibitem{bib2} 作者. 书名 [M]. 版次.
+		出版地: 出版单位，出版年份: 起止页码.
+\end{bibliography}
 
 % 附录
 \begin{appendix}
 	
 \section{附录标题}
 
-《手册》中要求图, 表, 代码等环境在附录中重新开始编号.  如需更改此行为,
-请修改 \texttt{lzuthesis.cls} 中的 \verb|\setcounter{}| 部分. 
-
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=0.3\textwidth]{lzu.pdf}
-	\caption{附录的标号从头记数}
-	\label{fu1}
+	\caption{附录的图片}
+	\label{pp1}
 \end{figure}
 
 一维坐标系上的热传导方程
@@ -246,17 +248,9 @@ print("Hello World")
 
 % 致谢
 \begin{acknowledgement}
-	感谢爸爸妈妈叔叔阿姨
-	感谢爸爸妈妈叔叔阿姨
-	感谢爸爸妈妈叔叔阿姨
-	感谢爸爸妈妈叔叔阿姨
-	感谢爸爸妈妈叔叔阿姨
-	感谢爸爸妈妈叔叔阿姨
-	感谢爸爸妈妈叔叔阿姨
-	感谢爸爸妈妈叔叔阿姨
-	感谢爸爸妈妈叔叔阿姨
-	感谢爸爸妈妈叔叔阿姨
-	感谢爸爸妈妈叔叔阿姨
+	感谢为我们的模板提供建议和问题反馈的邓儒嘉、伍文超、黄建川等同学.
+	感谢 ctex 宏包的编写人员. 感谢 D.~E.~Knuth, 他创造的 \TeX\
+	语言既是艺术也是折磨.
 \end{acknowledgement}
 
 % 评语

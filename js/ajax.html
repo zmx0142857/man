@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+
+<title>Ajax demo</title>
+<meta charset="utf-8" />
+<style>
+fieldset {
+	border: 1px solid #39c;
+	border-radius: 8px;
+	margin-top: 12px;
+	padding: 12px;
+}
+legend {
+	font-style: italic;
+	color: #39c;
+	margin: 0 12px;
+}
+</style>
+<script>
+function XHR(mimeType) {
+	var req = null; 
+	if (window.XMLHttpRequest) {
+		req = new XMLHttpRequest();
+	} else if (window.ActiveXObject) {
+		try {
+			req = new ActiveXObject('Msxml2.XMLHTTP');
+		} catch (e) {
+			try {
+				req = new ActiveXObject('Microsoft.XMLHTTP');
+			} catch (e) {}
+		}
+	}
+	if (mimeType && req.overrideMimeType) {
+		req.overrideMimeType(mimeType);
+	}
+	return req;
+}
+</script>
+
+</head>
+
+<body>
+
+<fieldset>
+<legend>hello there</legend>
+You have to put this page on a server to avoid CORS restriction.
+</fieldset>
+
+<fieldset>
+<legend>get plain text</legend>
+<script>
+function submit1() { 
+	var req = XHR();
+	var dyn1 = document.getElementById('dyn1');
+	dyn1.value = 'Started...';
+	req.onreadystatechange = function() { 
+		if (req.readyState != 4) {
+			dyn1.value = 'Wait server...';
+		} else if (req.status == 200) {
+			dyn1.value = req.responseText;	
+		} else {
+			dyn1.value = 'Error: returned status code ' + req.status + ' ' + req.statusText;
+		}	
+	}; 
+	req.open('GET', 'demo.txt', true); 
+	req.send(null); 
+} 
+</script>
+<form name="ajax1" method="post" action="">
+	<p><input type="button" value="submit" onclick="submit1()"/></p>
+	<p>Received: <input type="text" id="dyn1" size="32" value=""/></p>
+</form>
+</fieldset>
+
+<fieldset>
+<legend>get xml</legend>
+<script>
+function submit2() { 
+	var req = XHR('text/xml');
+	var dyn2 = document.getElementById('dyn2');
+	dyn2.value = 'Started...';
+	req.onreadystatechange = function() { 
+		if (req.readyState != 4) {
+			dyn2.value = 'Wait server...';
+		} else if (req.status == 200) {
+			var xml = req.responseXML;
+			// xml = xml document
+			// xml.firstChild = <root>
+			// xml.firstChild.firstChild = text node
+			dyn2.value = xml.firstChild.firstChild.data;
+		} else {
+			dyn2.value = 'Error: returned status code ' + req.status + ' ' + req.statusText;
+		}	
+	}; 
+	req.open('GET', 'demo.xml', true); 
+	req.send(null); 
+} 
+</script>
+<form name="ajax" method="POST" action="">
+	<p><input type="button" value="submit" onclick="submit2()"/></p>
+	<p>Received: <input type="text" id="dyn2" size="32" value=""/></p>
+</form>	
+</fieldset>
+           
+</body>
+</html>

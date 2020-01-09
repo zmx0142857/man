@@ -1,0 +1,36 @@
+install nvm
+
+	$ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash
+
+	or
+
+	$ wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash
+
+	The above command will clone the nvm repository to ~/.nvm and add the
+	source line to your profile (~/.bash_profile, ~/.zshrc, ~/.profile, or
+	~/.bashrc).
+
+	You can move the command added to ~/.bashrc to another file like:
+	nvm-init.sh, then run this to start nvm:
+
+	$ source nvm-init.sh
+
+	list available nodejs:
+
+	$ nvm ls-remote
+
+	install node:
+
+	$ nvm install node
+
+	or install the version you want:
+
+	$ nvm install v9.3.0
+
+	view listed versions:
+
+	$ nvm list
+
+	view node version:
+
+	$ node -v

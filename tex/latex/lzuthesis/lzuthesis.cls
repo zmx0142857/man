@@ -279,12 +279,7 @@
 
 % [诚信责任书]
 \newcommand\makeliability{
-	%\begin{center}
-	%\begin{minipage}{0.9\linewidth}
-	%\linespread{2} % 在 minipage 内临时改变行距
-	\vspace*{3em}
 	\begin{center}\zihao{3}\textbf{诚信责任书}\end{center}
-
 	\zihao{-4}
 	\parindent = 2em % 缩进
 	本人郑重声明：本人所呈交的毕业论文（设计），是在导师的指导下独立进行研究所取得的成果。毕业论文（设计）中凡引用他人已经发表或未发表的成果、数据、观点等，均已明确注明出处。除文中已经注明引用的内容外，不包含任何其他个人或集体已经发表或在网上发表的论文。
@@ -304,14 +299,12 @@
 	本人在导师指导下所完成的论文及相关的职务作品，知识产权归属兰州大学。本人完全了解兰州大学有关保存、使用毕业论文的规定，同意学校保存或向国家有关部门或机构送交论文的纸质版和电子版，允许论文被查阅和借阅；本人授权兰州大学可以将本毕业论文的全部或部分内容编入有关数据库进行检索，可以采用任何复制手段保存和汇编本毕业论文。本人离校后发表、使用毕业论文或与该论文直接相关的学术论文或成果时，第一署名单位仍然为兰州大学。
 	
 	本毕业论文研究内容：
-	\begin{itemize}
-		\setlength{\itemsep}{0pt}
-		\setlength{\parsep}{0pt}
-		\setlength{\parskip}{0pt}
-		\item [$\square$] 可以公开
-		\item [$\square$] 不宜公开，已在学位办公室办理保密申请，解密后适用本授权书。\\
-		（请在以上选项内选择其中一项打“√”）
-	\end{itemize}
+
+	$\square$ 可以公开
+
+	$\square$ 不宜公开，已在学位办公室办理保密申请，解密后适用本授权书。
+
+	（请在以上选项内选择其中一项打“√”）
 
 	\vspace{2em}
 	论文作者签名：\underline{\hspace{7em}}
@@ -322,9 +315,6 @@
 	日\qquad\qquad 期：\underline{\hspace{7em}}
 	\hspace{3em}
 	日\qquad 期：\underline{\hspace{7em}}
-
-	%\end{minipage}
-	%\end{center}
 	\newpage
 	%-------------------------------------------------------
 	\zihao{-4} % 全局字号

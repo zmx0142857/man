@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+
+<title>Sign in</title>
+<meta charset="utf-8" />
+
+</head>
+
+<body>
+	{% if message %}
+	<p style="color:red">{{ message }}</p>
+	{% endif %}
+	<form action="/signin" method="post">
+		<legend>Sign in</legend>
+		<p><input name="username" placeholder="Username" value="{{ username }}"></p>
+		<p><input name="password" placeholder="Password" type="password"></p>
+		<p><button type="submit">Sign in</button></p>
+	</form>
+</body>
+
+</html>

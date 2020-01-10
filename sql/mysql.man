@@ -156,6 +156,7 @@ info
 
 	> status;
 	> select version();
+	> show variables like '%char%'; -- show mysql charset
 	
 see update time of a table
 

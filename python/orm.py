@@ -28,9 +28,13 @@ class IntegerField(Field):
 # metaclass 是类的抽象，类是其实例。metaclass 从 `type` 类型派生
 class ModelMetaclass(type):
     def __new__(cls, name, bases, attrs):
+        'name 是类名, attrs 是该类的属性'
+        # 对 Model 类不做更多处理
         if name == 'Model':
             return type.__new__(cls, name, bases, attrs)
+        # 显示类名
         print('Found model: %s' % name)
+        # 只要该类含有 Field 类型的属性, 就加入到 mappings 中
         mappings = dict()
         for k, v in attrs.items():
             if isinstance(v, Field):

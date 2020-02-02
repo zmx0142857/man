@@ -39,3 +39,7 @@ yong config
 
 usb device mount point
 	/media/<yourname>/
+
+rime files
+	/usr/share/rime-data
+	~/.config/ibus/rime

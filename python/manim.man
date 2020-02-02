@@ -1,0 +1,31 @@
+Install
+
+	Method 1. 
+
+	$ git clone https://github.com/3b1b/manim.git
+	$ cd manim
+	$ pip3 install -r requirements.txt
+	$ python3 manim.py example_scenes.py SquareToCircle -pl
+
+	Method 2.
+
+	$ vi ~/.pip/pip.conf
+
+	----------------------------------------------------
+	[global]
+	index-url = https://pypi.tuna.tsinghua.edu.cn/simple
+	----------------------------------------------------
+
+	$ sudo apt install python3.7-dev
+	$ sudo -H python3.7 -m pip install manimlib -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+Usage
+
+	找到 manimlib/constants.py, 将 TEX_USE_CTEX 改为 True,
+	这样就可以用中文
+
+	$ manim your-project.py YourClass 
+
+	or:
+
+	$ python3 -m manim your-project.py YourClass -pl

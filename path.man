@@ -1,3 +1,12 @@
+misc
+	/etc/network/interfaces 网络配置
+	/etc/passwd 用户列表
+
+apt
+	/etc/apt/sources.list 配置
+	/var/lib/apt/lists 索引
+	/var/cache/apt/archives 安装包
+
 bash config
 	~/.bashrc
 

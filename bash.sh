@@ -2,6 +2,8 @@
 echo {1..10}
 # echo 01 to 10
 echo {01..10}
+# echo 1 3 5 7 9
+seq 1 2 9
 # iterate from 1 to 10
 for i in {1..10}; do echo $i; done
 # iterate over all files of current dir

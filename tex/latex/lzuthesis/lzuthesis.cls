@@ -121,12 +121,6 @@
 	\hfill $\square$\par
 }
 
-% 数学正体符号
-\renewcommand\d{\mathrm{d}}
-\newcommand\dd{\,\mathrm{d}}
-\newcommand\e{\mathrm{e}}
-\renewcommand\i{\mathrm{i}}
-
 % [浮动体]
 
 % 默认情况下, \LaTeX{} 要求每页的文字至少占据 20%,
@@ -438,23 +432,27 @@
 	\addcontentsline{toc}{section}{论文（设计）成绩} % 将评语加入目录
 	\begin{center}
 	\songtibf
-	\begin{minipage}{0.93\linewidth}
+	\begin{minipage}{0.9\linewidth}
 	\zihao{-3}
 	\fbox{
 		\parbox[c][0.45\vsize][t]{1\linewidth}{
+			\vspace*{5pt}
 			\textbf{导师评语}
 			\vfill
 			\hfill \textbf{建议成绩}\underline{\hspace{6em}}\quad
 			\textbf{指导教师（签字）}\underline{\hspace{6em}}
+			\vspace*{5pt}
 		}
 	}
 	\vskip -1.4pt % 刚好使得两个 fbox 边缘重合的距离
 	\fbox{
 		\parbox[c][0.18\vsize][t]{1\linewidth}{
+			\vspace*{5pt}
 			\textbf{答辩小组意见}
 			\vfill
 			\hfill \textbf{答辩委员会负责人（签字）}
 			\underline{\hspace{6em}}
+			\vspace*{5pt}
 		}
 	}
 	\vskip -1.4pt
@@ -493,6 +491,25 @@
 %\renewcommand\refname{\heiti 参考文献}
 
 \endlinechar `\^^M % 声明换行符
+
+% [自定义宏]
+%\newcommand\diff[2][]{ \dfrac{\mathrm{d}#1}{\mathrm{d}#2} }
+%\newcommand\pdiff[2][]{ \dfrac{\partial#1}{\partial#2} }
+%\def\dx{\dd x}
+%\def\dy{\dd y}
+%\def\dz{\dd z}
+%\def\dt{\dd t}
+%\def\dd{\,\mathrm{d}}
+%\def\d{\mathrm{d}}
+%\def\e{\mathrm{e}}
+%\def\i{\mathrm{i}}
+%\def\inv#1{\dfrac{1}{#1}}
+%\newcommand\half[1][1]{\dfrac{#1}{2}}
+%\def\seq#1#2{#1_1, #1_2, \cdots, #1_#2}
+%\def\floor#1{\lfloor #1 \rfloor}
+%\def\p#1{\left( #1 \right)}
+%\def\b#1{\left[ #1 \right]}
+%\def\B#1{\left\{ #1 \right\}}
 
 \endinput
 

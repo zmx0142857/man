@@ -30,15 +30,27 @@
 
 
 	// repeater
+	// fgets takes any char until a \n is entered, then a \0 is appended.
+	// if size-1 chars (here 999) is entered, then a \0 is appended.
 	char buf[1000];
 	while (fgets(buf, 1000, stdin)) {
 		printf("%s", buf);
 	}
 
-	// scanf supports regex
+	// how fgets ignore input
+	char buf[64];
+	fgets(buf, 4, stdin);
+	puts(buf);
+	// discard until end of line
+	while (buf[strlen(buf)-1] != '\n')
+		fgets(buf, 64, stdin);
+	fgets(buf, 4, stdin);
+	puts(buf);
+
+	// scanf supports "regex"
 	// at most 19 chars, take digits, a-zA-Z and spaces only
-	scanf("%19[0-9a-zA-Z ]", input);
-	puts(input);
+	scanf("%19[0-9a-zA-Z ]", buf);
+	puts(buf);
 
 #include <string.h>
 

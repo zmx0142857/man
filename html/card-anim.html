@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang='en' onselectstart='return false'>
+<head>
+<meta charset='utf-8' />
+<title>魔法禁书目录</title>
+<style>
+li, ul, div, html, body{
+  margin: 0;
+  padding: 0;
+}
+html, body{ height: 100% }
+li{ list-style-type: none }
+#wrap{
+  height: 100%;
+  overflow: hidden;
+  perspective: 800px;
+}
+#box{
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  position: relative;
+  transform-style: preserve-3d;
+  transform: translateZ(-1600px);
+  z-index: 1;
+}
+#box li{
+  top: -80px;
+  left: -60px;
+  width: 120px;
+  height: 160px;
+  position: absolute;
+  text-align: center;
+  line-height: 160px;
+  background-color: rgba(5,100,80,0.2);
+  border: 1px solid rgba(125,255,255,0.25);
+  box-shadow: 0 0 15px rgba(0,255,255,0.5);
+  cursor: pointer;
+}
+#box li span{
+  font-size: 28px;
+  text-shadow: 2px 2px 5px black;
+  color: #efebef;
+}
+#mask{
+  width: 100%;
+  height: 100%;
+  background: url('card-anim-bg.jpg') no-repeat center;
+  background-size: cover;
+  filter: blur(5px);
+}
+#bg-mask{
+  width: 100%;
+  height: 100%;
+  background: #000;
+  opacity: 0.25;
+}
+</style>
+</head>
+<body>
+<div id="wrap">
+  <ul id="box"></ul>
+  <div id="mask">
+    <div id="bg-mask"></div>
+  </div>
+</div>
+<!--<script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>-->
+<script src="jquery-2.2.4.js"></script>
+<script>
+// 开启一个独立的空间避免全局变量污染
+(function(){
+
+// li 元素的个数
+let count = 125,
+
+// 各元素的位置信息
+arr = Array(count),
+
+// 鼠标X、Y差值
+dX = 0, dY = 0,
+
+// 当前视角的 X、Y 偏移度数
+viewDegX = 0, viewDegY = 0,
+
+// li 元素默认景深
+depthZ0 = -1000,
+
+// 避免覆盖默认值
+depthZ = depthZ0-600;
+
+// 产生 [lo, hi] 间的随机数
+randint = (lo, hi) => {
+	return Math.floor(lo + Math.random()*(hi-lo+1));
+}
+
+// 从数组中随机选择一个元素
+choice = (arr) => { return arr[randint(0,arr.length-1)]; }
+
+rand = () => { return Math.random()-0.5; }
+
+// 打乱数组
+shuffle = (arr) => { arr.sort(rand); }
+
+// 方阵
+gridLayout = () => {
+	// li 元素在三个方向上的间隔
+	let skipX = 350, skipY = 350, skipZ = 350;
+	// li 元素在三个方向上的数目
+	let cntX = 5, cntY = 5, cntZ = parseInt(count/(cntX*cntY));
+	// 以第一个 li 元素为参照点
+	let x0 = -parseInt(cntX/2) * skipX;
+	let y0 = -parseInt(cntY/2) * skipY;
+	let z0 = -parseInt(cntZ/2) * skipZ;
+
+	// 计算各 li 元素的坐标
+	for (let i = 0; i < count; ++i) {
+		let idx = i;
+		let x = x0 + idx % cntX * skipX;
+		idx = parseInt(idx/cntX);
+		let y = y0 + idx % cntY * skipY;
+		idx = parseInt(idx/cntY);
+		let z = z0 + idx * skipZ;
+		arr[i] = [x, y, z];
+	}
+	shuffle(arr); // 打乱
+
+	// jquery2.2.4 下, 箭头函数中 this 的意义不明. 此处用箭头函数会产生 bug
+	$('#box li').each(function(i){
+		$(this).css({
+			transform: `translate3d(${arr[i][0]}px,${arr[i][1]}px,${arr[i][2]}px)`, 
+			transition: '4s ease-in-out'
+		});
+	});
+}
+
+// 螺旋
+helixLayout = () => {
+	for (let i = 0; i < count; ++i) {
+		let degY = 10*i;
+		let depthY = -10*parseInt(count/2)+10*i;
+		arr[i] = [degY, depthY];
+	}
+	shuffle(arr);
+	$('#box li').each(function(i){
+		$(this).css({
+			transform:`rotateY(${arr[i][0]}deg) translateY(${arr[i][1]}px) translateZ(${Math.abs(depthZ0)}px)`,
+			transition: '4s ease-in-out'
+		});
+	});
+}
+
+// 球形
+sphereLayout = () => {
+	for (let i = 0; i < count; ++i) {
+		let degX = 30*i;
+		let degY = 3*i;
+		arr[i] = [degX, degY];
+	}
+	shuffle(arr);
+	$('#box li').each(function(i){
+		$(this).css({
+			transform:`rotateX(${arr[i][0]}deg) rotateY(${arr[i][1]}deg) translateZ(${Math.abs(depthZ0)}px)`,
+			transition: '4s ease-in-out'
+		});
+	});
+}
+
+// 三体
+threeLayout = () => {
+	for (let i = 0; i < count; ++i) {
+		let degX = 60*i;
+		let degY = 3*i;
+		arr[i] = [degX, degY];
+	}
+	shuffle(arr);
+	$('#box li').each(function(i){
+		$(this).css({
+			transform:`rotateY(${arr[i][1]}deg) rotateX(${arr[i][0]}deg) translateZ(${Math.abs(depthZ0)}px)`,
+			transition: '4s ease-in-out'
+		});
+	});
+}
+
+// 几何
+geomeLayout = () => {
+	for (let i = 0; i < count; ++i) {
+		let degX = 2.9*i;
+		let degY = 8.9*i;
+		arr[i] = [degX, degY];
+	}
+	shuffle(arr);
+	$('#box li').each(function(i){
+		$(this).css({
+			transform:`rotateY(${arr[i][1]}deg) rotateX(${arr[i][0]}deg) translateZ(${Math.abs(depthZ0)}px)`,
+			transition: '4s ease-in-out'
+		});
+	});
+}
+
+// 曲线
+curveLayout = () => {
+	for (let i = 0; i < count; ++i) {
+		let degX = 2*i;
+		let degY = 1*i;
+		arr[i] = [degX, degY];
+	}
+	shuffle(arr);
+	$('#box li').each(function(i){
+		$(this).css({
+			transform: `rotateX(${arr[i][0]}deg) rotateY(${arr[i][1]}deg) translateZ(${depthZ0}px)`,
+			transition: '4s ease-in-out'
+		});
+	});
+}
+
+// 混乱
+chaoticLayout = () => {
+	$('#box li').each(function(i){
+		let x = rand()*3000;
+		let y = rand()*3000;
+		let z = rand()*3000;
+		$(this).css({
+			transform:`translate3d(${x}px,${y}px,${z}px)`,
+			transition: '4s ease-in-out'
+		})
+	});
+}
+
+// 布局类型
+let layoutStyle = [gridLayout, helixLayout, chaoticLayout, sphereLayout, 
+threeLayout, geomeLayout, curveLayout];
+
+// 初始化卡片
+for (let i = 0; i < count; ++i) {
+	let style = choice(layoutStyle);
+	let name = style.name[0].toUpperCase() + style.name.slice(1,-6);
+	let r = randint(100,255);
+	let g = randint(100,255);
+	let b = randint(100,255);
+	let span = $(`<span>${name}</span>`)
+		.css('color',`rgb(${r},${g},${b})`);
+	let li = $('<li></li>')
+		.click(style)
+		.hover(() => {
+			li.css({
+				border: '1px solid rgba(125,255,255,0.75)',
+				boxShadow: '0 0 15px rgba(0,255,255,0.75)',
+				transition: '0s'
+			});
+		}, () => {
+			li.css({
+				border: '1px solid rgba(125,255,255,0.25)',
+				boxShadow: '0 0 15px rgba(0,255,255,0.5)',
+				transition: '0s'
+			});
+		});
+	li.append(span);
+	$('#box').append(li);
+}
+
+let timer;
+// 鼠标拖动与滚轮效果
+$(document).mousedown(event => {
+	event = event || window.event;
+
+	// 上一个点的X、Y坐标
+	let oldCoordX = event.clientX;
+	let oldCoordY = event.clientY;
+
+	$(document).on('mousemove', event => {
+		event = event || window.event;
+
+		// 若上一个定时器存在，则将其删除
+		timer && clearInterval(timer);
+
+		// 计算X、Y差值
+		dX = event.clientX - oldCoordX;
+		dY = event.clientY - oldCoordY;
+
+		// 更新上一个点的X、Y坐标值
+		oldCoordX = event.clientX;
+		oldCoordY = event.clientY;
+
+		// 计算X、Y轴的移动度数
+		viewDegX -= dY*0.1;
+		viewDegY += dX*0.1;
+
+		$('#box').css('transform', `translateZ(${depthZ}px) rotateX(${viewDegX}deg) rotateY(${viewDegY}deg)`);
+
+	}).mouseup(_ => {
+
+		// 当鼠标弹起解除移动
+		$(document).off('mousemove');
+
+		// 若上一个定时器存在，则将其删除
+		timer && clearInterval(timer);
+
+		// 鼠标弹起后的缓动效果
+		timer = setInterval(_ => {
+			// 缓动差值 
+			dX *= 0.95;
+			dY *= 0.95;
+
+			// 计算X、Y轴的移动度数
+			viewDegX -= dY*0.1;
+			viewDegY += dX*0.1;
+
+			// 当差值超出指定范围时，则清除定时器
+			Math.abs(dX) < 0.05 && Math.abs(dY) < 0.05 && clearInterval(timer);
+
+			$('#box').css('transform', `translateZ(${depthZ}px) rotateX(${viewDegX}deg) rotateY(${viewDegY}deg)`);
+		}, 12);
+	});
+
+}).on('mousewheel DOMMouseScroll', e => {
+
+	// 若上一个定时器存在，则将其删除
+	timer && clearInterval(timer);
+
+	// 获取鼠标滚动方向
+	let step = (
+		e.originalEvent.wheelDelta && (e.originalEvent.wheelDelta > 0?1:-1)
+	) || (
+		e.originalEvent.detail && (e.originalEvent.detail > 0?-1:1)
+	);
+
+	// 计算滚轮滚动时Z 轴景深的步长
+	depthZ += step*90;
+
+	$('#box').css('transform', `translateZ(${depthZ}px) rotateX(${viewDegX}deg) rotateY(${viewDegY}deg)`);
+
+	// 设置缓动效果
+	timer = setInterval(_ => {
+		// 缓动步长
+		step *= 0.6;
+		depthZ += step*80;
+
+		Math.abs(step) < 5e-6 && clearInterval(timer);
+
+		$('#box').css('transform', `translateZ(${depthZ}px) rotateX(${viewDegX}deg) rotateY(${viewDegY}deg)`);
+	}, 12);
+});
+
+// 加载布局
+setTimeout(gridLayout,1000);
+
+})();
+</script>
+</body>
+</html>

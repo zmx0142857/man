@@ -85,6 +85,12 @@ Update Through GitHub
 $ git remote show origin		# check for updates
 $ git pull origin				# update!
 
+Change Remote Address
+---------------------
+
+$ git remote remove origin
+$ git remote add origin <url>
+
 Push A New Repo To GitHub
 -------------------------
 
@@ -123,3 +129,8 @@ $ git push <remote-name> master
 or:
 
 $ git push --set-upstream <remote-name>
+
+Recent Commited Changes
+-----------------------
+
+$ git show

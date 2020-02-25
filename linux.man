@@ -94,6 +94,12 @@ ssh
 	to login to termux, use port 8022:
 	$ ssh user@ip -p 8022
 
+	execute remote command:
+	$ ssh user@ip 'command'
+
+	copy remote file:
+	$ scp user@ip:path .
+
 remote ssh
 
 	server side:
@@ -146,7 +152,19 @@ fc-list - list font files in system
 	$ fc-list :lang=zh
 	$ fc-list LatinModernMath
 
+awk - column editing language
+
+sed - line streaming editing language
+
+sort - sort the lines based on column
+
+uniq - remove repeated lines
+
+tee - print to stdout and a file
+
 ----file-and-media----
+
+feh - look at picture
 
 merge video files
 

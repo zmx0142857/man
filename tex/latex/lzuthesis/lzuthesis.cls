@@ -111,12 +111,12 @@
 \newtheorem{remark}{\heiti 注}[section]
 
 \newenvironment{proof}{
-	\noindent\heiti 证明\quad\songti
+	\noindent\heiti 证明\;\;\songti
 }{
 	\hfill $\square$\par
 } % \square 在 amssymb 中
 \newenvironment{solution}{
-	\noindent\heiti 解\quad\songti
+	\noindent\heiti 解\;\;\songti
 }{
 	\hfill $\square$\par
 }

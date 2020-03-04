@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>弹球</title>
+<style>
+body {
+  margin: 0;
+  overflow: hidden;
+  height: 100%;
+}
+
+h1 {
+  position: absolute;
+  margin: 0;
+  top: -4px;
+  right: 5px;
+  color: rgba(255,255,255,0.5);
+  z-index: 10;
+}
+
+canvas {
+  height: 100%;
+  width: 100%;
+}
+</style>
+</head>
+
+<body>
+
+<h1>弹球</h1>
+<canvas></canvas>
+<script>
+const canvas = document.querySelector('canvas');
+const c = canvas.getContext('2d');
+const width = canvas.width = window.innerWidth;
+const height = canvas.height = window.innerHeight;
+
+function random(min,max) {
+  return Math.floor(Math.random()*(max-min)) + min;
+}
+
+function randomSign() {
+  if (Math.random() < 0.5)
+    return -1;
+  return 1;
+}
+
+function randomColor() {
+  return 'rgb(' +
+         random(0, 255) + ', ' +
+         random(0, 255) + ', ' +
+         random(0, 255) + ')';
+}
+
+function Ball() {
+  this.r = random(15,20);
+  this.x = random(this.r, width-this.r);
+  this.y = random(this.r, height-this.r);
+  this.m = this.r**3;
+  this.vx = random(1,7) * randomSign();
+  this.vy = random(1,7) * randomSign();
+  this.color = randomColor();
+}
+
+Ball.prototype.draw = function() {
+  c.beginPath();
+  c.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
+  c.fillStyle = this.color;
+  c.fill();
+}
+
+Ball.prototype.update = function() {
+  if (this.x + this.r >= width || this.x - this.r <= 0)
+    this.vx = -this.vx;
+  if (this.y + this.r >= height || this.y - this.r <= 0)
+    this.vy = -this.vy;
+  this.x += this.vx;
+  this.y += this.vy;
+}
+
+// js 物理引擎库
+// http://wellcaffeinated.net/PhysicsJS/
+// brm.io/matter-js
+// phaser.io
+Ball.prototype.collide = function() {
+  var a = this;
+  for (b of balls) {
+    if (a == b) continue;
+    var distance = Math.hypot(a.x-b.x, a.y-b.y);
+    if (distance < a.r + b.r) {
+      var msum = a.m + b.m, mdif = a.m - b.m;
+      a.vx = (2*b.m*b.vx + mdif*a.vx) / msum;
+      a.vy = (2*b.m*b.vy + mdif*a.vy) / msum;
+      b.vx = (2*a.m*a.vx - mdif*b.vx) / msum;
+      b.vy = (2*a.m*a.vy - mdif*b.vy) / msum;
+
+      // 微调两球位置, 防止重叠
+      var centerx = (a.x * b.r + b.x * a.r) / (a.r + b.r);
+      var centery = (a.y * b.r + b.y * a.r) / (a.r + b.r);
+      var ratio = (a.r + b.r) / distance;
+      distance = a.r + b.r;
+      a.x = centerx + ratio*(a.x - centerx);
+      a.y = centery + ratio*(a.y - centery);
+      b.x = centerx + ratio*(b.x - centerx);
+      b.y = centery + ratio*(b.y - centery);
+      
+      // 反弹方向由二者相对位置决定
+      var cos = (a.x - b.x) / distance;
+      var sin = (a.y - b.y) / distance;
+
+      var v = Math.hypot(a.vx, a.vy);
+      a.vx = v * cos * (a.x > b.x ? 1 : -1);
+      a.vy = v * sin * (a.y > b.y ? 1 : -1);
+      v = Math.hypot(b.vx, b.vy);
+      b.vx = v * cos * (a.x < b.x ? 1 : -1);
+      b.vx = v * sin * (a.y < b.y ? 1 : -1);
+
+      a.update();
+      b.update();
+    }
+  }
+}
+
+var balls = [];
+const count = 10;
+
+function loop() {
+  c.fillStyle = 'rgba(0, 0, 0, 0.25)';
+  c.fillRect(0, 0, width, height);
+  while (balls.length < count) {
+    balls.push(new Ball());
+  }
+  for (var i = 0; i < balls.length; ++i) {
+    balls[i].draw();
+    balls[i].update();
+    balls[i].collide();
+  }
+  requestAnimationFrame(loop);
+}
+loop();
+</script>
+
+</body>
+</html>

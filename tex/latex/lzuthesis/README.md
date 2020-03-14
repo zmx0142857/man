@@ -2,6 +2,10 @@
 
 最近更新: 2020-01-09
 
+## 安装
+
+下载 [lzuthesis.zip](https://github.com/zmx0142857/man/releases/tag/v0.1.0) 并解压.
+
 ## 编译指南
 
 用 `xelatex` 编译两次:

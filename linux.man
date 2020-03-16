@@ -203,7 +203,7 @@ ldd - find dependence of a executable file
 
 iconv - convertion between encodings
 
-sha256sum - calculation hash of a file
+sha256sum - calculate hash
 	
 vlc, mpv, totem - video player
 
@@ -233,6 +233,43 @@ list available ip under WLAN
 
 	$ nmap -sP 192.168.1.0/24
 	$ arp | grep ether
+
+DNS service
+
+	$ nslookup www.baidu.com
+
+config DNS server
+
+	# cd /etc
+	# mv resolv.conf resolv.conf.bak
+	# ls -l resolv.conf.bak
+lrwxrwxrwx 1 root root 39 Mar 14 13:43 resolv.conf.bak -> ../run/systemd/resolve/stub-resolv.conf
+	# cp /run/systemd/resolve/stub-resolv.conf ./resolv.conf -i
+
+	edit resolv.conf, add some of the following lines:
+	--------------------------
+	nameserver 114.114.114.114
+	nameserver 8.8.8.8
+	nameserver 8.8.4.4
+	nameserver 198.153.192.1
+	nameserver 198.153.194.1
+	nameserver 208.67.222.222
+	nameserver 208.67.220.220
+	--------------------------
+	# chattr +i resolv.conf # only root can change this file
+	# systemctl start systemd-resolved.service
+
+firewall rules
+
+	$ iptables
+
+sudo unable to resolve host
+
+	 edit /etc/hosts, the username has to be the same as that in
+	 /etc/hostname:
+	 -----------------------------
+	 127.0.0.1	localhost username
+	 -----------------------------
 
 ----system----
 

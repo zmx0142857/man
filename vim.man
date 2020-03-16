@@ -1,4 +1,12 @@
-# ---- enable x-system clipboard with vim:
+# ---- clipboard --------------------------------
+
+see if vim has clipboard support:
+
+$ vim --version | grep clipboard
+
+you can use shift-insert to paste system clipboard directly.
+
+enable x-system clipboard with vim:
 
 $ sudo apt install vim-gui-common
 

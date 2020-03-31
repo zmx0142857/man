@@ -237,6 +237,11 @@ chcp [codepage]
 	chcp cp936				设置编码为 gbk
 	chcp 65001				设置编码为 utf-8
 
+certutil -hashfile
+	
+	certutil -hashfile sha1 filename	:: win10
+	certutil -hashfile filename			:: win7 默认就是 sha1
+
 ---- IO 操作 ---------------------------------------------------------
 
 @ [command]

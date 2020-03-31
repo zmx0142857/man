@@ -28,5 +28,7 @@ find -empty -type f
 find -empty -type d
 # rm empty files
 rm `find -empty -type f`
+# find files that >= 500M
+find -size +500M
 # print Nth line of file
 sed -n <N>p file

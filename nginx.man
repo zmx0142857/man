@@ -8,7 +8,7 @@ config
 
 	$ cd /var/www
 	$ sudo ln -s .../some-dir/ .
-	$ sudo vi /etc/nginx/nginx.conf
+	$ sudo vi /etc/nginx/conf.d/nginx.conf
 
 	add following lines:
 	-----------------------------------------------------------------

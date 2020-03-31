@@ -21,7 +21,6 @@
 \usepackage{amsmath}			% 提供 align 等数学环境
 \usepackage{amssymb}			% 提供常用符号
 \usepackage{mathtools}			% 更多数学环境
-\usepackage{bm}					% 粗斜体
 \usepackage{mathrsfs}			% 花体
 
 \usepackage{float}				% 浮动体控制 比如 [H]
@@ -358,7 +357,7 @@ $\backslash$
 	\mathrm{ABCabc123} \quad
 	\mathit{ABCabc123} \quad
 	\mathbf{ABCabc123} \quad
-	\bm{ABCabc123} \\
+	\boldsymbol{ABCabc123} \\
 	\mathsf{ABCabc123} \quad
 	\mathtt{ABCabc123} \quad
 	\mathfrak{ABCabc123} \quad
@@ -366,8 +365,7 @@ $\backslash$
 	\mathbb{ABC} \quad
 	\mathscr{ABC}
 \end{gather*}
-\verb|\bm| 需要 \texttt{bm} 包, \verb|\mathscr|
-需要 \texttt{mathrsfs} 包.
+其中 \verb|\mathscr| 需要 \texttt{mathrsfs} 包.
 
 \subsection{数学环境下的符号}
 

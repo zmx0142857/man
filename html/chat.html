@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+
+<title>QQ 聊天</title>
+<meta charset="utf-8" />
+<style>
+body {
+	margin: 0;
+	padding: 0;
+	font-size: 16px;
+	background: #eee;
+}
+main {
+	padding: 45px 1em;
+	overflow-y: scroll;
+}
+p {
+	margin: 2em 30% 2em 4em;
+	padding: 0.5em 1em;
+	background: #fff;
+	border-radius: 1em;
+}
+p:before,p.me:after {
+	content:"";
+	background: url(/home/zmx/pic/IMG_20170828_215818.jpg);
+	border-radius: 50%;
+	display: inline-block;
+	position: absolute;
+	width: 3em;
+	height: 3em;
+	transform: translateY(-50%);
+}
+p:before {
+	left: 1em;
+}
+p.me {
+	margin-right: 4em;
+	margin-left: 30%;
+}
+p.me:before {
+	display: none;
+}
+p.me:after {
+	right: 1em;
+}
+nav,footer {
+	position: fixed;
+	width: 100%;
+	height: 45px;
+}
+nav {
+	top: 0;
+	line-height: 45px;
+	text-align: center;
+}
+footer {
+	display: flex;
+	bottom: 0;
+}
+.blue,p.me {
+	background: #34b;
+	color: #fff;
+}
+#input {
+	flex: 5 5;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+#send {
+	flex: 1 0 4em;
+	border: none;
+}
+</style>
+</head>
+
+<body>
+
+<main>
+	<p>
+		hello world⎎
+	</p>
+	<p class="me">
+		how R U
+	</p>
+	<p>
+		how R U
+	</p>
+	<p>
+		how R U
+	</p>
+	<p class="me">
+		how R U
+	</p>
+	<p>
+		how R U
+	</p>
+	<p>
+		how R U
+	</p>
+	<p>
+		how R U
+	</p>
+	<p class="me">
+		how R U
+	</p>
+	<p>
+		how R U
+	</p>
+</main>
+
+<nav class="blue">
+	对方正在输入...
+</nav>
+
+<footer>
+	<input type="text" id="input" placeholder="我们已经是好友啦，一起来聊天吧！"/>
+	<button type="submit" id="send" class="blue">发送</button>
+</footer>
+
+</body>
+
+</html>

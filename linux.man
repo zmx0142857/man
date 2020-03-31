@@ -4,6 +4,7 @@ edit apt sources
 
 	export EDITOR=vim
 	apt edit-sources
+	一定要选择和自己的发行版对应的源
 
 pip - install python third party lib
 
@@ -100,6 +101,20 @@ ssh
 	copy remote file:
 	$ scp user@ip:path .
 
+	config file /etc/ssh/sshd_config
+	-------------------------
+	PasswordAuthentication no
+	UseDNS no # 提高上传网速
+	-------------------------
+
+	user config file ~/.ssh/config
+	-------------------------
+	Host me
+		User username
+		Hostname <ip-address>
+		Port 8022
+	-------------------------
+
 remote ssh
 
 	server side:
@@ -194,6 +209,10 @@ merge video files
 	under MS Windows:
 
 	cmd> copy /b 1.flv+2.flv new.flv
+
+merge video with audio
+
+	$ ffmpeg -i video.m4s -i audio.m4s -c:v copy -c:a aac -strict experimental output.mp4
 
 flash - play web videos
 

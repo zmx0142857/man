@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+	color: #555;
+	background: #eee;
+	text-align: center;
+}
+.select {
+	background: #fff;
+	color: #555;
+	display: inline-block;
+	width: 300px;
+	position: relative;
+	vertical-align: middle;
+	overflow: hidden;
+	border: 1px solid #aaa;
+	text-shadow: none;
+	border-radius: 4px;	
+	transition: box-shadow 0.25s ease;
+	z-index: 2;
+}
+.select:hover {
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+}
+.select:before {
+	content: "";
+	position: absolute;
+	border: 10px solid transparent;
+	border-top-color: #ccc;
+	top: 14px;
+	right: 10px;
+	cursor: pointer;
+	z-index: -2;
+}
+.select select {
+	cursor: pointer;
+	padding: 10px;
+	width: 100%;
+	border: none;
+	background: transparent;
+	background-image: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+}
+.select select:focus {
+	outline: none;
+}
+</style>
+</head>
+<body>
+<h2>Cars Select</h2>
+<div class="select">
+	<select name="cars">
+		<option value="volvo">Volvo</option>
+		<option value="saab">Saab</option>
+		<option value="opel" selected>Opel</option>
+		<option value="audi">Audi</option>
+	</select>
+</div>
+</body>
+</html>

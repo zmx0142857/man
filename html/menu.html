@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>menu</title>
+<style>
+body {
+	background: #222;
+	color: white;
+	font-family: sans-serif;
+
+	/* centering */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+}
+#main {
+	width: 200px;
+	background: #444;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	line-height: 1.5em;
+}
+#main ul {
+	height: 0;
+	overflow-y: hidden;
+	transition: .3s ease;
+}
+#main li:hover ul {
+	height: 80px;
+	transition: .3s ease;
+}
+</style>
+</head>
+<body>
+<ul id="main">
+	<li>Account
+		<ul>
+			<li>language</li>
+			<li>love</li>
+			<li>picture</li>
+		</ul>
+	</li>
+	<li>Messages
+		<ul>
+			<li>language</li>
+			<li>love</li>
+			<li>picture</li>
+		</ul>
+	</li>
+	<li>Settings
+		<ul>
+			<li>language</li>
+			<li>love</li>
+			<li>picture</li>
+		</ul>
+	</li>
+	<li>Logout
+		<ul>
+			<li>language</li>
+			<li>love</li>
+			<li>picture</li>
+		</ul>
+	</li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>app icons</title>
+</head>
+<style>
+* {
+	margin: 0;
+	padding: 0;
+}
+body {
+	width: 100%;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: #eefeee;
+}
+main {
+	width: 700px;
+	height: 600px;
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+	align-items: center;
+}
+.item {
+	display: flex;
+	justify-content: space-around;
+	flex-direction: column;
+	align-items: center;
+	align-content: center;
+	width: 100px;
+	height: 140px;
+	margin: 20px;
+}
+.img {
+	width: 100px;
+	height: 100px;
+	box-shadow: 18px 18px 30px rgba(0,0,0,0.1),
+	-18px -18px 30px rgba(255,255,255,1);
+	border-radius: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: box-shadow .2s ease-in-out;
+	position: relative;
+}
+.img:hover {
+	box-shadow: 0 0 0 rgba(0,0,0,0.1),
+	0 0 0 rgba(255,255,255,1),
+	inset 18px 18px 30px rgba(0,0,0,0.1),
+	inset -18px -18px 30px rgba(255,255,255,1);
+	transition: box-shadow .2s ease-in-out;
+}
+.img > img {
+	width: 60px;
+	transition: width .2s ease-out;
+}
+.img:hover > img {
+	width: 58px;
+	transition: width .2s ease-out;
+}
+.item > span {
+	color: slategray;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+</style>
+<body>
+<!-- 阿里巴巴矢量图标库 iconfont.cn -->
+<main>
+	<div class="item">
+		<div class="img">
+			<img src="icon/floppy-disk-001.svg">
+		</div>
+		<span>save</span>
+	</div>
+	<div class="item">
+		<div class="img">
+			<img src="icon/bell-001.svg">
+		</div>
+		<span>notification</span>
+	</div>
+	<div class="item">
+		<div class="img">
+			<img src="icon/calendar-001.svg">
+		</div>
+		<span>calendar</span>
+	</div>
+	<div class="item">
+		<div class="img">
+			<img src="icon/envelope-001.svg">
+		</div>
+		<span>message</span>
+	</div>
+	<div class="item">
+		<div class="img">
+			<img src="icon/folder-001.svg">
+		</div>
+		<span>files</span>
+	</div>
+	<div class="item">
+		<div class="img">
+			<img src="icon/gear-001.svg">
+		</div>
+		<span>settings</span>
+	</div>
+	<div class="item">
+		<div class="img">
+			<img src="icon/gift-001.svg">
+		</div>
+		<span>bonus</span>
+	</div>
+	<div class="item">
+		<div class="img">
+			<img src="icon/monitor-001.svg">
+		</div>
+		<span>my computer</span>
+	</div>
+	<div class="item">
+		<div class="img">
+			<img src="icon/shop-001.svg">
+		</div>
+		<span>app center</span>
+	</div>
+</main>
+</body>
+</html>

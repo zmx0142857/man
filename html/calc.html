@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Calculator</title>
+<style>
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+body {
+	background: #091921;
+	color: white;
+	font-family: Poppins, sans-serif;
+
+	/* centering */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+}
+form {
+	display: grid;
+	width: 400px;
+	height: 520px;
+	background: #444;
+}
+form input {
+	grid-column: span 4;
+	text-align: right;
+	outline: none;
+	padding: 10px;
+	font-size: 18px;
+}
+form span {
+	background: #0c2835;
+	display: grid;
+	place-items: center;
+	border: 1px solid rgba(0,0,0,0.1);
+}
+form span:active {
+	background: #74ff3b;
+	color: #111;
+}
+form span.wider {
+	grid-column: span 2;
+	background: #ff3077;
+}
+form span.higher {
+	grid-row: span 2;
+}
+form span.eq {
+	background: #03b1ff;
+}
+</style>
+</head>
+<body>
+<form>
+	<input type="text" id="input" readonly>
+	<span onclick="input.value=''" class="wider">c</span>
+	<span class="button">/</span>
+	<span class="button">*</span>
+	<span class="button">7</span>
+	<span class="button">8</span>
+	<span class="button">9</span>
+	<span class="button">-</span>
+	<span class="button">4</span>
+	<span class="button">5</span>
+	<span class="button">6</span>
+	<span class="button higher">+</span>
+	<span class="button">1</span>
+	<span class="button">2</span>
+	<span class="button">3</span>
+	<span class="button">0</span>
+	<span class="button">00</span>
+	<span class="button">.</span>
+	<span onclick="input.value=eval(input.value)" class="eq">=</span>
+</form>
+<script>
+var buttons = document.getElementsByClassName('button');
+
+function click(b) {
+	return function() {
+		input.value += b.innerText;
+	}
+}
+
+for (b of buttons)
+	b.onclick = click(b);
+
+document.onkeydown = function(e) {
+	var ord = e.keyCode - 48;
+	if (0 <= ord && ord <= 9) {
+		input.value += ord;
+	} else if (ord == 190-48) {
+		input.value += '.';
+	} else if (ord == 191-48) {
+		input.value += '/';
+	} else if (ord == 173-48) {
+		input.value += '-';
+	} else if (ord == 13-48) {
+		input.value = eval(input.value);
+	} else if (ord == 8-48) {
+		input.value = input.value.slice(0,-1);
+	}
+};
+input.value = '';
+</script>
+</body>
+</html>

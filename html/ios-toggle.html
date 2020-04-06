@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8" />
+<title>ios toggle</title>
+<style>
+:root {
+	--button-width: 500px;
+	--button-height: 295px;
+	--toggle-diameter: 255px;
+	--button-toggle-offset: calc((var(--button-height) - var(--toggle-diameter)) / 2); /* 减号两边必须衬上空格 */
+	--toggle-shadow-offset: 10px;
+	--toggle-wider: 333px;
+	--color-grey: #e9e9e9;
+	--color-dark-grey: #39393d;
+	--color-green: #30d158;
+}
+
+input {
+	display: none;
+}
+
+span {
+	display: inline-block;
+
+	/* 居中 */
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+
+	width: var(--button-width);
+	height: var(--button-height);
+	background-color: var(--color-grey);
+	border-radius: calc(var(--button-height)/2);
+
+	transition: .3s all ease-in-out;
+}
+
+span::after {
+	content: '';
+	display: inline-block;
+
+	position: absolute;
+	top: var(--button-toggle-offset);
+	transform: translateX(var(--button-toggle-offset));
+
+	width: var(--toggle-diameter);
+	height: var(--toggle-diameter);
+	background-color: white;
+	border-radius: calc(var(--toggle-diameter)/2);
+	box-shadow: var(--toggle-shadow-offset) 0 /* x, y 方向的大小 */
+		calc(var(--toggle-shadow-offset) * 4) /* blur 大小 */
+		rgba(0,0,0,.1); /* 颜色 */
+
+	transition: .3s all ease-in-out;
+}
+
+/* 开关效果 */
+input[type="checkbox"]:checked + span {
+	background-color: var(--color-green);
+}
+
+input[type="checkbox"]:checked + span::after {
+	transform: translateX(calc(
+		var(--button-width) - var(--toggle-diameter) - var(--button-toggle-offset)
+	));
+	box-shadow: calc(-1 * var(--toggle-shadow-offset)) 0
+		calc(var(--toggle-shadow-offset) * 4) rgba(0,0,0,0.1);
+}
+
+/* 长按效果 */
+input[type="checkbox"]:active + span::after {
+	width: var(--toggle-wider);
+}
+
+input[type="checkbox"]:checked:active + span::after {
+	transform: translateX(calc(
+		var(--button-width) - var(--toggle-wider) - var(--button-toggle-offset)
+	));
+}
+
+/* 深色模式 */
+@media(prefers-color-theme: dark) {
+	body {
+		background-color: #1c1c1e;
+	}
+	span {
+		background-color: var(--color-dark-grey);
+	}
+}
+</style>
+</head>
+<body>
+
+<label for="toggle">
+	<input type="checkbox" id="toggle">
+	<span></span>
+</label>
+
+</body>
+</html>

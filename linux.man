@@ -91,6 +91,7 @@ ssh
 	$ ssh-keygen
 	and copy ~/.ssh/id_rsa.pub to serverside,
 	$ cat id_rsa.pub >> ~/.ssh/authorized_keys
+	$ chmod 400 ~/.ssh/authorized_keys
 
 	to login to termux, use port 8022:
 	$ ssh user@ip -p 8022

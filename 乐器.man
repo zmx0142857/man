@@ -1,7 +1,0 @@
-架子鼓
-------
-
-bass 比桶的共鸣高
-10" | tom C | open note Eb
-12" | tom F# | open note Ab
-16" | tom Ab | open note B

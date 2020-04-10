@@ -231,6 +231,21 @@ pdfunite - merge pdf files
 
 	$ pdfunite *.pdf out.pdf
 
+convert - convert images
+
+	edit /etc/ImageMagick-6/policy.xml and comment out lines
+
+	---------------------------------------------------------------------
+	<!-- disable ghostscript format types -->
+	<policy domain="coder" rights="none" pattern="PS" />
+	<policy domain="coder" rights="none" pattern="EPS" />
+	<policy domain="coder" rights="none" pattern="PDF" /> <------- Here!!
+	<policy domain="coder" rights="none" pattern="XPS" />
+	---------------------------------------------------------------------
+
+	$ convert *.jpg out.pdf
+	$ convert *.jpg +compress out.pdf
+
 timidity - play midi file
 
 	$ sudo apt install timidity

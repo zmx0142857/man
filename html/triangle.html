@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>triangle</title>
+<style>
+body {
+	background: #222;
+	color: white;
+	font-family: sans-serif;
+
+	/* centering */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+}
+main {
+	height: 360px;
+	width: 360px;
+	border: 25px solid #444;
+	border-radius: 50%;
+}
+#triangle {
+	height: 0;
+	width: 0;
+	border-top: 100px solid transparent;
+	border-bottom: 100px solid transparent;
+	border-left: 173.2px solid #444; /* sqrt(3) ≈ 1.732 */
+
+	transform: translate(130px,80px);
+}
+main:hover {
+	border-color: #aaa;
+}
+main:hover #triangle {
+	border-left-color: #aaa;
+}
+</style>
+</head>
+<body>
+<main>
+	<div id="triangle"></div>
+</main>
+</body>
+</html>

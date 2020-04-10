@@ -17,3 +17,7 @@ transfor files
 
 	$ adb pull
 	$ adb push
+
+firefox usb debugging
+
+	$ adb forward tcp:6000 localfilesystem:/data/data/org.mozilla.firefox/firefox-debugger-socket

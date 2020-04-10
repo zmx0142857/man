@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>clock</title>
+<style>
+body, main {
+	/* centering */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+body {
+	background: #222;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+}
+main {
+	height: 350px;
+	width: 350px;
+	border: 4px solid transparent;
+	border-radius: 50%;
+	box-shadow: 0 -15px 15px rgba(255,255,255,0.05),
+	            inset 0 -15px 15px rgba(255,255,255,0.05),
+	            0 15px 15px rgba(0,0,0,0.3),
+	            inset 0 15px 15px rgba(0,0,0,0.3);
+}
+main::after { /* 中心的圆点, 指定为 after 就能显示在最上层 */
+	content: '';
+	position: absolute;
+	width: 15px;
+	height: 15px;
+	background: #fff;
+	border-radius: 50%;
+}
+
+#hr, #mn, #sc {
+	display: flex;
+	justify-content: center;
+	position: absolute;
+}
+#hr {
+	width: 160px;
+	height: 160px;
+}
+#mn {
+	width: 190px;
+	height: 190px;
+}
+#sc {
+	width: 230px;
+	height: 230px;
+}
+
+#hr::before, #mn::before, #sc::before {
+	content: '';
+	position: absolute;
+	border-radius: 6px 6px 0 0;
+}
+#hr::before {
+	width: 8px;
+	height: 80px;
+	background: #ff105e;
+}
+#mn::before {
+	width: 4px;
+	height: 90px;
+	background: #fff;
+}
+#sc::before {
+	width: 2px;
+	height: 150px;
+	background: #fff;
+}
+</style>
+</head>
+<body>
+
+<main>
+	<div id="hr"></div>
+	<div id="mn"></div>
+	<div id="sc"></div>
+</main>
+
+<script>
+const hr = document.querySelector('#hr');
+const mn = document.querySelector('#mn');
+const sc = document.querySelector('#sc');
+
+setInterval(() => {
+	let day = new Date();
+	let hh = day.getHours() * 30;
+	let mm = day.getMinutes() * 6;
+	let ss = day.getSeconds() * 6;
+
+	hr.style.transform = `rotateZ(${hh+mm/12}deg)`;
+	mn.style.transform = `rotateZ(${mm+ss/60}deg)`;
+	sc.style.transform = `rotateZ(${ss}deg)`;
+}, 100);
+</script>
+
+</body>
+</html>

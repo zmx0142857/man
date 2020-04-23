@@ -1,0 +1,258 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: "Noto Sans CJK SC", "Microsoft Yahei", Kaiti, Songti, serif, sans-serif;
+	font-size: 14px;
+	background: rgba(0,0,0,0); /* transparent */
+	max-width: 800px;
+	margin: 45px auto;
+	padding: 0 5%;
+}
+
+a:link {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+u {
+	background: rgba(0, 0, 0, 0.2);
+	color: rgba(0, 0, 0, 0);
+}
+
+u:hover {
+	color: inherit;
+}
+
+h1 {
+	text-align: center;
+	font-weight: bold;
+	font-size: 2em;
+	margin: 3.6em 0 1.8em 0;
+}
+
+h2 {
+	font-weight: bold;
+	font-size: 1.5em;
+	margin: 2.4em 0 1.2em 0;
+}
+
+h3 {
+	font-weight: bold;
+	font-size: 1.2em;
+	margin: 1.8em 0 0.9em 0;
+}
+
+h4 {
+	font-weight: bold;
+	font-size: 1.1em;
+	margin: 1.8em 0 0.9em 0;
+}
+
+caption {
+	font-weight: bold;
+	margin: 0.9em 0 0.9em 0;
+}
+
+p, div {
+	margin: 0.8em 0;
+}
+
+pre {
+	font-family: "DejaVu Sans Mono", consolas, monospace;
+	font-size: 0.95em;
+	tab-size: 4;
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+
+	margin: 0.5em 0;
+	padding: 0.5em 2em;
+	overflow-x: auto;
+}
+
+math {
+	font-family: "Latin Modern Math", inherit;
+	font-size: 1.2em;
+}
+
+/* correct matrix padding */
+mtd {
+	padding: revert;
+}
+
+hr {
+	margin: 10px 0;
+}
+ol, ul {
+	margin: 0.8em 0;
+}
+
+ol li, ul li {
+	margin: 0.3em 1.5em;
+}
+
+ol ol li {
+	margin: 0.3em 1em;
+}
+
+/* ol style (1) (2) (3)... */
+ol.enum ol {
+	list-style-type: none;
+}
+
+ol.enum > ol {
+	counter-reset: enum_cnt;
+}
+
+ol.enum ol > li {
+	counter-increment: enum_cnt;
+}
+
+ol.enum ol > li::before {
+	content: "(" counter(enum_cnt) ") ";
+}
+
+/* ol style i ii iii */
+ol.subenum ol {
+	counter-reset: subenum_cnt;
+}
+
+ol.subenum ol > li {
+	counter-increment: subenum_cnt;
+}
+
+ol.subenum ol > li:before {
+	content: "(" counter(subenum_cnt, lower-roman) ") ";
+}
+
+dl dt {
+	font-size: 1em;
+	font-weight: bold;
+}
+
+dl dd {
+	margin-bottom: 0.3em;
+	margin-left: 2em;
+}
+
+
+table {
+	margin: 2em auto;
+	border-top: 2px solid;
+	border-bottom: 2px solid;
+}
+
+td, th {
+	padding: 0.45em 0.75em 0.45em 0.75em;
+}
+
+textarea {
+	font-size: inherit;
+	width: 100%;
+	margin: 15px 0;
+}
+
+/* svg */
+svg {
+	stroke: black;
+	fill: none;
+	width: 100%;
+}
+
+svg text {
+	stroke: none;
+	fill: black;
+}
+
+/* on printer... */
+@media print {
+	body {
+		margin: 0;
+		padding: 0;
+		font-size: 10pt;
+		font-family: SimSun, Songti, STIXGeneral, times, serif;
+		background: white;
+	}
+
+	h1, h2, h3, h4, h5, h6, b {
+		font-family: "Noto Sans CJK SC", Heiti, "AR PL UMing CN Bold", serif;
+		font-weight: bold;
+	}
+
+	a {
+		color: black;
+	}
+
+	/* always show answer */
+	.hidden {
+		display: revert;
+	}
+
+	button.answer-hidden {
+		border-radius: 0.5em 0.5em 0 0;
+	}
+
+	button.answer-hidden::after {
+		content: ' ▼';
+	}
+
+	.pagebreak {
+		page-break-after: always;
+	}
+
+	/* always display overflow */
+	pre {
+		overflow-x: revert;
+	}
+
+	div.scroll-wrapper {
+		overflow-x: revert;
+	}
+}
+
+/* mobile phone */
+@media screen and (min-resolution: 150dpi) {
+	math {
+		font-size: 1em;
+	}
+
+	pre {
+		font-size: 0.9em;
+		padding: 0.5em;
+	}
+
+	.img {
+		height: 20em;
+	}
+
+	.col2 .img {
+		height: 12em;
+	}
+}
+
+/* iphone */
+@media screen and (-webkit-min-device-pixel-ratio:2) {
+	math {
+		font-size: 1em;
+	}
+
+	pre {
+		font-size: 0.9em;
+		padding: 0.5em;
+	}
+
+	.img {
+		height: 20em;
+	}
+
+	.col2 .img {
+		height: 12em;
+	}
+}
+
+

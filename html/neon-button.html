@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>neon button</title>
+<style>
+body {
+	background: #222;
+	color: white;
+	font-family: sans-serif;
+
+	/* centering */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+}
+main {
+	position: relative;
+	height: 200px;
+	width: 200px;
+	overflow: hidden;
+	-webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
+}
+main:hover {
+	background: #03e9f4;
+	box-shadow:
+		0 0 5px #03e9f4,
+		0 0 25px #03e9f4,
+		0 0 50px #03e9f4,
+		0 0 200px #03e9f4;
+}
+main div {
+	position: absolute;
+}
+main div:nth-child(1) {
+	top: 0;
+	width: 100%;
+	height: 40px;
+	background: linear-gradient(90deg, transparent, #03e9f4);
+	animation: animate1 1s linear infinite;
+}
+@keyframes animate1 {
+	0% { left: -100%; }
+	100% { left: 100%; }
+}
+main div:nth-child(2) {
+	right: 0;
+	height: 100%;
+	width: 40px;
+	background: linear-gradient(180deg, transparent, #03e9f4);
+	animation: animate2 1s linear infinite 0.5s;
+}
+@keyframes animate2 {
+	0% { top: -100%; }
+	100% { top: 100%; }
+}
+main div:nth-child(3) {
+	bottom: 0;
+	width: 100%;
+	height: 40px;
+	background: linear-gradient(270deg, transparent, #03e9f4);
+	animation: animate3 1s linear infinite;
+}
+@keyframes animate3 {
+	0% { right: -100%; }
+	100% { right: 100%; }
+}
+main div:nth-child(4) {
+	left: 0;
+	height: 100%;
+	width: 40px;
+	background: linear-gradient(0, transparent, #03e9f4);
+	animation: animate4 1s linear infinite 0.5s;
+}
+@keyframes animate4 {
+	0% { bottom: -100%; }
+	100% { bottom: 100%; }
+}
+</style>
+</head>
+<body>
+<main>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+</main>
+</body>
+</html>

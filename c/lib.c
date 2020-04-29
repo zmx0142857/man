@@ -57,7 +57,14 @@
 	void *memcpy(dest, src, size);
 	void memset(ptr, value, size);
 	strlen
-	strcpy
+
+	char *strcpy(char *dest, const char *src)
+	{
+		while (*src)
+			*dest = *src++;
+		return dest;
+	}
+
 	strcmp
 	strstr
 	strtok

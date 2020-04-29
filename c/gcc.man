@@ -1,0 +1,48 @@
+gcc - build
+
+	$ gcc main.c -o main
+
+	-c		make object
+	-S		make assembly
+	-E		preprocess only, or use command `cpp` (c preprocessor)
+	-g		generate debug info
+
+	library
+
+	-lm		# link math library
+	-Ldir	# specify directory to library
+
+	include
+
+	-Idir	# specify directory to .h file
+
+make library
+
+	$ ar rs libstack.a *.o # archive library, r=replace exist, s=static
+
+	dynamic library path
+
+	$ sudo vi /etc/ld.so.conf
+	$ sudo ldconfig -v
+
+assemble
+
+	$ as # assemble
+	$ ld # link
+
+read binary
+
+	$ readelf
+
+	-a		all
+
+	$ hexdump
+
+	-C		canonical hex+ascii display
+
+	$ objdump
+
+	-d		disassemble
+	-S		source
+
+	$ ldd # library dependency

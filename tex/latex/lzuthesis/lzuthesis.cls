@@ -96,7 +96,6 @@
 \RequirePackage{amsmath}	% ams 数学包
 \RequirePackage{amssymb}	% 数学符号
 \RequirePackage{mathrsfs}	% 花体字, 使用方法为\mathscr{ABC}
-\RequirePackage{bm}			% 粗斜体, 用于向量和矩阵
 
 % 定理与证明
 % 需要 amsthm 包, 这个包含于 amsmath 包
@@ -150,6 +149,7 @@
 
 \RequirePackage{tabularx}	% 定宽表格
 \RequirePackage{array}		% 改变表格行高
+\RequirePackage{makecell}	% 单元格内换行
 
 % [颜色]
 
@@ -244,7 +244,7 @@
 		\begin{tabular}{lc}
 			\textbf{论文题目（中文）}& \the\zhtitle \\
 			\cline{2-2}\\
-			\textbf{论文题目（外文）}& \the\entitle \\
+			\textbf{论文题目（外文）}& \makecell{\the\entitle} \\
 			\cline{2-2}\\
 			\ziju{1} \textbf{学生姓名} & \the\zhauthor \\
 			\cline{2-2}\\

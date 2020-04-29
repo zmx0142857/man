@@ -4,9 +4,9 @@
 }
 
 body {
-	font-family: "Noto Sans CJK SC", "Microsoft Yahei", Kaiti, Songti, serif, sans-serif;
-	font-size: 14px;
-	background: rgba(0,0,0,0); /* transparent */
+	font-family: "Noto Sans CJK SC", "Microsoft Yahei", Heiti, sans-serif;
+	font-size: 15px;
+	background: aliceblue;
 	max-width: 800px;
 	margin: 45px auto;
 	padding: 0 5%;
@@ -73,6 +73,7 @@ pre {
 	margin: 0.5em 0;
 	padding: 0.5em 2em;
 	overflow-x: auto;
+	background: rgba(0,0,0,0.2);
 }
 
 math {
@@ -254,5 +255,3 @@ svg text {
 		height: 12em;
 	}
 }
-
-

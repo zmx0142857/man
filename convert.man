@@ -59,3 +59,7 @@ crop
 add background
 
 	$ convert -background white -flatten in.png out.jpg
+
+transparent background
+
+	$ convert -transparent white in.png out.png

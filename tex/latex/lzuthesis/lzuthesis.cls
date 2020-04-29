@@ -226,6 +226,9 @@
 
 % [封面]
 
+\def\zhtitleMultirow{\the\zhtitle}
+\def\entitleMultirow{\the\entitle}
+\def\newline{\\ \cline{2-2}\\ &}
 \newcommand\makecover{
 	\pagestyle{empty}
 	\begin{figure*}
@@ -242,9 +245,9 @@
 		\songti \ziju{0}
 		\renewcommand\arraystretch{0.85} % 临时改变表格行高
 		\begin{tabular}{lc}
-			\textbf{论文题目（中文）}& \the\zhtitle \\
+			\textbf{论文题目（中文）}& \zhtitleMultirow \\
 			\cline{2-2}\\
-			\textbf{论文题目（外文）}& \makecell{\the\entitle} \\
+			\textbf{论文题目（外文）}& \entitleMultirow \\
 			\cline{2-2}\\
 			\ziju{1} \textbf{学生姓名} & \the\zhauthor \\
 			\cline{2-2}\\
@@ -520,3 +523,4 @@
 % v0.0.0	2019-10-24	添加 lzuthesis.cls lzuthesis.tex imgs/
 % v0.0.1	2019-12-16	增加对 ctexart 类的版本检查, 改写帮助手册
 % v0.1.0	2020-01-09	减小列表行距, 按新规范重写模板
+% v0.1.1	2020-04-29	去掉 bm, 新增 makecell, 允许封面标题断行

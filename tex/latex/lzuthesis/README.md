@@ -4,7 +4,7 @@
 
 ## 安装
 
-下载 [lzuthesis.zip](https://github.com/zmx0142857/man/releases/tag/v0.1.0) 并解压.
+下载 [lzuthesis.zip](https://github.com/zmx0142857/man/releases/tag/v0.1.1) 并解压.
 
 ## 编译指南
 

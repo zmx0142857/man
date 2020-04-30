@@ -5,17 +5,15 @@
 % 地址: https://github.com/zmx0142857/man/tree/master/tex/latex/lzuthesis/
 %
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
-\ProvidesClass{lzuthesis}[2020/01/09 v0.1.0 Lanzhou University Thesis Template for Bachelor Degree]
+\ProvidesClass{lzuthesis}[2020/04/29 v0.1.1 Lanzhou University Thesis Template for Bachelor Degree]
 
 % [类与选项]
 
 \LoadClass[a4paper,UTF8]{ctexart}[2015/12/20] % 这里的版本检查只产生警告
 % 强制版本检查
-\makeatletter
 \@ifpackagelater{ctex}{2015/12/20}{}{
 	\PackageError{lzuthesis}{require a package 'ctex' newer than 2015/12/20}
 }
-\makeatother
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexart}}
 \ProcessOptions
@@ -149,7 +147,6 @@
 
 \RequirePackage{tabularx}	% 定宽表格
 \RequirePackage{array}		% 改变表格行高
-\RequirePackage{makecell}	% 单元格内换行
 
 % [颜色]
 
@@ -203,12 +200,8 @@
 }
 
 % 令所有 verbatim 环境缩进 2em
-\makeatletter
 \let \saveverbatime \@xverbatim
 \def \@xverbatim {\leftskip = 2em\relax\saveverbatime}
-\makeatother
-
-
 
 % [ctex 设置]
 
@@ -277,6 +270,7 @@
 }
 
 % [诚信责任书]
+
 \newcommand\makeliability{
 	\begin{center}\zihao{3}\textbf{诚信责任书}\end{center}
 
@@ -337,7 +331,6 @@
 	{\noindent\bfseries\zihao{-4}\enkeywordsname: }#1 \newpage
 }
 
-\makeatletter % 与 \makeatother 配合使用, 使得 @ 暂时可用
 \newenvironment{cnabstract}{
 	\begin{center}
 	\heiti \zihao{3} \the\zhtitle
@@ -361,9 +354,9 @@
 	\par
 	\vspace*{2em}
 }
-\makeatother
 
 % [目录]
+
 \usepackage[titles, subfigure]{tocloft}
 
 % 为 section 标题加上引导点...
@@ -496,6 +489,7 @@
 \endlinechar `\^^M % 声明换行符
 
 % [自定义宏]
+
 %\newcommand\diff[2][]{ \dfrac{\mathrm{d}#1}{\mathrm{d}#2} }
 %\newcommand\pdiff[2][]{ \dfrac{\partial#1}{\partial#2} }
 %\def\dx{\dd x}
@@ -523,4 +517,4 @@
 % v0.0.0	2019-10-24	添加 lzuthesis.cls lzuthesis.tex imgs/
 % v0.0.1	2019-12-16	增加对 ctexart 类的版本检查, 改写帮助手册
 % v0.1.0	2020-01-09	减小列表行距, 按新规范重写模板
-% v0.1.1	2020-04-29	去掉 bm, 新增 makecell, 允许封面标题断行
+% v0.1.1	2020-04-29	去掉 bm 包, 允许封面标题断行

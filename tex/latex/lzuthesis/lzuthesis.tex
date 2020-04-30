@@ -7,7 +7,7 @@
 % 支持断行的中文标题 (用于封面)
 %\def\zhtitleMultirow{兰州大学本科生毕业论文模板\newline 兰州大学本科生毕业论文模板}
 % 支持断行的英文标题 (用于封面)
-%\def\entitleMultirow{Lanzhou University Thesis Template for Bachelor Degree\newline Lanzhou University Thesis Template for Bachelor Degree}
+\def\entitleMultirow{A Simple \LaTeX\ Template of Lanzhou University Thesis \newline for Bachelor Degree}
 % 短标题 (用于页眉)
 \shorttitle{兰大本科毕设模板}
 % 作者中文名
@@ -74,9 +74,9 @@
 
 \subsection{编译}
 
-推荐的编译环境为 texlive 2019 和 texstudio 2.12.6 之后的版本
-(texlive 可通过清华镜像下载, texstudio 为免费软件).
-确保你使用的编译器是 xelatex. 如果用命令行编译,
+推荐使用最新的 texlive 发行版和 texstudio 编辑器.
+(texlive 是开源项目, 可通过清华镜像下载; texstudio 为免费软件).
+确保你使用的编译器是 xelatex, 而不是 pdflatex. 如果用命令行编译,
 应当编译两次以形成正确的目录和引用:
 
 \begin{verbatim}
@@ -93,8 +93,8 @@ $ xelatex lzuthesis.tex
 本模板包含的宏包如下, 在编译过程中提示缺少宏包请自行下载:
 
 \begin{verbatim}
-ctex        geometry    fancyhdr    enumitem    tocloft
-amsmath     amssymb     mathrsfs    makecell
+ctex        geometry    fancyhdr    enumitem
+amsmath     amssymb     mathrsfs    tocloft
 graphicx    subcaption  tabularx    array
 xcolor      listings    appendix    hyperref
 \end{verbatim}

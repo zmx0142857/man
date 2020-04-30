@@ -70,7 +70,7 @@
 		用户可以把自己的图片放在这里.
 \end{itemize}
 \texttt{lzuthesis.cls} 和 \texttt{lzuthesis.tex}
-中的注释与说明应该能够帮助用户进行简单修改.
+中的注释应该能帮助用户进行简单修改.
 
 \subsection{编译}
 
@@ -93,7 +93,7 @@ $ xelatex lzuthesis.tex
 本模板包含的宏包如下, 在编译过程中提示缺少宏包请自行下载:
 
 \begin{verbatim}
-ctex        geometry    fancyhdr    enumitem
+ctex        geometry    fancyhdr    enumitem    titlesec
 amsmath     amssymb     mathrsfs    tocloft
 graphicx    subcaption  tabularx    array
 xcolor      listings    appendix    hyperref
@@ -132,20 +132,20 @@ proof       证明    solution    解
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=0.25\textwidth]{lzu.pdf}
+	\includegraphics[width=0.2\textwidth]{lzu.pdf}
 	\caption{单张图片}
 	\label{p1}
 \end{figure}
 
 \begin{figure}[!h]
 	\centering
-	\begin{minipage}[t]{0.25\linewidth}
+	\begin{minipage}[t]{0.2\linewidth}
 		\centering
 		\includegraphics[width=\linewidth]{lzu-blue.pdf}
 		\caption{左主图}
 	\end{minipage}
 	\quad
-	\begin{minipage}[t]{0.25\linewidth} 
+	\begin{minipage}[t]{0.2\linewidth} 
 		\centering 
 		\includegraphics[width=\linewidth]{lzu.pdf} 
 		\caption{右主图} 
@@ -154,12 +154,12 @@ proof       证明    solution    解
 
 \begin{figure}[!h]
 	\centering
-	\begin{subfigure}[b]{0.25\linewidth}
+	\begin{subfigure}[b]{0.2\linewidth}
 		\includegraphics[width=\linewidth]{lzu-blue.pdf}
 		\caption{左子图}
 	\end{subfigure}
 	\quad
-	\begin{subfigure}[b]{0.25\linewidth}
+	\begin{subfigure}[b]{0.2\linewidth}
 		\includegraphics[width=\linewidth]{lzu.pdf}
 		\caption{右子图}
 	\end{subfigure}

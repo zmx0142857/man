@@ -68,6 +68,12 @@
 \fancyhead{}
 \fancyfoot{}
 
+% [段前段后]
+
+\RequirePackage{titlesec}
+
+\titlespacing{\section}{0pt}{24pt}{18pt} % 段前 24, 段后 18
+
 % [列表]
 
 \RequirePackage{enumitem}
@@ -415,7 +421,7 @@
 
 \newenvironment{acknowledgement}{
 	\section*{\ziju{2}致谢}
-	\addcontentsline{toc}{section}{\ziju{2}致谢} % 将致谢加入目录
+	\addcontentsline{toc}{section}{致\qquad 谢} % 将致谢加入目录
 	\songti \zihao{-4}
 }{
 	\newpage
@@ -517,4 +523,4 @@
 % v0.0.0	2019-10-24	添加 lzuthesis.cls lzuthesis.tex imgs/
 % v0.0.1	2019-12-16	增加对 ctexart 类的版本检查, 改写帮助手册
 % v0.1.0	2020-01-09	减小列表行距, 按新规范重写模板
-% v0.1.1	2020-04-29	去掉 bm 包, 允许封面标题断行
+% v0.1.1	2020-04-29	去掉 bm 包, 允许封面标题断行, 增加 section 标题空白

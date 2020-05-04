@@ -37,3 +37,13 @@
 ┌──────────────┐
 │   database   │
 └──────────────┘
+
+┌────┐
+│HEAD│
+└────┘
+   │
+   └──> ○ append GPL
+        │
+        ○ add distributed
+        │
+        ○ wrote a readme file

@@ -18,6 +18,18 @@ sudo fc-cache
 	将字体文件拷贝到 /usr/share/fonts/ 中,
 	再运行此命令安装新字体.
 
+pdfpages
+
+	截取部分 pdf 文件
+	--------------------------------
+	\documentclass[a4paper]{article}
+	\usepackage{pdfpages}
+	\begin{document}
+	\includepdfmerge{1.pdf,1-3}
+	\includepdfmerge{2.pdf,5-13}
+	\end{document}
+	--------------------------------
+
 纸张大小 (mm)
 
 	a4 = 210 x 297

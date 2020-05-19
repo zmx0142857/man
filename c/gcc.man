@@ -25,6 +25,10 @@ make library
 	$ sudo vi /etc/ld.so.conf
 	$ sudo ldconfig -v
 
+	find library path -- for example libgmp
+
+	$ ldconfig -p | grep libgmp
+
 assemble
 
 	$ as # assemble

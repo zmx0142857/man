@@ -1,0 +1,6 @@
+下载 sqlserver 2019
+下载对应的 sqljdbc
+安装 java 8 (高版本不行)
+在 sql 管理程序中开启服务并打开网络连接
+在 SSMS (SQL Server Management Studio) 中, sa 帐户默认被禁用.
+可以上网搜索解除 sa 禁用的方法.

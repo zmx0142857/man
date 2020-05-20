@@ -1,0 +1,68 @@
+\documentclass[UTF8]{beamer}
+
+\usepackage{ctex}
+\usepackage{graphicx}
+
+%\usetheme{Boadilla} {Warsaw} {Rochester} {Goettingen}
+\usetheme{Boadilla}
+\setbeamertemplate{caption}[numbered] % 图表编号
+
+%\title[短标题]{Sliders' title 标题}
+\title{Sliders' title 标题}
+%\stitle{副标题}
+\author{Authors作者}
+\date{\today}
+
+\begin{document}
+
+%\beamerdefaultoverlayspecification{<+->} % always pause after \item
+
+% 每个 section 开头会出现的页面
+\AtBeginSection[] % 或者 AtBeginSubSection
+{
+   \begin{frame}
+       \frametitle{Outline}
+	   \tableofcontents[currentsection]
+	   % 或者 \tableofcontents[currentsection, currentsubsection]
+   \end{frame}
+}
+
+\begin{frame}
+	\titlepage   
+\end{frame}
+
+\begin{frame} \frametitle{目录} %\framestitle{副标题}
+	\tableofcontents
+\end{frame}
+
+
+\begin{frame} \frametitle{幻灯片测试} \pause
+	我的第一张幻灯片。
+	\begin{definition}
+		definition 1...
+	\end{definition}
+\end{frame}
+
+\begin{frame} \frametitle{第二张幻灯片} \pause
+	\begin{itemize}
+	\item beamer introduction \pause
+	\item beamer details \pause
+	\item beamer conclusions
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.25\linewidth]{../latex/raw/raindrop-adventure.png}
+	\caption{图片标题}
+	\label{raindrop}
+\end{figure}
+
+如图\ref{raindrop}, 这是我的 github 头像
+%\uncover<3->{The dog jumped the fence.} 第 3 帧及以后
+
+\end{frame}
+
+\end{document}

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<meta charset="utf-8" />
+<title>binary tree</title>
+<style>
+body {
+	padding: 0;
+	margin: 0;
+	background: #222;
+	color: white;
+	font-family: sans-serif;
+
+	/* centering */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+}
+#chart {
+	height: 500px;
+	width: 90%;
+	/*background: #444;*/
+
+}
+.triangle {
+	/*stroke: #3af09f;*/
+	stroke-linecap: round;
+	stroke-linejoin: round;
+	stroke: #999;
+	stroke-width: 3px;
+}
+.caption {
+	font-family: Helvetica;
+	font-size: 30px;
+	font-weight: bold;
+	fill: #999;
+}
+.line {
+	stroke: #999;
+	stroke-width: 3px;
+}
+#path {
+	stroke: #a56;
+	stroke-width: 3px;
+	fill: none;
+	--stroke-length: 3000;
+	stroke-dasharray: var(--stroke-length);
+	stroke-dashoffset: var(--stroke-length);
+
+	animation: 6s anim-plot linear;
+	animation-fill-mode: forwards; /* 让动画停留在最后一帧 */
+	animation-delay: .3s;
+}
+@keyframes anim-plot {
+	from { stroke-dashoffset: var(--stroke-length); }
+	to { stroke-dashoffset: 0; }
+}
+header {
+	display: flex;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	height: 45px;
+}
+footer {
+	display: flex;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	height: 45px;
+}
+#data {
+	flex: 5 5;
+}
+#plot {
+	flex: 1 0 4em;
+	border: none;
+	background: #444;
+	color: white;
+}
+</style>
+</head>
+<body>
+
+<header>
+</header>
+
+<svg height="0" width="0">
+<defs>
+	<marker id="arrow-end" markerWidth="13" markerHeight="13"
+			refx="10" refy="3" orient="auto">
+		<path d="M 0,0 L 0,6 L 10,3 Z" style="fill: black;" />
+	</marker>
+	<polygon id="triangle" points="50,0 100,86.6 0,86.6" style="fill:none"/>
+	<!--<circle id="triangle" cx="50" cy="57.7" r="57.7" style="fill:none"/>-->
+</defs>
+</svg>
+
+<footer>
+	<input type="text" id="data" value="[1, 2, 3, 4, null, 5, 6, 7, 8, null, null, 9, null, null, null, 10]">
+	<button id="plot" onclick="plot()">plot</button>
+</footer>
+
+<script>
+let triangleWidth = 100;
+let triangleHeight = triangleWidth * 0.5 * Math.sqrt(3);
+let triangleRadius = triangleWidth / Math.sqrt(3);
+function svgNode(tag, settings) {
+	let node = document.createElementNS('http://www.w3.org/2000/svg', tag);
+	for (s in settings)
+		node.setAttribute(s, settings[s]);
+	return node;
+}
+
+function plot() {
+	let paddingTop = 20;
+	let width = 1000;
+	let offset = -300;
+	let lineHeight = 200;
+	let chart = document.getElementById('chart');
+	if (chart) document.body.removeChild(chart);
+	chart = svgNode('svg', {id: 'chart', viewBox: `0 0 500 ${width}`});
+
+	let data = eval(document.getElementById('data').value);
+	let treeHeight = Math.ceil(Math.log2(data.length+1));
+	let cnt = 0;
+	let pos = [];
+	for (let level = 1; level <= treeHeight; ++level) {
+		let num = 1 << (level-1);
+		let step = width / num;
+		let x = step*0.5 + offset;
+		let y = paddingTop + lineHeight*(level-1);
+		for (let i = 0; i < num; ++i) {
+			if (data[cnt] != null) {
+				pos[cnt] = [x, y];
+				let use = svgNode('use', {
+					href: '#triangle',
+					x: x,
+					y: y
+				});
+				use.classList.add('triangle');
+				chart.appendChild(use);
+
+				let caption = svgNode('text', {
+					'x': x + triangleWidth*0.5,
+					'y': y + triangleRadius + 7,
+					'text-anchor': 'middle',
+					'alignment-baseline': 'middle'
+				});
+				caption.appendChild(document.createTextNode(data[cnt]));
+				caption.classList.add('caption');
+				chart.appendChild(caption);
+
+				let parent = ((cnt+1) >> 1) - 1;
+				if (cnt > 0 && pos[parent]) {
+					let line = svgNode('line', {
+						x1: pos[parent][0] + !(cnt % 2) * triangleWidth,
+						y1: pos[parent][1] + triangleHeight,
+						x2: x + triangleWidth*0.5,
+						y2: y
+					});
+					line.classList.add('line');
+					chart.append(line);
+				}
+			}
+			++cnt;
+			x += step;
+		}
+	}
+
+	let pathStr = [];
+	let padding = 10;
+
+	function outline(node) {
+		if (pos[node] != null) {
+			pathStr.push(`${pos[node][0] + triangleWidth*0.5 - padding},${pos[node][1]}`);
+			pathStr.push(`${pos[node][0] - padding},${pos[node][1] + triangleHeight}`);
+			outline(node*2 + 1);
+			pathStr.push(`${pos[node][0]},${pos[node][1] + triangleHeight + padding}`);
+			pathStr.push(`${pos[node][0] + triangleWidth},${pos[node][1] + triangleHeight + padding}`);
+			outline(node*2 + 2);
+			pathStr.push(`${pos[node][0] + triangleWidth + padding},${pos[node][1] + triangleHeight}`);
+			pathStr.push(`${pos[node][0] + triangleWidth*0.5 + padding},${pos[node][1]}`);
+		}
+	}
+
+	outline(0);
+	let path = svgNode('path', {
+		id: 'path',
+		d: `M ${pathStr.join(' ')}`
+	});
+	let strokeLength = Math.ceil(path.getTotalLength());
+	path.style.setProperty('--stroke-length', strokeLength);
+	chart.appendChild(path);
+	document.body.appendChild(chart);
+}
+plot();
+</script>
+
+</body>
+</html>

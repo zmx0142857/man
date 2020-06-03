@@ -35,6 +35,10 @@ trash - move file to trash through bash
 	$ sudo apt-get install trash-cli
 	$ trash-put <filename>
 
+settings
+	
+	$ sudo apt install ubuntu-desktop
+
 ----shell----
 
 set local host name

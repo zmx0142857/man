@@ -37,3 +37,62 @@ pdfpages
 	16开 = 188 x 260
 	letter 216 x 279
 	g5 169 x 239, 如崔尚斌的数学分析教程
+
+bibtex
+
+	my.bib
+	---------------------------------------------------------------------
+	@article {
+		one,
+		author = "L.~Wang and P.~Ho and C.~Liu and G.~Zhang and R.~Alfano",
+		title = "Ballistic 2-d imaging through scattering walls using an
+			ultrafast potical kerr gate",
+		journal = "Science",
+		year = "1991",
+	}
+
+	@article {
+		two,
+		author = "D.~Huang and E.~A.~Swanson and C.~P.~Lin and J.~S.~Schuman and W.~G.~Stinson and W.~Chang and M.~R.~Hee and T.~Flotte and K.~Gregory and C.~A.~Puliafito",
+		title = "Optical coherence tomography",
+		journal = "Science",
+		year = "1991",
+	}
+	--------------------------------------------------------------------
+
+	my.tex
+	-----------------------------------
+	\documentclass{article}
+	\begin{document}
+		这里 \cite{one} 还有这里 \cite{two}
+		\bibliographystyle{unsrt}
+		\bibliography{foobar}
+	\end{document}
+	-----------------------------------
+
+	编译
+
+	$ xelatex my.tex # 或 latex, 或 pdflatex, 下同
+	$ bibtex my.aux  # .aux 可以省略
+	$ xelatex my.tex
+	$ xelatex my.tex
+
+	嫌编译麻烦可以写一个 Makefile
+
+	Makefile
+	--------------------------------------
+	NAME = tmp # 这里改成你的 .tex 文件名
+	all: $(NAME).pdf
+
+	$(NAME).pdf: $(NAME).tex $(NAME).bbl
+		xelatex $(NAME).tex # | texgrep.py
+		xelatex $(NAME).tex # | texgrep.py
+
+	$(NAME).bbl: $(NAME).aux
+		bibtex $(NAME).aux
+
+	$(NAME).aux: $(NAME).tex
+		xelatex $(NAME).tex # | texgrep.py
+	--------------------------------------
+
+	然后可以用 make 命令编译

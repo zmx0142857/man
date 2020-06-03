@@ -21,8 +21,9 @@ body {
 	height: 100%;
 }
 #chart {
-	height: 500px;
+	height: 90%;
 	width: 90%;
+	overflow: auto;
 	/*background: #444;*/
 
 }
@@ -81,6 +82,11 @@ footer {
 	border: none;
 	background: #444;
 	color: white;
+}
+@media screen and (min-resolution: 130dpi) {
+	#chart * {
+		transform: translateX(120px) scale(0.6);
+	}
 }
 </style>
 </head>

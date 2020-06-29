@@ -290,3 +290,4 @@ zO						# open all
 # --------------- sort --------------------
 
 :%sort
+:g/.*/mo0				# reverse every line, like tac

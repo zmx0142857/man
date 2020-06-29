@@ -15,6 +15,10 @@ merge pictures into one pdf
 	$ convert *.jpg out.pdf
 	$ convert *.jpg +compress out.pdf
 
+pdf to picture
+
+	$ convert -density 300 in.pdf out%04d.jpg
+
 convert png files to jpg files
 
 	$ for f in *.png; do
@@ -44,7 +48,9 @@ add text
 
 black white
 
-	$ convert -monochrome in.jpg out.jpg
+	$ convert -monochrome in.jpg out.png
+	$ convert -threshold 55% in.jpg out.png
+	$ convert -alpha set -channel RGBA -fuzz 30% -fill '#ffffff' -opaque '#aaaaaa' -monochrome in.jpg out.png # better
 
 crop
 

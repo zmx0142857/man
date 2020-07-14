@@ -1,0 +1,57 @@
+login
+	$ sqlplus
+
+	user: SYSTEM
+	password: oracle
+
+	user: TMYH
+	password: TMYH2016
+
+	user: SCOTT
+	password: tiger
+
+	login with sys
+
+	$ sqlplus / as sysdba
+	或者
+	$ sqlplus /nolog
+	SQL> conn / as sysdba
+	默认连接到 orcl 数据库，相当于
+	$ sqlplus /@orcl as sysdba
+
+basics
+
+连接: conn[ect]
+断开: disconnect
+当前用户: show user
+当前版本: show rel[ease]
+全部用户: select username from dba_users;
+全部表: select table_name from dba_tables;
+全部表空间: select * from v$tablespace;
+改密码: alter user system identified by 123456;
+查看数据库名: select name from v$database;
+查看用户的表: select table_name from user_tab_comments;
+查看表空间: select * from dba_tablespaces;
+描述表: desc[ribe] <table>;
+计算器: select 19*19 from dual;
+操作日志: spool <filename>; spool off;
+执行 shell 命令: host <command>
+执行 sql 脚本: @<filename.sql>
+查看后台进程: select program from v$bgprocess;
+查询会话信息: v$session 表
+关闭数据库: shutdown normal(等待用户断开)/transactional(事务完成后自行断开)/immediate(马上断开)/abort(强行断开)
+打开数据库: startup force(强行打开)/restrict(仅特权用户可连接)
+
+解锁 scott 用户, 以 SYSTEM 登录: alter user scott account unlock;
+当前日期: sysdate
+日期转换: to_date('20200714', 'YYYYMMDD')
+
+
+sql examples
+
+	select avg(sal), deptno from scott.emp group by deptno;
+
+	复制表: create table new as select * from old;
+	复制表的结构: create table new as select * from old where 1 > 2;
+	完整语法次序:
+	select, from, where, group by, having, order by

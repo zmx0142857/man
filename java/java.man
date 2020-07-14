@@ -1,0 +1,12 @@
+运行含有 package 声明的程序
+	
+	$ cd ..
+	$ java hello.Hello
+
+查看 jar 包
+
+	$ jar fvt tmp.jar
+
+运行 jar 包
+
+	$ java -jar tmp.jar

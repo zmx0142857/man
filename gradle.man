@@ -1,0 +1,48 @@
+install
+
+	download, unzip,
+	environment variables:
+		GRADLE_HOME=<path-to-gradle>
+		PATH=%PATH%;%GRADLE_HOME%\bin
+		GRADLE_USER_HOME=%GRADLE_HOME%\repo
+
+	GRADLE_USER_HOME 中的 gradle.properties 放置 gradle 的相关参数.
+	执行 gradle build 时会优先读取这里的配置, 而不是项目目录下的配置
+
+init and build
+
+	$ mkdir -p hello/src/main/java/hello
+	$ cd hello
+	$ vi build.gradle
+
+	----build.gradle-------------
+	apply plugin: 'java'
+	apply plugin: 'application'
+	mainClassName = 'hello.Hello'
+
+	repositories {
+		mavenCentral()
+	}
+
+	dependencies {
+		compile "joda-time:joda-time:2.2"
+		testCompile "junit:junit:4.12"
+	}
+
+	jar {
+		baseName = 'hello'
+		version = '0.1.0'
+	}
+
+	sourceCompatibility = 1.8
+	targetCompatibility = 1.8
+	-----------------------------
+
+	$ gradle build
+	$ gradle -q run # run quietly
+
+use wrapper
+
+	$ gradle wrapper --gradle-version 4.10
+
+	then you can use gradlew instead of gradle

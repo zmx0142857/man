@@ -52,3 +52,6 @@ usb device mount point
 rime files
 	/usr/share/rime-data
 	~/.config/ibus/rime
+
+java8
+	/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/

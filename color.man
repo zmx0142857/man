@@ -1,0 +1,22 @@
+{
+    "name": "CampbellZmx",
+    "foreground": "#0C0C0C",
+    "background": "#AAAAAA",
+    "cursorColor": "#FFFFFF",
+    "brightBlack": "#555555",
+    "brightRed": "#C50F1F",
+    "brightGreen": "#13A10E",
+    "brightYellow": "#C19C00",
+    "brightBlue": "#0037DA",
+    "brightPurple": "#881798",
+    "brightCyan": "#008599",
+    "brightWhite": "#DDDDDD",
+    "black": "#767676",
+    "red": "#E74856",
+    "green": "#16C60C",
+    "yellow": "#F9F1A5",
+    "blue": "#3B78FF",
+    "purple": "#B4009E",
+    "cyan": "#61D6D6",
+    "white": "#F2F2F2"
+}

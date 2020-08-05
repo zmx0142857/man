@@ -1,0 +1,3 @@
+$ ./mvnw spring-boot:run # run
+$ ./mvnw clean package # build
+$ java -jar target/<your-app>.jar # run the jar file

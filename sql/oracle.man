@@ -10,7 +10,7 @@ login
 	user: SCOTT
 	password: tiger
 
-	login with sys
+	user: SYS
 
 	$ sqlplus / as sysdba
 	或者
@@ -19,39 +19,123 @@ login
 	默认连接到 orcl 数据库，相当于
 	$ sqlplus /@orcl as sysdba
 
+plsql developer
+
+	将 db_home/NETWORK/ADMIN/ 下的 listener.ora sqlnet.ora tnsnames.ora
+	三个文件拷贝至 instantclient 目录下, 然后编写脚本
+
+	----plsql.bat--------------------------------------
+	@echo off
+	set ORACLE_HOME=/path/to/instantclient
+	set path=%ORACLE_HOME%
+	set TNS_ADMIN=%ORACLE_HOME%
+	set NLS_LANG=SIMPLIFIED CHINESE_CHINA.ZHS16GBK
+	start /path/to/plsql-developer/plsqldev.exe
+	---------------------------------------------------
+
+	运行此脚本即可启动 plsql developer
+
 basics
 
-连接: conn[ect]
-断开: disconnect
-当前用户: show user
-当前版本: show rel[ease]
-全部用户: select username from dba_users;
-全部表: select table_name from dba_tables;
-全部表空间: select * from v$tablespace;
-改密码: alter user system identified by 123456;
-查看数据库名: select name from v$database;
-查看用户的表: select table_name from user_tab_comments;
-查看表空间: select * from dba_tablespaces;
-描述表: desc[ribe] <table>;
-计算器: select 19*19 from dual;
-操作日志: spool <filename>; spool off;
-执行 shell 命令: host <command>
-执行 sql 脚本: @<filename.sql>
-查看后台进程: select program from v$bgprocess;
-查询会话信息: v$session 表
-关闭数据库: shutdown normal(等待用户断开)/transactional(事务完成后自行断开)/immediate(马上断开)/abort(强行断开)
-打开数据库: startup force(强行打开)/restrict(仅特权用户可连接)
-
-解锁 scott 用户, 以 SYSTEM 登录: alter user scott account unlock;
-当前日期: sysdate
-日期转换: to_date('20200714', 'YYYYMMDD')
-
+	连接: conn[ect] user/password
+	断开: disconnect
+	当前用户: show user
+	当前版本: show rel[ease]
+	全部用户: select username from dba_users;
+	全部表: select table_name from dba_tables;
+	用户的表: select table_name from user_tab_comments/user_tables;
+	全部表空间: select * from v$tablespace;
+	查看表空间: select * from dba_tablespaces;
+	改密码: alter user system identified by 123456;
+	查看数据库名: select name from v$database;
+	描述表: desc[ribe] <table>;
+	计算器: select 19*19 from dual;
+	操作日志: spool <filename>; spool off;
+	执行 shell 命令: host <command>
+	执行 sql 脚本: @<filename.sql>
+	查看后台进程: select program from v$bgprocess;
+	查询会话信息: v$session 表
+	关闭数据库: shutdown normal(等待用户断开)/transactional(事务完成后自行断开)/immediate(马上断开)/abort(强行断开)
+	打开数据库: startup force(强行打开)/restrict(仅特权用户可连接)
+	导出: $ exp user/password@orcl tables=(,) file=<file.dmp>
+	导入: $ imp user/password@orcl file=<file.dmp>
+	查看最大连接数: select value from v$parameter where name='processes';
+	查看当前连接数: select count(*) from v$process;
+	解锁 scott 用户: 以 SYSTEM 登录: alter user scott account unlock;
+	当前日期: sysdate
+	日期转换: to_date('20200714', 'YYYYMMDD')
+	字符串格式化: to_char(sysdate, 'YYYYMMDD')
+	alter session set nls_date_format='yyyymmdd';  --临时改变日期格式
+	函数或过程有编译错误时, 改为普通代码块执行, 就会显示具体错误内容.
+   	也可以用 show errors function/procedure <func_name>
 
 sql examples
 
-	select avg(sal), deptno from scott.emp group by deptno;
-
 	复制表: create table new as select * from old;
 	复制表的结构: create table new as select * from old where 1 > 2;
+
 	完整语法次序:
 	select, from, where, group by, having, order by
+
+	函数
+	decode(key, key1, value1, key2, value2, ..., default_value);
+	sign(number);
+
+	rownum 的选定范围必须是从 1 开始的连续整数. select 结果间可以用 minus 相减, 但不保序
+
+	货币符号
+	select to_char(33, 'L99.99') from dual;
+
+	第一种输出
+	prompt hello world
+	第二种输出
+	set serveroutput on;
+	declare
+	begin
+		dbms_output.put_line('hello');
+	end;
+	/
+	第三种输出
+	set serveroutput on;
+	call dbms_output.put_line('hello');
+
+	设置命令行宽度 set lin 200
+
+	例1 部门平均工资
+	select avg(sal), deptno from scott.emp group by deptno;
+
+
+	例2 根据分数更新成绩
+
+	create table score (
+		sno number(6)
+	sno	score	grade
+	-----------------
+	1	65		null
+	2	75		null
+	3	85		null
+	4	95		null
+
+	分支语句
+	select case
+	when s.score >= 90 then 'A'
+	when s.score >= 80 then 'B'
+	when s.score >= 70 then 'C'
+	when s.score >= 60 then 'D'
+	else 'E'
+	end grade from score s;
+
+	update score b set grade=(
+	select case
+	when s.score >= 90 then 'A'
+	when s.score >= 80 then 'B'
+	when s.score >= 70 then 'C'
+	when s.score >= 60 then 'D'
+	else 'E'
+	end grade from score s where s.sno=b.sno);
+
+	例3 去重
+	delete from student where sno in
+	(select sno from student group by sno having count(*)>1)
+	and rownum not in
+	(select rownum from student group by sno having count(*)>1);

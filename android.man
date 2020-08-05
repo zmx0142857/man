@@ -21,3 +21,25 @@ transfor files
 firefox usb debugging
 
 	$ adb forward tcp:6000 localfilesystem:/data/data/org.mozilla.firefox/firefox-debugger-socket
+
+remove app
+
+	$ adb devices
+	$ adb shell px list packages
+	$ adb uninstall com.???.???
+
+remove system app
+
+	$ adb root
+	$ adb remount # get r/w privilege
+	# cd /system/app
+	# rm -rf <AppName>
+	# reboot
+
+package info
+
+	# dumpsys package com.???.???
+
+start app
+
+	# am start -n com.???.???.MainActivity

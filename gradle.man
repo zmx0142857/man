@@ -41,6 +41,9 @@ init and build
 	$ gradle build
 	$ gradle -q run # run quietly
 
+    $ gradle bootRun # run a spring boot app
+    $ java -jar build/libs/<your-app>.jar # run the jar file
+
 use wrapper
 
 	$ gradle wrapper --gradle-version 4.10

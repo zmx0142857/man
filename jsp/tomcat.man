@@ -1,0 +1,19 @@
+install
+    download, unzip
+    $ cd apache-tomcat/bin
+    $ ./startup.sh
+
+    open the browser at localhost:8080
+
+    $ ./shutdown.sh
+
+config
+    $ mkdir -p <my-app-path>/ROOT
+
+    ----<my-app-path>/ROOT/index.jsp-----
+    hello world!
+    -------------------------------------
+
+    ----apache-tomcat/conf/server.xml----
+    appBase="<my-app-path>"
+    -------------------------------------

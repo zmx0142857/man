@@ -22,35 +22,45 @@ build project and install to the phone
 
 import
 
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.LinearLayoutManager;
+android
+├── support
+│   ├── v4
+│   │   ├── app
+│   │   │   ├── DialogFragment
+│   │   │   ├── Fragment
+│   │   │   ├── FragmentActivity
+│   │   │   ├── FragmentManager
+│   │   │   └── FragmentStatePagerAdapter
+│   │   └── view
+│   │       └── ViewPager
+│   └── v7
+│       ├── app
+│       │   ├── AlertDialog
+│       │   └── AppCompatActivity
+│       └── widget
+│           ├── RecyclerView
+│           └── LinearLayoutManager
+├── os
+│   └── Bundle
+├── app
+│   └── Dialog
+├── content
+│   ├── Intent
+│   └── Context
+├── text
+│   ├── Editable
+│   ├── TextWatcher
+│   └── format
+│       └── DateFormat
+├── view
+│   ├── LayoutInflater
+│   ├── View
+│   └── ViewGroup
+└── widget
+    ├── Button
+    ├── Checkbox
+    ├── CompoundButton
+    ├── EditText
+    ├── TextView
+    └── Toast
 
-import android.os.Bundle;
-
-import android.app.Dialog;
-
-import android.content.Intent;
-import android.content.Context;
-
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.text.format.DateFormat;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;

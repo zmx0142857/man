@@ -139,3 +139,9 @@ sql examples
 	(select sno from student group by sno having count(*)>1)
 	and rownum not in
 	(select rownum from student group by sno having count(*)>1);
+
+errors
+
+    ORA-12560: TNS: 协议适配器错误
+    解决: 启动 oracleServerORCL 和 listener,
+    $ export ORACLE_SID=ORCL

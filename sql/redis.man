@@ -1,0 +1,32 @@
+run
+    $ redis-server &
+    $ redis-cli # 本地
+    $ redis-cli -h host -p port -a password # 远程
+
+use
+    每个 key 能存储 2^32-1 bit (512MB)
+    $ set <key> <value>
+    $ get <key>
+    $ del <key>
+
+    每个 hashmap 能存储 2^32-1 个键值对
+    $ hmset <hashmap> <field1> <value1> ...
+    $ hmget <hashmap> <field>
+    $ hvals <hashmap>
+
+    每个 list 能存储 2^32-1 个元素
+    $ lpush <list> <value>
+    $ lrange <list> <min> <max>
+
+    每个 set 能存储 2^32-1 个元素
+    $ sadd <set> <value>
+    $ smembers <set>
+
+    每个 sorted set 能存储 ?? 个元素
+    $ zadd <zset> <score> <value>
+    $ zrangebyscore <zset> <min> <max>
+
+    $ select 1 # 切换到 1 号数据库
+
+    $ ping # 检测是否已连接到服务器
+    PONG

@@ -1,0 +1,29 @@
+mirror
+    ----apache-maven/conf/settings.xml---------------------
+    <mirrors>
+        <mirror>
+            <id>nexus-aliyun</id>
+            <mirrorOf>central</mirrorOf>
+            <name>Nexus aliyun</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public</url>
+        </mirror>
+    </mirrors>
+    --------------------------------------------------------
+
+init
+    $ mvn -B archetype:generate -DgroupId=com.mycompany.app -DartifactId=my-app -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.4
+
+use
+    $ mvn clean
+    $ mvn install
+    $ mvn site
+
+    Error: java.lang.NoClassDefFoundError: org/apache/maven/doxia/siterenderer/DocumentContent
+    Solution:
+    $ mvn site -Ddependency.locations.enabled=false
+
+spring boot
+
+	$ ./mvnw spring-boot:run # run
+	$ ./mvnw clean package # build
+	$ java -jar target/<your-app>.jar # run the jar file

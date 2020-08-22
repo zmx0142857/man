@@ -140,6 +140,11 @@ scanl1 (+) [1..5]
 -- listSum v (x:xs) = let h = v + x in h : listSum h xs
 -- listSum 0 [1..5]
 
+-- stupid implementation of fibonacci
+fib 0 = [0]
+fib 1 = [0,1]
+fib n = scanl1 (+) $ 0:1:fib(n-2)
+
 -- sum_(k >= 1, k odd, k^2 < 10000) k^2
 oddSquareSum =
     let oddSquares = filter odd $ map (^2) [1..]

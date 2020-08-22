@@ -17,3 +17,17 @@ config
     ----apache-tomcat/conf/server.xml----
     appBase="<my-app-path>"
     -------------------------------------
+
+run war file
+    ----apache-tomcat/conf/server.xml----
+    appBase="webapps"
+    -------------------------------------
+
+    $ rm -r apache-tomcat/webapps/*
+    $ cp myapp.war apache-tomcat/webapps/
+
+    open the browser at localhost:8080/myapp/index.jsp
+
+    $ cp ROOT.war apache-tomcat/webapps/
+
+    open the browser at localhost:8080/index.jsp

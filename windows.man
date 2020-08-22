@@ -89,6 +89,8 @@
 	以二进制查看器打开 .exe 文件, 找到 "This program cannot be run in DOS mode",
 	然后在后面一点找 "PE..L" (32bit) 或 "PE..d" (64bit).
 
+    $ od -A x -c myprogram.exe -N 1000 | grep 'P\s*E'
+
 用命令行删除目录
 
 	$ del /s /q tmp

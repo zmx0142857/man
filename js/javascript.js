@@ -442,3 +442,41 @@ document
 window
 
 	Date();					// 返回, 同终端 date
+
+examples
+
+// 编译 HTML 模板
+function compile(template){
+  var evalExpr = /<%=(.+?)%>/g; // 一行以内
+  var expr = /<%([\s\S]+?)%>/g; // 允许跨行
+
+  template = template.trim()
+    .replace(evalExpr, '`);\n  echo($1);\n  echo(`')
+    .replace(expr, '`);\n $1\n  echo(`');
+
+  return eval(
+  `(function(data) {
+    var output = [];
+
+    function echo(html) {
+      output.push(html);
+    }
+
+    echo(\`${template}\`);
+
+    return output.join('');
+  })`
+  );
+}
+
+var parse = compile(`
+<ul>
+  <% for (var i = 0; i < data.length; ++i) { %>
+    <li><%= data[i] %></li>
+  <% } %>
+</ul>
+`);
+console.log(parse(['broom', 'mop', 'cleaner']));
+
+// 正则转义
+str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');

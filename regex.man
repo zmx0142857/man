@@ -149,6 +149,12 @@ div tags:
 	(?(Open)(?!))
 	</div>
 
+
+wildcard
+
+. 匹配任意字符，除了行终止符: \n \r \u2028 (line separator) \u2029 (paragraph separator)
+[^] 匹配任意字符
+
 ----regex-used-in-grep-&-vim-------------------------------------
 
 character classes

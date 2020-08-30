@@ -83,6 +83,7 @@
 	“压缩文件以节约磁盘空间”勾选框，勾选后点击应用，
 	并确认应用到所有子文件夹中。
 	如果你想取消压缩，只需按同样的操作，将勾选框去掉即可。
+    注意，压缩操作可能比较费时。
 
 查看程序的位数
 
@@ -96,6 +97,13 @@
 	$ del /s /q tmp
 	$ rmdir /s /q tmp
 
+hosts file
+
+    C:\WINDOWS\System32\drivers\etc\hosts
+
+run history
+
+    regedit:\Computer\HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\RunMRU
 
 ----应用精选----
 

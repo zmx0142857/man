@@ -1,14 +1,151 @@
-运行含有 package 声明的程序
-	
-	$ tree
-	.
-	└── hello
-		└── Hello.class
+basics
 
-	1 directory, 1 file
-	$ java hello.Hello
+// 读取输入
+Scanner scanner = new Scanner(System.in);
+String str = scanner.next(); // nextInt, nextDouble...
 
-jar 包
+// 资源流
+getClass().getResourceAsStream("/common/setting.properties");
+
+// 内存输入流
+new ByteArrayInputStream(byteArr);
+
+// 读取中文。InputStream 是字节流，而 Reader 是字符流 (char)，能自动解码
+new FileReader("setting.properties", StandardCharsets.UTF_8);
+
+var student = new Student(); // 自动类型推断，JDK 10
+
+str.equals(otherStr)    // String 比较不能用 ==，可以用 switch
+str.toCharArray()       // String 转 char[]
+new String(charArr)     // char[] 转 String
+str.getBytes("UTF-8")   // String 转 byte[]
+Integer.parseInt(str) -> int
+Integer.valueOf(str) -> Integer
+
+"123".equals(str); // 避免 str 为 null 时，str.equals("123") 报错
+Object.equals(obj1, obj2); // 避免 obj1 为 null 时，obj1.equals(obj2) 报错
+
+array.length            // 数组长度
+Arrays.sort(array)      // 排序
+
+List<Integer> list = List.of(1, 2, 5); // 创建不可变 List，无法添加删除元素
+// 遍历 List 方法一
+Iterator<Integer> it = list.iterator();
+while (it.hasNext()) {
+    System.out.println(it.next());
+}
+// 遍历 List 方法二
+for (Integer i : list) {
+    System.out.println(i);
+}
+// List 转数组
+Integer[] arr = list.toArray(new Integer[list.size()]); // 方法一
+Integer[] arr = list.toArray(Integer[]::new); // 方法二
+// 数组转 List
+List<Integer> list = List.of(arr); // JDK 11
+Arrays.asList(T...) // 旧方法
+
+list.contains(obj); // 返回 true/false
+indexOf(obj); // 返回下标，失败时返回 -1
+
+Collections.shuffle(list); // 洗牌
+list.get((int)(Math.random() * list.size())); // 随机元素
+
+Map<String, Integer> map = new HashMap<>();
+map.put(key, value);
+map.get(key);
+map.containsKey(key); // 返回 true/false
+// 遍历 Map 方法一
+for (String key : map.keySet()) {
+    System.out.println(key + ": " + map.get(key));
+}
+// 遍历 Map 方法二
+for (Map.Entry<String, Integer> entry : map.entrySet()) {
+    System.out.println(entry.getKey() + ": " + entry.getValue());
+}
+
+// 读取 Properties
+----setting.properties----
+# setting.properties
+file=/data/hello.txt
+auto_save_interval=60
+--------------------------
+Properties props = new Properties();
+props.load(new FileInputStream("setting.properties"));
+props.getProperty("file", "default_value");
+
+// 按sequence去除重复消息
+static List<Message> process(List<Message> received) {
+    List<Message> copyList = new ArrayList<>();
+    Set<Message> set = new TreeSet<>(new Comparator<Message>() {
+        public int compare(Message m1, Message m2) {
+            return m1.sequence - m2.sequence;
+        }
+    });
+    for (Message m : received) {
+        if (set.add(m)) {
+            copyList.add(m);
+        }
+    }
+    return copyList;
+}
+
+// 方法二
+static List<Message> process(List<Message> received) {
+    List<Message> copyList = new ArrayList<>();
+    Set<Integer> set = new HashSet<>();
+    for (Message m : received) {
+        if (set.add(m.sequence)) {
+            copyList.add(m);
+        }
+    }
+    return copyList;
+}
+
+// Queue
+q.offer(E); q.add(E); // 后者失败时抛出异常
+q.poll(); q.remove(); // 后者失败时抛出异常
+q.peek(); q.element(); // 后者失败时抛出异常
+
+// 用 Deque 模拟 Stack。注意不要使用遗留类 Stack
+s.push(E); s.pop(); // 失败时抛出异常
+s.peek();
+
+// File
+File f = new File(path);
+f.isFile();
+f.isDirectory();
+f.length();
+f.canRead();
+f.canWrite();
+f.canExecute();
+if (f.createNewFile()) {}
+if (f.delete()) {}
+File.createTempFile("file", ".txt"); f.deleteOnExit(); // 创建临时文件，程序结束时删除
+若 f 是目录，可以用 list() 和 listFiles() 列出文件与子目录，返回 File[]
+
+// Stream
+byte[] buf = new byte[1000];
+try {
+    InputStream input = new FileInputStream("readme.txt");
+    while (input.read(buf) != -1) { }
+} finally {
+    if (input != null)
+        input.close();
+}
+
+// Stream 方法二 JDK 7
+byte[] buf = new byte[1000];
+try (InputStream input = new FileInputStream("readme.txt")) {
+    while (input.read(buf) != -1) { }
+}
+
+// OutputStream
+try (OutputStream output = new FileOutputStream("output.txt")) {
+    output.write("Hello".getBytes("UTF-8"));
+}
+
+jar
     
     jar 包就是 zip 格式的包, 创建一个 zip 包, 把后缀改为 jar 即可
 
@@ -20,7 +157,17 @@ jar 包
     若在 jar 包的 META-INF/MANIFEST.MF 中指定了 Main-Class, 就不必指定启动的类名
 	$ java -jar tmp.jar # 直接执行程序
 
-复杂编译命令
+run a package
+	
+	$ tree
+	.
+	└── hello
+		└── Hello.class
+
+	1 directory, 1 file
+	$ java hello.Hello
+
+build a package
 
 	$ tree
 	.
@@ -60,33 +207,52 @@ import
 
 java
 |-- io
-|   |-- InputStream
-|   |-- OutputStream
+|   |-- InputStream: FileInputStream, ByteArrayInputStream
+|   |-- OutputStream: FileOutputStream, ByteArrayOutputStream
 |   |-- PrintWriter
-|   `-- IOException
-`-- util
-    `-- Map
+|   |-- IOException
+|   `-- File
+|-- nio
+|   `-- file
+|       `-- Path
+|-- util
+|   |-- Scanner
+|   |-- Collection
+|   |-- Arrays
+|   |-- Iterator
+|   |-- List: ArrayList, LinkedList
+|   |-- Map: HashMap, EnumMap
+|   |-- SortedMap: TreeMap
+|   |-- Set: HashSet
+|   `-- SortedSet: TreeSet
+`-- awt
+    `-- Color
 
 javax
-`-- servlet
-    |-- ServletContext
-    |-- ServletConfig
-    |-- http
-    |   |-- HttpServletRequest
-    |   |-- HttpServletResponse
-    |   `-- HttpSession
-    `-- jsp
-        |-- JspWriter
-        `-- PageContext
+|-- servlet
+|   |-- ServletContext
+|   |-- ServletConfig
+|   |-- http
+|   |   |-- HttpServletRequest
+|   |   |-- HttpServletResponse
+|   |   `-- HttpSession
+|   `-- jsp
+|       |-- JspWriter
+|       `-- PageContext
+`-- sql
+    `-- DataSource
 org
 |-- slf4j
 |   |-- Logger
 |   `-- LoggerFactory
 `-- apache
     `-- commons
-        `-- httpclient
-            |-- Header
-            |-- HttpClient
-            |-- NameValuePair
-            `-- methods
-                `-- PostMethod
+        |-- httpclient
+        |   |-- Header
+        |   |-- HttpClient
+        |   |-- NameValuePair
+        |   `-- methods
+        |       `-- PostMethod
+        `-- lang
+            `-- StringUtils
+

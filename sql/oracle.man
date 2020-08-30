@@ -83,6 +83,20 @@ sql examples
 
 	rownum 的选定范围必须是从 1 开始的连续整数. select 结果间可以用 minus 相减, 但不保序
 
+	// rownum 放在嵌套查询中
+	StringBuffer pagingSelect = new StringBuffer(sql.length() + 100);
+	if (hasOffset) {
+		pagingSelect.append("select * from ( select row_.*, rownum rownum_ from ( ");
+	} else {
+		pagingSelect.append("select * from ( ");
+	}
+	pagingSelect.append(sql);
+	if (hasOffset) {
+		pagingSelect.append(" ) row_ where rownum <= " + end + ") where rownum_ >= " + start);
+	} else {
+		pagingSelect.append(" ) where rownum <= " + end);
+	}
+
 	货币符号
 	select to_char(33, 'L99.99') from dual;
 
@@ -107,8 +121,8 @@ sql examples
 
 	例2 根据分数更新成绩
 
-	create table score (
-		sno number(6)
+	create table score (...);
+
 	sno	score	grade
 	-----------------
 	1	65		null

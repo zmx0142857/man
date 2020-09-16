@@ -45,3 +45,11 @@ ls -lt # 按时间倒序列出文件
 zip -r myfolder.zip myfolder/ -x 'myfolder/path-to-exclude/*'
 unzip file.zip -d myfolder/ # 解压到指定目录
 factor 2077 # 素因子分解
+# 运行命令，登出仍不挂断，日志记入 tmp.log
+----tmp.sh---------
+sleep 5
+echo 'hello, nohup'
+-------------------
+$ nohup ./tmp.sh > tmp.log &
+# git status 排序
+git status | grep : | sort

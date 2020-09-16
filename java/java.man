@@ -203,6 +203,9 @@ build a package
 
 	6 directories, 4 files
 
+jps
+    查看 java 进程
+
 import
 
 java
@@ -226,7 +229,9 @@ java
 |   |-- Set: HashSet
 |   `-- SortedSet: TreeSet
 `-- awt
-    `-- Color
+    |-- Color
+    `-- event
+        `-- ActionEvent
 
 javax
 |-- servlet

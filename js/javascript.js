@@ -480,3 +480,22 @@ console.log(parse(['broom', 'mop', 'cleaner']));
 
 // 正则转义
 str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
+
+JavaScript能够准确表示的整数范围: (-2^53, 2^53)
+Number.MAX_SAFE_INTEGER === Math.pow(2, 53) - 1
+
+// 对象转数组
+let arrayLike = {0: 'a', 1: 'b', 2: 'c', length: 3};
+var arr1 = [].slice.call(arrayLike); // ES5, ['a', 'b', 'c']
+let arr2 = Array.from(arrayLike); // ES6
+
+// 参数转数组，ES5
+function of() {
+    return [].slice.call(arguments);
+}
+of(1, 2, 3) // [1, 2, 3]
+Array.of(1, 2, 3) // ES6
+
+[NaN].indexOf(NaN) // -1
+[NaN].findIndex(isNaN) // 0
+[NaN].includes(NaN) // true

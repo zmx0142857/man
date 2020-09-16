@@ -12,7 +12,7 @@ mariadb - a replacement for mysql
 	under GUI.
 
 	on first installation run this to configure root password and more:
-	
+
 	$ sudo mysql_secure_installation
 
 secure configuration
@@ -157,7 +157,7 @@ info
 	> status;
 	> select version();
 	> show variables like '%char%'; -- show mysql charset
-	
+
 see update time of a table
 
 	> use information_schema;
@@ -180,7 +180,7 @@ or  > show create table <table>;
 	> set search_path to 'S-T', public;
 
 create and drop database
-	
+
 	> create database <database>;
 	> drop database <database>;
 
@@ -191,7 +191,7 @@ use database - a bit like unix command cd
 create and drop schema
 
 	> create schema [<schema>] authorization <user>;
-	
+
 	if <schema> is omitted, use user name.
 
 	> drop schema <schema> cascade/restrict;

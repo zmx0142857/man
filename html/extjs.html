@@ -1,0 +1,770 @@
+<html>
+<head>
+<!-- ext 基本库 -->
+<link href="https://cdn.bootcss.com/extjs/6.0.0/classic/theme-classic/resources/theme-classic-all.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/extjs/6.0.0/ext-all.js"></script>
+<!-- ext chart 库 -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/extjs/6.0.0/packages/charts/classic/classic/resources/charts-all.css" rel="stylesheet" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/extjs/6.0.0/packages/charts/classic/charts.js"></script>
+<script>
+function children(n, config) {
+    var ret = Array.from({length: n}, (x, i) => {
+        return {title: `Child ${i+1}`, html: `Child ${i+1}`};
+    });
+    for (conf of config) {
+        ret[conf[0]][conf[1]] = conf[2];
+        if (conf[1] != 'html')
+            ret[conf[0]].html += `, ${conf[1]}: ${conf[2]}`;
+    }
+    //console.log(ret);
+    return ret;
+}
+function hello() {
+    Ext.create('Ext.Panel', {
+        // renderTo: document.body
+        // renderTo: 'id' // 元素不存在时，产生经典报错 Cannot read property 'dom' of null
+        // renderTo: Ext.getElementById('id') // 元素不存在时不报错
+        renderTo: Ext.getBody(),
+        height: 200,
+        width: 600,
+        title: 'Hello World',
+        html: 'First Ext JS Hello World Program'
+    });
+}
+function tab() {
+    Ext.create('Ext.tab.Panel', {
+        renderTo: Ext.getBody(),
+        height: 200,
+        width: 600,
+        items: [{
+            xtype: 'panel',
+            title: 'Tab One',
+            html: 'The first tab',
+            listeners: {
+                render: function() {
+                    Ext.MessageBox.alert('Tab one', 'Tab One was clicked.');
+                }
+            }
+        },{
+            // xtype the same as above
+            title: 'Tab Two',
+            html: 'The second tab',
+            listeners: {
+                render: function() {
+                    Ext.MessageBox.alert('Tab two', 'Tab Two was clicked.');
+                }
+            }
+        }]
+    });
+}
+function viewport() {
+    var childPanel1 = Ext.create('Ext.panel.Panel', {
+        title: 'Child Panel 1',
+        html: 'A Panel'
+    });
+    var childPanel2 = Ext.create('Ext.panel.Panel', {
+        title: 'Child Panel 2',
+        html: 'Another Panel'
+    });
+    Ext.create('Ext.container.Viewport', {
+        renderTo: Ext.getBody(),
+        items: [ childPanel1, childPanel2 ]
+    });
+}
+function auto() { // plain linear layout
+    Ext.create('Ext.container.Container', {
+        renderTo: Ext.getBody(),
+        layout: 'auto',
+        width: 600,
+        items: children(4)
+    });
+}
+function absolute() {
+    Ext.create('Ext.container.Container', {
+        renderTo: Ext.getBody(),
+        layout: 'absolute' ,
+        items: [{
+            title: 'Panel 1',
+            x: 50,
+            y: 50,
+            html: 'Positioned at x: 50, y: 50',
+            width: 500,
+            height: 100
+        },{
+            title: 'Panel 2',
+            x: 100,
+            y: 95,
+            html: 'Positioned at x: 100, y: 95',
+            width: 500,
+            height: 100
+        }]
+    });
+}
+function accordion() { // 手风琴
+    Ext.create('Ext.container.Container', {
+        renderTo: Ext.getBody(),
+        layout: 'accordion' ,
+        width: 600,
+        items: children(3)
+    });
+}
+function anchor() { //  大小控制
+    Ext.create('Ext.container.Container', {
+        renderTo: Ext.getBody(),
+        layout: 'anchor' ,
+        width: 600,
+        items: children(4, [
+            [0, 'anchor', '50%'],
+            [1, 'anchor', '100%'],
+            [2, 'anchor', '-100'],
+            [3, 'anchor', '-70, 500']
+        ])
+    });
+}
+function border() { // 四合院
+    Ext.create('Ext.panel.Panel', {
+        renderTo: Ext.getBody(),
+        height: 300,
+        width: 600,
+        layout: 'border',
+        defaults: {
+            collapsible: true,
+            split: true,
+            bodyStyle: 'padding: 15px'
+        },
+        items: children(5, [
+            [0, 'region', 'center'],
+            [1, 'region', 'east'],
+            [2, 'region', 'south'],
+            [3, 'region', 'west'],
+            [4, 'region', 'north'],
+        ])
+    });
+}
+function tab2() { // tab-page
+    Ext.create('Ext.tab.Panel', {
+        renderTo: Ext.getBody(),
+        requires: ['Ext.layout.container.Card'],
+        xtype: 'layout-cardtabs',
+        width: 600,
+        height: 200,
+        items: children(3)
+    });
+}
+function column() {
+    Ext.create('Ext.panel.Panel', {
+        renderTo: Ext.getBody(),
+        layout: 'column' ,
+        xtype: 'layout-column',
+        requires: ['Ext.layout.container.Column'],
+        width: 600,
+        items: [{
+            title: 'First 30%',
+            html: 'This is First Component',
+            columnWidth: 0.30
+        },{
+            title: 'Second 40%',
+            html: '<p> This is Second Component </p> <p> Next line for second component </p>',
+            columnWidth: 0.40
+        },{
+            title: 'Third 30%',
+            html: 'This is Third Component' ,
+            columnWidth: 0.30
+        }]
+    });
+}
+function fit() {
+    Ext.create('Ext.container.Container', {
+        renderTo: Ext.getBody(),
+        layout: { type: 'fit' },
+        width: 600,
+        defaults: { bodyPadding: 15 },
+        items: children(4)
+    });
+}
+function table() {
+    Ext.create('Ext.container.Container', {
+        renderTo: Ext.getBody(),
+        layout: {
+            type: 'table',
+            columns: 3,
+            tableAttrs: {
+                style: { width: '100%' }
+            }               
+        },
+        width: 600,
+        height: 200,
+        items: children(5, [
+            [0, 'colspan', 2],
+            [1, 'rowspan', 2]
+        ])
+    });
+}
+function vbox() {
+    Ext.create('Ext.panel.Panel', {
+        renderTo: Ext.getBody(),
+        layout: {
+            type: 'vbox',
+            align: 'stretch'               
+        },
+        requires: ['Ext.layout.container.VBox'],
+        xtype: 'layout-vertical-box',
+        width: 600,
+        height: 400,
+        frame: true,
+        items: children(4, [
+            [0, 'flex', 1],
+            [1, 'flex', 2],
+            [2, 'flex', 2],
+            [3, 'flex', 1]
+        ])
+    });
+}
+function hbox() {
+    Ext.create('Ext.panel.Panel', {
+        renderTo: Ext.getBody(),
+        layout: {
+            type: 'hbox' 
+        },
+        requires: ['Ext.layout.container.HBox'],
+        xtype: 'layout-horizontal-box',
+        width: 600,
+        frame: true,
+        items: children(4, [
+            [0, 'flex', 1],
+            [1, 'flex', 2],
+            [2, 'width', 150],
+            [3, 'flex', 1]
+        ])
+    });
+}
+function grid() {
+    // model
+    Ext.define('StudentDataModel', {
+        extend: 'Ext.data.Model',
+        fields: [
+            {name: 'name', mapping : 'name'},
+            {name: 'age', mapping : 'age'},
+            {name: 'marks', mapping : 'marks'}
+        ]
+    });
+    // store
+    var gridStore = Ext.create('Ext.data.Store', {
+        model: 'StudentDataModel',
+        data: [
+            { name: "Asha", age: "16", marks: "90" },
+            { name: "Vinit", age: "18", marks: "95" },
+            { name: "Anand", age: "20", marks: "68" },
+            { name: "Niharika", age: "21", marks: "86" },
+            { name: "Manali", age: "22", marks: "57" }
+        ]
+    });
+    // view
+    Ext.create('Ext.grid.Panel', {
+        id                : 'gridId',
+        store             : gridStore,
+        stripeRows        : true,
+        title             : 'Students Grid',
+        renderTo          : Ext.getBody(),
+        width             : 600,
+        collapsible       : true,
+        enableColumnMove  : true, // property which alllows column to move to different position by dragging that column.
+        enableColumnResize: true, // property which allows to resize column run time.
+        columns: [{ 
+            header: "Student Name",
+            dataIndex: 'name',	
+            id: 'name',    
+            flex:  1,
+            sortable: true,
+            hideable: true
+        },{
+            header: "Age", 
+            dataIndex: 'age',
+            flex: .5, 
+            sortable: true,
+            hideable: false
+        },{
+            header: "Marks",
+            dataIndex: 'marks',
+            flex: .5, 
+            sortable: true, 
+            renderer: value => value > 75 ? "Distinct" : "Just so-so"
+        }]
+    });
+}
+function form() {
+    Ext.create('Ext.form.Panel', {
+        id: 'newForm',
+        renderTo: Ext.getBody(),
+        border: true,
+        width: 600,
+        items: [{
+            xtype: 'textfield',
+            fieldLabel: 'Text Field'
+        },{
+            xtype: 'displayfield',
+            fieldLabel: 'Display Field',
+            html: 'some text'
+        },{
+            xtype: 'textarea',
+            fieldLabel: 'Text Area'
+        },{
+            xtype: 'datefield',
+            fieldLabel: 'Date picker'
+        },{
+            xtype: 'button',
+            text: 'Button'
+        },{
+            xtype: 'fieldcontainer',
+            fieldLabel: 'Radio field',
+            defaultType: 'radiofield',
+            defaults: { flex: 1 },
+            layout: 'hbox',
+            items: [{
+                boxLabel: 'A',
+                inputValue: 'a',
+                id: 'radio1'
+            },{
+                boxLabel: 'B',
+                inputValue: 'b',
+                id: 'radio2'
+            },{
+                boxLabel: 'C',
+                inputValue: 'c',
+                id: 'radio3'
+            }]
+        },{
+            xtype: 'fieldcontainer',
+            fieldLabel: 'Check Box Field',
+            defaultType: 'checkboxfield',
+            items: [{
+                boxLabel: 'HTML',
+                inputValue: 'html',
+                id: 'checkbox1'
+            },{
+                boxLabel: 'CSS',
+                inputValue: 'css',
+                checked: true,
+                id: 'checkbox2'
+            },{
+                boxLabel: 'JavaScript',
+                inputValue: 'js',
+                id: 'checkbox3'
+            }]
+        },{
+            xtype: 'hiddenfield',
+            name: 'hidden field ',
+            value: 'value from hidden field'
+        },{
+            xtype: 'numberfield',
+            anchor: '100%',
+            fieldLabel: 'Numeric Field',
+            maxValue: 99,
+            minValue: 0
+        },{
+            xtype: 'spinnerfield',
+            fieldLabel: 'Spinner Field',
+            step: 6,
+            // override onSpinUp (using step isn't neccessary)
+            onSpinUp: function() {
+                var me = this;
+                if (!me.readOnly) {
+                    var val = me.step; // set the default value to the step value
+                    if(me.getValue() !== '') {
+                        val = parseInt(me.getValue().slice(0, -5)); // gets rid of " Pack"
+                    }                          
+                    me.setValue((val + me.step) + ' Pack');
+                }
+            },
+            // override onSpinDown
+            onSpinDown: function() {
+                var me = this;
+                if (!me.readOnly) {
+                    if(me.getValue() !== '') {
+                        val = parseInt(me.getValue().slice(0, -5)); // gets rid of " Pack"
+                    }            
+                    me.setValue((val - me.step) + ' Pack');
+                }
+            }
+        },{
+            xtype: 'timefield',
+            fieldLabel: 'Time field',
+            minValue: '6:00 AM',
+            maxValue: '8:00 PM',
+            increment: 30,
+            anchor: '100%'
+        },{
+            xtype: 'combobox',
+            fieldLabel: 'Combo Box',
+            store: Ext.create('Ext.data.Store', {
+                fields: ['abbr', 'name'],
+                data: [{
+                    'abbr': 'HTML',
+                    'name': 'HyperText Markup Language'
+                },{
+                    'abbr': 'CSS',
+                    'name': 'Cascade StyleSheet'
+                },{
+                    'abbr': 'JS',
+                    'name': 'JavaScript'
+                }]
+            }),
+            valueField: 'abbr',
+            displayField: 'name'
+        },{
+            xtype: 'filefield',
+            fieldLabel: 'File field',
+            labelWidth: 50,
+            msgTarget: 'side',
+            allowBlank: false,
+            anchor: '100%',
+            buttonText: 'Select File...'
+        }]
+    });
+}
+function message() {
+    Ext.create('Ext.Button', {
+        renderTo: Ext.getBody(),
+        text: 'alert',
+        width: 60,
+        height: 24,
+        listeners: {
+            click: function() {
+                Ext.Msg.alert('Title', 'Basic message box in ExtJS');
+            }
+        }
+    });
+    Ext.create('Ext.Button', {
+        renderTo: Ext.getBody(),
+        text: 'confirm',
+        width: 60,
+        height: 24,
+        listeners: {
+            click: function() {
+                Ext.MessageBox.confirm('Confirm', 'Are you sure?', function(btn) {
+                    console.log(btn);
+                });
+            }
+        }
+    });
+    Ext.create('Ext.Button', {
+        renderTo: Ext.getBody(),
+        text: 'prompt',
+        width: 60,
+        height: 24,
+        listeners: {
+            click: function() {
+                Ext.Msg.prompt('Name', 'Please enter your name:', function(btn, text) {
+                    if (btn == 'ok') {
+                        console.log('Hello, ' + text);
+                    }
+                });
+            }
+        }
+    });
+    Ext.create('Ext.Button', {
+        renderTo: Ext.getBody(),
+        text: 'multiline',
+        width: 60,
+        height: 24,
+        listeners: {
+            click: function() {
+                Ext.MessageBox.show({
+                    title: 'Comments',
+                    msg: 'Please enter your comments:',
+                    width: 300,
+                    buttons: Ext.MessageBox.OKCANCEL, // 或 YESNOCANCEL
+                    multiline: true,
+                    fn: function () {
+                        console.log('ok, message sent');
+                    }
+                });
+
+            }
+        }
+    });
+}
+// 饼图
+function pie_chart() {
+    Ext.create('Ext.chart.PolarChart', {
+        renderTo: document.body,
+        width: 600,
+        height: 300,
+        store: {
+            fields: ['name', 'g1'],
+            data: [
+                {"name": "Item-0", "g1": 57},
+                {"name": "Item-1", "g1": 45},
+                {"name": "Item-2", "g1": 67}
+            ]
+        },
+        legend: { docked: 'bottom' }, // 图例
+        series: [{
+            type: 'pie',
+            xField: 'g1',
+            label: { field: 'name' },
+            donut: 30 // 中心空白大小
+        }]
+    });
+}
+// 折线图
+function line_chart() {
+    Ext.create('Ext.chart.CartesianChart', {
+        renderTo: document.body,
+        width: 600,
+        height: 200,
+        store: {
+            fields: ['name', 'g1', 'g2'],
+            data: [
+                {"name": "Item-0", "g1": 57, "g2": 59},
+                {"name": "Item-1", "g1": 45, "g2": 50},
+                {"name": "Item-2", "g1": 67, "g2": 43},
+                {"name": "Item-3", "g1": 45, "g2": 18},
+                {"name": "Item-4", "g1": 30, "g2": 90}
+            ]
+        },
+        legend: { docked: 'bottom' },
+        axes: [{
+            type: 'numeric',
+            position: 'left'
+        }, {
+            type: 'category',
+            visibleRange: [0, 1],
+            position: 'bottom'
+        }],
+        series: [{
+            type: 'line',
+            xField: 'name',
+            yField: 'g1',
+            title: 'Normal'
+        }, {
+            type: 'line',
+            xField: 'name',
+            yField: 'g2',
+            title: 'Smooth'
+        }]
+    });
+}
+// 条形图
+function bar_chart() {
+    Ext.create('Ext.chart.CartesianChart', {
+        renderTo: document.body,
+        width: 600,
+        height: 200,
+        flipXY: true,
+        store: {
+            fields: ['name', 'g1', 'g2'],
+            data: [
+                {"name": "Item-0", "g1": 57, "g2": 59},
+                {"name": "Item-1", "g1": 45, "g2": 50},
+                {"name": "Item-2", "g1": 67, "g2": 43},
+                {"name": "Item-3", "g1": 45, "g2": 18},
+                {"name": "Item-4", "g1": 30, "g2": 90}
+            ]
+        },  
+        legend: { docked: 'right' },
+        axes: [{
+            type: 'numeric',
+            position: 'bottom',
+            grid: true,
+            minimum: 0
+        }, {
+            type: 'category',
+            position: 'left'
+        }],
+        series: [{
+            type: 'bar',
+            xField: 'name',
+            yField: ['g1', 'g2'],
+            axis: 'left'
+        }]
+    });
+}
+// 频率分布图
+function area_chart() {
+    Ext.create('Ext.chart.CartesianChart', {
+        renderTo: document.body,
+        width: 600,
+        height: 200,
+        store: {
+            fields: ['name', 'g1', 'g2'],
+            data: [
+                {"name": "Item-0", "g1": 57, "g2": 59},
+                {"name": "Item-1", "g1": 45, "g2": 50},
+                {"name": "Item-2", "g1": 67, "g2": 43},
+                {"name": "Item-3", "g1": 45, "g2": 18},
+                {"name": "Item-4", "g1": 30, "g2": 90}
+            ]
+        },
+        legend: { docked: 'right' },
+        axes: [{
+            type: 'numeric',
+            position: 'left',
+            grid: true
+        }, {
+            type: 'category',
+            position: 'bottom',
+            visibleRange: [0,5]
+        }],
+        series: [{
+            type: 'area',
+            xField: 'name',
+            yField: ['g1', 'g2'],
+            title: ['G1', 'G2']
+        }]
+    });
+}
+// 悬停提示
+// Uncaught TypeError: Cannot read property 'el' of null
+function tooltip() {
+    var toolTip = new Ext.ToolTip({       
+        id : 'toolTip',
+        anchor : 'bottom',
+        html : 'This is a basic toolTip',
+        title : 'Tool Tip',
+        closable : true,
+        closeAction : 'hide'
+    });
+    Ext.create('Ext.Button', {
+        renderTo: Ext.getBody(),
+        text: 'Hover Me',
+        width: 100,
+        height: 24,
+        listeners: {
+            mouseover: function() {
+                toolTip.show();
+            }
+        }
+    });
+}
+function new_win() {
+    var win = new Ext.Window({
+        title: 'Send Email',
+        layout: 'form',
+        width: 400,
+        closeAction: 'close',
+        target: document.body,
+        plain: true,
+        items: [{
+            xtype : 'textfield',
+            fieldLabel: 'To'
+        },{
+            xtype : 'textfield',
+            fieldLabel: 'CC'
+        },{
+            xtype : 'textfield',
+            fieldLabel: 'BCC'
+        },{
+            xtype : 'textfield',
+            fieldLabel: 'Subject'
+        },{
+            xtype : 'textarea',
+            fieldLabel: 'Email Message'
+        }],
+        buttons: [{
+            text: 'Save Draft',
+            handler: function(){Ext.Msg.alert('Save Draft', 'Your msg is saved');}
+        },{
+            text: 'Send',
+            handler: function(){Ext.Msg.alert('Message Sent', 'Your msg is sent');}
+        }],
+        buttonAlign: 'center',
+    });
+    Ext.create('Ext.Button', {
+        renderTo: document.body,
+        text: 'Send Email',
+        width: 100,
+        height: 24,
+        listeners: {
+            click: function() { win.show(); }
+        }
+    });
+}
+function editor() {
+    Ext.create('Ext.form.HtmlEditor', {
+        width: 580,
+        height: 250,
+        renderTo: document.body
+    });
+}
+function progress() {
+    function progressBar(i) {
+        return function()	{
+            if (i == 10) {
+                Ext.MessageBox.hide();
+                Ext.Msg.alert('status', 'Process completed succesfully');
+            } else {
+                var x = i / 9;
+                Ext.MessageBox.updateProgress(x, Math.round(100*x)+'% completed');
+            }
+        }
+    }
+    Ext.MessageBox.show({
+        title: 'Please wait',
+        msg: 'Loading items...',
+        progressText: 'Initializing...',
+        width: 300,
+        progress: true,
+        closable: false
+    });
+    for (var i = 1; i <= 10; i++) {
+        setTimeout(progressBar(i), i*500);
+    }
+}
+Ext.onReady(progress);
+</script>
+<!--
+Ext.application({
+    name: 'HelloExt',
+    launch: function () {
+        var navigate = function (panel, direction) {
+            var layout = panel.getLayout();
+            layout[direction]();
+            Ext.getCmp('move-prev').setDisabled(!layout.getPrev());
+            Ext.getCmp('move-next').setDisabled(!layout.getNext());
+        };
+        Ext.create('Ext.panel.Panel', {
+            renderTo: Ext.getBody(),
+            title: '向导',
+            width: 300,
+            height: 202,
+            layout: 'card',
+            activeItem: 0,
+            x: 30,
+            y: 60,
+            bodyStyle: 'padding: 15px',
+            defaults: { border: false },
+            bbar: [{
+                id: 'move-prev',
+                text: '上一步',
+                handler: function (btn) {
+                    navigate(btn.up("panel"), "prev");
+                },
+                disabled: true
+            },
+            '->',
+            {
+                id: 'move-next',
+                text: '下一步',
+                handler: function (btn) {
+                    navigate(btn.up("panel"), "next");
+                }
+            }],
+            items: [{
+                id: 'card-0',
+                html: '<h1>第一步</h1>'
+            }, {
+                id: 'card-1',
+                html: '<h1>第二步</h1>'
+            }, {
+                id: 'card-2',
+                html: '<h1>最后一步</h1>'
+            }]
+        });
+    }
+});
+-->
+</head>
+<body>
+</body>
+</html>

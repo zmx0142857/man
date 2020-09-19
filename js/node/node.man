@@ -3,7 +3,7 @@ install node - easist way
 	$ sudo apt install nodejs
 	$ node -v
 
-alternative - install nvm
+version control of node - nvm (optional)
 
 	$ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash
 
@@ -39,3 +39,19 @@ alternative - install nvm
 	view node version:
 
 	$ node -v
+
+start react
+
+	$ sudo apt install npm
+	$ sudo npm config set registry https://registry.npm.taobao.org -g
+
+	$ npx create-react-app react-demo
+	上一条命令可以用这两条代替:
+	$ npm install -g create react-app
+	$ create-react-app react-demo
+
+	$ cd react-demo
+	$ npm start # 启动
+	$ npm run build # 打包
+
+start vue

@@ -246,12 +246,14 @@ spring mvc
     在 idea 中新建 project，选择 spring mvc。
 
     sprint-mvc-demo
-    |-- src
+    |-- src // java 源码
     |   `-- com.demo
     |       `-- HelloController.java
     `-- web
         |-- WEB-INF
-        |   |-- web.xml
+        |   |-- classes // 编译得到的 class 文件
+        |   |-- lib     // jar 包
+        |   |-- web.xml // 主配置文件
         |   `-- myservlet-servlet.xml
         `-- index.jsp
      
@@ -314,7 +316,7 @@ spring mvc
     选择 build -> build artifacts 将项目编译成 spring-mvc-demo.war
     放入 tomcat/webapps 目录中。启动 tomcat，访问
     localhost:8080/spring-mvc-demo/hello
-    如果你访问 localhost:8080/spring-mvc-demo/index.jsp，将看不到 ${message}。
+    如果直接访问 localhost:8080/spring-mvc-demo/index.jsp，将看不到 ${message}。
 
     2. student 表单
 
@@ -408,6 +410,114 @@ spring mvc
             model.addAttribute("age", student.getAge());
             model.addAttribute("name", student.getName());
             return "result";
+        }
+    }
+    --------------------------------------------------------
+
+servlet
+
+    ----MyServlet.java--------------------------------------
+    public class MyServlet extends HttpServlet {
+        @Override
+        protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+            String name = ParamUtils.getString(request,"name", "Fran");
+            int age = ParamUtils.getInt(request, "age", 0);
+
+            response.setCharacterEncoding("UTF-8");
+            response.setHeader("content-type","text/html;charset=UTF-8");
+            response.getWriter().write("Don't panic, " + name + "! You are " + age + " now.");
+        }
+
+        @Override
+        protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+            this.doPost(request, response);
+        }
+    }
+    --------------------------------------------------------
+
+jdbc
+
+    src
+    |-- com.jdbcdemo
+    |   |-- model
+    |   |   `-- Customer.java
+    |   |-- dao
+    |   |   |-- impl
+    |   |   |   `-- CustomerDaoImpl.java
+    |   |   `-- CustomerDao.java (interface)
+    |   `-- Main.java
+    `-- spring.xml
+
+    ----customer.sql----------------------------------------
+    create table customer (
+        id int(10) primary key,
+        name varchar(100),
+        age int(10) unsigned
+    );
+    --------------------------------------------------------
+
+    model:
+    ----Customer.java---------------------------------------
+    public class Customer {
+        private int id;
+        private String name;
+        private int age;
+        // getters & setters
+    }
+    --------------------------------------------------------
+
+    Data Access Object:
+    增 insert
+    删 delete
+    改 update
+    查 query
+    ----CustomerDao.java------------------------------------
+    public interface CustomerDao {
+        void insert(Customer customer);
+        Customer query(int id);
+    }
+    --------------------------------------------------------
+
+    DAO implement:
+    ----CustomerDaoImpl.java--------------------------------
+    public class CustomerDaoImpl extends JdbcDaoSupport implements CustomerDao {
+        public void insert(Customer customer) {
+            getJdbcTemplate().update(
+                "INSERT INTO CUSTOMER (ID, NAME, AGE) VALUES (?, ?, ?)",
+                new Object[] { customer.getId(), customer.getName(), customer.getAge() }
+            );
+        }
+
+        public void query(int id) {
+            return getJdbcTemplate().queryForObject(
+                "SELECT * FROM CUSTOMER WHERE ID = ?",
+                ParameterizedBeanPropertyRowMapper.newInstance(Customer.class),
+                id
+            );
+        }
+    }
+    --------------------------------------------------------
+
+    ----spring.xml------------------------------------------
+    <beans ...>
+        <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+            <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+            <property name="url" value="jdbc:mysql://localhost:3306/dbname" />
+            <property name="username" value="root" />
+            <property name="password" value="password" />
+        </bean>
+        <bean id="customerDao" class="com.jdbcdemo.dao.impl.CustomerDaoImpl">
+            <property name="dataSource" ref="dataSource" />
+        </bean>
+    </beans>
+    --------------------------------------------------------
+
+    ----Main.java-------------------------------------------
+    public class Main {
+        public static void main(String[] args) {
+            ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
+            CustomerDao customerDao = (CustomerDao)context.getBean("customerDao");
+            customerDao.insert(new Customer(1, "Fran", 20));
         }
     }
     --------------------------------------------------------

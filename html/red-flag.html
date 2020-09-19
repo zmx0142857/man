@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>五星红旗</title>
+</head>
+<body>
+<canvas id="canvas" width="600" height="400"></canvas>
+<script>
+var canvas = document.getElementById('canvas');
+var context = canvas.getContext('2d');
+var width = canvas.width;
+var height = canvas.height;
+
+// 背景色
+context.fillStyle = 'red';
+context.fillRect(0, 0, width, height);
+
+// 大☆
+var maxX = 0.25, maxY = 0.25, maxR = 0.15;
+var ox = height*maxX, oy = height*maxY;
+create_star(context, ox, oy, height*maxR, 'yellow', 0);
+
+// 小★
+var minX = [0.50,0.60,0.60,0.50],
+	minY = [0.10,0.20,0.35,0.45],
+	minR = 0.05;
+for (var idx = 0; idx < 4; idx++) {
+	var sx = minX[idx] * height, sy = minY[idx]* height;
+	//var theta = Math.atan((oy-sy)/(ox-sx));
+	var theta = Math.atan2(sy-oy, sx-ox);
+	create_star(context, sx, sy, height*minR, 'yellow', -Math.PI/2+theta);
+}
+
+// 十字线
+context.moveTo(0,height/2)
+context.lineTo(width,height/2);
+context.stroke();
+context.moveTo(width/2,0);
+context.lineTo(width/2,height);
+context.stroke();
+
+// 网格竖线
+var w = width/30;
+for(var j = 1; j < 15; j++) {
+	context.moveTo(j*w,0);
+	context.lineTo(j*w,height/2);
+	context.stroke();
+}
+// 网格横线
+for(var j = 1; j < 10; j++) {
+	context.moveTo(0,j*w);
+	context.lineTo(width/2,j*w);
+	context.stroke();
+}
+
+// 大圆
+context.beginPath();
+context.arc(ox,oy,maxR*height,0,Math.PI*2,false);
+context.closePath();
+context.stroke();
+
+// 小圆
+for (var idx = 0; idx < 4; idx++) {
+	context.beginPath();
+	var sx = minX[idx]*height, sy = minY[idx]*height;
+	context.arc(sx, sy, height*minR, 0, Math.PI*2, false);
+	context.closePath();
+	context.stroke();
+}
+
+// 大圆中心与小圆中心连线
+for (var idx = 0; idx < 4; idx++) {
+	context.moveTo(ox, oy);
+	var sx = minX[idx]*height, sy = minY[idx]*height;
+	context.lineTo(sx, sy);
+	context.stroke();
+}
+
+// 绘制五角星
+function create_star(context,sx,sy,radius,color,rotate) {
+	context.save();
+	context.translate(sx,sy); // 移动坐标原点
+	context.rotate(Math.PI+rotate); // 旋转
+	context.beginPath();// 创建路径
+	var dig = Math.PI/5*4;
+	for (var i = 0; i < 5; i++) { // 画五角星的五条边
+		var x = Math.sin(i*dig);
+		var y = Math.cos(i*dig);
+		context.lineTo(x*radius, y*radius);
+	}
+	context.fillStyle = color;
+	context.closePath();
+	context.stroke();
+	context.fill();
+	context.restore();
+}
+</script>
+</body>
+</html>
+

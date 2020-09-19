@@ -45,11 +45,19 @@ ls -lt # 按时间倒序列出文件
 zip -r myfolder.zip myfolder/ -x 'myfolder/path-to-exclude/*'
 unzip file.zip -d myfolder/ # 解压到指定目录
 factor 2077 # 素因子分解
+
 # 运行命令，登出仍不挂断，日志记入 tmp.log
 ----tmp.sh---------
 sleep 5
 echo 'hello, nohup'
 -------------------
 $ nohup ./tmp.sh > tmp.log &
-# git status 排序
-git status | grep : | sort
+
+git status | grep : | sort # git status 排序
+tail -100f log.log # 打印 log.log 的最后100行, 并跟踪新增的行
+vim -R file # 以只读方式打开
+echo -ne "\033]0;New Title\a" # 设置终端标题
+
+netstat -ano | grep 1099 # windows 查看端口占用
+tasklist | grep 5104 # windows 查看进程
+taskkill -f -pid 5104 # windows 终止进程

@@ -499,3 +499,57 @@ Array.of(1, 2, 3) // ES6
 [NaN].indexOf(NaN) // -1
 [NaN].findIndex(isNaN) // 0
 [NaN].includes(NaN) // true
+
+// 类数组对象转数组
+[...document.querySelectorAll('div')]
+[...arguments]
+
+// 合并数组, 注意 concat 返回新数组, 原数组不变
+// 但 push 改变了原数组
+var a1 = [0, 1, 2];
+var a2 = [3, 4, 5];
+[].push.apply(a1, a2); // ES5
+a1.push(...a2); // ES6
+
+// 取头尾
+const [head, ...tail] = [1, 2, 3, 4, 5];
+head // 1
+tail // [2, 3, 4, 5]
+
+// 获得字符串的正确长度
+'\ud83d\ude80'.length // 2
+[...'\ud83d\ude80'].length // 1
+
+// 箭头函数直接返回一个对象，必须在对象外面加上括号。
+var getTempItem = id => ({ id: id, name: "Temp" });
+
+// 管道机制, 前一个函数的输出是后一个函数的输入
+const pipeline = (...funcs) =>
+  val => funcs.reduce((a, b) => b(a), val);
+
+const plus1 = a => a + 1;
+const mult2 = a => a * 2;
+const addThenMult = pipeline(plus1, mult2);
+addThenMult(5) // 12
+
+// 单独指定表格列宽
+<table>
+    <colgroup>
+        <col style="width: 120px; min-width: 120px">
+        <col>
+        <col>
+    </colgroup>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+</table>
+
+// Object.assign()
+const target = { a: 1, b: 2 };
+const source1 = { b: 4, c: 5 };
+const source2 = { d: 6, e: undefined };
+const ret = Object.assign(target, source1, source2);
+target // { a: 1, b: 4, c: 5, d: 6, e: undefined }
+ret // { a: 1, b: 4, c: 5, d: 6, e: undefined }

@@ -55,3 +55,6 @@ rime files
 
 java8
 	/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/
+
+words
+	/usr/share/dict/words

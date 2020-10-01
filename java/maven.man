@@ -1,5 +1,9 @@
 mirror
-    ----apache-maven/conf/settings.xml---------------------
+
+    maven 会将依赖的 jar 包放在 ~/.m2/repository 目录下
+    配置镜像可以加速依赖的下载
+
+    ----~/.m2/settings.xml---------------------------------
     <mirrors>
         <mirror>
             <id>nexus-aliyun</id>
@@ -10,12 +14,70 @@ mirror
     </mirrors>
     --------------------------------------------------------
 
-init
-    $ mvn -B archetype:generate -DgroupId=com.mycompany.app -DartifactId=my-app -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.4
+config
 
-use
+    用下面的命令自动生成 maven 项目的目录结构
+
+    $ mvn -B archetype:generate -DgroupId=com.demo -DartifactId=maven-demo -DarchetypeVersion=1.4 -DarchetypeArtifactId=maven-archetype-quickstart
+    $ cd maven-demo
+    $ tree
+    .
+    ├── pom.xml
+    └── src
+        ├── main
+        │   └── java
+        │       └── com
+        │           └── demo
+        │               └── App.java
+        └── test
+            └── java
+                └── com
+                    └── demo
+                        └── AppTest.java
+
+    自动生成的 maven 配置（已简化）
+
+    ----pom.xml---------------------------------------------
+    <?xml version="1.0" encoding="UTF-8"?>
+
+    <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+      <modelVersion>4.0.0</modelVersion>
+
+      <groupId>com.demo</groupId>
+      <artifactId>maven-demo</artifactId>
+      <version>1.0-SNAPSHOT</version>
+
+      <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
+      </properties>
+
+      <dependencies>
+        <dependency>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+          <version>4.11</version>
+          <scope>test</scope>
+        </dependency>
+      </dependencies>
+
+    </project>
+    --------------------------------------------------------
+
+    编译并运行！
+
+    $ mvn clean compile
+    $ cd target/classes
+    $ java com.demo.App
+
+lifecycle
+
     $ mvn clean
-    $ mvn install
+    $ mvn compile # 编译
+    $ mvn package # 打 jar 包
+    $ mvn install # 安装在本地仓库
     $ mvn site
 
     Error: java.lang.NoClassDefFoundError: org/apache/maven/doxia/siterenderer/DocumentContent

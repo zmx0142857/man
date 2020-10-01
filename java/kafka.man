@@ -1,7 +1,7 @@
 start
 
     开启 zookeeper
-    $ bin/zookeeper-server-start.sh config/zookeeper.properties 
+    $ bin/zookeeper-server-start.sh config/zookeeper.properties
     开启 kafka。也可以启动多个 broker，每个 broker 各有一配置文件
     $ bin/kafka-server-start.sh config/server.properties
     $ jps

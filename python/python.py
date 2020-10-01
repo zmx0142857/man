@@ -28,7 +28,7 @@ __author__ = 'Clarence Zhuo'
 # Basics -----------------------------------------------------------------
 
 special values:
-    
+
     None    # None == None
     True
     False
@@ -773,3 +773,15 @@ plt.title('Normal: $\\mu$=%.1f, $\\sigma^2$=%.1f' %(mu,sigma))
 plt.xlabel('x')
 plt.ylable('Probability density')
 plt.show()
+
+## encode & decode
+
+from urllib.parse import quote, unquote
+quote('中文')
+unquote('%E4%B8%AD%E6%96%87')
+
+import base64
+base64.b64encode('中文'.encode('utf-8'))
+base64.b64decode(b'5Lit5paH').decode('utf-8')
+
+'\uFFFD\uFFFD'.encode('utf-8').decode('gbk') // '锟斤拷'

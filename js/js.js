@@ -481,6 +481,9 @@ console.log(parse(['broom', 'mop', 'cleaner']));
 // 正则转义
 str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
 
+html 嵌入 pdf
+<embed src="file.pdf" width="100%" height="600" alt="pdf" pluginspage="https://get.adobe.com/cn/reader/"></embed>
+
 JavaScript能够准确表示的整数范围: (-2^53, 2^53)
 Number.MAX_SAFE_INTEGER === Math.pow(2, 53) - 1
 
@@ -553,3 +556,82 @@ const source2 = { d: 6, e: undefined };
 const ret = Object.assign(target, source1, source2);
 target // { a: 1, b: 4, c: 5, d: 6, e: undefined }
 ret // { a: 1, b: 4, c: 5, d: 6, e: undefined }
+
+// 函数式演算, 箭头运算符是从右往左算的
+let foo = a => b => c => [a,b,c];
+//相当于 let foo = a => (b => (c => [a,b,c]));
+foo(1)(2)(3) // [1,2,3]
+
+// this 绑定
+foo::bar; // 等同于 bar.bind(foo);
+foo::bar(...arguments); // 等同于 bar.apply(foo, arguments);
+
+// 尾调用优化: 最后一步是单纯的调用, 可以用新函数的调用栈代替旧函数, 不会栈溢出
+// ES6的尾调用优化只在严格模式下开启: 'use strict';
+function factorial(n, total = 1) {
+  if (n === 1) return total;
+  return factorial(n - 1, n * total);
+}
+
+function fibonacci(n , a = 1 , b = 1) {
+  if (n <= 1) return b;
+  return fibonacci(n - 1, b, a + b);
+}
+
+function gcd(a, b) {
+  if (b == 0) return a;
+  return gcd(b, a % b);
+}
+
+// 柯里化 (currying), 把原本需要 n 个参数的函数 f 化为只需 n-1 个参数的函数
+var currying = (f, n) => (...args) => f.call(this, ...args, n);
+var curried = currying((a, b, c) => [a, b, c], 10);
+curried(1, 2); // [1, 2, 10]
+
+// ES5, 尾递归优化 (tail calling optimize)
+function tco(f) {
+  var value;
+  var active = false;
+  var accumulated = [];
+
+  return function accumulator() {
+    accumulated.push(arguments);
+    if (!active) {
+      active = true;
+      while (accumulated.length) {
+        value = f.apply(this, accumulated.shift());
+      }
+      active = false;
+      return value;
+    }
+  };
+}
+
+var sum = tco(function(x, y) {
+  if (y > 0)
+    return sum(x + 1, y - 1);
+  return x;
+});
+
+sum(1, 1000000) // 1000001, 不会栈溢出
+
+// ES5, 化为 bool 值
+!!undefined // false
+!!null // false
+!!false // false
+!!0 // false
+!!'' // false
+!![] // true
+!!{} // true
+
+// for...in 循环：遍历对象自身的和继承的可枚举的属性
+// 由于 for...in 会遍历继承的属性，所以尽量不要用 for...in，而用 Object.keys:
+var obj = {a:1, b:2, c:3};
+for (key of Object.keys(obj)) {
+  console.log(key, obj[key]);
+}
+
+// 原型
+Object.getPrototypeOf(obj);
+var obj = Object.setPrototypeOf(o, prototype);
+var obj = Object.create(prototype);

@@ -28,6 +28,13 @@ Object.equals(obj1, obj2); // 避免 obj1 为 null 时，obj1.equals(obj2) 报�
 array.length            // 数组长度
 Arrays.sort(array)      // 排序
 
+// List 转数组
+Integer[] arr = list.toArray(new Integer[list.size()]); // 方法一
+Integer[] arr = list.toArray(Integer[]::new); // 方法二
+// 数组转 List
+List<Integer> list = List.of(arr); // JDK 11
+Arrays.asList(T...) // 旧方法
+
 List<Integer> list = List.of(1, 2, 5); // 创建不可变 List，无法添加删除元素
 // 遍历 List 方法一
 Iterator<Integer> it = list.iterator();
@@ -38,13 +45,6 @@ while (it.hasNext()) {
 for (Integer i : list) {
     System.out.println(i);
 }
-// List 转数组
-Integer[] arr = list.toArray(new Integer[list.size()]); // 方法一
-Integer[] arr = list.toArray(Integer[]::new); // 方法二
-// 数组转 List
-List<Integer> list = List.of(arr); // JDK 11
-Arrays.asList(T...) // 旧方法
-
 list.contains(obj); // 返回 true/false
 indexOf(obj); // 返回下标，失败时返回 -1
 
@@ -145,8 +145,62 @@ try (OutputStream output = new FileOutputStream("output.txt")) {
     output.write("Hello".getBytes("UTF-8"));
 }
 
+// 获取毫秒数
+System.currentTimeMillis();
+
+// 不需要序列化的字段用 transient 修饰
+private transient long fastTime;
+
+
+// URLEncode & Decode
+String s1 = URLDecoder.decode("%B2%E2%CA%D4%A3%AC%C7%EB%BA%F6%C2%D4%A1%A3", "GBK");
+String s2 = URLDecoder.decode("%D3%EE%D6%E6%B5%C4%C4%B3%B8%F6%BD%C7%C2%E4", "GBK");
+System.out.println(s1);
+System.out.println(URLEncoder.encode(s1, "GBK"));
+
+// hash 碰撞
+System.out.println("AaAaAa".hashCode());
+System.out.println("BBAaBB".hashCode());
+
+// "全局变量"
+class Counter {
+    public static int count = 0;
+}
+
+// 一个线程安全的类
+class Counter {
+    private int count = 0;
+
+    public synchronized void add(int n) {
+        count += n;
+    }
+    /* 相当于
+     * public void add(int n) {
+     *     synchronized (this) {
+     *         count += n;
+     *     }
+     * }
+     */
+
+    public synchronized void dec(int n) {
+        count -= n;
+    }
+
+    public int get() {
+        return count; // 原子操作，不必加锁
+    }
+}
+此外，String, Integer, LocalDate 这些成员变量都是 final 的不变类也是线程安全的，
+Math 这样只有静态方法的类也是线程安全的。
+
+// 解析 xml
+InputStream input = Main.class.getResourceAsStream("/book.xml");
+DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+DocumentBuilder db = dbf.newDocumentBuilder();
+Document doc = db.parse(input);
+
 jar
-    
+
     jar 包就是 zip 格式的包, 创建一个 zip 包, 把后缀改为 jar 即可
 
 	$ jar fvt tmp.jar # 查看
@@ -158,7 +212,7 @@ jar
 	$ java -jar tmp.jar # 直接执行程序
 
 run a package
-	
+
 	$ tree
 	.
 	└── hello
@@ -181,13 +235,13 @@ build a package
 			└── Person.java
 
 	6 directories, 2 files
-	$ cat src/hong/Person.java 
+	$ cat src/hong/Person.java
 	package hong;
 	public class Person {}
-	$ cat src/ming/Person.java 
+	$ cat src/ming/Person.java
 	package ming;
 	public class Person {}
-	$ javac -d bin src/hong/Person.java src/ming/Person.java 
+	$ javac -d bin src/hong/Person.java src/ming/Person.java
 	$ tree
 	.
 	├── bin
@@ -205,59 +259,3 @@ build a package
 
 jps
     查看 java 进程
-
-import
-
-java
-|-- io
-|   |-- InputStream: FileInputStream, ByteArrayInputStream
-|   |-- OutputStream: FileOutputStream, ByteArrayOutputStream
-|   |-- PrintWriter
-|   |-- IOException
-|   `-- File
-|-- nio
-|   `-- file
-|       `-- Path
-|-- util
-|   |-- Scanner
-|   |-- Collection
-|   |-- Arrays
-|   |-- Iterator
-|   |-- List: ArrayList, LinkedList
-|   |-- Map: HashMap, EnumMap
-|   |-- SortedMap: TreeMap
-|   |-- Set: HashSet
-|   `-- SortedSet: TreeSet
-`-- awt
-    |-- Color
-    `-- event
-        `-- ActionEvent
-
-javax
-|-- servlet
-|   |-- ServletContext
-|   |-- ServletConfig
-|   |-- http
-|   |   |-- HttpServletRequest
-|   |   |-- HttpServletResponse
-|   |   `-- HttpSession
-|   `-- jsp
-|       |-- JspWriter
-|       `-- PageContext
-`-- sql
-    `-- DataSource
-org
-|-- slf4j
-|   |-- Logger
-|   `-- LoggerFactory
-`-- apache
-    `-- commons
-        |-- httpclient
-        |   |-- Header
-        |   |-- HttpClient
-        |   |-- NameValuePair
-        |   `-- methods
-        |       `-- PostMethod
-        `-- lang
-            `-- StringUtils
-

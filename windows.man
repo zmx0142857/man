@@ -101,6 +101,8 @@ hosts file
 
     C:\WINDOWS\System32\drivers\etc\hosts
 
+    修改了 hosts 文件后，用命令 ipconfig /flushdns 刷新它
+
 run history
 
     regedit:\Computer\HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\RunMRU

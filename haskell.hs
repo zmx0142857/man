@@ -1,5 +1,9 @@
 $ ghci
 
+-- import
+import Data.List
+import Data.Function
+
 -- load function
 Prelude> :l myfunc
 
@@ -152,5 +156,28 @@ oddSquareSum =
     in sum belowLimit
 
 
-import Data.List
-import Data.Function
+-- hello world
+print "hello"
+putStrLn "hello"
+
+-- add numbers
+add a b = a + b
+main = do
+    a <- readLn
+    b <- readLn
+    let sum = add a b
+    print sum
+
+-- hello world * 3
+putStr $ foldl (++) "" $ replicate 3 "hello\n"
+
+-- hello world * n
+hello 0 = return ()
+hello n = do
+    putStrLn "Hello World"
+    hello (n-1)
+
+--- taylor expansion of exp function
+coef = map (\x -> 1/x) $ scanl1 (*) [1..9]
+poly x = foldr1 (\b a -> a*x + b)
+myexp x = poly x (1:coef)

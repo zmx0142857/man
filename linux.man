@@ -31,12 +31,12 @@ hide trash icon
 	desktop -> trash
 
 trash - move file to trash through bash
-	
+
 	$ sudo apt-get install trash-cli
 	$ trash-put <filename>
 
 settings
-	
+
 	$ sudo apt install ubuntu-desktop
 
 ----shell----
@@ -49,7 +49,7 @@ set local host name
 set locale
 
 	$ LANG=en_US.utf8
-	
+
 	write this at the end of ~/.bashrc:
 
 	$ export LC_ALL=en_US.utf8
@@ -91,11 +91,14 @@ print color in terminal
 	printf("\033[7mreversed\033[0m\n");	// reverse color
 
 ssh
-	
+
 	$ ssh-keygen
 	and copy ~/.ssh/id_rsa.pub to serverside,
 	$ cat id_rsa.pub >> ~/.ssh/authorized_keys
-	$ chmod 400 ~/.ssh/authorized_keys
+
+	privilege settings:
+	$ chmod 700 ~/.ssh
+	$ chmod 600 ~/.ssh/authorized_keys
 
 	to login to termux, use port 8022:
 	$ ssh user@ip -p 8022

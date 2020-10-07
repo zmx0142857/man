@@ -66,3 +66,4 @@ curl -X POST --header 'Content-Type: application/json' --header 'Accept: applica
 echo '��' | iconv -f gbk # 锟斤拷
 echo -e '\xef\xbf\xbd\xef\xbf\xbd' | iconv -f gbk # 锟斤拷
 echo -e '\xcc\xcc\xcc\xcc\xcc\xcc' | iconv -f gbk # 烫烫烫
+./startup.sh 2>&1 # 把 stderr 重定向到 stdout

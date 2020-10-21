@@ -12,3 +12,10 @@
     out.println("attribute: " + (String)request.getAttribute("key"));
     out.println("parameter: " + (String)request.getParameter("name"));
 %>
+
+---- EL 的xml转义处理 ----
+不直接用 ${...}, 而是
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:out value="${uniqueId}"></c:out>
+另外用 c:out 可设置默认值
+<c:out value="${uniqueId}" default="0"></c:out>

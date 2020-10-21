@@ -58,12 +58,11 @@ tail -100f log.log # 打印 log.log 的最后100行, 并跟踪新增的行
 vim -R file # 以只读方式打开
 echo -ne "\033]0;New Title\a" # 设置终端标题
 
-netstat -ano | grep 1099 # windows 查看端口占用
-tasklist | grep 5104 # windows 查看进程
-taskkill -f -pid 5104 # windows 终止进程
-
 curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{json-string}' 'http://url' # 发送 http 请求
 echo '��' | iconv -f gbk # 锟斤拷
 echo -e '\xef\xbf\xbd\xef\xbf\xbd' | iconv -f gbk # 锟斤拷
 echo -e '\xcc\xcc\xcc\xcc\xcc\xcc' | iconv -f gbk # 烫烫烫
 ./startup.sh 2>&1 # 把 stderr 重定向到 stdout
+printf "%x\n" 12288 # 16进制
+# 合并 pdf
+echo `ls Ch?.pdf` `ls Ch??.pdf` `ls -Q --quoting-style=shell A*` 算法导论答案.pdf | xargs pdfunite

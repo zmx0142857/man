@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript">
+$(function(){
+    $(".btnToggle").click(function() {
+        $(this).toggleClass("hidden");
+        $(".proof").toggleClass("hidden");
+        //$(".proof").slideToggle();
+    });
+});
+</script>
+<style>
+* {
+    margin: 0;
+    font-size: 16px;
+}
+body {
+    margin: 40px 5%;
+}
+.btnToggle {
+    background: rgba(0,0,0,0.2);
+    border: none;
+    border-radius: 5px 5px 0 0;
+}
+.btnToggle.hidden {
+    border-radius: 5px;
+}
+.btnToggle::after {
+    content: ' ▼';
+}
+.btnToggle.hidden::after {
+    content: ' ▶';
+}
+.proof {
+    background: rgba(0,0,0,0.2);
+    padding: 10px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    transition: .5s ease;
+    border-radius: 0 5px 5px 5px;
+}
+.proof.hidden {
+    height: 0;
+    padding: 0 10px;
+    transition: .5s ease;
+}
+</style>
+</head>
+<body>
+<button class="btnToggle hidden">Proof</button>
+<p class="proof hidden">
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+</p>
+</body>
+</html>

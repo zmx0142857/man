@@ -1,9 +1,12 @@
-install node - easist way
+node
+
+    local javascript
 
 	$ sudo apt install nodejs
-	$ node -v
+	$ node -v # version
 
-version control of node - nvm (optional)
+nvm
+    version control of node (optional)
 
 	$ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash
 
@@ -20,38 +23,45 @@ version control of node - nvm (optional)
 
 	$ source nvm-init.sh
 
-	list available nodejs:
+	$ nvm ls-remote # list available nodejs
+	$ nvm install node # install node:
+	$ nvm install v9.3.0 # install the version you want:
+	$ nvm list # view listed versions:
 
-	$ nvm ls-remote
-
-	install node:
-
-	$ nvm install node
-
-	or install the version you want:
-
-	$ nvm install v9.3.0
-
-	view listed versions:
-
-	$ nvm list
-
-	view node version:
-
-	$ node -v
-
-start react
-
+npm
+    node package manager
+    
 	$ sudo apt install npm
 	$ sudo npm config set registry https://registry.npm.taobao.org -g
 
-	$ npx create-react-app react-demo
-	上一条命令可以用这两条代替:
-	$ npm install -g create react-app
+    $ npm install -g <package> # -g (global) means all users
+
+yarn
+
+    $ npm install -g yarn
+    $ yarn config set registry https://registry.npm.taobao.org -g
+
+react
+
+	$ npm install -g create-react-app
 	$ create-react-app react-demo
+	$ npx create-react-app react-demo # 前两条命令可用这条代替
 
 	$ cd react-demo
 	$ npm start # 启动
 	$ npm run build # 打包
+dva
 
-start vue
+    $ npm install -g dva-cli
+    $ dva -v
+    $ dva new dva-demo
+
+umi
+
+    $ mkdir umi-demo && cd umi-demo/
+    $ yarn create @umijs/umi-app
+    $ yarn [install]
+    $ yarn start
+
+vue
+

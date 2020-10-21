@@ -68,7 +68,7 @@ Number
 		123, 0xff00, 0.456, 1.2345e3, -99, NaN, Infinity
 
 	相关运算:
-		
+
 		5 / 2;		// 2.5
 		1 / 0;		// Infinity
 		-1 / 0;		// -Infinity
@@ -96,15 +96,15 @@ String
 	'+' 连接字符串:
 
 		'数学' + '分析';	// "数学分析"
-	
+
 	模板字符串(ES6):
 
 		var name = '小明';
 		var age = 20;
 		var msg = `${name}, 你今年${age}岁了!`;
-	
+
 	-----------------------------------------------------------------
-	
+
 	[]					获取字符, 对超出范围的下标, 返回 undefined
 	str.length			返回 String 的字符数
 	str.toUpperCase()	返回全部大写的拷贝
@@ -123,15 +123,15 @@ Boolean
 	此类型只有 true, false 两种值.
 
 	相关运算:
-		
+
 		&& || !
 
 Array
 
 	Array 可以糅合不同的类型:
-		
+
 		var arr = [1, 3.14, 'Tom', null, true];
-	
+
 	-----------------------------------------------------------------
 
 	[]					获取元素, 对超出范围的下标, 返回 undefined
@@ -163,7 +163,7 @@ Array
 Object
 
 	一组无序的键-值对:
-		
+
 		var person = {
 			name: 'Bob',
 			age: 20,
@@ -174,11 +174,11 @@ Object
 		};
 
 	键的类型是 String, 而值可以是任意类型. 用下面的方法获取属性:
-		
+
 		person.name;		// 'Bob'
 		person['has-car'];	// true
 		person.girlfriend;	// undefined
-	
+
 	-----------------------------------------------------------------
 
 	obj.property = value	新增属性
@@ -210,7 +210,7 @@ Set (ES6)
 
 		var emptySet = new Set();
 		var s = new Set([1, 2, 3]);
-	
+
 	在 Set 中, 重复元素只保留一个.
 
 	------------------------------------------------------------------
@@ -224,18 +224,18 @@ Set (ES6)
 
 	变量名是大小写英文字母, 数字, $ 和 _ 的组合, 且不能以数字开头, 亦
 	不能是 if, while 等关键字. 未初始化的变量的值是 undefined:
-		
+
 		var a;		// undefined
-	
+
 	可以给同一个变量先后赋以不同的类型:
 
 		var a = 123;
 		var a = 'abc';
-	
+
 	在代码首行写上 'use strict'; 来要求变量先申明后使用.
 
 	函数中, 可以引用下文申明的变量, 但那不是你想要的效果:
-		
+
 		function foo() {
 			var x = 'hello, ' + y;
 			alert(x);		// 'hello, undefined'
@@ -243,17 +243,23 @@ Set (ES6)
 		}
 
 //! ---------------- 专栏: 比较运算符 ----------------
-	
+
 	js 允许对任意数据类型做比较, '==' 会自动转换数据类型再比较, 而
 	'===' 在数据类型不一致时返回 false.
-		
-		false == 0;			// true
-		false === 0;		// false
-		undefined == null;	// true
-		undefined === null;	// false
-		NaN === NaN;		// false
-		[] === [];			// false
-		'' === '';			// true
+
+        false === false
+        0 === 0
+        '' === ''
+
+        NaN != NaN
+        [] != []
+        {} != {}
+
+        // 换成 === 都不成立
+        undefined == null
+        false == 0
+        0 == ''
+        '' == false
 
 	唯一能判断 NaN 的方法是通过 isNaN() 函数.
 
@@ -279,12 +285,12 @@ for 循环:
 		}
 
 for-in 循环:
-	
+
 		var obj = {name:'Jack', age:20, city:'Beijing'};
 		for (var key in obj) {	// 'name', 'age', 'city'
 			...
 		}
-	
+
 		var arr = ['a', 'b', 'c'];
 		for (var i in a) {	// '0', '1', '2'
 			...
@@ -329,7 +335,7 @@ forEach() 方法 (ES5.1)
 		function foo(...) {
 			...
 		}
-		
+
 		var foo = function(...) {
 			...
 		};
@@ -342,7 +348,7 @@ arguments
 
 	在函数内部, argument 是一个 tuple, 表示调用者传入的所有参数.
 	用下标取得各个参数:
-		
+
 		function abs() {
 			if (arguments.length === 0) {
 				return 0;
@@ -352,7 +358,7 @@ arguments
 		}
 
 rest (ES6)
-	
+
 	传入的参数少于 3 个时, 下面这个函数的 rest === []
 
 		function foo(a, b, ...rest) {
@@ -374,9 +380,9 @@ rest (ES6)
 		alert(window.course);	// 'learn js'
 		window.foo();			// 'foo'
 		window.alert = function(){}; // 无法使用 alert() 了!
-	
+
 	为了减少命名冲突, 把定义的全局变量与函数绑定到一个全局变量:
-	
+
 		var MYAPP = {};
 
 		MYAPP.name = 'myapp';
@@ -387,7 +393,7 @@ rest (ES6)
 		};
 
 	js 中的局部作用域是函数级的:
-		
+
 		function foo() {
 			for (var i = 0; i < 100; i++)
 				...
@@ -431,7 +437,7 @@ rest (ES6)
 		getAge(); // NaN
 
 document
-	
+
 	write("...");			// 输出 html,
 							// 在文档加载后 (如通过按钮触发), 会发生覆盖.
 	getElementById("...");  // 通过 id 获取元素
@@ -513,6 +519,9 @@ var a1 = [0, 1, 2];
 var a2 = [3, 4, 5];
 [].push.apply(a1, a2); // ES5
 a1.push(...a2); // ES6
+
+[...a, ...b] // 数组并集
+a.filter(x => b.includes(x)) // 数组交集
 
 // 取头尾
 const [head, ...tail] = [1, 2, 3, 4, 5];
@@ -635,3 +644,118 @@ for (key of Object.keys(obj)) {
 Object.getPrototypeOf(obj);
 var obj = Object.setPrototypeOf(o, prototype);
 var obj = Object.create(prototype);
+
+// promise: 将嵌套的回调函数，改为链式调用的形式
+// 经典写法为: Promise.then().catch()
+
+// 用 promise 异步加载图片
+var preloadImage = function(path) {
+  return new Promise(function(resolve, reject) {
+    var img = new Image();
+    img.onload  = resolve;
+    img.onerror = reject;
+    img.src = path;
+  });
+};
+
+// 用 promise 发起 ajax 请求
+var getJSON = function(url) {
+  return new Promise(function(resolve, reject) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", url);
+    xhr.responseType = "json";
+    xhr.setRequestHeader("Accept", "application/json");
+    xhr.onreadystatechange = function() {
+      if (this.readyState === 4) {
+        if (this.status === 200) {
+          resolve(this.response);
+        } else {
+          reject(new Error(this.statusText));
+        }
+      }
+    };
+    xhr.send();
+  });
+};
+getJSON("/posts.json").then(
+  json => console.log(json)
+).catch(
+  e => console.error(e)
+);
+
+// Promise.resolve()
+Promise.resolve('foo')
+// 等价于
+new Promise(resolve => resolve('foo'))
+
+// 事件循环
+// 下一轮事件循环开始时
+setTimeout(function () {
+  console.log('three');
+}, 0);
+// 本轮事件循环结束时
+Promise.resolve().then(function () {
+  console.log('two');
+});
+// 立即执行
+console.log('one');
+// one
+// two
+// three
+
+// 部署 Promise.then().catch().done()
+Promise.prototype.done = function (onFulfilled, onRejected) {
+  this.then(onFulfilled, onRejected)
+    .catch(function (reason) {
+      // 抛出一个全局错误
+      setTimeout(() => { throw reason }, 0);
+    });
+};
+// 部署 Promise.then().catch().finally()
+Promise.prototype.finally = function (callback) {
+  let P = this.constructor;
+  return this.then(
+    value  => P.resolve(callback()).then(() => value),
+    reason => P.resolve(callback()).then(() => { throw reason })
+  );
+};
+
+// 数组去重, 两种方法
+[...new Set(arr)]
+Array.from(new Set(arr));
+
+// set 上的 map
+new Set(Array.from(set, x => x*2));
+new Set([...set].map(x => x*2));
+
+var union = new Set([...a, ...b]); // 并集
+var intersect = new Set([...a].filter(x => b.has(x))); // 交集
+
+// 通过代理支持数组负下标
+function createArray(...elements) {
+  let handler = {
+    get(target, propKey, receiver) {
+      let index = Number(propKey);
+      if (index < 0) {
+        propKey = String(target.length + index);
+      }
+      return Reflect.get(target, propKey, receiver);
+    }
+  };
+
+  return new Proxy([...elements], handler);
+}
+
+var arr = createArray('a', 'b', 'c');
+arr[-1]
+
+// form 遍历 (兼容IE)
+for (var i = 0; i < form.length; ++i) {
+  var ele = form[i];
+  console.log(ele, ele.name, ele.value);
+}
+
+// call, apply
+Math.max(1, 2);
+Math.max.call(null, 1, 2);
+Math.max.apply(null, [1, 2]);

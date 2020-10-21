@@ -149,6 +149,9 @@ div tags:
 	(?(Open)(?!))
 	</div>
 
+不含 abc 的任意字符串
+
+^((?!abc).)*$
 
 wildcard
 

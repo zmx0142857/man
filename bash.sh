@@ -66,3 +66,9 @@ echo -e '\xcc\xcc\xcc\xcc\xcc\xcc' | iconv -f gbk # 烫烫烫
 printf "%x\n" 12288 # 16进制
 # 合并 pdf
 echo `ls Ch?.pdf` `ls Ch??.pdf` `ls -Q --quoting-style=shell A*` 算法导论答案.pdf | xargs pdfunite
+# 格式化日期
+date +%Y/%m/%d
+expand # tab 转空格
+unexpand # 空格转 tab
+xxd, od, hexdump # 二进制查看器
+base64 # base64 编码解码

@@ -16,3 +16,9 @@ start
 
     启动消费者
     $ bin/kafka-console-consumer.sh --zookeeper localhost:2181 -—topic hello-kafka --from-beginning
+
+kafka tool
+
+    cluster name 自己起个名字
+    zookeeper 的 ip 地址写对就行，端口默认为 2181
+    bootstrap servers 填写 kafka 集群的 ip 与端口，用逗号隔开

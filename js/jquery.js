@@ -117,3 +117,25 @@ jQuery 入口函数与 JavaScript 入口函数的区别：
 
 jQuery 的入口函数是在 html 所有标签(DOM)都加载之后，就会去执行。
 JavaScript 的 window.onload 事件是等到所有内容，包括外部图片之类的文件加载完后，才会执行。
+
+// select
+
+<select class="select">
+    <option value="1">选项一</option>
+    <option value="2">选项二</option>
+    <option value="3">选项三</option>
+</select>
+$(".select").change(function(){
+    console.log($(this).val(), $('option:selected', $(this)).text());
+});
+
+// jquery 把数组和对象的遍历形式上统一起来了
+// 遍历数组
+var arr = [1, 2, 3];
+arr.forEach(function(elem, i) { console.log(i, elem); }); // 原生方法返回 undefined
+$.each(arr, function(i, elem) { console.log(i, elem); }); // jquery 返回 arr
+
+// 遍历对象
+var obj = {name:"bob",age:"23",gender:"male"};
+for (var key in obj) { console.log(key, obj[key]); } // 原生方法
+$.each(obj, function(key, value) { console.log(key, value); }); // jquery

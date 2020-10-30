@@ -139,3 +139,14 @@ $.each(arr, function(i, elem) { console.log(i, elem); }); // jquery 返回 arr
 var obj = {name:"bob",age:"23",gender:"male"};
 for (var key in obj) { console.log(key, obj[key]); } // 原生方法
 $.each(obj, function(key, value) { console.log(key, value); }); // jquery
+
+// ajax
+$.ajax({
+    type: "POST",
+    url: "...",
+    data: {user: "Bob", msg: "hello"},
+    dataType: "json",
+    success: function(data) {
+        console.log(data);
+    }
+});

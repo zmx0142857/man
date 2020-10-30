@@ -346,7 +346,7 @@ forEach() 方法 (ES5.1)
 
 arguments
 
-	在函数内部, argument 是一个 tuple, 表示调用者传入的所有参数.
+	在函数内部, arguments 是一个 tuple, 表示调用者传入的所有参数.
 	用下标取得各个参数:
 
 		function abs() {
@@ -734,20 +734,40 @@ var intersect = new Set([...a].filter(x => b.has(x))); // 交集
 // 通过代理支持数组负下标
 function createArray(...elements) {
   let handler = {
-    get(target, propKey, receiver) {
-      let index = Number(propKey);
+    get(obj, key, receiver) {
+      let index = Number(key);
       if (index < 0) {
-        propKey = String(target.length + index);
+        key = String(obj.length + index);
       }
-      return Reflect.get(target, propKey, receiver);
+      return Reflect.get(obj, key, receiver);
     }
   };
 
   return new Proxy([...elements], handler);
 }
-
 var arr = createArray('a', 'b', 'c');
 arr[-1]
+
+// 通过代理做赋值检查
+function Person() {
+  let handler = {
+    set(obj, key, value, receiver) {
+      if (key === 'age') {
+        if (!Number.isInteger(value)) {
+          throw new TypeError('the age should be an integer');
+        } else if (value < 0) {
+          throw new RangeError('the age should >= 0');
+        }
+      }
+      obj[key] = value;
+    }
+  };
+  return new Proxy({}, handler);
+}
+var person = Person();
+person.age = 100;
+person.age = 'hi';
+person.age = -1;
 
 // form 遍历 (兼容IE)
 for (var i = 0; i < form.length; ++i) {
@@ -759,3 +779,63 @@ for (var i = 0; i < form.length; ++i) {
 Math.max(1, 2);
 Math.max.call(null, 1, 2);
 Math.max.apply(null, [1, 2]);
+
+// 迭代器对象
+let arr = ['a', 'b', 'c'];
+let iter = arr[Symbol.iterator]();
+iter.next(); // { value: 'a', done: false }
+iter.next(); // { value: 'b', done: false }
+iter.next(); // { value: 'c', done: false }
+iter.next(); // { value: undefined, done: true }
+
+// 实现一个迭代器
+function doArgs(args) {
+  var start = 0, stop, step = 1;
+  if (args.length == 1) {
+    stop = args[0];
+  } else if (args.length == 2) {
+    start = args[0];
+    stop = args[1];
+  } else if (args.length == 3) {
+    start = args[0];
+    stop = args[1];
+    step = args[2];
+  }
+  return {start, stop, step};
+}
+function range() {
+  var {start, stop, step} = doArgs(arguments);
+  return {
+    [Symbol.iterator]: function*() {
+      if (step > 0) {
+        for (var value = start; value < stop; value += step)
+          yield value;
+      } else if (step < 0) {
+        for (var value = start; value > stop; value += step)
+          yield value;
+      }
+    }
+  };
+}
+// 测试
+for (var x of range(0, 3)) {
+  console.log(x);
+}
+[...range(5,0,-1)]
+
+// 等价实现
+function range() {
+  var {start, stop, step} = doArgs(arguments);
+  var value = start;
+  return {
+    [Symbol.iterator]() { return this; },
+    next() {
+      if ( (step > 0 && value < stop) || (step < 0 && value > stop)) {
+        value += step;
+        return {value: value - step};
+      } else {
+        return {done: true}
+      }
+    }
+  };
+}

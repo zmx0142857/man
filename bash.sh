@@ -62,6 +62,9 @@ curl -X POST --header 'Content-Type: application/json' --header 'Accept: applica
 echo '��' | iconv -f gbk # 锟斤拷
 echo -e '\xef\xbf\xbd\xef\xbf\xbd' | iconv -f gbk # 锟斤拷
 echo -e '\xcc\xcc\xcc\xcc\xcc\xcc' | iconv -f gbk # 烫烫烫
+echo '你好' | iconv -t gbk | iconv -f latin1 # ÄãºÃ
+echo 'ÄãºÃ' | iconv -t latin1 | iconv -f gbk # 你好
+
 ./startup.sh 2>&1 # 把 stderr 重定向到 stdout
 printf "%x\n" 12288 # 16进制
 # 合并 pdf
@@ -72,3 +75,9 @@ expand # tab 转空格
 unexpand # 空格转 tab
 xxd, od, hexdump # 二进制查看器
 base64 # base64 编码解码
+qrencode -I M -t UTF8 -k "文字内容" # 生成二维码
+
+# opencc
+$ echo '歐幾里得 西元前三世紀的希臘數學家' | opencc -c t2s
+$ echo '欧几里得 西元前三世纪的希腊数学家' | opencc -c s2t
+$ opencc -i zhwiki_raw.txt -o zhwiki_t2s.txt -c t2s.json

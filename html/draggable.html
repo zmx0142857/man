@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>draggable</title>
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    user-select: none;
+}
+.wrap {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    background: #ccc;
+    display: inline-block;
+}
+.wrap::before {
+    content: "❤";
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    font-size: 40px;
+    line-height: 150px;
+    text-align: center;
+}
+.box {
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    cursor: move;
+    left: 0;
+    top: 0;
+    z-index: 0;
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+    <div class="box" style="background:#56a"></div>
+</div>
+<div class="wrap">
+    <div class="box" style="background:#a56"></div>
+</div>
+<div class="wrap">
+    <div class="box" style="background:#6a5"></div>
+</div>
+
+<script>
+function between(x, a, b) {
+    if (x < a)
+        x = a;
+    else if (x > b)
+        x = b;
+    return x;
+}
+function draggable(box) {
+    box.onmousedown = function(e) {
+        var e = e || window.event;
+        var x0 = -box.parentNode.offsetLeft;
+        var y0 = -box.parentNode.offsetTop;
+        var x = e.clientX - box.offsetLeft;
+        var y = e.clientY - box.offsetTop;
+        box.style.transition = 'none';
+        box.style.zIndex = '10';
+        if (box.setCapture) {
+            box.setCapture();
+        }
+        document.onmousemove = function(e) {
+            var e = e || window.event;
+            var left = between(e.clientX - x, x0, x0 + window.innerWidth - box.offsetWidth);
+            var top = between(e.clientY - y, y0, y0 + window.innerHeight - box.offsetHeight);
+            box.style.left = left + 'px';
+            box.style.top = top + 'px';
+        }
+        document.onmouseup = function() {
+            this.onmouseup = null;
+            this.onmousemove = null;
+            box.style.left = '0';
+            box.style.top = '0';
+            box.style.transition = '.2s ease';
+            box.style.zIndex = '0';
+            if (box.releaseCapture) {
+                box.releaseCapture();
+            }
+        }
+    }
+}
+var boxes = document.getElementsByClassName('box');
+for (b of boxes) {
+    draggable(b);
+}
+</script>
+</body>
+</html>

@@ -40,6 +40,30 @@ keymap kana
 じゅ ju zyu
 じょ jo zyo
 
+keymap dvorak
+
+`1234567890[]
+',.py fgcrl/=\
+aoeui dhtns-
+;qjkx bmwvz
+
+~!@#$%^&*(){}
+"<>PY FGCRL?+|
+AOEUI DHTNS_
+:QJKX BMWVZ
+
+keymap russian-dvorak
+
+ё1234567890эъ
+чбвщл еапык-=\
+фжрнг осмзяй
+.ишют дьцух
+
+Ё!"№;%:?*()ЭЪ
+ЧБВЩЛ ЕАПЫК{}|
+ФЖРНГ ОСМЗЯЙ
+,ИШЮТ ДЬЦУХ
+
 wubi
 
 傘 wwwf

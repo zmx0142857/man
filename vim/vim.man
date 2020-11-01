@@ -32,6 +32,7 @@ Launch vim and run :PluginInstall
 
 vim						# start vim
 vim <file>				# start vim opening the file(s)
+vim -R <file>           # open readonly
 vim + <file>			# edit file from last line
 vim +n file				# edit file from nth line
 

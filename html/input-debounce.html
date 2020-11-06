@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>index</title>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+<style>
+</style>
+</head>
+<body>
+<input id="input" value="">
+<p id="msg"></p>
+<script>
+function api() {
+    console.log('call api');
+    msg.innerText = 'loading...';
+    setTimeout(function() {
+        msg.innerText = 'Yes';
+    }, 500);
+}
+var timeout;
+input.oninput = function() {
+    msg.innerText = 'typing...';
+    if (timeout) {
+        clearTimeout(timeout);
+    }
+    timeout = setTimeout(api, 500);
+}
+</script>
+</body>
+</html>

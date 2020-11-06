@@ -839,3 +839,113 @@ function range() {
     }
   };
 }
+
+// 使用模板操作 dom
+// <div id="app"></div>
+//
+// <template id="template">
+//   <div>string template!</div>
+// </template>
+var clone = document.importNode(template.content, true);
+app.appendChild(clone);
+
+// [js框架/工具]
+//
+// lodash.js: js实用工具集
+// jquery: 用 css 选择器操作 dom
+// ext: 古老的窗口风格框架
+// vue, react: 大型前端框架
+// highlight.js: 语法高亮
+// animate.css, velocity, jquery.animate: 动画
+// katex, mathjax: 数学公式渲染
+// physicsJS, matter-js, phaser.io: 物理引擎
+// xaudiojs: 播放声音
+// read the docs, sphinx: 文档框架
+
+// fibonacci
+function* fibonacci() {
+    let [a, b] = [0, 1];
+    while (true) {
+        yield a;
+        a += b;
+        yield b;
+        b += a;
+    }
+}
+for (let n of fibonacci()) {
+    if (n > 10) break;
+    console.log(n); // 0, 1, 1, 2, 3, 5, 8
+}
+
+// 嵌套 generator
+function *inner() {
+    yield 2;
+}
+function *outer() {
+    yield 1;
+    yield* inner(); // 相当于 for (let x of inner()) yield x;
+    yield 3;
+}
+[...outer()] // [1, 2, 3]
+
+// 遍历树
+function* iterTree(tree) {
+  if (!Array.isArray(tree)) {
+    for (let subtree of tree) {
+      yield* iterTree(subtree);
+    }
+  } else {
+    yield tree;
+  }
+}
+const tree = [ 'a', ['b', 'c'], ['d', 'e'] ];
+[...iterTree(tree)]
+
+// 将 generator 包装成构造函数
+function* gen() {
+  this.a = 1;
+  yield this.b = 2;
+  yield this.c = 3;
+}
+function F() {
+  return gen.call(gen.prototype);
+}
+var f = new F();
+f.next();  // Object {value: 2, done: false}
+f.next();  // Object {value: 3, done: false}
+f.next();  // Object {value: undefined, done: true}
+f.a // 1
+f.b // 2
+f.c // 3
+
+// 用 generator 表达异步操作
+function* main() {
+  console.log('loading...');
+  var result = yield ajax("http://some.url");
+  var resp = JSON.parse(result);
+  console.log(resp.value);
+}
+function ajax(url) {
+  setTimeout(function() {
+    it.next('{"value": "ok"}');
+  }, 500);
+}
+var it = main();
+it.next();
+
+// Thunk 函数
+// ES5版本
+var Thunk = function(fn){
+  return function (){
+    var args = Array.prototype.slice.call(arguments);
+    return function (callback){
+      args.push(callback);
+      return fn.apply(this, args);
+    }
+  };
+};
+// ES6版本
+var Thunk = (fn) => (...args) => (callback) => fn(...args, callback);
+
+var fs = require('fs');
+Thunk(fs.readFile)(filename)(callback); // 使用

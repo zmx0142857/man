@@ -1,4 +1,4 @@
-## loop
+# ---- loop ----------------------------------------------------------
 
 echo {1..5}   # 1 2 3 4 5
 echo {01..05} # 01 02 03 04 05
@@ -6,7 +6,7 @@ seq 1 2 9     # 1 3 5 7 9
 for i in {1..5}; do echo $i; done # 1 2 3 4 5
 for f in *; do echo $f; done      # iterate over files in ./
 
-## io & word processing
+# ----- io & word processing -----------------------------------------
 
 cat                # repeater
 cat > file         # read stdin and write to file
@@ -21,7 +21,7 @@ grep -r 'str'      # find 'str' in ./ recursively
 expand             # tab -> space
 unexpand           # space -> tab
 
-## find
+# ---- find ----------------------------------------------------------
 
 ls -lt                   # list files by modified time
 find -mtime -3           # files modified within 3 days
@@ -31,13 +31,13 @@ find -empty -type d      # empty dirs
 rm `find -empty -type f` # rm empty files
 find -size +500M         # files that >= 500M
 
-## version control
+# ---- version control -----------------------------------------------
 
 git status | grep : | sort     # sort git status
 git status | grep -c modified: # git count files modified
 svn status | grep -c ^M        # svn count files modified
 
-## encode & decode
+# ---- encode & decode -----------------------------------------------
 
 printf "%x\n" 12288 # hex
 date +%Y/%m/%d      # 2020/10/30
@@ -58,7 +58,7 @@ $ echo '歐幾里得 西元前三世紀的希臘數學家' | opencc -c t2s
 $ echo '欧几里得 西元前三世纪的希腊数学家' | opencc -c s2t
 $ opencc -i zhwiki_raw.txt -o zhwiki_t2s.txt -c t2s.json
 
-## misc
+# ---- misc ----------------------------------------------------------
 
 df -H            # diskusage
 time read        # stopwatch
@@ -75,14 +75,14 @@ zip -r files.zip files/ -x 'files/path-to-exclude/*'
 unzip files.zip -d files/
 
 # 运行命令, 登出仍不挂断, 日志记入 tmp.log
-----tmp.sh---------
-sleep 5
-echo 'hello, nohup'
--------------------
+    ----tmp.sh---------
+    sleep 5
+    echo 'hello, nohup'
+    -------------------
 $ nohup ./tmp.sh > tmp.log &
 
 # 发送 http 请求
-curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{json-string}' 'http://url'
+curl -X POST -H 'Content-Type: application/json' -H 'Accept: application/json' -d '{json-string}' 'http://url'
 
 # 合并 pdf
 echo `ls Ch?.pdf` `ls Ch??.pdf` `ls -Q --quoting-style=shell A*` 算法导论答案.pdf | xargs pdfunite

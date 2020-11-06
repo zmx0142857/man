@@ -7,7 +7,7 @@
 	完成设定后，就可移除拼音输入法，并不影响设定结果。
 
 开机启动项
-	
+
 	任务管理器->"启动"选项卡。选中不希望开机自启动的程序，点击"禁用"。
 
 视觉特效
@@ -28,7 +28,7 @@
 	取消不需要的服务。尽量不要取消 intel, nvidia 等开头的服务。
 
 创建扩展名关联
-	
+
 	扩展名关联规定了特定后缀的文件的打开方式。
 	控制面板->程序->默认程序
 	ftype /?
@@ -52,7 +52,7 @@
 	如果你的 windows 10 是从 win 7 或 win 8 升级而来的，它很可能已经带有
 	Photo Viewer。如果你的 windows 10 是全新安装的，Photo Viewer 默认不会启用，
 	它以 dll 的形式存在。下面的命令是启动它的一种方法 (%1 表示要查看的图片文件)
-	
+
 		rundll32.exe c:\windows\system32\shimgvw.dll,ImageView_Fullscreen %1
 
 	另一种有风险的方法是修改注册表。参考以上链接。
@@ -70,7 +70,7 @@
 		C:\Windows\System32\GroupPolicy\User\Scripts\Logon
 
 	并打开组策略作相关设定。
-	
+
 	在 cmd 启动时: 修改注册表
 
 	HKEY_CURRENT_USER\Software\Microsoft\Command Processor\AutoRun="脚本路径"

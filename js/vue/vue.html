@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>vue demo</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<style>
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s
+}
+.fade-enter, .fade-leave-active {
+  opacity: 0
+}
+</style>
+<body>
+<!-- app -->
+<div id="app" v-bind:title="title"> <!-- v-bind 可省略，写成 :title -->
+    {{ message }}
+    <button v-on:click="reverseMsg">Reverse Message</button> <!-- v-on 可省略，写成 @click -->
+    <p v-if="show">Now you see me</p>
+    <ol>
+        <li v-for="todo in todos">{{ todo }}</li>
+    </ol>
+    <input v-model="message">
+</div>
+<script>
+var app = new Vue({
+    el: '#app',
+    data: {
+        message: 'Hello Vue!',
+        title: 'attr bind',
+        show: true,
+        todos: [ 'Learn JavaScript', 'Learn Vue', 'Build something awesome' ],
+    },
+    methods: {
+        reverseMsg() {
+            this.message = this.message.split('').reverse().join('');
+        },
+    },
+});
+console.log('[响应式] 数据与视图已经绑定在一起，所有dom操作都由vue实现。试着修改app.message！');
+</script>
+
+<hr>
+<!-- app2 -->
+<div id="app2">
+    <ol>
+        <todo-item v-for="(item, key) in list"
+            :item="item" :key="key">
+        </todo-item>
+    </ol>
+</div>
+<script>
+// 先注册组件
+Vue.component('todo-item', {
+    props: ['item'],
+    template: '<li>{{item}}</li>',
+});
+// 再初始化根元素
+var app2 = new Vue({
+    el: '#app2',
+    data: {
+        list: [ 'Vegetables', 'Cheese', 'Whatever else' ],
+    },
+});
+</script>
+
+<hr>
+<!-- app3 -->
+<div id="app3">
+    <template-list :items="list">
+        <template slot-scope="slot">
+            <li>{{slot.text}}</li>
+        </template>
+    </template-list>
+</div>
+<script>
+Vue.component('template-list', {
+    template: `<ul>
+        <slot v-for="item in items" :text="item">
+            <!-- fallback content here -->
+        </slot>
+        </ul>`,
+    props: ['items'],
+});
+var app3 = new Vue({
+    el: '#app3',
+    data: {
+        list: [ 'Strawberry', 'Vanilla', 'Chocolate' ],
+    },
+});
+// list -> items -> item -> text -> slot.text
+</script>
+
+<hr>
+<!-- app4 -->
+<div id="app4">
+    <button @click="show = !show">
+        Toggle
+    </button>
+    <transition name="fade"> <!-- 结合 css 动画 -->
+        <p v-if="show">hello</p>
+    </transition>
+</div>
+<script>
+new Vue({
+    el: '#app4',
+    data: {
+        show: true,
+    },
+});
+</script>
+
+</body>
+</html>

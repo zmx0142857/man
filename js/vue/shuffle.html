@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>shuffle</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+<style>
+.item {
+  transition: all 1s;
+  display: inline-block;
+  margin-right: 10px;
+}
+.item-enter, .item-leave-to
+/* .item-leave-active below version 2.1.8 */ {
+  opacity: 0;
+  transform: translateY(30px);
+}
+.item-leave-active {
+  position: absolute;
+}
+</style>
+</head>
+<body>
+<div id="app">
+  <button @click="shuffle">Shuffle</button>
+  <button @click="add">Add</button>
+  <button @click="remove">Remove</button>
+  <transition-group name="item" tag="p">
+    <span class="item" v-for="item in items" :key="item">{{item}}</span>
+  </transition-group>
+</div>
+<script>
+new Vue({
+  el: '#app',
+  data: {
+    items: [1,2,3,4,5,6,7,8,9],
+    nextNum: 10
+  },
+  methods: {
+    randomIndex: function () {
+      return Math.floor(Math.random() * this.items.length)
+    },
+    add: function () {
+      this.items.splice(this.randomIndex(), 0, this.nextNum++)
+    },
+    remove: function () {
+      this.items.splice(this.randomIndex(), 1)
+    },
+    shuffle: function () {
+      this.items.sort(function() {
+        return Math.random() > 0.5 ? 1 : -1;
+      });
+    }
+  }
+})
+</script>
+</body>
+</html>

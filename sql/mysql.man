@@ -494,3 +494,29 @@ login as root
 login as user
 
 	$ mysql
+
+----new-note----
+
+配置文件
+
+    windows: C:\ProgramData\MySQL\MySQL Server 8.0\my.ini
+    linux: /etc/my.cnf
+
+查看/修改数据库编码
+
+    mysql> show variables like 'character%';
+
+    重新登陆后失效：
+    mysql> set character_set_client=utf8; 
+
+    windows 下修改配置无效：
+    ----配置文件--------------
+    [client]
+    default-character-set=utf8
+
+    [mysqld]
+    character-set-server=utf8
+    --------------------------
+
+    有效：
+    $ mysql --default-character-set=utf8

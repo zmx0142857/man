@@ -1,9 +1,9 @@
 tar
-	
+
 	-c		make archive
 	-x		extract archive
 	-t		view archive content
-	
+
 	-z		use gzip
 	-j		use bzip2
 	-J		use xz
@@ -21,6 +21,13 @@ tar
 	$ tar -zxvkpf file.tar.gz [<files>]	# extract
 	$ tar -zcvpf file.tar.gz <files>	# make
 
+    问题
+    $ tar -zxvf notification.tar.gz
+    gzip: stdin: not in gzip format
+    tar: Child returned status 1
+    tar: Error is not recoverable: exiting now
+    可能这个包并没有用 gzip 压缩. 去掉参数 -z 试试
+
 zip
 
 	zip file.zip file1 file2 file3
@@ -35,7 +42,7 @@ unzip
 	-Z		view archive content
 	-Zl		view archive content (fewer)
 	-l		view archive content (fewer and fewer)
-	
+
 	-t		test file integrity
 	-q		quiet mode
 	-n		skip existing file
@@ -96,7 +103,7 @@ gzip
 	-[1-9]	the bigger the number, the smaller the file
 
 	example:
-	
+
 	$ gzip -cdv file.gz > file	# extract
 	$ gzip -cv file > file.gz	# make
 
@@ -114,10 +121,9 @@ bzip2
 	-[1-9]	the bigger the number, the smaller the file
 
 	example:
-	
+
 	$ bzip2 -dkv file.bz2	# extract
 	$ bzip2 -kv file		# make
 
 	bunzip2 = bzip2 -d
 	bzcat = bzip2 -c
-

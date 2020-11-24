@@ -71,3 +71,38 @@ vue
     $ cd vue-demo
     $ npm install # 安装依赖
     $ npm run dev # 走你
+
+require
+
+----hello.js-------------------
+module.exports = {
+    hello() {
+        console.log('hello');
+    }
+}
+// 或
+// exports.hello = function() {
+//   console.log('hello');
+// }
+-------------------------------
+
+----index.js-------------------
+const hello = require('./hello');
+hello.hello();
+-------------------------------
+
+$ node index.js
+
+import
+
+----hello.mjs------------------
+function hello() {
+    console.log('hello');
+}
+export { hello }
+-------------------------------
+
+----index.mjs------------------
+import { hello } from './hello.mjs';
+hello();
+-------------------------------

@@ -150,3 +150,9 @@ $.ajax({
         console.log(data);
     }
 });
+
+$.getJSON('/api/products').done(function (data) {
+    vm.products = data.products;
+}).fail(function (jqXHR, textStatus) {
+    alert('Error: ' + jqXHR.status);
+});

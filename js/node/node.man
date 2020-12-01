@@ -106,3 +106,16 @@ export { hello }
 import { hello } from './hello.mjs';
 hello();
 -------------------------------
+
+builtin modules
+
+// fs, path, url, http, crypto
+
+const fs = require('fs');
+fs.readFile('main.js', 'utf-8', function(e, data) {
+    if (e) {
+        console.error(e);
+    } else {
+        console.log(data);
+    }
+});

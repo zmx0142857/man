@@ -854,7 +854,7 @@ app.appendChild(clone);
 // lodash.js: js实用工具集
 // jquery: 用 css 选择器操作 dom
 // ext: 古老的窗口风格框架
-// vue, react: 大型前端框架
+// vue, react, angular: 大型前端框架
 // highlight.js: 语法高亮
 // animate.css, velocity, jquery.animate: 动画
 // katex, mathjax: 数学公式渲染
@@ -949,3 +949,70 @@ var Thunk = (fn) => (...args) => (callback) => fn(...args, callback);
 
 var fs = require('fs');
 Thunk(fs.readFile)(filename)(callback); // 使用
+
+// 防抖与节流。可以直接使用 lodash.js 的版本，也可以自己实现简易版本：
+// 防抖 (debounce)。触发事件后在 n 秒内函数只能执行一次，如果在 n 秒内又触发了事件，则会重新计算函数执行时间。
+function debounce(callback, wait) {
+    var timeout;
+    return function() {
+        if (timeout)
+            clearTimeout(timeout);
+        timeout = setTimeout(callback, wait);
+    }
+}
+/**
+ * @desc 函数防抖
+ * @param func 函数
+ * @param wait 延迟执行毫秒数
+ * @param immediate 是否立即执行
+ */
+function debounce(func, wait, immediate) {
+    let timeout;
+    return function() {
+        let context = this, args = arguments;
+        if (timeout)
+            clearTimeout(timeout);
+        if (immediate) {
+            // 另取一个变量也可；这里巧妙利用同一个 timeout 变量作为 flag
+            if (!timeout)
+                func.apply(context, args);
+            timeout = setTimeout(() => {
+                timeout = null;
+            }, wait);
+        } else {
+            timeout = setTimeout(() => {
+                func.apply(context, args);
+            }, wait);
+        }
+    }
+}
+
+// 节流 (throttle)。连续触发事件但是在 n 秒中只执行一次函数。
+// 如果事件不断被触发，防抖会使得函数执行不断被推迟，而节流不会。
+
+// 节流，时间戳版（立即执行）
+function throttle(func, wait) {
+    let previous = 0;
+    return function() {
+        let context = this, args = arguments;
+        let now = Date.now();
+        if (now - previous > wait) {
+            func.apply(context, args);
+            previous = now;
+        }
+    }
+}
+
+// 节流，定时器版（等待 wait 时间后执行）
+function throttle(func, wait) {
+    let timeout;
+    return function() {
+        let context = this, args = arguments;
+        if (!timeout) {
+            timeout = setTimeout(() => {
+                timeout = null;
+                func.apply(context, args)
+            }, wait);
+        }
+    }
+}

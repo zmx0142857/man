@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>bootstrap</title>
+  <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <!-- 必须先引入 jquery, 再引入 bootstrap.js -->
+  <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+    .row > div {
+      background: #ccc;
+      height: 100px;
+      border: 2px #333 solid;
+    }
+  </style>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#">Project name</a>
+		</div>
+		<div class="collapse navbar-collapse">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="#"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+				<li><a href="#shop"><span class="glyphicon glyphicon-shopping-cart"></span> Shop</a></li>
+				<li><a href="#support"><span class="glyphicon glyphicon-headphones"></span> Support</a></li>
+			</ul>
+		</div>
+	</div> <!-- container -->
+</div> <!-- navbar -->
+
+<div class="container" style="padding-top: 120px">
+
+<h1>bootstrap 示例</h1>
+<hr>
+
+<h2>row, col-*-*</h2>
+
+<p>col 总宽度为 12. 屏幕从小到大分为 xs, sm, md, lg 四档</p>
+<div class="row">
+  <div class="col-xs-6 col-sm-3"></div>
+  <div class="col-xs-6 col-sm-3"></div>
+  <div class="col-xs-6 col-sm-3"></div>
+  <div class="col-xs-6 col-sm-3"></div>
+</div>
+
+<h2>text-*</h2>
+
+<small>small</small><br>
+<strong>strong</strong><br>
+<em>em</em><br>
+<p class="text-left">text-left</p>
+<p class="text-center">text-center</p>
+<p class="text-right">text-right</p>
+<p class="text-muted">text-muted</p>
+<p class="text-primary">text-primary</p>
+<p class="text-success">text-success</p>
+<p class="text-info">text-info</p>
+<p class="text-warning">text-warning</p>
+<p class="text-danger">text-danger</p>
+
+<h2>blockquote-reverse</h2>
+
+<blockquote>
+  这是一个带有源标题的引用。
+  <small>Someone famous in <cite title="Source Title">Source Title</cite></small>
+</blockquote>
+<blockquote class="blockquote-reverse">
+  这是一个向右对齐的引用。
+  <small>Someone famous in <cite title="Source Title">Source Title</cite></small>
+</blockquote>
+
+<h2>code, pre-scrollable</h2>
+
+<p><code>&lt;header&gt;</code> 作为内联元素被包围。</p>
+<p>如果需要把代码显示为一个独立的块元素，请使用 &lt;pre&gt; 标签：</p>
+<pre class="pre-scrollable">
+&lt;article&gt;
+    &lt;h1&gt;Article Heading&lt;/h1&gt;
+&lt;/article&gt;
+</pre>
+
+<h2>table</h2>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>类</th>
+      <th>描述</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>table</td>
+      <td>基本样式</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>table-striped</td>
+      <td>深浅斑马条纹</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>table-bordered</td>
+      <td>单元格边框</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>table-hover</td>
+      <td>鼠标悬停效果</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>table-condensed</td>
+      <td>更紧凑的排版</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>table-responsive</td>
+      <td>宽度不够，滚动条来凑</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>form-horizontal</h2>
+
+<div class="container">
+<form class="form-horizontal col-sm-6 col-sm-offset-3" role="form">
+  <div class="form-group">
+    <label for="firstname" class="col-sm-2 control-label">名字</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="firstname" placeholder="请输入名字">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="lastname" class="col-sm-2 control-label">姓</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="lastname" placeholder="请输入姓">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox">请记住我
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-primary">登录</button>
+    </div>
+  </div>
+</form>
+</div>
+
+<h2>button-group</h2>
+
+<div class="btn-group">
+  <button type="button" class="btn btn-primary">Apple</button>
+  <button type="button" class="btn btn-primary">Samsung</button>
+  <div class="btn-group">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+      Sony <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+      <li><a href="#">Tablet</a></li>
+      <li><a href="#">Smartphone</a></li>
+    </ul>
+  </div>
+</div>
+
+<h2>clearfix</h2>
+
+<div class="clearfix">
+  <div class="pull-left bg-info text-info">
+    向左快速浮动
+  </div>
+  <div class="pull-right bg-warning text-warning">
+    向右快速浮动
+  </div>
+</div>
+
+<h2>img</h2>
+
+img-rounded, img-circle, img-thumbnail, img-responsive
+
+<h2>glyphicon</h2>
+
+<span class="glyphicon glyphicon-search"></span> search
+<span class="glyphicon glyphicon-user"></span> user
+<span class="glyphicon glyphicon-sort-by-attributes"></span> sort-by-attributes
+
+<hr>
+
+<p class="text-center text-muted">我是有底线的</p>
+
+</div> <!-- container -->
+</body>
+</html>

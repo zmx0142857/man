@@ -1,5 +1,5 @@
 graphics
-	
+
 	$ pip3 install jupyter
 
 	follow instructions on:

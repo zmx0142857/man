@@ -4,6 +4,13 @@ About Git
 Git is a version control system.
 Git is free software.
 
+Config
+------
+
+$ git config --global core.autocrlf false
+$ git config --global user.email "you@example.com"
+$ git config --global user.name "Your Name"
+
 Add Repository
 --------------
 
@@ -96,7 +103,7 @@ Push A New Repo To GitHub
 
 # create a repositury on github.com
 $ git remote add origin git@github.com:<your-name>/<repo-name>.git
-$ git push -u origin master
+$ git push -u origin master # -u 表示推送一个新的分支到服务器, 这里分支名叫 master
 
 Add New Branch and Switch To It
 -------------------------------

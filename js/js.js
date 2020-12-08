@@ -861,6 +861,13 @@ app.appendChild(clone);
 // physicsJS, matter-js, phaser.io: 物理引擎
 // xaudiojs: 播放声音
 // read the docs, sphinx: 文档框架
+// moment.js: 日期时间处理
+
+// [ui 库]
+// mint-ui: vue, 移动端, 饿了么
+// vux: vue, 移动端
+// element-ui: vue, pc 端
+// ant-design: react, 蚂蚁
 
 // fibonacci
 function* fibonacci() {

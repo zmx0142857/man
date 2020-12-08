@@ -63,7 +63,7 @@ windows version of mysql
 
 	cmd> mysqld --initialize
 	cmd> mysqld --install
-	
+
 	if you are not prompted to set root password, you can find a
 	temporary one in file mysql-dir/data/DESKTOP-xxx.err
 
@@ -507,7 +507,7 @@ login as user
     mysql> show variables like 'character%';
 
     重新登陆后失效：
-    mysql> set character_set_client=utf8; 
+    mysql> set character_set_client=utf8;
 
     windows 下修改配置无效：
     ----配置文件--------------
@@ -520,3 +520,13 @@ login as user
 
     有效：
     $ mysql --default-character-set=utf8
+
+新版 mysql 的加密算法不能被 node 识别
+
+    client does not support authentication protocol requested by server;
+    consider upgrading mysql client
+
+    解决：
+
+    mysql> alter user 'username'@'%' identified with mysql_native_password by 'password';
+    mysql> flush privileges;

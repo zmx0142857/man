@@ -1,27 +1,7 @@
-## node -- server side javascript
+# node -- server side javascript
 
     $ sudo apt install nodejs
     $ node -v # version
-
-## nvm -- version control of node (optional)
-
-    $ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash
-
-or
-
-    $ wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash
-
-The above command will clone the nvm repository to `~/.nvm` and add the
-source line to your profile (`~/.bash_profile`, `~/.zshrc`, `~/.profile`, or
-`~/.bashrc`).
-
-You can move the command added to `~/.bashrc` to another file like:
-`nvm-init.sh`, then run `source nvm-init.sh` to start nvm.
-
-    $ nvm ls-remote # list available nodejs
-    $ nvm install node # install node:
-    $ nvm install v9.3.0 # install the version you want:
-    $ nvm list # view listed versions:
 
 ## npm -- node package manager
 
@@ -43,14 +23,41 @@ You can move the command added to `~/.bashrc` to another file like:
     $ npm run build # 打包项目生成 dist 目录, 里面有 html, css 和 js 文件等.
     # --report 展示文件大小
 
-## npx -- do npm jobs automatically
+### nvm -- version control of node (optional)
 
-## yarn
+    $ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash
+
+or
+
+    $ wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash
+
+The above command will clone the nvm repository to `~/.nvm` and add the
+source line to your profile (`~/.bash_profile`, `~/.zshrc`, `~/.profile`, or
+`~/.bashrc`).
+
+You can move the command added to `~/.bashrc` to another file like:
+`nvm-init.sh`, then run `source nvm-init.sh` to start nvm.
+
+    $ nvm ls-remote # list available nodejs
+    $ nvm install node # install node:
+    $ nvm install v9.3.0 # install the version you want:
+    $ nvm list # view listed versions:
+
+### npx -- install and run node modules
+
+    $ npm i -D webpack
+    $ ./node_modules/.bin/webpack -v
+
+    equals to:
+
+    $ npx webpack -v
+
+### yarn
 
     $ npm install -g yarn
     $ yarn config set registry https://registry.npm.taobao.org -g
 
-## react
+### react
 
     $ npm install -g create-react-app
     $ create-react-app react-demo
@@ -60,30 +67,42 @@ You can move the command added to `~/.bashrc` to another file like:
     $ npm start # 启动
     $ npm run build # 打包
 
-## dva
+### dva
 
     $ npm install -g dva-cli
     $ dva -v
     $ dva new dva-demo
 
-## umi
+### umi
 
     $ mkdir umi-demo && cd umi-demo/
     $ yarn create @umijs/umi-app
     $ yarn [install]
     $ yarn start
 
-## vue
+### vue
 
-    $ npm install -g vue-cli # 全局安装 vue
+    $ npm i -g @vue/cli # 全局安装 vue cli (>= 4.0)
+    $ vue ui # 使用图形界面初始化项目
+
+    # 或者用命令行：
+    $ vue create vue-demo # 新建项目
+    $ cd vue-demo
+    $ npm run serve
+
+    $ npm i -g vue-cli # 旧版，不推荐
     $ vue init webpack vue-demo # 创建基于 webpack 模板的项目, 命名为 vue-demo
     $ cd vue-demo
     $ npm install # 安装依赖
     $ npm run dev # 走你
 
-&gt;= vue3.0: 使用图形界面初始化项目
+### pm2
 
-    $ vue ui
+    $ npm install pm2 -g
+    $ pm2 start app.js
+    $ pm2 stop <id>
+    $ pm2 restart <id>
+    $ pm2 delete <id>
 
 ## node 的模块化方案
 
@@ -124,7 +143,16 @@ index.mjs
 
 ## node builtin modules
 
-fs, path, url, http, crypto...
+| 名称      | 简介                          |
+|-----------|-------------------------------|
+| fs        | 读取文件系统，用法见下        |
+| path      | 拼接路径                      |
+| url       |                               |
+| http      |                               |
+| crypto    |                               |
+| cli-table | 用法参见 mount-routes 包      |
+
+fs
 
     const fs = require('fs');
     fs.readFile('main.js', 'utf-8', function(e, data) {
@@ -204,3 +232,4 @@ babel.config.js
         ...prodPlugins
       ]
     }
+

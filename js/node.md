@@ -13,17 +13,19 @@
     $ npm init -y # 初始化项目，生成 package.json
 
     $ npm i[nstall] package # 安装 npm 依赖到当前目录的 node_modules/ 中
-    # -g          全局安装, 而不是装到当前目录
-    # -S / --save 自动添加到 package.json 中
-    # --save-dev  自动添加到 package.json 中的开发依赖
-    # -D babel-core@^7.0.0-0 安装指定版本
+      # -g          全局安装, 而不是装到当前目录
+      # -S / --save 自动添加到 package.json 中
+      # -D / --save-dev  自动添加到 package.json 中的开发依赖
+      # -D babel-core@^7.0.0-0 安装指定版本
 
     $ npm start # 运行 package.json 中的 start 命令行
 
     $ npm run build # 打包项目生成 dist 目录, 里面有 html, css 和 js 文件等.
-    # --report 展示文件大小
+      # --report 展示文件大小
 
-### nvm -- version control of node (optional)
+### nvm -- node version manager (optional)
+
+enables different versions of node in one system.
 
     $ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash
 
@@ -48,8 +50,7 @@ You can move the command added to `~/.bashrc` to another file like:
     $ npm i -D webpack
     $ ./node_modules/.bin/webpack -v
 
-    equals to:
-
+    # equals to:
     $ npx webpack -v
 
 ### yarn
@@ -82,15 +83,14 @@ You can move the command added to `~/.bashrc` to another file like:
 
 ### vue
 
-    $ npm i -g @vue/cli # 全局安装 vue cli (>= 4.0)
+    $ npm install -g @vue/cli # 全局安装 vue cli
+    $ npm install -g @vue/cli@3.0.4 # 或者, 使用兼容 import Vue from 'vue' 的写法
     $ vue ui # 使用图形界面初始化项目
-
-    # 或者用命令行：
-    $ vue create vue-demo # 新建项目
+    $ vue create vue-demo # 或者用命令行新建项目
     $ cd vue-demo
     $ npm run serve
 
-    $ npm i -g vue-cli # 旧版，不推荐
+    $ npm install -g vue-cli # vue2.x
     $ vue init webpack vue-demo # 创建基于 webpack 模板的项目, 命名为 vue-demo
     $ cd vue-demo
     $ npm install # 安装依赖
@@ -104,9 +104,16 @@ You can move the command added to `~/.bashrc` to another file like:
     $ pm2 restart <id>
     $ pm2 delete <id>
 
+### angular
+
+    $ npm i -g @angular/cli
+    $ ng new ng-demo
+    $ cd ng-demo
+    $ ng serve
+
 ## node 的模块化方案
 
-### require
+### module.exports / require
 
 hello.js
 
@@ -127,7 +134,7 @@ index.js
 
     $ node index.js
 
-### import
+### export / import
 
 hello.mjs
 
@@ -140,6 +147,20 @@ index.mjs
 
     import { hello } from './hello.mjs';
     hello();
+
+### export default / import
+
+hello.mjs
+
+    function hello() {
+      console.log('hello');
+    }
+    export default { hello }
+
+index.mjs
+
+    import _ from './hello.mjs'
+    _.hello();
 
 ## node builtin modules
 
@@ -232,4 +253,51 @@ babel.config.js
         ...prodPlugins
       ]
     }
+
+## 前端框架哪家强？
+
+### js框架/工具
+
+* jquery: 用 css 选择器操作 dom
+* vue, react, angular: 大型前端框架全家桶
+* lodash.js: js实用工具集
+* ext: 古老的窗口风格框架
+* highlight.js: 语法高亮
+* animate.css, velocity, jquery.animate: 动画
+* katex, mathjax: 数学公式渲染
+* physicsJS, matter-js, phaser.io: 物理引擎
+* xaudiojs: 播放声音
+* read the docs, sphinx: 文档框架
+* moment.js: 日期时间处理
+* echarts, chart.js, v-charts: 图表绘制
+
+### css 框架
+
+* less
+* sass
+
+### ui 库
+
+* bootstrap (twitter)
+* layui
+* flutter: google, 移动
+* mint-ui: vue, 移动, 饿了么
+* element-ui: vue, pc 端, 饿了么
+* view ui: vue, talking data
+* iView Weapp: 微信小程序
+* vant: PC, 移动
+* vux: vue, 移动
+* ant-design: react, 蚂蚁
+* amphtml
+
+### 服务端渲染框架
+
+* nuxt.js (vue)
+* next.js (react)
+
+## 状态管理框架
+
+* vuex (vue)
+* flux (flutter)
+* redux (react)
 

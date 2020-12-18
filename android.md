@@ -13,7 +13,7 @@ on computer type:
     $ adb shell
     # mount -o remount,rw /system
 
-## transfor files
+## transfer files
 
     $ adb pull
     $ adb push

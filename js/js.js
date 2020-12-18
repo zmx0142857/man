@@ -849,26 +849,6 @@ function range() {
 var clone = document.importNode(template.content, true);
 app.appendChild(clone);
 
-// [js框架/工具]
-//
-// lodash.js: js实用工具集
-// jquery: 用 css 选择器操作 dom
-// ext: 古老的窗口风格框架
-// vue, react, angular: 大型前端框架
-// highlight.js: 语法高亮
-// animate.css, velocity, jquery.animate: 动画
-// katex, mathjax: 数学公式渲染
-// physicsJS, matter-js, phaser.io: 物理引擎
-// xaudiojs: 播放声音
-// read the docs, sphinx: 文档框架
-// moment.js: 日期时间处理
-
-// [ui 库]
-// mint-ui: vue, 移动端, 饿了么
-// vux: vue, 移动端
-// element-ui: vue, pc 端
-// ant-design: react, 蚂蚁
-
 // fibonacci
 function* fibonacci() {
     let [a, b] = [0, 1];

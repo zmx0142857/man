@@ -20,6 +20,7 @@ grep -r 'str'      # find 'str' in ./ recursively
 ./startup.sh 2>&1  # redirect stderr to stdout
 expand             # tab -> space
 unexpand           # space -> tab
+echo '1 2 3' | cut -d ' ' -f 2 # cut with delimiter ' ' and take field 2
 
 # ---- find ----------------------------------------------------------
 
@@ -30,6 +31,8 @@ find -empty -type f      # empty files
 find -empty -type d      # empty dirs
 rm `find -empty -type f` # rm empty files
 find -size +500M         # files that >= 500M
+
+for f in {284..295}; do ls $f -1 | wc -l; done # count files
 
 # ---- version control -----------------------------------------------
 

@@ -1003,3 +1003,30 @@ function throttle(func, wait) {
         }
     }
 }
+
+// canvas
+<canvas id="canvas" width="600" height="400"></canvas>
+<script>
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+
+function drawStar(ctx,r){
+  ctx.save();
+  ctx.translate(r, r);
+  ctx.beginPath()
+  ctx.moveTo(r,0);
+  for (var i=0;i<9;i++){
+    ctx.rotate(Math.PI/5);
+    if(i%2 == 0) {
+      ctx.lineTo(0.3819660112501051 * r, 0); // (3-Math.sqrt(5))/2
+    } else {
+      ctx.lineTo(r,0);
+    }
+  }
+  ctx.closePath();
+  ctx.fill();
+  ctx.restore();
+}
+
+drawStar(ctx, 50);
+</script>

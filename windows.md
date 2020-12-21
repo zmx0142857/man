@@ -469,7 +469,3 @@ win-r, 然后输入:
 	我的电脑	explorer.exe ::{20D04FE0-3AEA-1069-A2D8-08002B30309D}
 	网上邻居	explorer.exe ::{208D2C60-3AEA-1069-A2D7-08002B30309D}
 	回收站	explorer.exe ::{645FF040-5081-101B-9F08-00AA002F954E}
-
-edge 插件目录
-
-  C:\Users\用户名\AppData\Local\Microsoft\Edge\User Data\Default\extensions

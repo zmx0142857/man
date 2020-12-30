@@ -6,12 +6,12 @@
 <title>canvas plot</title>
 </head>
 <style>
-html, body, center {
+html, body {
   height: 100%;
   overflow: hidden;
   background: #eee;
 }
-center {
+body {
   display: flex;
   align-items: center;
 	justify-content: center;
@@ -22,9 +22,7 @@ center {
 }
 </style>
 <body>
-<center>
   <canvas id="canvas" width="600" height="400"></canvas>
-</center>
 <script>
 'use strict';
 function getDefault(val, defaultVal) {
@@ -38,7 +36,7 @@ function Plot(el, config={}) {
   this.ctx.font = "12px sans-serif";
   this.color = getDefault(config.color, '#337ab7');
 
-  this.step = getDefault(config.step, 5e-3);
+  this.step = getDefault(config.step, 0.5);
   this.padding = 10;
   this.geometry(config);
 }
@@ -61,13 +59,15 @@ Plot.prototype.geometry = function(config) {
     (this.canvas.width-2*this.padding) / (this.xmax-this.xmin),
     (this.canvas.height-2*this.padding) / (this.ymax-this.ymin)
   );
+  this.xpadding = (this.canvas.width - (this.xmax-this.xmin) * this.scale) / 2;
+  this.ypadding = (this.canvas.height - (this.ymax-this.ymin) * this.scale) / 2;
   return this;
 }
 
 // 另一种方案是用 css transform: scaleY(-1); 实现上下翻转；
 // 问题是，文字也会倒转，这可以用 ctx.scale(1, -1) 补救
 Plot.prototype.transform = function(x, y) {
-  return [(x-this.xmin)*this.scale+this.padding, (this.ymax-y)*this.scale+this.padding];
+  return [(x-this.xmin)*this.scale+this.xpadding, (this.ymax-y)*this.scale+this.ypadding];
 }
 
 Plot.prototype.moveTo = function(x, y) {
@@ -148,10 +148,10 @@ Plot.prototype.axis = function() {
 
 // plot discretely
 Plot.prototype.discrete = function(f, config={}) {
-  var xmin = this.xmin - this.padding / this.scale;
-  var xmax = this.xmax + this.padding / this.scale;
+  var xmin = this.xmin - this.xpadding / this.scale;
+  var xmax = this.xmax + this.xpadding / this.scale;
   var x = xmin;
-  var step = getDefault(config.step, this.step);
+  var step = getDefault(config.step, this.step) / this.scale;
   this.ctx.strokeStyle = getDefault(config.color, this.color);
   while (x <= xmax) {
     x += step;
@@ -162,11 +162,11 @@ Plot.prototype.discrete = function(f, config={}) {
 
 // plot continuously
 Plot.prototype.plot = function(f, config={}) {
-  var xmin = this.xmin - this.padding / this.scale;
-  var xmax = this.xmax + this.padding / this.scale;
+  var xmin = this.xmin - this.xpadding / this.scale;
+  var xmax = this.xmax + this.xpadding / this.scale;
   var x = xmin, y = f(x);
-  var step = getDefault(config.step, this.step);
-  var continuity = getDefault(config.continuity, 100);
+  var step = getDefault(config.step, this.step) / this.scale;
+  var continuity = getDefault(config.continuity, this.canvas.height / this.scale);
   this.ctx.strokeStyle = getDefault(config.color, this.color);
   this.ctx.beginPath();
   this.moveTo(x, y);
@@ -174,7 +174,7 @@ Plot.prototype.plot = function(f, config={}) {
     x += step;
     var newy = f(x);
     // 斜率过大处断开
-    if (Math.abs((newy-y)/step) > continuity) {
+    if (Math.abs(newy-y) > continuity) {
       this.ctx.stroke();
       this.ctx.beginPath();
       this.moveTo(x, newy);
@@ -188,11 +188,11 @@ Plot.prototype.plot = function(f, config={}) {
 
 var plot = new Plot('canvas', {xmin: -4.5, ymin: -1, xmax: 4.5, ymax: 5})
 plot.axis()
-  .plot(Math.floor)
   .plot(x => x*x, {color: Plot.colors.yellow})
   .plot(Math.cos, {color: Plot.colors.green})
   .plot(Math.tan, {color: Plot.colors.red})
-  .plot(x => Math.sin(1/x), {color: 'grey', continuity:1e4})
+  .plot(x => Math.sin(1/x), {color: 'grey'})
+  .plot(Math.floor, {continuity: 0.5})
 </script>
 </body>
 </html>

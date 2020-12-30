@@ -67,6 +67,10 @@ Home.js
     }
     </script>
 
+## 使用 vue-resource 发送请求
+
+    Vue.http.post(url, body).then(data => console.log(data))
+
 ## 使用 vuex 管理状态
 
 https://vuex.vuejs.org/zh/installation.html

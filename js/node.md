@@ -260,7 +260,7 @@ babel.config.js
 
 * jquery: 用 css 选择器操作 dom
 * vue, react, angular: 大型前端框架全家桶
-* lodash.js: js实用工具集
+* lodash.js, underscore.js: js 函数式编程实用工具集
 * ext: 古老的窗口风格框架
 * highlight.js: 语法高亮
 * animate.css, velocity, jquery.animate: 动画
@@ -270,6 +270,9 @@ babel.config.js
 * read the docs, sphinx: 文档框架
 * moment.js: 日期时间处理
 * echarts, chart.js, v-charts: 图表绘制
+* live2d: 二次元动画小人儿
+* revealjs: web 端幻灯片
+* ckeditor, vue-editor: 富文本编辑器
 
 ### css 框架
 

@@ -25,7 +25,7 @@ on computer type:
 ## remove app
 
     $ adb devices
-    $ adb shell px list packages
+    $ adb shell pm list packages # 相当于在 adb shell 中执行命令
     $ adb uninstall com.??.??
 
 ## remove system app

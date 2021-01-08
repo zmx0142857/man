@@ -96,7 +96,7 @@ You can move the command added to `~/.bashrc` to another file like:
     $ npm install # 安装依赖
     $ npm run dev # 走你
 
-### pm2
+### pm2 - 后台进程管理
 
     $ npm install pm2 -g
     $ pm2 start app.js
@@ -110,6 +110,10 @@ You can move the command added to `~/.bashrc` to another file like:
     $ ng new ng-demo
     $ cd ng-demo
     $ ng serve
+
+### eslint - 代码格式化
+
+    $ node_modules/eslint/bin/eslint.js --fix file.js
 
 ## node 的模块化方案
 
@@ -273,6 +277,8 @@ babel.config.js
 * live2d: 二次元动画小人儿
 * revealjs: web 端幻灯片
 * ckeditor, vue-editor: 富文本编辑器
+* PrettyJS: 代码格式化
+* pm2: 后台进程管理
 
 ### css 框架
 
@@ -291,7 +297,8 @@ babel.config.js
 * vant: PC, 移动
 * vux: vue, 移动
 * ant-design: react, 蚂蚁
-* amphtml
+* amphtml: keybr
+* eletron: 桌面应用 ui
 
 ### 服务端渲染框架
 

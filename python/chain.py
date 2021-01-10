@@ -24,6 +24,8 @@ def rec_args(func, xs, args, depth):
         return xs
     return func(args[-depth], (rec_args(func, x, args, depth-1) for x in xs))
 
+partial = functools.partial
+
 class chain(object):
     '''
     Doctest:
@@ -98,6 +100,8 @@ class chain(object):
             return chain(functools.reduce(func, self.val))
         return chain(reduce(func, self.val, init))
     def join(self, *args):
+        if len(args) == 0:
+            args = ('',)
         return chain(rec_args(str.join, self.val, args, len(args)))
     def sum(self, init):
         return chain(sum(self.val, init))

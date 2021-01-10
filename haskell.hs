@@ -4,11 +4,12 @@ $ ghci
 import Data.List
 import Data.Function
 
--- load function
-Prelude> :l myfunc
-
--- type inference
-Prelude> :t variable
+Prelude> :?  -- help
+Prelude> :browse -- list functions
+Prelude> :l myfunc -- load function
+Prelude> :t variable -- type inference
+Prelude> :{ -- multilines
+Prelude> :} -- end multilines
 
 True, False, &&, ||, not
 ==, /=
@@ -31,6 +32,7 @@ double x = if x > 100 then x else x*2
 
 f a b c -- the same as ((f a) b) c)
 f $ g $ h $ x -- function calling, the same as f(g(h x))
+              -- 相当于不需要右括号的左括号
 (f . g . h) x -- function composition, the same as f(g(h x))
 
 -- lists
@@ -52,11 +54,11 @@ take 3 (repeat 10) -- [10,10,10]
 replicate 3 10 -- [10,10,10]
 
 -- be careful and not to use these on empty lists
-nums !! 1
+nums !! 1 -- take num[1]
 head nums
 last nums
-tail nums
-init nums
+tail nums -- everything but head
+init nums -- everything but last
 maximum nums
 minimum nums
 sum nums
@@ -74,12 +76,23 @@ product nums
 [x*2 | x <- [1..10]]
 [x | x <- [1..105], x `mod` 3 == 1, x `mod`5 == 2, x `mod`7 == 4]
 [[x,y] | x <- [1..5], y <- [1..5]]
-[(a,b,c) | c <- [1..10], b <- [1..c], a <- [1..b], a^2 + b^2 == c^2, a+b+c == 24]  
+[(a,b,c) | c <- [1..10], b <- [1..c], a <- [1..b], a^2 + b^2 == c^2, a+b+c == 24]
 
 -- tuples
 fst (8,11)
 snd ("wow", False)
 zip ['A'..'E'] [1..5]
+unzip [(1,4),(2,5),(3,6)]
+
+-- linear algebra
+zipWith (zipWith (+)) [[1,2],[3,4]] [[2,2],[3,4]] -- matrix addition
+innerp a b = sum $ zipWith (*) a b -- vector inner product
+trans mat = if any null mat then [] else (map head mat):(trans $ map tail mat) -- Data.List.transpose
+matmul a b = [ [ innerp row col | col <- trans b ] | row <- a ]
+matmul a b = map (\row -> map (innerp row) (trans b)) a -- another approach
+
+-- string
+Data.List.intercalate " " ["hey","there","guys"]
 
 -- pattern matching
 initials (f:_) (l:_) = (f:". ") ++ (l:".")
@@ -134,15 +147,16 @@ chain n
 
 -- map, filter, foldl, foldr, scanl, scalr
 sum' = foldl (+) 0
-max' = foldl1 max
+maximum' = foldl1 max
 map' f = foldr (\x acc -> f x : acc) []
 reverse' = foldl (flip (:)) []
 polynomial x = foldl1 (\a b -> a*x + b)
-scanl1 max [3,4,5,3,7,9,2,1]
+scanl1 max [3,4,5,3,7,9,2,1] -- 单调增
 scanl1 (+) [1..5]
 -- 相当于
 -- listSum v (x:xs) = let h = v + x in h : listSum h xs
 -- listSum 0 [1..5]
+map ($2) [(1+), (1-), (1*), (1/)]
 
 -- stupid implementation of fibonacci
 fib 0 = [0]

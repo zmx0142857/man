@@ -1030,3 +1030,6 @@ function drawStar(ctx,r){
 
 drawStar(ctx, 50);
 </script>
+
+// cookie
+document.cookie.split('; ').map(pair => pair.split('=', 2))

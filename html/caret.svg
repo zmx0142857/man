@@ -1,0 +1,23 @@
+<svg style="margin: 0px !important; position: absolute !important; top: 0px !important; left: 0% !important; display: block !important; width: 80px !important; height: 30px !important; transform: none !important; pointer-events: initial !important;" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<filter id="dropShadowBottom" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feComponentTransfer in="SourceAlpha" result="TransferredAlpha">
+  <feFuncR type="discrete" tableValues="0.5"></feFuncR>
+  <feFuncG type="discrete" tableValues="0.5"></feFuncG>
+  <feFuncB type="discrete" tableValues="0.5"></feFuncB>
+</feComponentTransfer>
+<feGaussianBlur in="TransferredAlpha" stdDeviation="2"></feGaussianBlur>
+<feOffset dx="0" dy="0" result="offsetblur"></feOffset>
+<feMerge>
+  <feMergeNode></feMergeNode>
+  <feMergeNode in="SourceGraphic"></feMergeNode>
+</feMerge>
+</filter>
+</defs>
+<path d="M0,4 L0,22 A6,6 0 0,0 6,28 L50,28 A6,6 0 0,0 56,22 L56,10 A6,6 0 0,1 61,4 Z" stroke="#FAFAFA" stroke-width="1" fill="#FAFAFA" style="filter:url(#dropShadowBottom)"></path>
+<rect x="0" y="0" width="80" height="5" style="fill:#FAFAFA"></rect>
+<g class="up" stroke="#616161" stroke-width="2px" stroke-linecap="square"><line x1="22" y1="18" x2="28" y2="12"></line><line x1="28" y1="12" x2="34" y2="18"></line></g>
+<!--
+<g class="up" stroke="#616161" stroke-width="2px" stroke-linecap="square"><line x1="22" y1="12" x2="28" y2="18"></line><line x1="28" y1="18" x2="34" y2="12"></line></g>
+-->
+</svg>

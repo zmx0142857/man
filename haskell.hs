@@ -2,10 +2,11 @@ $ ghci
 
 -- import
 import Data.List
+import Data.Map
 import Data.Function
 
 Prelude> :?  -- help
-Prelude> :browse -- list functions
+Prelude> :bro -- browse functions
 Prelude> :l myfunc -- load function
 Prelude> :t variable -- type inference
 Prelude> :{ -- multilines
@@ -158,6 +159,11 @@ scanl1 (+) [1..5]
 -- listSum 0 [1..5]
 map ($2) [(1+), (1-), (1*), (1/)]
 
+-- 函数迭代
+take 4 $ iterate (/2) 1 -- [1.0,0.5,0.25,0.125]
+iter f n x = reverse $ scanr ($) x $ replicate n f
+iter (/2) 3 1 -- [1.0,0.5,0.25,0.125]
+
 -- stupid implementation of fibonacci
 fib 0 = [0]
 fib 1 = [0,1]
@@ -168,7 +174,6 @@ oddSquareSum =
     let oddSquares = filter odd $ map (^2) [1..]
         belowLimit = takeWhile (<10000) oddSquares
     in sum belowLimit
-
 
 -- hello world
 print "hello"

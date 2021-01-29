@@ -1,0 +1,68 @@
+<html>
+<title>test</title>
+<style>
+.container {
+  padding: 50px;
+  position: relative
+}
+.cols {
+  column-count: 3;
+  column-fill: auto;
+}
+.cols > div {
+  color: white;
+}
+.colspan {
+  column-span: all;
+  height: 30px;
+}
+.rule {
+  position: absolute;
+  left: 50px;
+  right: 50px;
+  background: #888;
+  height: 10px;
+}
+</style>
+<body>
+<div class="container">
+  <div id="cols" class="cols"></div>
+</div>
+<script>
+// init
+var pageCount = 1, pageHeight = 400, totalHeight = pageHeight, colCount = 1, prevTop = 0
+cols.style.height = pageHeight
+for (var i = 0; i < 200; ++i) {
+  var div = document.createElement('div')
+  div.innerText = i + ''
+  div.style.background = `rgb(${255-i},${180},${i})`
+  div.style.height = Math.random() * 40 + 20 + 'px'
+  cols.appendChild(div)
+}
+
+// pagebreak
+var blocks = document.querySelectorAll('.cols > div')
+for (var block of blocks) {
+  if (block.offsetTop < prevTop) {
+    ++colCount
+    if (colCount > 3) {
+      var rule = document.createElement('div')
+      rule.classList.add('rule')
+      rule.style.top = totalHeight + 60 + 'px'
+      cols.appendChild(rule)
+      var colspan = document.createElement('div')
+      colspan.classList.add('colspan')
+      cols.insertBefore(colspan, block)
+      totalHeight += pageHeight
+      cols.style.height = totalHeight + 'px'
+      ++pageCount
+      colCount = 1
+      prevTop = 0
+    }
+  }
+  prevTop = block.offsetTop
+}
+console.log(`${pageCount} pages, ${3*(pageCount-1) + colCount} columns`)
+</script>
+</body>
+</html>

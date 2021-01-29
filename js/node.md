@@ -279,6 +279,7 @@ babel.config.js
 * ckeditor, vue-editor: 富文本编辑器
 * PrettyJS: 代码格式化
 * pm2: 后台进程管理
+* zepto: mini jquery
 
 ### css 框架
 

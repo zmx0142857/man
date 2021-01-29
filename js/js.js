@@ -658,26 +658,70 @@ var preloadImage = function(path) {
   });
 };
 
+// ajax 请求
+function ajax (method, url, data, success) {
+  var headers = {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+  };
+  var xhr = new XMLHttpRequest();
+  xhr.open(method, url);
+  xhr.responseType = "json";
+  for (const key of Object.keys(headers)) {
+    xhr.setRequestHeader(key, headers[key])
+  }
+  xhr.onreadystatechange = function() {
+    if (this.readyState === 4) {
+      if (this.status === 200 || this.status == 304) {
+        success(this.response);
+      } else {
+        console.error(new Error(this.statusText));
+      }
+    }
+  };
+  if (headers['Content-Type'] === 'application/json') {
+    data = JSON.stringify(data);
+  }
+  xhr.send(data);
+}
+
 // 用 promise 发起 ajax 请求
-var getJSON = function(url) {
+var ajax = function(method, url, data, headers = {
+  'Accept': 'application/json',
+  'Content-Type': 'application/json',
+  //'Content-Type': 'multipart/form-data; boundary=ZnGpDtePMx0KrHh_G0X99Yef9r8JZsRJSXC',
+  //'Content-Type': 'application/x-www-form-urlencoded',
+}) {
   return new Promise(function(resolve, reject) {
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", url);
+    xhr.open(method, url);
     xhr.responseType = "json";
-    xhr.setRequestHeader("Accept", "application/json");
+    for (const key of Object.keys(headers)) {
+      xhr.setRequestHeader(key, headers[key])
+    }
     xhr.onreadystatechange = function() {
       if (this.readyState === 4) {
-        if (this.status === 200) {
+        if (this.status === 200 || this.status == 304) {
           resolve(this.response);
         } else {
           reject(new Error(this.statusText));
         }
       }
     };
-    xhr.send();
+    if (headers['Content-Type'] === 'application/json') {
+      data = JSON.stringify(data);
+    }
+    xhr.send(data);
   });
 };
-getJSON("/posts.json").then(
+
+ajax("GET", "/gets.json").then(
+  json => console.log(json)
+).catch(
+  e => console.error(e)
+);
+
+ajax("POST", "/posts.json", { id: 1 }).then(
   json => console.log(json)
 ).catch(
   e => console.error(e)

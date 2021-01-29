@@ -1,0 +1,37 @@
+<html>
+<title>test</title>
+<style>
+.cols {
+  height: 400px;
+  margin: 20px 0;
+  column-gap: 30px;
+  column-fill: auto;
+  column-count: 2;
+}
+.cols > div {
+  color: white;
+}
+</style>
+<body>
+<script>
+function getCols() {
+  var cols = document.createElement('div')
+  cols.classList.add('cols')
+  document.body.appendChild(cols)
+  return cols
+}
+var cols = getCols()
+for (var i = 0; i < 100; ++i) {
+  var div = document.createElement('div')
+  div.innerText = i + ''
+  div.style.background = `rgb(${i*2},${i*2},${i*2})`
+  cols.appendChild(div)
+  console.log(i, cols.scrollWidth, cols.clientWidth)
+  if (cols.scrollWidth > cols.clientWidth) {
+    cols = getCols()
+    cols.appendChild(div)
+  }
+}
+</script>
+</body>
+</html>

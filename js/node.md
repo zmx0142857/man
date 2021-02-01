@@ -11,6 +11,11 @@
     $ npm config get registry
 
     $ npm init -y # 初始化项目，生成 package.json
+    # 增加 private 并移除 main 入口, 避免意外发布代码
+    ----package.json------
+    +   "private": true,
+    -   "main": "index.js"
+    ----------------------
 
     $ npm i[nstall] package # 安装 npm 依赖到当前目录的 node_modules/ 中
       # -g          全局安装, 而不是装到当前目录
@@ -280,6 +285,9 @@ babel.config.js
 * PrettyJS: 代码格式化
 * pm2: 后台进程管理
 * zepto: mini jquery
+* three.js: 基于 WebGL 的 3D 库
+* movy: 基于 three.js 的动画引擎
+* sphinx: 可搜索的文档框架
 
 ### css 框架
 

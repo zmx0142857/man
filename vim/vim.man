@@ -23,7 +23,7 @@ Launch vim and run :PlugInstall
 $ git clone https://github.com/VundleVim/Vundle.vim.git \
   ~/.vim/bundle/Vundle.vim
 
-Then edit ~/.vim/vimrc and put something at the top. 
+Then edit ~/.vim/vimrc and put something at the top.
 (Visit https://github.com/VundleVim/Vundle.vim for details.)
 
 Launch vim and run :PluginInstall

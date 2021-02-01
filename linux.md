@@ -6,6 +6,18 @@ edit apt sources
 	apt edit-sources
 	一定要选择和自己的发行版对应的源
 
+pacman - package manager for arch
+
+    使用 archlinuxcn 镜像
+
+    ----/etc/pacman.conf-------------------------------------------
+    [archlinuxcn]
+    Server = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch
+    ---------------------------------------------------------------
+
+    $ sudo pacman -Sy archlinuxcn-keyring
+    $ sudo pacman -Sy
+
 pip - install python third party lib
 
 	$ pip3 install -i https://pypi.doubanio.com/simple/ <package-name>
@@ -148,10 +160,12 @@ ftp
 	$ sudo apt install vsftpd
 	$ sudo service vsftpd start
 
+mtp - gvfs-mtp
+
 ----text-edit----
 
 fbterm - draw Chinese characters under terminal
-	
+
 	add yourself to video group:
 
 	$ sudo gpasswd -a <username> video
@@ -168,7 +182,7 @@ yong - input method for Chinese under fbterm
 
 xelatex - beautifully output pdf for math formulas and documents
 
-	install necessary packages:
+	(ubuntu) install necessary packages:
 
 	$ sudo apt install texlive-xetex
 	$ sudo apt install texlive-lang-chinese
@@ -177,10 +191,26 @@ xelatex - beautifully output pdf for math formulas and documents
 
 	$ sudo apt install texlive-full
 
+    (arch) $ sudo pacman -S texlive-core texlive-langchinese
+
+    ----tmp.tex--------------
+    \documentclass{ctexart}
+    \setCJKmainfont{SimSun}
+    \begin{document}
+    test 中文宏包测试 ok
+    \end{document}
+    ------------------------
+
+    $ xelatex tmp.tex
+
+    tllocalmgr 是 archlinux 提供的 texlive 包管理器, 用于取代 tlmgr
+
 fc-list - list font files in system
 
 	$ fc-list :lang=zh
 	$ fc-list LatinModernMath
+
+fc-cache - refresh font
 
 awk - column editing language
 
@@ -343,3 +373,23 @@ get system info
 	$ getconf LONG_BIT
 	$ uname -a
 	$ lsb_release -a
+
+linux mime workaround for markdown
+
+`~/local/share/mime/packages/text-markdown.xml`
+```
+<?xml version="1.0"?>
+<mime-info xmlns='http://www.freedesktop.org/standards/shared-mime-info'>
+  <mime-type type="text/plain">
+    <glob pattern="*.md"/>
+    <glob pattern="*.mkd"/>
+    <glob pattern="*.mkdn"/>
+    <glob pattern="*.mdwn"/>
+    <glob pattern="*.mdown"/>
+    <glob pattern="*.markdown"/>
+  </mime-type>
+</mime-info> 
+```
+
+    $ update-mime-database ~/.local/share/mime
+

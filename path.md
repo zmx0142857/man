@@ -31,6 +31,9 @@ tex
     /usr/share/texlive/
     /usr/share/texmf/
 
+archlinux texlive packages
+    /var/lib/texmf/arch/installedpkgs
+
 trash
     ~/.local/share/Trash/files/
 

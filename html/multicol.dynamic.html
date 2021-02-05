@@ -30,39 +30,42 @@
 </div>
 <script>
 // init
-var pageCount = 1, pageHeight = 400, totalHeight = pageHeight, colCount = 1, prevTop = 0
+var pageCount = 1, pageHeight = 400, totalHeight = pageHeight, limit = 3 * pageHeight
 cols.style.height = pageHeight
-for (var i = 0; i < 200; ++i) {
+for (var i = 0; i < 15; ++i) {
   var div = document.createElement('div')
   div.innerText = i + ''
-  div.style.background = `rgb(${255-i},${180},${i})`
-  div.style.height = Math.random() * 40 + 20 + 'px'
+  var bg = `rgb(${Math.floor(Math.random()*255)},${180},${Math.floor(Math.random()*255)})`
+  div.style.background = bg
+  div.style.height = Math.random() * 600 + 20 + 'px'
   cols.appendChild(div)
 }
 
 // pagebreak
-var blocks = document.querySelectorAll('.cols > div')
-for (var block of blocks) {
-  if (block.offsetTop < prevTop) {
-    ++colCount
-    if (colCount > 3) {
-      var rule = document.createElement('div')
-      rule.classList.add('rule')
-      rule.style.top = totalHeight + 60 + 'px'
-      cols.appendChild(rule)
-      var colspan = document.createElement('div')
-      colspan.classList.add('colspan')
-      cols.insertBefore(colspan, block)
-      totalHeight += pageHeight
-      cols.style.height = totalHeight + 'px'
-      ++pageCount
-      colCount = 1
-      prevTop = 0
-    }
+var nodes = document.querySelectorAll('.cols > div')
+var height = 0
+for (var node of nodes) {
+  if (height + node.offsetHeight > limit) {
+    var padding = document.createElement('div')
+    padding.classList.add('padding')
+    console.log(limit - height + 'px')
+    padding.style.height = limit - height + 'px'
+    cols.insertBefore(padding, node)
+    var rule = document.createElement('div')
+    rule.classList.add('rule')
+    rule.style.top = totalHeight + 60 + 'px'
+    cols.appendChild(rule)
+    var colspan = document.createElement('div')
+    colspan.classList.add('colspan')
+    cols.insertBefore(colspan, node)
+    totalHeight += pageHeight + 30
+    cols.style.height = totalHeight + 'px'
+    ++pageCount
+    height = 0
   }
-  prevTop = block.offsetTop
+  height += node.offsetHeight
 }
-console.log(`${pageCount} pages, ${3*(pageCount-1) + colCount} columns`)
+console.log(`${pageCount} pages`)
 </script>
 </body>
 </html>

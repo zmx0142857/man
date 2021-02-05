@@ -60,7 +60,7 @@ words
     /usr/share/dict/words
 
 edge extensions
-    %APPDATA%\Local\Microsoft\Edge\User Data\Default\extensions
+    %USERPROFILE%\AppData\Local\Microsoft\Edge\User Data\Default\extensions
 
 windows terminal settings
-    %APPDATA%\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json
+    %USERPROFILE%\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json

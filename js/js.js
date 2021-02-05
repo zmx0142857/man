@@ -1077,3 +1077,13 @@ drawStar(ctx, 50);
 
 // cookie
 document.cookie.split('; ').map(pair => pair.split('=', 2))
+
+// save to file
+console.save = function(filename, str) {
+  var a = window.document.createElement("a");
+  a.download = filename;
+  a.href = window.URL.createObjectURL(new Blob([str]));
+  window.document.body.appendChild(a);
+  linkTag.click();
+  window.document.body.removeChild(a);
+}

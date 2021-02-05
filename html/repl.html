@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>REPL</title>
+<style>
+html {
+  margin: 0;
+  height: 100%;
+}
+body {
+  margin: 0;
+  background-color: aliceblue;
+  padding: 0.4em;
+  font-family: consolas, monospace;
+  font-size: 14px;
+  line-height: 1.5em;
+}
+body.closed::before {
+  content: 'disconnected';
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 300px;
+  height: 80px;
+  line-height: 80px;
+  text-align: center;
+
+  background: rgba(0,0,0,0.5);
+  color: #fff;
+  font-size: 20px;
+}
+.output {
+  margin: 0;
+  color: #555;
+}
+.input {
+  margin: 0 0 0 1em;
+  height: 1.5em;
+  outline: none;
+  position: relative;
+}
+.input::before {
+  content: '>';
+  user-select: none;
+  position: absolute;
+  left: -1em;
+}
+</style>
+</head>
+<body class="closed">
+
+<script>
+(function () {
+
+function $(str) {
+  if (str[0] === '#') {
+    return document.getElementById(str.slice(1));
+  } else if (str[0] === '<') {
+    return document.createElement(str.slice(1, -1));
+  }
+}
+
+var input;
+var history = [];
+var hislen = 0
+function addInput() {
+  input = $('<pre>');
+  input.classList.add('input');
+  input.setAttribute('contenteditable', true);
+  document.body.appendChild(input);
+  input.focus();
+  input.onkeydown = function (e) {
+    if (e.keyCode === 13) { // enter
+      var msg = input.innerText;
+      history[hislen] = msg;
+      ++hislen;
+      ws.send(msg);
+      e.preventDefault();
+    } else if (e.keyCode === 38) { // up
+      if (hislen > 0) input.innerText = history[--hislen]
+      e.preventDefault();
+    } else if (e.keyCode === 40) { // down
+      if (hislen < history.length) input.innerText = history[++hislen] || ''
+      e.preventDefault();
+    }
+  }
+}
+
+var ws = new WebSocket('ws://localhost/')
+ws.addEventListener('open', function (e) {
+  document.body.classList.remove('closed');
+});
+
+ws.addEventListener('message', function (e) {
+  input.blur();
+  input.removeAttribute('contenteditable');
+  if (!input.innerText) {
+    document.body.removeChild(input);
+  }
+  var output = $('<pre>');
+  output.classList.add('output');
+  output.innerText = e.data;
+  document.body.appendChild(output);
+  addInput();
+});
+ws.addEventListener('close', function (e) {
+  document.body.classList.add('closed');
+});
+addInput();
+
+})();
+</script>
+</body>
+</html>

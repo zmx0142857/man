@@ -280,6 +280,7 @@ babel.config.js
 * PrettyJS: 代码格式化
 * pm2: 后台进程管理
 * zepto: mini jquery
+* nano: 专注 svg 压缩
 
 ### css 框架
 

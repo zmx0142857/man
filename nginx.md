@@ -1,8 +1,29 @@
 install
-	
+
 	$ sudo apt install nginx-core
 
-config
+config - 1
+
+    ----/etc/nginx.custom.conf--------
+    server {
+        server_name localhost;
+        listen 80;
+        root /home/your-name/your-path;
+        index index.html;
+    }
+    -----------------------------------
+
+    ----/etc/nginx.conf----------------
+    user your-name;
+    ...
+    include nginx.custom.conf;
+    -----------------------------------
+
+    $ sudo systemctl start nginx # start nginx
+    $ sudo systemctl enable nginx # auto start nginx after system boot
+    $ sudo nginx -s reload # restart nginx
+
+config - 2
 
 	suppose you have an index at local directory: .../some-dir/index.html
 

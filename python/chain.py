@@ -124,6 +124,10 @@ class chain(object):
     def __repr__(self):
         return 'chain<%s>' % self.val.__repr__()
 
+# 复合函数
+compositeTwo = lambda f, g: lambda x: f(g(x))
+composite = lambda *L: functools.reduce(compositeTwo, L)
+
 if __name__ == '__main__':
     import doctest
     doctest.testmod()

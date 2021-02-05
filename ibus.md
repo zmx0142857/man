@@ -91,3 +91,14 @@ ibus - input method framework under gnome
       - name: ascii_punct
         states: ["。，", "．，"]
     ------------------------------------------------------
+
+ibus - archlinux
+    https://wiki.archlinux.org/index.php/IBus_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)
+    $ sudo pacman -S ibus ibus-rime rime-wubi
+    $ ibus-setup
+    ----~/.xprofile-------------
+    export GTK_IM_MODULE=ibus
+    export QT_IM_MODULE=ibus
+    export XMOODIFIERS="@im=ibus"
+    ibus-daemon -x -d
+    ----------------------------

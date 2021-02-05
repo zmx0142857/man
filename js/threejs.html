@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>My first three.js app</title>
+  <style>
+    body { margin: 0; }
+    canvas { width: 100%; height: 100% }
+  </style>
+</head>
+<body>
+<script src="https://threejs.org/build/three.js"></script>
+<script>
+var width = window.innerWidth, height = window.innerHeight
+// 场景
+var scene = new THREE.Scene()
+// 透视相机
+var camera = new THREE.PerspectiveCamera(
+  75,             // 视角大小 FOV
+  width / height, // 宽高比 aspect ratio
+  0.1, 1000       // 景物的远近范围
+)
+camera.position.z = 5 // 设置相机坐标
+// 渲染器
+var renderer = new THREE.WebGLRenderer()
+renderer.setSize(width, height)
+document.body.appendChild(renderer.domElement)
+
+// 绘制图形
+var geometry = new THREE.BoxGeometry(1, 1, 1) // 长方体
+var material = new THREE.MeshBasicMaterial({ color: 0xccddee }) // 材质
+var cube = new THREE.Mesh(geometry, material) // 网格
+scene.add(cube) // 添加对象到原点
+
+// 动画循环
+function animate() {
+  requestAnimationFrame(animate)
+  cube.rotation.x += 0.01
+  cube.rotation.y += 0.01
+  renderer.render(scene, camera)
+}
+animate()
+</script>
+</body>
+</html>

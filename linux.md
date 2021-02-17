@@ -1,4 +1,4 @@
-----download----
+## download
 
 edit apt sources
 
@@ -30,7 +30,7 @@ aria2c - fast downloader
 
 	$ aria2c -s 10 http://...
 
-----desktop----
+## desktop
 
 customize user folder
 
@@ -51,7 +51,7 @@ settings
 
 	$ sudo apt install ubuntu-desktop
 
-----shell----
+## shell
 
 set local host name
 
@@ -162,7 +162,11 @@ ftp
 
 mtp - gvfs-mtp
 
-----text-edit----
+manpage
+
+    $ sudo pacman -S man-pages
+
+## text-edit
 
 fbterm - draw Chinese characters under terminal
 
@@ -222,7 +226,7 @@ uniq - remove repeated lines
 
 tee - print to stdout and a file
 
-----file-and-media----
+## file-and-media
 
 feh - look at picture
 
@@ -268,7 +272,7 @@ ldd - find dependence of a executable file
 iconv - convertion between encodings
 
 sha256sum - calculate hash
-	
+
 vlc, mpv, totem - video player
 
 pdfunite - merge pdf files
@@ -286,7 +290,7 @@ timidity - play midi file
 
 pavucontrol - deal with sound problem
 
-----network----
+## network
 
 ifconfig - network info
 
@@ -335,7 +339,7 @@ sudo unable to resolve host
 	 127.0.0.1	localhost username
 	 -----------------------------
 
-----system----
+## system
 
 acpi - power manager for laptop
 
@@ -363,6 +367,7 @@ ps - see what programs are running under current user
 df - check filesystems
 
 	-T		show filesystem type and used percentage and so on
+    -h      show human-readable sizes
 
 lsof - view resource occupation status
 
@@ -373,6 +378,7 @@ get system info
 	$ getconf LONG_BIT
 	$ uname -a
 	$ lsb_release -a
+    $ lspci # show hardware
 
 linux mime workaround for markdown
 
@@ -388,8 +394,19 @@ linux mime workaround for markdown
     <glob pattern="*.mdown"/>
     <glob pattern="*.markdown"/>
   </mime-type>
-</mime-info> 
+</mime-info>
 ```
 
     $ update-mime-database ~/.local/share/mime
 
+how to install windows on a computer with linux installed
+
+1. 备份你的重要数据; 保险起见, 备份 EFI 分区 (用 root 用户挂载 EFI
+   分区并拷贝).
+1. 使用 rufus 制作 win 启动盘 (dd 命令只能用于制作 linux 启动盘).
+1. 在磁盘上开辟一块 ntfs 分区 (可用 linux 下的 cfdisk 工具).
+1. 使用启动盘在该分区安装 win.
+1. win 安装完毕后, 在控制面板关闭快速启动.
+1. 用管理员 cmd 挂载 EFI, 将 {bootmgr} 指向 grub
+1. 重启进入 bios, 调整 grub 到第一位.
+1. 进入 linux 系统, yay -S update-grub 然后 sudo update-grub

@@ -10,6 +10,9 @@
     $ sudo npm config set registry https://registry.npm.taobao.org -g # 镜像加速
     $ npm config get registry
 
+    $ sudo npm config set disturl https://npm.taobao.org/mirrors/node -g
+    $ sudo npm config set ELECTRON_MIRROR https://npm.taobao.org/mirrors/electron/ -g
+
     $ npm init -y # 初始化项目，生成 package.json
     # 增加 private 并移除 main 入口, 避免意外发布代码
     ----package.json------
@@ -261,6 +264,18 @@ babel.config.js
         ],
         ...prodPlugins
       ]
+    }
+
+## electron
+
+    $ npm install electron -g # 安装
+    $ electron . # 运行
+    $ npx @electron-forge/cli import # 导入 electron-forge
+    $ npm run make # 打包
+
+    webPreferences: {
+      nodeIntegration: true, // require
+      enableRemoteModule: true // electron.remote
     }
 
 ## 前端框架哪家强？

@@ -8,6 +8,7 @@
 
     * 在商店下载最新的 windows terminal
     * 在镜像下载 git for windows >= v2.29.2. 低版本的 git 套装中 vim 有问题
+      最新: 使用包管理器 chocolatey 或 scoop 下载 git, vim 等即可.
     * 从菜单打开 windows terminal 配置, 或找到文件
       `%APPDATA%\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json`,
       将 git 安装目录中的 bash 添加为一个 profile
@@ -35,6 +36,9 @@
     试试看：新建一个名为 ~ 的用户变量，值为 %USERPROFILE%，
     然后打开资源管理器，在地址栏输入 %~% 并回车。
     一切正常的话，你将跳转到家目录。
+
+    powershell 自带 refreshenv 命令, cmd 中的解决方案则是:
+    安装 chocolatey, 就可以使用 C:/ProgramData/chocolatey/bin/RefreshEnv.cmd 
 
 系统配置
 

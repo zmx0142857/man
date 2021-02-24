@@ -67,3 +67,6 @@ edge extensions
 
 windows terminal settings
     %USERPROFILE%\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json
+
+desktop applications
+    /usr/share/applications

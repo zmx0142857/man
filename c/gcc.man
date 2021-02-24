@@ -16,6 +16,11 @@ gcc - build
 
 	-Idir	# specify directory to .h file
 
+    charset
+
+    -finput-charset=utf-8
+    -fexec-charset=utf-8
+
 make library
 
 	$ ar rs libstack.a *.o # archive library, r=replace exist, s=static

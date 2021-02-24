@@ -5,7 +5,8 @@ install
 mirror
 
     maven 会将依赖的 jar 包放在 ~/.m2/repository 目录下
-    配置镜像可以加速依赖的下载
+    配置镜像可以加速依赖的下载. 先将全局配置 /opt/maven/conf/settings.xml
+    复制一份到 ~/.m2, 配置如下:
 
     ----~/.m2/settings.xml---------------------------------
     <mirrors>
@@ -17,6 +18,12 @@ mirror
         </mirror>
     </mirrors>
     --------------------------------------------------------
+
+    顺藤摸瓜: 如果你找不到全局配置, 可以尝试 echo $M2_HOME 或者 which mvn
+    然后 ls -l /usr/bin/mvn
+
+    spring-boot-dependencies 位置:
+    ~/.m2/repository/org/springframework/boot/spring-boot-dependencies/2.4.3/spring-boot-dependencies-2.4.3.pom
 
 config
 

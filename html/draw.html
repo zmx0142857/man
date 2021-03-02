@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Draw</title>
+<style>
+html, body {
+  height: 100%;
+  overflow: hidden;
+  background: #eee;
+}
+#main {
+  background: white;
+  box-shadow: 5px 5px 10px grey;
+}
+#draw {
+  background: transparent;
+}
+canvas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #222;
+  color: white;
+  height: 40px;
+  line-height: 40px;
+}
+nav > div {
+  display: inline-block;
+}
+.menus {
+  float: right;
+}
+button {
+  border-radius: 6px;
+  color: white;
+  background: #444;
+  border: none;
+  padding: 5px 10px;
+  line-height: 20px;
+}
+.tools > div {
+  display: inline-block;
+  padding: 0 5px;
+}
+.tools > div.active {
+  background: #444;
+}
+</style>
+</head>
+<body>
+  <canvas id="main" width="600" height="400"></canvas>
+  <canvas id="draw" width="600" height="400"></canvas>
+  <nav>
+    <div class="tools">
+      <div>rect</div>
+      <div>line</div>
+    </div>
+    <div class="menus">
+      <button onclick="save()">save</button>
+    </div>
+  </nav>
+<script>
+var main = document.getElementById('main');
+var mainCtx = main.getContext('2d');
+var draw = document.getElementById('draw');
+var ctx = draw.getContext('2d');
+var offsetLeft = draw.offsetLeft - draw.width / 2;
+var offsetTop = draw.offsetTop - draw.height / 2;
+
+mainCtx.strokeLine = ctx.strokeLine = function(x0, y0, x, y) {
+  this.beginPath();
+	this.moveTo(x0, y0);
+	this.lineTo(x, y);
+	this.stroke();
+}
+
+function between(x, a, b) {
+  if (x < a)
+    x = a;
+  else if (x > b)
+    x = b;
+  return x;
+}
+
+function randColor() {
+  return 'rgb(' +
+    [1, 1, 1].map(x => Math.ceil(Math.random() * 256)).join(',')
+  + ')';
+}
+
+function drawByDrag(method, getArgs) {
+  var args;
+  getArgs = getArgs || ((x0, y0, x, y) => [x0, y0, x, y]);
+  return function(e) {
+    ctx.fillStyle = randColor();
+    ctx.strokeStyle = randColor();
+    var e = e || window.event;
+    var x0 = e.clientX - offsetLeft;
+    var y0 = e.clientY - offsetTop;
+    document.onmousemove = function(e) {
+      var e = e || window.event;
+      var x = between(e.clientX - offsetLeft, 0, draw.width);
+      var y = between(e.clientY - offsetTop, 0, draw.height);
+      ctx.clearRect(0, 0, draw.width, draw.height);
+      args = getArgs(x0, y0, x, y);
+      ctx[method](...args);
+    }
+    document.onmouseup = function() {
+      this.onmouseup = null;
+      this.onmousemove = null;
+      if (args) {
+        mainCtx.fillStyle = ctx.fillStyle;
+        mainCtx.strokeStyle = ctx.strokeStyle;
+        mainCtx[method](...args);
+      }
+    }
+  }
+}
+
+var drawRect = drawByDrag('fillRect', (x0, y0, x, y) => [
+  Math.min(x0, x),
+  Math.min(y0, y),
+  Math.abs(x-x0),
+  Math.abs(y-y0)
+]);
+
+var drawLine = drawByDrag('strokeLine');
+
+function save() {
+  var a = document.createElement('a');
+  a.download = 'untitled.png';
+  a.href = main.toDataURL();
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
+
+// manage tools
+var tools = document.querySelectorAll('.tools > div');
+var toolFuncs = [ drawRect, drawLine ];
+var tool;
+function useTool(i) {
+  tool = i;
+  tools[i].classList.add('active');
+  draw.onmousedown = toolFuncs[i];
+}
+tools.forEach((el, i) => {
+  el.onclick = () => {
+    if (tool !== i) {
+      tools[tool].classList.remove('active');
+      useTool(i);
+    }
+  }
+})
+useTool(0);
+</script>
+</body>
+</html>

@@ -162,6 +162,8 @@ ftp
 
 mtp - gvfs-mtp
 
+rdesktop - remote desktop control
+
 manpage
 
     $ sudo pacman -S man-pages

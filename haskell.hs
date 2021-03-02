@@ -1,4 +1,8 @@
-$ ghci
+-- run
+$ ghci # interactive commandline
+$ ghc --make -dynamic main.hs # build
+$ ghci main.hs # then type the function name to run
+$ runhaskell # run directly
 
 -- import
 import Data.List
@@ -7,7 +11,7 @@ import Data.Function
 
 Prelude> :?  -- help
 Prelude> :bro -- browse functions
-Prelude> :l myfunc -- load function
+Prelude> :l myfile -- load myfile.hs
 Prelude> :t variable -- type inference
 Prelude> :{ -- multilines
 Prelude> :} -- end multilines
@@ -182,7 +186,7 @@ putStrLn "hello"
 -- add numbers
 add a b = a + b
 main = do
-    a <- readLn
+    a <- readLn -- type is automatically determined
     b <- readLn
     let sum = add a b
     print sum
@@ -196,7 +200,20 @@ hello n = do
     putStrLn "Hello World"
     hello (n-1)
 
+-- reverse line
+main = do
+    line <- getLine
+    putStrLn $ reverse line
+
 --- taylor expansion of exp function
 coef = map (\x -> 1/x) $ scanl1 (*) [1..9]
 poly x = foldr1 (\b a -> a*x + b)
 myexp x = poly x (1:coef)
+
+-- filter lines with length <10
+main = interact $ unlines . filter ((<10) . length) . lines 
+
+-- is palindrome
+main = interactLine isPalindrome
+interactLine func = interact $ unlines . map func . lines
+isPalindrome s = if reverse s == s then "yeah" else "nope"

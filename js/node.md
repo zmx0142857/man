@@ -330,9 +330,26 @@ babel.config.js
 * nuxt.js (vue)
 * next.js (react)
 
-## 状态管理框架
+### 状态管理框架
 
 * vuex (vue)
 * flux (flutter)
 * redux (react)
 
+### 打包工具
+
+* webpack
+* gulp
+* browserfy
+
+###  编译与格式化
+
+* babel
+* typescript
+* uglify # 代码压行, 减小体积
+* pretty-js # 提高代码可读性
+
+## 热替换
+
+* webpack-dev-server
+* watchify # 和 gulp 一起用

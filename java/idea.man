@@ -1,5 +1,0 @@
-ctrl-alt-L 整理代码格式
-
-settings
-
-    Malformed content of <script> tag # 默认为 error, 可以调整为 warning

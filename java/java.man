@@ -77,11 +77,17 @@ props.getProperty("file", "default_value");
 // 按sequence去除重复消息
 static List<Message> process(List<Message> received) {
     List<Message> copyList = new ArrayList<>();
+    Set<Message> set = new TreeSet<>((Message m1, Message m2) -> {
+        return m1.sequence - m2.sequence;
+    });
+    /* 相当于
     Set<Message> set = new TreeSet<>(new Comparator<Message>() {
+        @Override
         public int compare(Message m1, Message m2) {
             return m1.sequence - m2.sequence;
         }
     });
+    */
     for (Message m : received) {
         if (set.add(m)) {
             copyList.add(m);

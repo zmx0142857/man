@@ -15,15 +15,19 @@ body {
 }
 
 nav {
+  padding: 0 3px;
   background: #222;
   color: white;
   height: 40px;
   line-height: 40px;
+  border-bottom: 3px solid #222;
+  z-index: 10;
 }
 nav > div {
   display: inline-block;
+  cursor: pointer;
 }
-.menus {
+.buttons {
   float: right;
 }
 button {
@@ -33,13 +37,44 @@ button {
   border: none;
   padding: 5px 10px;
   line-height: 20px;
+  cursor: pointer;
+}
+button:hover {
+  background: #666;
 }
 .tools > div {
   display: inline-block;
   padding: 0 5px;
+  cursor: pointer;
 }
 .tools > div.active {
-  background: #444;
+  color: #29f;
+  border-bottom: 3px solid #29f;
+}
+.dropdown {
+  display: none;
+  position: absolute;
+  transform: translate(-5px,3px);
+  list-style-type: none;
+  margin: 0;
+  padding: 10px;
+  background: #222;
+  color: #fff;
+}
+.dropdown > li {
+  line-height: 1.5em;
+}
+/*
+.dropdown > li:hover {
+  color: #29f;
+}*/
+.tools > div.active > .dropdown {
+  display: block;
+  opacity: 0;
+}
+.tools > div.active:hover > .dropdown {
+  opacity: 1;
+  transition: .3s opacity ease;
 }
 
 .container {
@@ -65,10 +100,55 @@ canvas#draw {
 <body>
   <nav>
     <div class="tools">
-      <div>rect</div>
-      <div>line</div>
+      <div>
+        rect
+        <ul class="dropdown">
+          <li>
+            <label>
+              color
+              <input type="text" value="#def">
+            </label>
+          </li>
+        </ul>
+      </div>
+      <div>
+        line
+        <ul class="dropdown">
+          <li>
+            <label>
+              width<input type="range" value="1" min="1" max="50">
+            </label>
+          </li>
+          <li>
+            <label>
+              color
+              <input type="text" value="#def">
+            </label>
+          </li>
+        </ul>
+      </div>
+      <div>
+        brush
+        <ul class="dropdown">
+          <li>
+            <label>
+              width<input type="range" value="1" min="1" max="50">
+            </label>
+          </li>
+          <li>
+            <label>
+              color
+              <input type="text" value="#def">
+            </label>
+          </li>
+          <li>stroke
+            <label><input name="input-stroke" type="radio">/</label>
+            <label><input name="input-stroke" type="radio">@</label>
+          </li>
+        </ul>
+      </div>
     </div>
-    <div class="menus">
+    <div class="buttons">
       <button onclick="save()">save</button>
     </div>
   </nav>
@@ -105,19 +185,25 @@ function randColor() {
   + ')';
 }
 
+function getOffsetLeft() {
+  return draw.offsetLeft - draw.width / 2 - container.scrollLeft;
+}
+
+function getOffsetTop() {
+  return draw.offsetTop + 40 - container.scrollTop;
+}
+
 function drawByDrag(method, getArgs) {
   var args;
   getArgs = getArgs || ((x0, y0, x, y) => [x0, y0, x, y]);
   return function(e) {
     ctx.fillStyle = randColor();
     ctx.strokeStyle = randColor();
-    var e = e || window.event;
-    var offsetLeft = draw.offsetLeft - draw.width / 2 - container.scrollLeft;
-    var offsetTop = draw.offsetTop + 40 - container.scrollTop;
+    var offsetLeft = getOffsetLeft();
+    var offsetTop = getOffsetTop();
     var x0 = e.clientX - offsetLeft;
     var y0 = e.clientY - offsetTop;
     document.onmousemove = function(e) {
-      var e = e || window.event;
       var x = between(e.clientX - offsetLeft, 0, draw.width);
       var y = between(e.clientY - offsetTop, 0, draw.height);
       ctx.clearRect(0, 0, draw.width, draw.height);
@@ -133,6 +219,28 @@ function drawByDrag(method, getArgs) {
         mainCtx[method](...args);
       }
     }
+  }
+}
+
+function drawBrush(e) {
+  mainCtx.strokeStyle = randColor();
+  mainCtx.lineWidth = 30;
+  var offsetLeft = getOffsetLeft();
+  var offsetTop = getOffsetTop();
+  var x0 = e.clientX - offsetLeft;
+  var y0 = e.clientY - offsetTop;
+  mainCtx.beginPath();
+  mainCtx.moveTo(x0, y0);
+  document.onmousemove = function(e) {
+    var x = e.clientX - offsetLeft;
+    var y = e.clientY - offsetTop;
+    mainCtx.lineTo(x, y);
+    mainCtx.stroke();
+  }
+  document.onmouseup = function() {
+    mainCtx.closePath();
+    this.onmouseup = null;
+    this.onmousemove = null;
   }
 }
 
@@ -156,7 +264,7 @@ function save() {
 
 // manage tools
 var tools = document.querySelectorAll('.tools > div');
-var toolFuncs = [ drawRect, drawLine ];
+var toolFuncs = [ drawRect, drawLine, drawBrush ];
 var tool;
 function useTool(i) {
   tool = i;

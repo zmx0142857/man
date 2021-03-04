@@ -564,45 +564,45 @@ tuple(Iterable) -> tuple
 
 ## 类
 #   class Animal(object):
-#   
+#
 #       def __init__(self, name, age):
 #           self.name = name
 #           self.age = age
-#   
+#
 #       def get_name(self):
 #           return self.name
-#   
+#
 #       def get_age(self):
 #           return self.age
-#   
+#
 #       def set_name(self, name):
 #           self.name = name
-#   
+#
 #       def set_age(self, age):
 #           self.age = age
-#   
+#
 #       def acting(self):
 #           print('%d-year-old animal %s is running.' % (self.age, self.name))
-#   
+#
 #   # cpython 会把 __xx 替换成 _classname__xx, 所以如果把 name 和 age 换成私有属性, 则所有与这两个属性相关的方法的继承都会失效:
 #   # AttributeError: 'Pig' object has no attribute '_Animal__name'
-#   
+#
 #   class Pig(Animal):
-#   
+#
 #       def acting(self):
 #           print('%d-year-old pig %s is eating.' % (self.age, self.name))
-#   
+#
 #   class Spider(Animal):
-#   
+#
 #       def acting(self):
 #           print('%d-year_old spider %s is weaving.' % (self.age, self.name))
-#   
+#
 #   wibur = Pig('Wibur', 1)
 #   wibur.weight = 120 # 赋予对象特有属性
 #   print('\nname = %s, age = %d, weight = %d' % (wibur.get_name(), wibur.get_age(), wibur.weight))
 #   wibur.acting()
 #   print('wibur\'s attributes & methods:', dir(wibur))
-#   
+#
 #   charlotte = Spider('Charlotte', 2)
 #   charlotte.legs = 8 # 特有属性
 #   print('\nname = %s, age = %d, legs = %d' % (charlotte.get_name(), charlotte.get_age(), charlotte.legs))
@@ -616,7 +616,7 @@ tuple(Iterable) -> tuple
 #   from types import MethodType
 #   def new_method(self):
 #       pass
-#  
+#
 #   object.new_method = MethodType(new_method, object)
 
 ## 为一个类绑定新方法
@@ -674,7 +674,7 @@ fp = open('filename', 'mode')
 
 # mode:
 #   r       read
-#   w       write   
+#   w       write
 #   a       append
 #   r+      read and write
 #   w+      read and write
@@ -785,3 +785,6 @@ base64.b64encode('中文'.encode('utf-8'))
 base64.b64decode(b'5Lit5paH').decode('utf-8')
 
 '\uFFFD\uFFFD'.encode('utf-8').decode('gbk') // '锟斤拷'
+
+import binascii
+十六进制数据 = binascii.b2a_hex(bytes数据)

@@ -273,6 +273,9 @@ each column is separated with a tab, each row is separated with a linebreak
 
 ### alter table -- add and drop columns
 
+    > alter table <table> add primary key(id); -- 主键
+    > alter table user modify column `id` bigint NOT NUll AUTO_INCREMENT -- 自增
+
     > alter table <table> add <attr> <type> [constraint];
     > alter table <table> add [table-level constraint];
     > alter table <table> alter <attr> <type>;

@@ -6,27 +6,15 @@
 <style>
 html, body {
   height: 100%;
-  overflow: hidden;
+}
+body {
+  display: flex;
+  flex-direction: column;
   background: #eee;
+  margin: 0;
 }
-#main {
-  background: white;
-  box-shadow: 5px 5px 10px grey;
-}
-#draw {
-  background: transparent;
-}
-canvas {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
+
 nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
   background: #222;
   color: white;
   height: 40px;
@@ -53,11 +41,28 @@ button {
 .tools > div.active {
   background: #444;
 }
+
+.container {
+  position: relative;
+  flex: auto;
+  overflow: auto;
+}
+canvas {
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+canvas#main {
+  background: white;
+  box-shadow: 5px 5px 10px grey;
+}
+canvas#draw {
+  background: transparent;
+}
 </style>
 </head>
 <body>
-  <canvas id="main" width="600" height="400"></canvas>
-  <canvas id="draw" width="600" height="400"></canvas>
   <nav>
     <div class="tools">
       <div>rect</div>
@@ -67,13 +72,17 @@ button {
       <button onclick="save()">save</button>
     </div>
   </nav>
+  <div class="container">
+    <canvas id="main" width="600" height="400"></canvas>
+    <canvas id="draw" width="600" height="400"></canvas>
+  </div>
 <script>
+var container = document.querySelector('.container');
 var main = document.getElementById('main');
 var mainCtx = main.getContext('2d');
 var draw = document.getElementById('draw');
 var ctx = draw.getContext('2d');
-var offsetLeft = draw.offsetLeft - draw.width / 2;
-var offsetTop = draw.offsetTop - draw.height / 2;
+var scale = 1;
 
 mainCtx.strokeLine = ctx.strokeLine = function(x0, y0, x, y) {
   this.beginPath();
@@ -103,6 +112,8 @@ function drawByDrag(method, getArgs) {
     ctx.fillStyle = randColor();
     ctx.strokeStyle = randColor();
     var e = e || window.event;
+    var offsetLeft = draw.offsetLeft - draw.width / 2 - container.scrollLeft;
+    var offsetTop = draw.offsetTop + 40 - container.scrollTop;
     var x0 = e.clientX - offsetLeft;
     var y0 = e.clientY - offsetTop;
     document.onmousemove = function(e) {

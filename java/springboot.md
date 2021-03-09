@@ -1,5 +1,9 @@
 # spring boot
 
+* 一个快速开发的脚手架
+* 基于 SpringBoot 可以快速开发单个微服务
+* 约定大于配置
+
 ## getting started
 
 ### 新建项目
@@ -60,9 +64,15 @@
     <artifactId>mybatis-plus-boot-starter</artifactId>
     <version>3.4.2</version>
 </dependency>
+<!-- redis -->
 <dependency>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-data-redis</artifactId>
+</dependency>
+<!-- actuator -->
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-actuator</artifactId>
 </dependency>
 
 <!-- 热替换（仮） -->
@@ -181,6 +191,12 @@ public class DemoController {
     server.port=8080
     spring.banner.localtion=classpath:banner.jpg # springboot 启动图标
     debug=true # 显示 bean 的装配过程
+
+    使用 application.properties 会造成中文乱码, 建议改为 application.yml
+    非要使用 .properties 文件的话, 起一个不同于默认的文件名,
+    如 my.properties, 然后在主类上注解:
+
+    @PropertySource(value = "classpath:my.properties",encoding = "UTF-8") // 防止 .properties 文件乱码
 
 ### 常用注解
 

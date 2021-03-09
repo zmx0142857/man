@@ -70,3 +70,6 @@ windows terminal settings
 
 desktop applications
     /usr/share/applications
+
+vscode on archlinux
+    /lib/code

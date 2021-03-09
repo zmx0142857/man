@@ -381,6 +381,7 @@ get system info
 	$ uname -a
 	$ lsb_release -a
     $ lspci # show hardware
+    $ screenfetch
 
 linux mime workaround for markdown
 

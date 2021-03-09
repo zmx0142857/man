@@ -7,6 +7,12 @@ install
 
     $ ./shutdown.sh
 
+archlinux:
+
+    $ sudo pacman -S tomcat9
+    $ cd /usr/share/tomcat9/bin
+    $ sudo ./startup.sh
+
 config
     $ mkdir -p <my-app-path>/ROOT
 

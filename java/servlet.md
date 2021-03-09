@@ -159,7 +159,7 @@ import java.io.IOException;
 
 public class HelloServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         // 1. 获取前端传参
         String action = req.getParameter("action");
         if ("add".equals(action)) {
@@ -169,12 +169,12 @@ public class HelloServlet extends HttpServlet {
         }
         // 2. 调用业务层 (service)
         // 3. 转发或重定向到视图
-        req.getRequestDispatcher("/WEB-INF/jsp/test.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/jsp/test.jsp").forward(req, res);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doGet(req, resp);
+    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        doGet(req, res);
     }
 }
 ```
@@ -194,24 +194,26 @@ public class HelloServlet extends HttpServlet {
 </html>
 ```
 
-## 典型的 servlet
+## doGet 方法示例
 
-`MyServlet.java`
+直接输出 (write)
 ```java
-public class MyServlet extends HttpServlet {
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String name = ParamUtils.getString(request,"name", "Fran");
-        int age = ParamUtils.getInt(request, "age", 0);
+req.setCharacterEncoding("UTF-8");
+String name = req.getParameter("name");
+String age = req.getParameter("age");
 
-        response.setCharacterEncoding("UTF-8");
-        response.setHeader("content-type","text/html;charset=UTF-8");
-        response.getWriter().write("Don't panic, " + name + "! You are " + age + " now.");
-    }
+res.setCharacterEncoding("UTF-8");
+res.setHeader("content-type", "text/html;charset=UTF-8");
+res.getWriter().write("Don't panic, " + name + "! You are " + age + " now."); // 或 getWriter().println()
+```
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        this.doPost(request, response);
-    }
-}
+重定向 (redirect), 将 url 返回给客户端, 让客户端再发一次请求
+```java
+res.sendRedirect("/index.jsp");
+```
+
+转发 (forward), 服务器内部跳转, 对客户端透明
+```java
+req.setAttribute("msg", "hello, world");
+req.getRequestDispatcher("/index.jsp").forward(req, res);
 ```

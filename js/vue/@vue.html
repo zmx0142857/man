@@ -1,0 +1,65 @@
+<title>vue 原理探究</title>
+<meta charset="utf-8"/>
+<div id="baseDom"></div>
+
+<!-- data binding -->
+<script>
+// 获取DOM字符串，这里简单拼成字符串
+function getDOMString(domObj) {
+  // 无效对象返回''
+  if (!domObj) return "";
+  const { type, children = [], nodeIndex, ele, value } = domObj;
+  if (type == "dom") {
+    // 若有子对象，递归返回生成的字符串拼接
+    let childString = "";
+    children.forEach(x => {
+      childString += getDOMString(x);
+    });
+    // dom对象，拼接生成对象字符串
+    return `<${ele} data-node-index="${nodeIndex}">${childString}</${ele}>`;
+  } else if (type == "text") {
+    // 若为textNode，返回text的值
+    return value;
+  }
+}
+
+// 假设这是一个生成 DOM 的过程，包括 innerHTML 和事件监听
+function generateDOM(astObject) {
+  const { dom, binding = [] } = astObject;
+  // 生成DOM，这里假装当前节点是baseDom
+  baseDom.innerHTML = getDOMString(dom);
+  // 对于数据绑定的，来进行监听更新吧
+  baseDom.addEventListener("data:change", ({name, value}) => {
+    console.log(name, '=', value);
+    // 寻找匹配的数据绑定
+    const obj = binding.find(x => x.valueName == name);
+    // 若找到值绑定的对应节点，则更新其值。
+    if (obj) {
+      baseDom.querySelector(`[data-node-index="${obj.nodeIndex}"]`).innerHTML = value;
+    }
+  });
+}
+
+let thisDiv = {
+  dom: {
+    type: "dom",
+    ele: "div",
+    nodeIndex: 0,
+    children: [{ type: "text", value: "" }]
+  },
+  binding: [{ type: "dom", nodeIndex: 0, valueName: "message" }]
+};
+
+let data = {
+  set message(val) {
+    var e = new Event("data:change");
+    e.name = 'message';
+    e.value = val;
+    baseDom.dispatchEvent(e);
+  }
+}
+
+generateDOM(thisDiv);
+data.message = '你好妈？';
+console.log(`试着输入: data.message = '我狠好'`);
+</script>

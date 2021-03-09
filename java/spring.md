@@ -19,6 +19,7 @@ Spring 是 Rod Johnson (计算机、音乐博士) 于 2004 年的春天 (啊哈!
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
 
     xsi:schemaLocation="
        http://www.springframework.org/schema/beans
@@ -29,6 +30,8 @@ Spring 是 Rod Johnson (计算机、音乐博士) 于 2004 年的春天 (啊哈!
        http://www.springframework.org/schema/tx/spring-tx.xsd
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd
 ">
     <context:annotation-config/>
 
@@ -532,16 +535,25 @@ public class FirstController implements Controller {
 package com.zmx.controller;
 
 @Controller // 注明这是一个控制器
+@RequestMapping("/second")
 public class SecondController {
     // 处理 get 请求, 也可以写全称:
-    // @RequestMapping(value = "/second", method = RequestMethod.GET)
-    @GetMapping("/second")
-    public String sayHello(ModelMap model) {
-        model.addAttribute("message", "Second Controller!");
+    // @RequestMapping(value = "/1", method = RequestMethod.GET)
+    @GetMapping("/1")
+    public String sayHello(Model model) { // 也可以用 ModelMap
+        model.addAttribute("message", "Second Controller (1)!");
+        return "index";
+    }
+
+    @GetMapping("/2")
+    public String sayHello2(Model model) {
+        model.addAttribute("message", "Second Controller (2)!");
         return "index";
     }
 }
 ```
+
+显然 `SecondController` 简单得多, 也是开发是常用的.
 
 在 <code id="web.xml">web.xml</code> 中配置一个 DispatcherServlet 代理我们的请求.
 
@@ -561,7 +573,7 @@ public class SecondController {
         <param-value>classpath:dispatcher-servlet.xml</param-value>
       </init-param>
       -->
-      <!-- 启动级别 1 -->
+      <!-- 启动优先级 1, 数字越小越优先 -->
       <load-on-startup>1</load-on-startup>
    </servlet>
 
@@ -571,6 +583,22 @@ public class SecondController {
       <servlet-name>dispatcher</servlet-name>
       <url-pattern>/</url-pattern>
    </servlet-mapping>
+
+    <!-- 配置过滤器, 防止乱码 -->
+    <filter>
+        <filter-name>encoding</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>utf-8</param-value>
+        </init-param>
+    </filter>
+
+    <!-- 只写 /* 匹配不到 /name, 必须写 / -->
+    <filter-mapping>
+        <filter-name>encoding</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 </web-app>
 ```
 
@@ -593,7 +621,7 @@ DispatcherServlet 关联到一个 spring beans 配置文件.
        http://www.springframework.org/schema/mvc
        http://www.springframework.org/schema/mvc/spring-mvc.xsd
 ">
-    <!-- 1, 2, 3 是 spring mvc 的核心三要素.  DispatcherServlet 会依次调用它们进行工作.  -->
+    <!-- 以下为 spring mvc 的核心三要素.  DispatcherServlet 会依次调用它们进行工作.  1. 2. 的配置都是可以省略的 -->
 
     <!-- 1. 处理器映射, 作用是根据 url 找到 handler (即, 由 /first 找到 FirstController) -->
     <!-- <bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/> -->
@@ -607,10 +635,10 @@ DispatcherServlet 关联到一个 spring beans 配置文件.
         <property name="suffix" value=".jsp"/>
     </bean>
 
-    <!-- 处理器 handler -->
-    <!-- <bean id="/first" class="com.zmx.controller.FirstController"/> -->
+    <!-- 方式一, 手动配置处理器 (handler) -->
+    <bean id="/first" class="com.zmx.controller.FirstController"/>
 
-    <!-- 包扫描, 用于找出 @Controller, @Service, @Component 等, 并自动添加到 spring 容器 -->
+    <!-- 方式二, 开启包扫描, 即可轻松找出 @Controller, @Service, @Component 等, 并自动添加到 spring 容器 -->
     <context:component-scan base-package="com.zmx" />
 
     <!-- 让 spring mvc 不处理静态资源 .css .js .html .jpg 等 -->
@@ -622,8 +650,34 @@ DispatcherServlet 关联到一个 spring beans 配置文件.
 </beans>
 ```
 
-启动应用, 访问 http://localhost:8080/hello . 可以尝试访问 /index.jsp, 这时
-message 值为空, 这是因为未经过 controller 传值.
+启动应用, 访问 http://localhost:8080/first 和 /second/1, /second/2.
+可以尝试访问 /index.jsp, 这时 message 值为空, 这是因为未经过 controller
+传值.
+
+#### Controller 方法
+
+Controller 中, 每个方法处理一个请求, 这些方法的参数与返回值的形式非常丰富, 比如
+
+使用 Servlet API:
+
+```java
+@GetMapping("/1")
+public void test1(HttpServletRequest req, HttpServletResponse resp) throws
+IOException {
+    // 一些 servlet doGet 代码
+}
+```
+
+转发与重定向, 注意, 使用 `forward:` 和 `redirect:` 时, 路径前后缀不生效,
+需要写全路径.
+
+```java
+return "index"; // 默认是转发
+
+return "forward:/index.jsp"; // 转发
+
+return "redirect:/index.jsp"; // 重定向
+```
 
 ### student 表单
 
